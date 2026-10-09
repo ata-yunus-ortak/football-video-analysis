@@ -1,0 +1,107 @@
+{
+  "source_kind": "synthetic",
+  "fps": 25.0,
+  "frame_count": 100,
+  "duration_seconds": 4.0,
+  "metric_coordinates_available": true,
+  "control_definition": "Nearest eligible player's bbox foot corner; heuristic frame-level control, not event possession",
+  "control": {
+    "team_1_seconds": 1.64,
+    "team_2_seconds": 1.6,
+    "unknown_seconds": 0.76,
+    "known_coverage_percent": 81.0,
+    "team_1_percent_all_frames": 41.0,
+    "team_2_percent_all_frames": 40.0,
+    "team_1_percent_known_frames": 50.617283950617285,
+    "team_2_percent_known_frames": 49.382716049382715,
+    "status_frames": {
+      "observed": 77,
+      "interpolated": 2,
+      "carried": 2,
+      "unknown": 19
+    }
+  },
+  "ball_interpolated_frames": 2,
+  "rejected_movement_segments": 0,
+  "players": {
+    "11": {
+      "distance_m": 4.95,
+      "max_speed_kmh": 4.5,
+      "valid_segments": 99
+    },
+    "12": {
+      "distance_m": 2.475,
+      "max_speed_kmh": 2.25,
+      "valid_segments": 99
+    },
+    "21": {
+      "distance_m": 3.96,
+      "max_speed_kmh": 3.6,
+      "valid_segments": 99
+    },
+    "22": {
+      "distance_m": 1.98,
+      "max_speed_kmh": 1.8,
+      "valid_segments": 99
+    }
+  },
+  "settings": {
+    "max_ball_gap_frames": 3,
+    "possession_grace_frames": 2,
+    "max_player_ball_distance_px": 32.0,
+    "ambiguity_margin_px": 2.0,
+    "max_speed_kmh": 45.0,
+    "calibration": {
+      "pixel_points": [
+        [
+          60,
+          110
+        ],
+        [
+          900,
+          110
+        ],
+        [
+          900,
+          518
+        ],
+        [
+          60,
+          518
+        ]
+      ],
+      "pitch_points_m": [
+        [
+          0,
+          0
+        ],
+        [
+          105,
+          0
+        ],
+        [
+          105,
+          68
+        ],
+        [
+          0,
+          68
+        ]
+      ]
+    },
+    "team_colors_bgr": {
+      "1": [
+        255,
+        180,
+        80
+      ],
+      "2": [
+        90,
+        130,
+        255
+      ]
+    },
+    "team_overrides": {},
+    "detection_confidence": 0.25
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "max_ball_gap_frames": 3,
+  "possession_grace_frames": 2,
+  "max_player_ball_distance_px": 32.0,
+  "ambiguity_margin_px": 2.0,
+  "max_speed_kmh": 45.0,
+  "calibration": {
+    "pixel_points": [
+      [
+        60,
+        110
+      ],
+      [
+        900,
+        110
+      ],
+      [
+        900,
+        518
+      ],
+      [
+        60,
+        518
+      ]
+    ],
+    "pitch_points_m": [
+      [
+        0,
+        0
+      ],
+      [
+        105,
+        0
+      ],
+      [
+        105,
+        68
+      ],
+      [
+        0,
+        68
+      ]
+    ]
+  },
+  "team_colors_bgr": {
+    "1": [
+      255,
+      180,
+      80
+    ],
+    "2": [
+      90,
+      130,
+      255
+    ]
+  },
+  "team_overrides": {},
+  "detection_confidence": 0.25
+}

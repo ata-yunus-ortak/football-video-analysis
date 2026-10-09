@@ -1,0 +1,2 @@
+# The offline demo and analysis use only Python 3.10+ standard library.
+# No pip dependencies are required. Optional runtimes have separate pinned files.

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools==75.8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "football-video-analysis"
+version = "1.0.0"
+description = "Tutorial-inspired football tracking analysis with a reproducible synthetic demo"
+requires-python = ">=3.10"
+license = {text = "MIT (new code only; optional dependencies have separate licenses)"}
+dependencies = []
+
+[project.scripts]
+football-video-analysis = "football_video_analysis.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["football_video_analysis*"]

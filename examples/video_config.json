@@ -1,0 +1,11 @@
+{
+  "max_ball_gap_frames": 3,
+  "possession_grace_frames": 2,
+  "max_player_ball_distance_px": 32.0,
+  "ambiguity_margin_px": 2.0,
+  "max_speed_kmh": 45.0,
+  "calibration": null,
+  "team_colors_bgr": {},
+  "team_overrides": {},
+  "detection_confidence": 0.25
+}
