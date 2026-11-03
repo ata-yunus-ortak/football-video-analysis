@@ -1,4 +1,4 @@
 * text=auto eol=lf
-*.py text eol=lf
-*.json text eol=lf
+clean_model/*.py -text
+model.json -text
 *.md text eol=lf
