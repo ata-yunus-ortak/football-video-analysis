@@ -91,9 +91,11 @@ parameters or local inference-source bytes.
 
 The source repository has no annotation-bearing earlier history and no remote
 push was performed. Legacy affected artifacts were removed from active project
-paths into a separately identified pending-deletion directory. They have NOT
-yet been permanently deleted: the tool blocked the bulk permanent-deletion
-operation. This condition must be finished by the user.
+paths into a separately identified pending-deletion directory. The tool blocked
+permanent deletion, and the user then reported permanently deleting that
+directory on 3 November. A local check confirmed the exact path was absent.
+This is user attestation plus a path check, not verification of every disk or
+backup copy. The historical staging and tool-refusal records are retained.
 
 A hosted-LLM notice was sent to the organizer on 3 November, describing the
 categories and period of sharing and honestly stating that provider deletion
