@@ -1,0 +1,33 @@
+{
+  "version": "remediated-external-v1",
+  "policy": "slot",
+  "base_config_at_10fps": {
+    "radius": 6.46463920071085,
+    "margin": 2.326933227273165,
+    "confirmation_frames": 2,
+    "gap_frames": 55,
+    "hold_frames": 9
+  },
+  "training_fps": 10.0,
+  "selection_scores": {
+    "provider_team_spell_iou_f1": 0.16854236948533985,
+    "provider_macro_f1_HA": 0.6812276352915426,
+    "provider_frame_agreement": 0.5809203888316081
+  },
+  "source_hashes": {
+    "atd.py": "e45255e5221fb39da0b7e1f1ab245f8675a05fc3d78485aa697ec8371a022f26",
+    "decoder.py": "7243ce36d1afd591e0cb6cb99fb8ef45ed6ae89ec9957f2c0c3d029d70988695",
+    "metrics.py": "b058d293db296b9d0a1c15f4d7592ac1851f05a63912881f6de846a872c4312f",
+    "reliability.py": "569288e385f0fd69b00782255c9f0b9776c3e4985a19170c35db67b7c3fa0faf",
+    "run.py": "9eb8e935cb44e02bc95f0bd478522cf304f995fbe18dfa8fb2b785dae59a597a",
+    "select.py": "e99448be7f299ba9dcf8fb4bcc34348cf12fdb9f0672e7bf7a5685dc7dc3af4b",
+    "team_confirmation.py": "9b53e8b19333b29ce1415ba57ac35f165378ed3d82ef2768c69a6ac4aefa2b20",
+    "__init__.py": "d2be069f483a144f605cb678234bcdf9ed69d20239beb594d0b2f8ef2463108c"
+  },
+  "selection_plan_sha256": "ae34f4e6dc773d7240c8a62e6f2d3a272e4aa5980b8606e573a60b6a7c8475da",
+  "external_provider_proxy_only": true,
+  "provided_fixture_used_for_selection": false,
+  "fresh_test_tracking_accessed_before_freeze": false,
+  "not_official_competition_scores": true,
+  "vision_and_dead_ball_branch": "not in this frozen release; independent selection evidence still required"
+}

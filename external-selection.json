@@ -1,0 +1,450 @@
+{
+  "repository": "https://github.com/SkillCorner/opendata",
+  "commit": "4340d274572876239c154c90bc507a9b3250a656",
+  "fresh_test_fixtures": [
+    {
+      "id": 2013725,
+      "date_time": "2025-04-27T07:00:00Z",
+      "home_team": {
+        "id": 1803,
+        "short_name": "Western United"
+      },
+      "away_team": {
+        "id": 869,
+        "short_name": "Sydney FC"
+      },
+      "status": "closed",
+      "competition_id": 61,
+      "season_id": 95,
+      "competition_edition_id": 870
+    },
+    {
+      "id": 2015213,
+      "date_time": "2025-05-03T08:00:00Z",
+      "home_team": {
+        "id": 1803,
+        "short_name": "Western United"
+      },
+      "away_team": {
+        "id": 4177,
+        "short_name": "Auckland FC"
+      },
+      "status": "closed",
+      "competition_id": 61,
+      "season_id": 95,
+      "competition_edition_id": 870
+    },
+    {
+      "id": 2016236,
+      "date_time": "2025-05-09T09:35:00Z",
+      "home_team": {
+        "id": 1803,
+        "short_name": "Western United"
+      },
+      "away_team": {
+        "id": 866,
+        "short_name": "Adelaide United"
+      },
+      "status": "closed",
+      "competition_id": 61,
+      "season_id": 95,
+      "competition_edition_id": 870
+    },
+    {
+      "id": 2017461,
+      "date_time": "2025-05-17T09:35:00Z",
+      "home_team": {
+        "id": 868,
+        "short_name": "Melbourne V FC"
+      },
+      "away_team": {
+        "id": 4177,
+        "short_name": "Auckland FC"
+      },
+      "status": "closed",
+      "competition_id": 61,
+      "season_id": 95,
+      "competition_edition_id": 870
+    }
+  ],
+  "fresh_test_tracking_accessed": false,
+  "provided_fixture_used_for_selection": false,
+  "previous_external_development_exposure": true,
+  "selection_metric": "mean automatic-provider H/A spell proxy; then H/A macro F1",
+  "input_features": "x/y, finite/detected flags, team membership, period and clock; height excluded because provided ATD has no height",
+  "unsupported_branches_excluded": [
+    "visual_ball_classifier",
+    "limb_pose_filter",
+    "referee_gestures",
+    "throw_replacement",
+    "dead_ball_classifier"
+  ],
+  "reason": "External tracking teacher has no verified D/visual/gesture targets. Do not transfer engineering presets from the supplied fixture.",
+  "development_fixtures": {
+    "1874553": {
+      "game": {
+        "id": 1874553,
+        "date_time": "2024-11-23T06:00:00Z",
+        "home_team": {
+          "id": 1802,
+          "short_name": "Brisbane FC"
+        },
+        "away_team": {
+          "id": 866,
+          "short_name": "Adelaide United"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "train",
+        "previous_split": "train"
+      },
+      "inputs_sha256": "87c113c924bc668ad87071e567a7aaf32aebcdadf813b839d8d4545d1d2b8a52",
+      "targets_sha256": "c0b6ab0ff6d068a7b4be1f6b328dd93e937b1569501712c04656e193ce2aebd3",
+      "split": "train"
+    },
+    "1886347": {
+      "game": {
+        "id": 1886347,
+        "date_time": "2024-11-30T04:00:00Z",
+        "home_team": {
+          "id": 4177,
+          "short_name": "Auckland FC"
+        },
+        "away_team": {
+          "id": 1805,
+          "short_name": "Newcastle"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "train",
+        "previous_split": "train"
+      },
+      "inputs_sha256": "c445110553ec1b9b377c161d5cccfb65bdaea108b08439a7135c94e669a24ad9",
+      "targets_sha256": "e0ffc9719d8025a2658b1a79020894421919705e1a6783a3f84aa7d193741c04",
+      "split": "validation"
+    },
+    "1899585": {
+      "game": {
+        "id": 1899585,
+        "date_time": "2024-12-07T04:00:00Z",
+        "home_team": {
+          "id": 4177,
+          "short_name": "Auckland FC"
+        },
+        "away_team": {
+          "id": 867,
+          "short_name": "Wellington P FC"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "validation",
+        "previous_split": "test"
+      },
+      "inputs_sha256": "64ed9b3046259bd8e2e8492bb10b7c576929534607f59d0b24a9c990bb94128d",
+      "targets_sha256": "b6567ee2e370f1773f0a492bcfbe5413d00f1c6ebd608628de2f0409a95a1bb0",
+      "split": "train"
+    },
+    "1925299": {
+      "game": {
+        "id": 1925299,
+        "date_time": "2024-12-21T06:00:00Z",
+        "home_team": {
+          "id": 1802,
+          "short_name": "Brisbane FC"
+        },
+        "away_team": {
+          "id": 871,
+          "short_name": "Perth Glory"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "validation",
+        "previous_split": "test"
+      },
+      "inputs_sha256": "0dad2b852c3f75bc6f996b461d5752c8701a2dd170e8cf851251924461585415",
+      "targets_sha256": "da2e58c0e0ec1dc7d865041cf48454498737f12748db57b38b4b64e8dd9b1ff9",
+      "split": "train"
+    },
+    "1927964": {
+      "game": {
+        "id": 1927964,
+        "date_time": "2024-12-22T06:00:00Z",
+        "home_team": {
+          "id": 2902,
+          "short_name": "Western Sydney"
+        },
+        "away_team": {
+          "id": 867,
+          "short_name": "Wellington P FC"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "train",
+        "previous_split": "train"
+      },
+      "inputs_sha256": "2c11f00c72bc48546cc69b7641e78bd47a323cd7a1dcb99efc77672598215613",
+      "targets_sha256": "28e4fcdc0969e92b5f3e9e7fb36bc2068c3d80d70e6677a14a1d0d235b07d088",
+      "split": "train"
+    },
+    "1953632": {
+      "game": {
+        "id": 1953632,
+        "date_time": "2024-12-31T08:00:00Z",
+        "home_team": {
+          "id": 870,
+          "short_name": "CC Mariners"
+        },
+        "away_team": {
+          "id": 2380,
+          "short_name": "Melbourne City"
+        },
+        "status": "not_started",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "train",
+        "previous_split": "train"
+      },
+      "inputs_sha256": "e8cda37c5bc8a4a5052b907da36493cea411c95b83fd8ea028c5bf840dff3dd1",
+      "targets_sha256": "24e0c0e9cdce472b2456d8ac676781838bbe85e70e3f1caba11bb9dcec2160b2",
+      "split": "train"
+    },
+    "1959846": {
+      "game": {
+        "id": 1959846,
+        "date_time": "2025-01-10T08:35:00Z",
+        "home_team": {
+          "id": 868,
+          "short_name": "Melbourne V FC"
+        },
+        "away_team": {
+          "id": 1803,
+          "short_name": "Western United"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "validation",
+        "previous_split": "validation"
+      },
+      "inputs_sha256": "06ce722f32ccff2ac6c95be0cad630a8c91a9115fef2192730df51fcc493fb68",
+      "targets_sha256": "0d4d3bad2036538a89a197eabf06f262aebf0ffaacd2c2d39016bede6f832037",
+      "split": "train"
+    },
+    "1986691": {
+      "game": {
+        "id": 1986691,
+        "date_time": "2025-01-26T06:00:00Z",
+        "home_team": {
+          "id": 2902,
+          "short_name": "Western Sydney"
+        },
+        "away_team": {
+          "id": 4177,
+          "short_name": "Auckland FC"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "validation",
+        "previous_split": "validation"
+      },
+      "inputs_sha256": "3d14b50b14c189d74ea5748a21b1c97e898aa6688feb91a27e6070150e7d7c2a",
+      "targets_sha256": "cdf9634a5dd746939942fdfd87e781f638c300dcc8cf36a01d62eba8fef3cf03",
+      "split": "validation"
+    },
+    "1996435": {
+      "game": {
+        "id": 1996435,
+        "date_time": "2025-02-01T06:00:00Z",
+        "home_team": {
+          "id": 869,
+          "short_name": "Sydney FC"
+        },
+        "away_team": {
+          "id": 866,
+          "short_name": "Adelaide United"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "test",
+        "previous_split": "unseen"
+      },
+      "inputs_sha256": "c5e804fb7bb9bebb0e5eded8e513f20deabe68c08a8d8ac318f915d0734ec1fe",
+      "targets_sha256": "3461675192550b7c1de618ac89ce136768b4076c671945cfc0bcc2419d3bafd2",
+      "split": "train"
+    },
+    "1996436": {
+      "game": {
+        "id": 1996436,
+        "date_time": "2025-02-01T04:00:00Z",
+        "home_team": {
+          "id": 4177,
+          "short_name": "Auckland FC"
+        },
+        "away_team": {
+          "id": 1804,
+          "short_name": "Macarthur FC"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "test",
+        "previous_split": "unseen"
+      },
+      "inputs_sha256": "4a289e8b8f4d1c34a9666c733e4b2327138440559b4edc53d131b4328e1fdc10",
+      "targets_sha256": "22b4cb0efb249a07253f6a44b5706106bc2497bf39d12e8acd71f42a6c8ad3a3",
+      "split": "train"
+    },
+    "2006229": {
+      "game": {
+        "id": 2006229,
+        "date_time": "2025-03-07T08:35:00Z",
+        "home_team": {
+          "id": 2380,
+          "short_name": "Melbourne City"
+        },
+        "away_team": {
+          "id": 1804,
+          "short_name": "Macarthur FC"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "test",
+        "previous_split": "unseen"
+      },
+      "inputs_sha256": "8cc83b33ebb335099495e246af9475f6e7ad2e75c49f913f88828cc8961ba47f",
+      "targets_sha256": "e1eeb8b6e571656a5991a6bd7b6afd8f212bf977f6314268d9cba7f38b0e5ea8",
+      "split": "train"
+    },
+    "2006363": {
+      "game": {
+        "id": 2006363,
+        "date_time": "2025-03-08T08:35:00Z",
+        "home_team": {
+          "id": 868,
+          "short_name": "Melbourne V FC"
+        },
+        "away_team": {
+          "id": 870,
+          "short_name": "CC Mariners"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "test",
+        "previous_split": "unseen"
+      },
+      "inputs_sha256": "2c45a35244f3998adecea9de2ad82b0b78c288cb3cb2c1f4509f1aeaeb717db4",
+      "targets_sha256": "4ce5908ea25173c9448114cb6891e9ec01be33a9c6e0b1d66ca497a48ad61586",
+      "split": "validation"
+    },
+    "2007448": {
+      "game": {
+        "id": 2007448,
+        "date_time": "2025-03-15T10:45:00Z",
+        "home_team": {
+          "id": 871,
+          "short_name": "Perth Glory"
+        },
+        "away_team": {
+          "id": 1802,
+          "short_name": "Brisbane FC"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "test"
+      },
+      "inputs_sha256": "0b70f125f56945ad204eec9aed3b06308f2293d770c7b05121e95883445955f5",
+      "targets_sha256": "e0c835e95475d71e2455982e706b14b8fe0d85255143f62f1dde7c42a532e0dc",
+      "split": "train"
+    },
+    "2007721": {
+      "game": {
+        "id": 2007721,
+        "date_time": "2025-03-16T04:00:00Z",
+        "home_team": {
+          "id": 4177,
+          "short_name": "Auckland FC"
+        },
+        "away_team": {
+          "id": 870,
+          "short_name": "CC Mariners"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "test"
+      },
+      "inputs_sha256": "5c361633b440dc583dd115322f2176ab5666eba7033cbcbbcb0d840cfe88758f",
+      "targets_sha256": "7ebec493bdcb97127b12f2fc5cea5a5068da9cfe14db1921bfbe1910028d15b2",
+      "split": "train"
+    },
+    "2010085": {
+      "game": {
+        "id": 2010085,
+        "date_time": "2025-04-05T06:00:00Z",
+        "home_team": {
+          "id": 2380,
+          "short_name": "Melbourne City"
+        },
+        "away_team": {
+          "id": 870,
+          "short_name": "CC Mariners"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "test"
+      },
+      "inputs_sha256": "c966d90f431156a4e82db7da0937fe7a82863985e37c5f057b2a6fcd4992c1e3",
+      "targets_sha256": "5bd6e1d029aec3ca78b6e6d1f6011b77973ddf70852ea3f9ab3b2270b534c925",
+      "split": "train"
+    },
+    "2011166": {
+      "game": {
+        "id": 2011166,
+        "date_time": "2025-04-12T05:00:00Z",
+        "home_team": {
+          "id": 867,
+          "short_name": "Wellington P FC"
+        },
+        "away_team": {
+          "id": 868,
+          "short_name": "Melbourne V FC"
+        },
+        "status": "closed",
+        "competition_id": 61,
+        "season_id": 95,
+        "competition_edition_id": 870,
+        "split": "test"
+      },
+      "inputs_sha256": "23fc42a1d2ff142c3595fa6c9992aed7269d2824008112bbfd4b9f1e6a7fb7bb",
+      "targets_sha256": "3d5a73bac72cbf72b4d59ea80eba33604db04e11dbf2a1a32e84a43360e564d7",
+      "split": "validation"
+    }
+  },
+  "original_private_registry_sha256": "ae34f4e6dc773d7240c8a62e6f2d3a272e4aa5980b8606e573a60b6a7c8475da"
+}

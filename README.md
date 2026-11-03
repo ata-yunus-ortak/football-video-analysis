@@ -1,0 +1,61 @@
+# Remediated external-fixture possession model
+
+This is a new local source repository. It contains no supplied-match images,
+annotations, review payloads, prediction rows, learned patch models, or earlier
+public-window scores. It is not a claim that all remediation conditions are
+already complete: see REMEDIATION.md.
+
+The frozen model consumes automatic EPTS x/y coordinates and team metadata.
+Its parameters and policy were reselected on other fixtures. It outputs H/A/X;
+it does not yet include an independently selected image or dead-ball classifier.
+The richer experimental visual/throw/referee ideas are retained outside this
+repository and are not part of this release.
+
+## Install and run
+
+Python 3.10 or later:
+
+```
+python -m pip install -r requirements.txt
+python -m clean_model.run --meta /path/to/automatic_atd.xml --tracking /path/to/automatic_atd.txt --model model.json --out /new/private/output
+```
+
+The output directory must not exist. The CSV has one row per input frame and
+columns `frame,label`, indexed from zero. Source hashes are verified before
+reading the supplied measurements. No video, public reference, manual review
+file, or old prediction file is an inference input.
+
+Raw EPTS coordinates are normalized by the metadata field dimensions. The third
+raw channel is speed, not ball height. Missing coordinates stay missing unless
+the externally selected bounded interpolation rule permits a gap. Temporal
+durations are transferred from 10 fps calibration with ceiling rounding.
+
+## External selection
+
+The dataset is [SkillCorner Open Data](https://github.com/SkillCorner/opendata),
+pinned at the commit in external-selection.json. Twelve previously accessed
+external matches are training/calibration data and four are validation data.
+They are not described as new held-out data. Four additional fixtures were
+reserved before their tracking was downloaded, for a post-freeze proxy check.
+
+217 candidates were compared on validation: nearest ownership and slot/team
+confirmation policies with distance, separation, duration, hold and interpolation
+choices derived from the external training distribution. Selection uses mean
+automatic-provider team-spell agreement, then H/A macro F1. These are not the
+official challenge scores and the provider targets are not human ground truth.
+
+The source for selection is clean_model/select.py. tools/fresh_check.py downloads
+and verifies public LFS content and performs the post-freeze check. The source
+registry records IDs, raw repository provenance and local integrity hashes.
+An independent D/visual target is not available in that tracking-only study;
+unknown provider labels are not relabelled as D.
+
+Run synthetic integrity checks with:
+
+```
+python -m unittest discover -s tests
+```
+
+The repository is local and has no publishing remote. Match data and generated
+predictions must remain outside it. Do not train/select against the supplied
+fixture or revive the deleted annotation-derived artifacts.
