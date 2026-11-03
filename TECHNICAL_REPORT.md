@@ -56,6 +56,12 @@ No result from that check may change this release. The study's team-spell and
 H/A macro metrics measure agreement with an automatic provider, not official
 possession accuracy or the challenge's full-match Spell F1.
 
+That four-match check completed with mean automatic-provider team-spell proxy
+0.17491946, H/A macro F1 0.63910663 and known-teacher-frame agreement 0.53943456.
+All four prediction files were frozen before proxy evaluation. No model
+parameter, policy or inference-source byte changed in response to these results.
+The aggregate report is external-check.json.
+
 ## Features not promoted
 
 General image/limb/throw/replacement/referee and retrospective-boundary ideas are
@@ -76,6 +82,12 @@ the source hashes checked on execution. Generated match data stays outside the
 repository. The full file is regenerated from raw automatic coordinates and
 metadata, with every input frame represented; format/alignment checks do not
 rank candidates on the public reference.
+
+The 199,319-row full-match file passed structural validation and a second
+generation produced the identical CSV hash. This is reproducibility evidence,
+not possession accuracy. Git attributes preserve exact frozen source bytes
+across line-ending settings; a storage-format correction did not change model
+parameters or local inference-source bytes.
 
 The source repository has no annotation-bearing earlier history and no remote
 push was performed. Legacy affected artifacts were removed from active project

@@ -1,0 +1,57 @@
+{
+  "games": [
+    {
+      "id": "2013725",
+      "metrics": {
+        "provider_frame_agreement": 0.5422501966955153,
+        "provider_macro_f1_HA": 0.6393806547071916,
+        "provider_team_spell_iou_f1": 0.1969080553295362,
+        "known_teacher_frames": 31775,
+        "human_ground_truth": false,
+        "competition_score": false
+      }
+    },
+    {
+      "id": "2015213",
+      "metrics": {
+        "provider_frame_agreement": 0.5594117834699671,
+        "provider_macro_f1_HA": 0.6577194820505086,
+        "provider_team_spell_iou_f1": 0.17376775271512113,
+        "known_teacher_frames": 31349,
+        "human_ground_truth": false,
+        "competition_score": false
+      }
+    },
+    {
+      "id": "2016236",
+      "metrics": {
+        "provider_frame_agreement": 0.5438220558942476,
+        "provider_macro_f1_HA": 0.6443148274985331,
+        "provider_team_spell_iou_f1": 0.155810147299509,
+        "known_teacher_frames": 33134,
+        "human_ground_truth": false,
+        "competition_score": false
+      }
+    },
+    {
+      "id": "2017461",
+      "metrics": {
+        "provider_frame_agreement": 0.5122542232068679,
+        "provider_macro_f1_HA": 0.6150115729054755,
+        "provider_team_spell_iou_f1": 0.17319189971070395,
+        "known_teacher_frames": 28888,
+        "human_ground_truth": false,
+        "competition_score": false
+      }
+    }
+  ],
+  "mean_proxy": {
+    "provider_team_spell_iou_f1": 0.17491946376371756,
+    "provider_macro_f1_HA": 0.6391066342904272,
+    "provider_frame_agreement": 0.5394345648166494
+  },
+  "official_competition_score": false,
+  "human_ground_truth": false,
+  "model_changed_after_test": false,
+  "provided_fixture_used": false
+}

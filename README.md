@@ -50,6 +50,29 @@ registry records IDs, raw repository provenance and local integrity hashes.
 An independent D/visual target is not available in that tracking-only study;
 unknown provider labels are not relabelled as D.
 
+To reconstruct external development data and re-run selection in a separate
+output directory (large public downloads; never use the supplied match):
+
+```
+python -m tools.development_data --registry external-selection.json --out /new/external-data
+python -m clean_model.select --plan /new/external-data/local-plan.json --out /new/external-selection
+```
+
+Preparation preserves measurement values and missingness. Local serialized NPZ
+hashes and path-dependent plan hashes can differ across a rebuild; pinned raw
+LFS content hashes verify the public source. Compare selected policy and
+parameters rather than claiming the entire metadata JSON is byte-identical.
+
+To repeat only the already-frozen external check without selecting again:
+
+```
+python -m tools.fresh_check --plan external-selection.json --model model.json --out /new/external-check
+```
+
+The completed four-match check gave mean automatic-provider spell proxy
+0.17491946 and H/A macro F1 0.63910663. These are not official challenge scores.
+The model was not changed after these results.
+
 Run synthetic integrity checks with:
 
 ```
