@@ -1,5 +1,18 @@
 # Deney kaydı
 
+## V001 — salt okunur yerel tracking/video arayüzü, 4 Kasım 2026
+
+Kullanıcının açık isteği üzerine ham tracking mantığını açıklayan yerel
+oynatıcı eklendi. Yarışma tactical tracking'i ve İndirilenler'deki tactical
+video yalnız kullanıcının bilgisayarındaki arayüze bağlandı. Algoritma veya
+eşik seçimi, tahmin üretimi, elle anotasyon veya public skor okuması yapılmadı.
+Maç verisi kaynak deposuna alınmadı ve gerçek maç kareleri sohbet/QA görseli
+olarak aktarılmadı. Görsel QA sentetik veride yapıldı. Video codec/metadata
+erişimi ve sürenin kare sayısı/FPS ile uyumu kontrol edildi. 50 Python testi
+geçti; tarayıcıda oynatma, adım, seçim ve dar ekran taşması kontrol edildi.
+Bu kullanıcı aracı eğitim/validasyon deneyi veya model başarısı değildir.
+Ayrıntılar: `docs/TRACKING_IZLEYICI_TR.md`.
+
 ## M003 — ortak takım hareketi değişimi, 4 Kasım 2026
 
 Kullanıcının iki takımın ani hız değişimini top kaybı/kazanımı bağlamı olarak

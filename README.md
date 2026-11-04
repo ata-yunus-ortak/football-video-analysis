@@ -16,6 +16,14 @@ The `develop/dead-ball-data-audit` branch starts the next development stage in
 tools. This code is unselected and does not alter frozen inference. See
 [the Turkish development guide](docs/GELISTIRME_TR.md).
 
+## Local tracking viewer
+
+Run `TRACKING-IZLE.cmd` on this workstation to view raw tracking circles,
+scalar speeds and derived velocity arrows beside the local tactical video.
+The viewer is read-only, uses loopback only, and does not run or tune the model.
+See [viewer instructions](docs/TRACKING_IZLEYICI_TR.md). For synthetic UI testing:
+`python -m tools.tracking_viewer --demo --port 8766`.
+
 ## Install and run
 
 Python 3.10 or later:
