@@ -1,5 +1,24 @@
 # Deney kaydı
 
+## M002 — oyuncu/top birlikte hareketi ve takım özetleri, 4 Kasım 2026
+
+Kullanıcının dripling önerisi deney sahiplik algoritmasına eklendi. Kalıcı
+yakınlık, aynı yuvada süreklilik ve top/oyuncu hız vektörü uyumu birlikte
+aranır. Hızlı dripling kanıtı hızlı top engelini aşabilir. Rakibin birlikte
+hareket kanıtı üzerinden pas aralığı yazılmaz. Takım başına ortalama hız
+vektörü, ortalama hız büyüklüğü ve katılan yuva sayısı ayrı çıkarılır;
+takım özetleri tek başına sahiplik belirlemez.
+
+Veri/split: yalnız sentetik senaryolar; dış maç eğitimi/doğrulaması ve sayısal
+ayar seçimi yoktur. Ayarlar `tests/test_player_motion.py` içinde sentetik
+olarak kayıtlıdır. 39 test geçti: hızlı dripling, ters yönde eşit hız,
+sabit durma, belirsiz yakınlık, devre/kayıp/sıçrama sınırları, eksik takım
+kapsamı, eşit takım vektörlerinde farklı sahiplik ve 25 FPS aktarımı sınandı.
+Yeni parametre/NPZ çıktıları uçtan uca sentetik test edildi. Futbol doğruluk
+skoru veya seçilen teslim sürümü yoktur; dış dripling/sahiplik doğrulaması
+henüz yapılmadı. Temel kaynaklar korundu. Ayrıntılar:
+`development/player_motion.py`, `docs/HAREKET_VE_TEMAS_TR.md`.
+
 ## M001 — hareket/temas/pas uygulaması, 4 Kasım 2026
 
 Kullanıcının hızlı top, yön değişimi ve aynı takım temas zinciri önerisi

@@ -219,15 +219,21 @@ class AuditIntegrationTests(unittest.TestCase):
             from tools.motion_experiment import run as motion_run
             from dataclasses import asdict
             from development.motion_possession import MotionConfig
+            from development.player_motion import DribbleConfig
             config = root / 'synthetic-config.json'
             config.write_text(json.dumps({'parameters': asdict(MotionConfig(
                 .1, 3., 60., 4., .5, .3, .1, 3.)),
-                'rationale': 'Synthetic plumbing test only, not selected football settings'}))
+                'rationale': 'Synthetic plumbing test only, not selected football settings',
+                'dribble_parameters': asdict(DribbleConfig(.8, .3, .5, 15., .3, .2, 1))}))
             summaries = motion_run(root / 'audit', config, root / 'motion')
             self.assertEqual(len(summaries), 2)
             registration = json.loads((root / 'motion' / 'registration.json').read_text())
             self.assertFalse(registration['selected_release'])
             self.assertEqual(registration['config_sha256'], sha256(config))
+            self.assertIsNotNone(registration['dribble_config'])
+            with np.load(root / 'motion' / 'metrica-sample-1-player-motion.npz') as motion:
+                self.assertIn('team_mean_velocity_mps', motion.files)
+                self.assertIn('dribble_slot', motion.files)
 
 
 if __name__ == "__main__":

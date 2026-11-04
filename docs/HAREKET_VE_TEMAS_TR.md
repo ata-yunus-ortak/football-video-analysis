@@ -10,6 +10,7 @@ değişmez. Sayısal futbol ayarları henüz seçilmemiştir.
    Ham `s` hız büyüklüğüdür (km/saat). `+5 -> 0 -> -5` bir hız bileşenine
    aittir; hız büyüklüğünün negatif olması gerekmez.
 2. Hızlı uçuşta temel modelin salt yakınlık/önceki sahiplik kararı X'e çekilir.
+   Süreklilikle doğrulanan oyuncu/top birlikte hareketi bu engeli aşabilir.
 3. Önce/sonra pencerelerin medyan hız vektörü farkı yön dönüşünü, hızlanmayı
    veya yavaşlamayı aday temas yapar. Komşu adayların tekrarları bastırılır.
    Bu çevrimdışı yöntem sonraki kareleri de kullanır.
@@ -60,7 +61,41 @@ hash'lerini ve temel model kaynaklarını doğrular. Ayar/kaynak/girdi raporu ve
 temel model hash'lerini çıktıdan önce kaydeder. Etiket/gerekçe CSV'leri ile
 aday temas/pas JSON'ları kaynak deposu dışında saklanır.
 
-## ATD alanları
+## Oyuncuyla birlikte hareket ve takım bağlamı — M002
+
+`development/player_motion.py` oyuncu x/y konumlarından işaretli hız çıkarır.
+`predict` fonksiyonuna dördüncü argüman olarak `DribbleConfig` verilmesi bu
+katmanı açar. Yakın, diğer oyunculardan ayrışan aynı takip kaydı belirli süre
+boyunca şu koşulları sağlarsa dripling/sahiplik kanıtı oluşur:
+
+- Uzaklık ve `norm(v_top - v_oyuncu)` sınır içindedir; hız ve yön uyuşmalıdır.
+- İkisi de asgari hareket hızını aşar; sabit durma dripling sayılmaz.
+- Ölçümler süreklidir; devre sınırı, kayıp ve gerçekçi olmayan sıçrama diziyi keser.
+
+Doğrulanan dizi ilk destekli hız örneğine kadar geri yazılır. Bu çevrimdışı
+bir katmandır. Rakibin birlikte hareket kanıtı üzerinden pas aralığı yazılmaz.
+Mevcut temas kararları kendi karelerinde önceliklidir. Ham `s` kullanılmaz.
+
+Katman açıldığında ayarlar zorunludur: `radius_m`, `velocity_error_mps`,
+`min_speed_mps`, `max_player_speed_mps`, `confirmation_s`, `player_margin_m`,
+`min_team_players`. Seçilmiş varsayılan futbol eşikleri yoktur.
+
+Takım başına güvenilir ardışık ölçümlerden `team_mean_velocity_mps` (x/y
+vektör ortalaması), `team_mean_speed_mps` (hız büyüklüğü ortalaması) ve
+`team_velocity_counts` (katılan takip yuvası sayısı) ayrı çıkarılır. Yeterli
+kapsam yoksa ortalama NaN kalır; eksik oyuncu sıfır hızlı sayılmaz. Yinelenmiş
+takip yuvaları ortalamayı etkileyebilir; gerçek kişilerin tamamı iddiası yoktur.
+
+Takım özetleri doğrudan H/A üretmez. İki takım aynı yönde ilerlerken sahiplik
+herhangi birinde olabilir; geriye pas, pres ve geri koşular bu çıkarımı
+belirsiz yapar. Saha ekseni, takım/devre hücum yönü bilinmeden hücum yönü
+olarak yorumlanmaz.
+
+Çalıştırıcı JSON'unda `dribble_parameters` verilirse katman etkinleşir.
+Oyuncu hızları, dripling yuvaları, vektör hataları ve takım özetleri
+`*-player-motion.npz` içinde, ayarlar kayıt manifestinde saklanır.
+
+## ATD alanlarının açıklaması
 
 Tactical ve broadcast XML kanal şemaları:
 

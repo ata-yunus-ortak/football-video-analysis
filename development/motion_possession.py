@@ -7,6 +7,7 @@ is only a contact candidate, and a same-team chain only a pass candidate.
 from dataclasses import dataclass
 import numpy as np
 from .dead_ball_features import extract
+from .player_motion import evidence
 
 
 @dataclass(frozen=True)
@@ -27,7 +28,7 @@ class MotionConfig:
             raise ValueError("Physical guard must exceed the fast-flight threshold")
 
 
-def predict(inputs, baseline_labels, config):
+def predict(inputs, baseline_labels, config, dribble_config=None):
     features = extract(inputs)  # rejects label/event-bearing feature inputs
     ball = np.asarray(inputs['ball'], float)
     players = np.asarray(inputs['players'], float)
@@ -62,6 +63,15 @@ def predict(inputs, baseline_labels, config):
     labels[flight | ~reliable] = 'X'
     reasons[flight] = 'fast_ball_no_proximity_ownership'
     reasons[~reliable] = 'missing_outside_or_implausible_ball'
+    player_motion = {}
+    dribble_team = np.full(n, -1, int)
+    if dribble_config is not None:
+        player_motion = evidence(inputs, velocity, reliable, dribble_config)
+        dribble_slot = player_motion['dribble_slot']
+        supported = dribble_slot >= 0
+        dribble_team[supported] = teams[dribble_slot[supported]]
+        labels[supported] = np.where(dribble_team[supported] == 0, 'H', 'A')
+        reasons[supported] = 'persistent_ball_player_comotion'
     width = max(1, int(np.ceil(config.window_s * fps)))
     refractory = max(1, int(np.ceil(config.refractory_s * fps)))
     delta = np.full(n, np.nan)
@@ -113,6 +123,8 @@ def predict(inputs, baseline_labels, config):
         if (sender['slot'] is None or receiver['slot'] is None
                 or sender['team'] != receiver['team'] or sender['slot'] == receiver['slot']
                 or (stop - start) / fps > config.max_pass_s
+                or np.any((dribble_team[start:stop + 1] >= 0)
+                          & (dribble_team[start:stop + 1] != sender['team']))
                 or not reliable[start:stop + 1].all()
                 or not np.all(period[start:stop + 1] == period[start])):
             continue
@@ -125,7 +137,7 @@ def predict(inputs, baseline_labels, config):
                        'team': sender['team'], 'status': 'candidate_same_team_pass'})
         labels[start:stop + 1] = 'H' if sender['team'] == 0 else 'A'
         reasons[start:stop + 1] = 'candidate_same_team_pass_span'
-    return {'labels': labels, 'reasons': reasons, 'velocity_mps': velocity,
+    return {**player_motion, 'labels': labels, 'reasons': reasons, 'velocity_mps': velocity,
             'delta_velocity_mps': delta, 'fast_flight': flight,
             'contacts': contacts, 'passes': passes,
             'contact_verified': False, 'selected_release': False}
