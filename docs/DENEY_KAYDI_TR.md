@@ -1,5 +1,18 @@
 # Deney kaydı
 
+## M001 — hareket/temas/pas uygulaması, 4 Kasım 2026
+
+Kullanıcının hızlı top, yön değişimi ve aynı takım temas zinciri önerisi
+ayrı deney katmanında uygulandı. Ayrıntılar: `docs/HAREKET_VE_TEMAS_TR.md`.
+Veri: sentetik hareket, ölçüm kaybı, rakip temas, belirsiz yakınlık, ölçüm
+sıçraması ve pas dizileri; ayrıca sentetik uçtan uca çalıştırıcı testi.
+Dış maçlarda sayısal ayar veya başarı seçimi yapılmadı. Eğitim/doğrulama skoru
+yoktur; D001'in dış maç ayrımı ileride kullanılabilir. Sentetik test ayarları
+`tests/test_motion_possession.py` içinde kayıtlıdır. Seçilen sürüm: yok.
+Gerekçe: dış temas/pas değerlendirmesi henüz yapılmadı. Temel model korunur.
+Yarışma tracking değerleri/görüntüleriyle ayar seçilmedi; XML şeması kontrol
+edildi. 28 testin tamamı geçti; bu bir futbol doğruluk skoru değildir.
+
 ## D001 — dış veri kapsamı, 4 Kasım 2026
 
 Amaç: D katmanından önce saha dışına çıkış, bekleme ve oyuna dönüş için hangi

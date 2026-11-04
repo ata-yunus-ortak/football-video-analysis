@@ -216,6 +216,18 @@ class AuditIntegrationTests(unittest.TestCase):
                 with np.load(root / "audit" / fixture["id"] / "features.npz") as features:
                     self.assertNotIn("labels", features.files)
                     self.assertNotIn("events", features.files)
+            from tools.motion_experiment import run as motion_run
+            from dataclasses import asdict
+            from development.motion_possession import MotionConfig
+            config = root / 'synthetic-config.json'
+            config.write_text(json.dumps({'parameters': asdict(MotionConfig(
+                .1, 3., 60., 4., .5, .3, .1, 3.)),
+                'rationale': 'Synthetic plumbing test only, not selected football settings'}))
+            summaries = motion_run(root / 'audit', config, root / 'motion')
+            self.assertEqual(len(summaries), 2)
+            registration = json.loads((root / 'motion' / 'registration.json').read_text())
+            self.assertFalse(registration['selected_release'])
+            self.assertEqual(registration['config_sha256'], sha256(config))
 
 
 if __name__ == "__main__":
