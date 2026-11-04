@@ -8,6 +8,7 @@ from dataclasses import dataclass
 import numpy as np
 from .dead_ball_features import extract
 from .player_motion import evidence
+from .team_transitions import detect
 
 
 @dataclass(frozen=True)
@@ -28,7 +29,9 @@ class MotionConfig:
             raise ValueError("Physical guard must exceed the fast-flight threshold")
 
 
-def predict(inputs, baseline_labels, config, dribble_config=None):
+def predict(inputs, baseline_labels, config, dribble_config=None, transition_config=None):
+    if transition_config is not None and dribble_config is None:
+        raise ValueError('Team transition context requires player-motion configuration')
     features = extract(inputs)  # rejects label/event-bearing feature inputs
     ball = np.asarray(inputs['ball'], float)
     players = np.asarray(inputs['players'], float)
@@ -137,7 +140,18 @@ def predict(inputs, baseline_labels, config, dribble_config=None):
                        'team': sender['team'], 'status': 'candidate_same_team_pass'})
         labels[start:stop + 1] = 'H' if sender['team'] == 0 else 'A'
         reasons[start:stop + 1] = 'candidate_same_team_pass_span'
-    return {**player_motion, 'labels': labels, 'reasons': reasons, 'velocity_mps': velocity,
+    transition = {}
+    if transition_config is not None:
+        direct = dribble_team.copy()
+        for contact in contacts:
+            direct[contact['frame']] = contact['team'] if contact['team'] is not None else -1
+        transition = detect(player_motion['player_velocity_mps'], teams, period, fps, direct, transition_config)
+        for event in transition['team_transition_events']:
+            if event['status'] == 'supported_turnover_candidate':
+                frame = event['after_evidence_frame']
+                if labels[frame] == ('H' if event['to_team'] == 0 else 'A'):
+                    reasons[frame] = 'team_change_with_ball_evidence'
+    return {**player_motion, **transition, 'labels': labels, 'reasons': reasons, 'velocity_mps': velocity,
             'delta_velocity_mps': delta, 'fast_flight': flight,
             'contacts': contacts, 'passes': passes,
             'contact_verified': False, 'selected_release': False}

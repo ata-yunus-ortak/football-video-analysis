@@ -1,5 +1,21 @@
 # Deney kaydı
 
+## M003 — ortak takım hareketi değişimi, 4 Kasım 2026
+
+Kullanıcının iki takımın ani hız değişimini top kaybı/kazanımı bağlamı olarak
+kullanma önerisi uygulandı. Aynı gözlenen yuvaların önce/sonra ortalamaları,
+hız büyüklüğü ve yönlü vektör değişimi ayrı hesaplanır. İki takımda değişim
+aranır. Önce/sonra farklı takımlara ait yerel temas/birlikte hareket kanıtı
+yoksa top kaybı doğrulanmış sayılmaz; yeni H/A ataması yapılmaz.
+
+Veri/split: yalnız sentetik örnekler; dış maç ayar seçimi veya doğruluk skoru
+yoktur. Test ayarları `tests/test_team_transitions.py` içinde kayıtlıdır.
+48 test geçti: aynı hızda yön dönüşü, hızlanma, görünür oyuncu kümesi
+değişimi, tek takım değişimi, eksik top kanıtı, aynı takım kanıtı,
+devre/ölçüm kaybı ve uçtan uca parametre/çıktı kaydı sınandı. Teslim sürümü
+seçilmedi; dış gerçek geçişlere göre doğrulama gereklidir. Temel model
+korundu. Kaynak: `development/team_transitions.py`.
+
 ## M002 — oyuncu/top birlikte hareketi ve takım özetleri, 4 Kasım 2026
 
 Kullanıcının dripling önerisi deney sahiplik algoritmasına eklendi. Kalıcı

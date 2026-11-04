@@ -95,7 +95,36 @@ olarak yorumlanmaz.
 Oyuncu hızları, dripling yuvaları, vektör hataları ve takım özetleri
 `*-player-motion.npz` içinde, ayarlar kayıt manifestinde saklanır.
 
-## ATD alanlarının açıklaması
+## Takım hareketindeki değişim — M003
+
+`development/team_transitions.py` iki takımın önce/sonra kısa pencerelerdeki
+hız büyüklüğü ve hız vektörü değişimlerini ayrı ölçer. Her karşılaştırmada
+yalnız pencerelerin tamamında güvenilir hızı olan AYNI takip yuvaları
+kullanılır. Böylece görünür oyuncu kümesinin değişmesi davranış değişimi
+sayılmaz. İki takım da değişim göstermeli; yeterli kapsam bulunmalıdır.
+Komşu adaylar bastırılır; devre sınırları aşılmaz. Gelecek pencere kullanıldığı
+için bu da çevrimdışı bir analizdir.
+
+Takım hareketi tek başına sahipliği değiştirmez. Adayın önce/sonrasında yakın
+zamanda temas veya doğrulanmış birlikte hareket kanıtı farklı takımları
+gösteriyorsa `supported_turnover_candidate` kaydedilir; diğer durumlarda
+`team_motion_change_only` kalır. Temel modelin kendi H/A tahminleri bu ek
+doğrulamanın yerine geçmez. Takım hareketinin tepkisi gecikebileceğinden
+olay karesi kesin top kazanma anı olarak kullanılmaz ve sahiplik sınırı buraya
+geri taşınmaz. H/A etiketleri yeniden yazılmaz; uygun top kanıtının gerekçesi
+takım değişimi desteğiyle açıklanır. D çıkarımı yapılmaz.
+
+JSON'a `transition_parameters` eklenerek etkinleşir; `dribble_parameters`
+de gereklidir. Zorunlu ayarlar: `window_s`, `vector_change_mps`,
+`speed_change_mps`, `refractory_s`, `evidence_window_s`, `min_team_players`.
+Seçilmiş futbol varsayılanı yoktur. Adaylar olay JSON'una, değişim büyüklükleri
+ve ortak yuva sayıları `*-team-transitions.npz` dosyasına kaydedilir. Bütün
+ayarlar ve yeni kaynak hash'i çalıştırma kaydına girer.
+
+Bu hipotez pres, geri koşu veya oyunun durmasıyla da açıklanabilir. Dış maçta
+gerçek sahiplik geçişlerine göre ayrıca ölçülmeden başarı iddiası yapılmaz.
+
+## Ham ATD alanları
 
 Tactical ve broadcast XML kanal şemaları:
 
