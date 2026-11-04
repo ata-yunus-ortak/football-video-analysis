@@ -3,6 +3,9 @@
 - Read `README.md`, `TECHNICAL_REPORT.md`, `REMEDIATION.md`, `model.json`,
   `docs/GELISTIRME_TR.md` and the latest entry in `docs/DENEY_KAYDI_TR.md`.
 - Keep `main` and the frozen `model.json` / `clean_model/` bytes as the baseline.
+  On the shared GitHub repository, its default `main` is an older portfolio
+  history: use tag `baseline/remediated-external-v1` (commit `8962134`) as the
+  clean baseline, and develop from `develop/dead-ball-data-audit`.
   Develop new experiments on a separate branch under `development/`. A later
   selected release needs its own explicit version, source freeze and provenance.
   Do not refresh baseline hashes merely to bypass its integrity checks.

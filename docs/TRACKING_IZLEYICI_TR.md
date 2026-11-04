@@ -43,7 +43,13 @@ gözlemler yarışma maçında model/eşik seçimi için kullanılmamalıdır.
 
 ## Açma
 
-Proje kökündeki `TRACKING-IZLE.cmd` dosyasını çalıştır. Varsayılan olarak:
+Ekip kurulumu için önce `TEAM_START_TR.md` oku. Proje kökündeki
+`TRACKING-IZLE.cmd` dosyasını çalıştır. Kendi yollarını Git'e alınmayan
+`viewer-local.cmd` içinde ayarlayabilirsin. Aşağıdaki yollar ilk geliştiricinin
+yerel örnekleridir; başlatıcı artık kullanıcı profili veya ortam değişkenleri
+üzerinden çalışır. Veri olmadan `TRACKING-DEMO.cmd` kullanılabilir.
+
+Yerel örnek yollar:
 
 - XML ve tracking: `C:/Users/Abra/FootballPrivate/mtah2027/bundle/tactical/`.
 - Video: `C:/Users/Abra/Downloads/BAR-ATH_tactical.mp4`.

@@ -2,3 +2,4 @@
 clean_model/*.py -text
 model.json -text
 *.md text eol=lf
+*.cmd text eol=crlf

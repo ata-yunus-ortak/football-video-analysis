@@ -89,8 +89,9 @@ not possession accuracy. Git attributes preserve exact frozen source bytes
 across line-ending settings; a storage-format correction did not change model
 parameters or local inference-source bytes.
 
-The source repository has no annotation-bearing earlier history and no remote
-push was performed. Legacy affected artifacts were removed from active project
+At the remediation freeze, the source repository had no annotation-bearing
+earlier history and no remote push had been performed. The later source-only
+team publication is documented in TEAM_START_TR.md. Legacy affected artifacts were removed from active project
 paths into a separately identified pending-deletion directory. The tool blocked
 permanent deletion, and the user then reported permanently deleting that
 directory on 3 November. A local check confirmed the exact path was absent.

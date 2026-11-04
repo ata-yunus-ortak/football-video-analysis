@@ -1,5 +1,10 @@
 # Remediated external-fixture possession model
 
+**Team development:** start with [TEAM_START_TR.md](TEAM_START_TR.md).
+This branch contains the current clean development code; the repository's
+default portfolio branch is a separate project history. Use the branch-specific
+clone command in the team guide.
+
 This is a new local source repository. It contains no supplied-match images,
 annotations, review payloads, prediction rows, learned patch models, or earlier
 public-window scores. It is not a claim that all remediation conditions are
@@ -103,6 +108,7 @@ Run synthetic integrity checks with:
 python -m unittest discover -s tests
 ```
 
-The repository is local and has no publishing remote. Match data and generated
-predictions must remain outside it. Do not train/select against the supplied
+Match data and generated predictions must remain outside the source repository.
+Only source, synthetic tests, aggregate external checks and documentation are
+published. Do not train/select against the supplied
 fixture or revive the deleted annotation-derived artifacts.
