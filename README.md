@@ -11,6 +11,11 @@ it does not yet include an independently selected image or dead-ball classifier.
 The richer experimental visual/throw/referee ideas are retained outside this
 repository and are not part of this release.
 
+The `develop/dead-ball-data-audit` branch starts the next development stage in
+`development/`, with a pinned external data plan and tracking/event coverage
+tools. This code is unselected and does not alter frozen inference. See
+[the Turkish development guide](docs/GELISTIRME_TR.md).
+
 ## Install and run
 
 Python 3.10 or later:

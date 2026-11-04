@@ -1,0 +1,37 @@
+{
+  "version": "dead-ball-coverage-v1",
+  "registered_on": "2026-11-04",
+  "purpose": "External data coverage and feature audit; no model or threshold selection",
+  "repository": "https://github.com/metrica-sports/sample-data",
+  "commit": "e706dd506b360d69d9d123d5b8026e7294b13996",
+  "publisher_readme": "https://github.com/metrica-sports/sample-data/blob/e706dd506b360d69d9d123d5b8026e7294b13996/README.md",
+  "usage": "Publisher offers anonymized sample data to the football analytics community and requests acknowledgement for public use. No standalone license was found in the pinned tree. Keep raw data outside the source repository; verify terms for any later redistribution.",
+  "fps": 25.0,
+  "pitch_m": [105.0, 68.0],
+  "coordinate_system": "normalized_top_left",
+  "provided_fixture_used": false,
+  "previous_external_exposure": "Not established for these samples; do not describe either as untouched test data",
+  "split_policy": "Game 1 train/calibration; Game 2 validation; no test fixture and no within-game random split",
+  "target_policy": "BALL OUT end -> next compatible SET PIECE start in the same period yields an event-derived candidate stoppage interval. These are partial timing proxies, not exhaustive D truth. Unpaired events and all other frames remain unevaluated; unknown possession is never D.",
+  "selection_policy": "No numerical classifier settings are selected in this audit. New D promotion requires independently evaluable D and live-play targets, boundary validation and a separate freeze.",
+  "fixtures": [
+    {
+      "id": "metrica-sample-1",
+      "split": "train",
+      "files": {
+        "events": {"path": "data/Sample_Game_1/Sample_Game_1_RawEventsData.csv", "git_blob_sha1": "3c426dd4f442dd433bccf89e3634f91aa310cd8f", "bytes": 139446},
+        "home": {"path": "data/Sample_Game_1/Sample_Game_1_RawTrackingData_Home_Team.csv", "git_blob_sha1": "ce2e91c0e633426cec1146f4e728b72417454e3d", "bytes": 32782961},
+        "away": {"path": "data/Sample_Game_1/Sample_Game_1_RawTrackingData_Away_Team.csv", "git_blob_sha1": "ff409a5680fd75acc7cebcf786827214c687478b", "bytes": 32782073}
+      }
+    },
+    {
+      "id": "metrica-sample-2",
+      "split": "validation",
+      "files": {
+        "events": {"path": "data/Sample_Game_2/Sample_Game_2_RawEventsData.csv", "git_blob_sha1": "decccd47c1d53960d290cb6679337eec83a8a97f", "bytes": 153897},
+        "home": {"path": "data/Sample_Game_2/Sample_Game_2_RawTrackingData_Home_Team.csv", "git_blob_sha1": "8b4d3648888cc8b033e7142919ebaea04f6328e0", "bytes": 31890338},
+        "away": {"path": "data/Sample_Game_2/Sample_Game_2_RawTrackingData_Away_Team.csv", "git_blob_sha1": "e7334d8d762954a215c49e55f211855000243fdc", "bytes": 29627711}
+      }
+    }
+  ]
+}
