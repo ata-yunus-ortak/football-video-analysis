@@ -47,6 +47,13 @@ class ViewerTests(unittest.TestCase):
                     meta = json.load(response)
                 self.assertTrue(meta['synthetic'])
                 self.assertTrue(meta['video_available'])
+                with urllib.request.urlopen(base + '/api/tags') as response:
+                    tags = json.load(response)
+                self.assertEqual(tags['count'], 3)
+                self.assertEqual(tags['source_kind'], 'synthetic_UI_fixture')
+                with urllib.request.urlopen(base + '/smart-tagging.js') as response:
+                    self.assertEqual(response.headers.get_content_type(), 'text/javascript')
+                    self.assertIn('tracking:frame', response.read().decode())
                 with urllib.request.urlopen(base + '/api/frames?start=49&count=12') as response:
                     data = json.load(response)
                 self.assertIsNone(data['frames'][1][-1][0])

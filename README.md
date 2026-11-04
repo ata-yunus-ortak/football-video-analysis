@@ -21,6 +21,8 @@ tools. This code is unselected and does not alter frozen inference. See
 Run `TRACKING-IZLE.cmd` on this workstation to view raw tracking circles,
 scalar speeds and derived velocity arrows beside the local tactical video.
 The viewer is read-only, uses loopback only, and does not run or tune the model.
+Its Smart Tagging view lists all automatic source events, filters their fields,
+and links event intervals to local video without recording human corrections.
 See [viewer instructions](docs/TRACKING_IZLEYICI_TR.md). For synthetic UI testing:
 `python -m tools.tracking_viewer --demo --port 8766`.
 

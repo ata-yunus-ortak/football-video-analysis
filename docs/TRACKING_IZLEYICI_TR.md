@@ -1,5 +1,41 @@
 # Tracking Stüdyosu
 
+## Smart Tagging + video
+
+Üstteki “Smart Tagging + video” görünümü otomatik XML dosyasının tüm
+olaylarını zaman sırasıyla gösterir. Doğrudan adres:
+`http://127.0.0.1:8765/#smart-tagging`. Başlatıcı mevcut maçın XML'ini de bağlar.
+
+- Olay türü, takım, devre ve alt tür filtreleri ile bütün etiket değerlerinde arama.
+- Olayı seçince videoda ve tracking zamanında olayın başlangıcına gitme.
+- Başlangıç/bitiş video zamanı, süre, yarı açık kare aralığı `[başlangıç,bitiş)`,
+  orijinal olay kodu, XML sıra/ID'si ve sağlanan bütün ek alanları görüntüleme.
+- Aynı grup altında tekrarlanan etiketleri kaybetmeden gösterme; eksik/N/A
+  takım bilgisini bir takıma dönüştürmeme. Bilinmeyen etiket grupları da korunur.
+- Seçilen aralığı oynat, aralık sonunda dur, tekrarla ve önceki/sonraki filtreli
+  olaya geç. Elle zaman çizelgesiyle başka yere gidilirse aralık oynatma iptal olur.
+- “Bu karedeki otomatik etiketler” bölümünde üst üste binen bütün aktif fazlar.
+  “Yalnız bu anda aktif” seçeneği olay listesini o kareye daraltır.
+
+Zamanlar maç saatinden değil tactical videonun başlangıcından itibaren saniyedir.
+Dosyanın ham sınırları değiştirilmez; video dışındaki değerler uyarıyla korunur
+ve gezinme video sınırına alınır. Sıfır uzunlukta aralık oynatılmaz.
+
+Olaylar kesin sahiplik veya gerçek temas anları değildir. Görüntüyle birlikte
+anlamak mümkündür; bu ekran doğruluk yüzdesi hesaplamaz, doğru/yanlış puanı,
+elle etiket, düzeltme veya kişisel olay notu saklamaz. Buradaki incelemeyi
+sağlanan maç üzerinde ayar/model seçimine dönüştürmemek gerekir.
+
+CLI'de isteğe bağlı ek argüman: `--smart-tagging C:/path/smart_tagging.xml`.
+Sentetik örnek olaylar `--demo` modunda otomatik gelir. API yalnız yerel
+`GET /api/tags` ile çalışır; model koduna veya model girdilerine bağlanmaz.
+
+Ek doğrulama: 53 Python testi geçti. Tarayıcıda filtre/arama, yinelenen alanlar,
+üst üste binme, zaman atlama, aralık sonunda durma, tekrar ve elle gezinmede
+tekrarı iptal etme sentetik olaylarla sınandı. Masaüstü/dar ekran görselleri
+yalnız sentetik veriden üretildi. Gerçek XML'de yalnız yükleme ve toplam
+638 kaydın korunması kontrol edildi; doğruluk başarısı ölçülmedi.
+
 Yerel, salt okunur eğitim/inceleme arayüzüdür. Model çalıştırmaz veya ayarlamaz;
 elle etiket, düzeltme, temas notu veya çıktı tahmini kaydetmez. Kullanıcı bu
 arayüzü ham tracking mantığını anlamak için istedi. Bu görünümden alınan

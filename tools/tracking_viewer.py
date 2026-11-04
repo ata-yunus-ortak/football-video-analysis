@@ -8,6 +8,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 import xml.etree.ElementTree as ET
 import numpy as np
+from .smart_tag_view import load_tags, demo_tags
 
 
 class Tracking:
@@ -96,11 +97,17 @@ class Tracking:
         return {'start': start, 'frames': safe.tolist()}
 
 
-def server_for(tracking, port=0, video=None):
+def server_for(tracking, port=0, video=None, smart_tagging=None):
     html = Path(__file__).resolve().parents[1] / 'viewer' / 'index.html'
     video = Path(video).resolve() if video is not None else None
     if video is not None and not video.is_file():
         raise ValueError('Video file not found')
+    if smart_tagging is not None:
+        tag_data = load_tags(smart_tagging, tracking.fps, len(tracking.data))
+    elif tracking.synthetic:
+        tag_data = demo_tags(tracking.fps, len(tracking.data))
+    else:
+        tag_data = {'available': False, 'events': [], 'count': 0, 'code_counts': {}}
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -112,6 +119,10 @@ def server_for(tracking, port=0, video=None):
             try:
                 if url.path == '/':
                     payload, content_type = html.read_bytes(), 'text/html; charset=utf-8'
+                elif url.path == '/smart-tagging.js':
+                    payload, content_type = (html.parent / 'smart-tagging.js').read_bytes(), 'text/javascript; charset=utf-8'
+                elif url.path == '/api/tags':
+                    payload, content_type = json.dumps(tag_data, ensure_ascii=False, allow_nan=False).encode(), 'application/json'
                 elif url.path == '/api/meta':
                     payload, content_type = json.dumps({**tracking.metadata(), 'video_available': video is not None}, ensure_ascii=False).encode(), 'application/json'
                 elif url.path == '/video' and video is not None:
@@ -184,13 +195,14 @@ if __name__ == '__main__':
     parser.add_argument('--demo', action='store_true')
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--video', help='Optional local tactical video, served on loopback only')
+    parser.add_argument('--smart-tagging', help='Optional local automatic SportsCode XML')
     parser.add_argument('--open', action='store_true', help='Open the viewer in the default browser')
     args = parser.parse_args()
     if not args.demo and (not args.meta or not args.tracking):
         parser.error('--meta and --tracking are required unless --demo is used')
     print('Tracking yükleniyor...', flush=True)
     tracking = Tracking.demo() if args.demo else Tracking(args.meta, args.tracking)
-    server = server_for(tracking, args.port, args.video)
+    server = server_for(tracking, args.port, args.video, args.smart_tagging)
     print('Hazır: http://127.0.0.1:' + str(server.server_port), flush=True)
     if args.open:
         import webbrowser

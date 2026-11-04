@@ -1,5 +1,18 @@
 # Deney kaydı
 
+## V002 — yerel Smart Tagging olay tarayıcısı, 4 Kasım 2026
+
+Kullanıcının tüm otomatik olayları video yanında anlamak için istediği salt
+okunur görünüm eklendi. 638 kaynak olay yerel arayüzde korunur. Tekrarlanan
+etiket grupları, bilinmeyen alanlar ve N/A takım değerleri değiştirilmez.
+Model girdisi, elle doğruluk etiketi, düzeltme veya skor oluşturulmadı.
+Görsel karşılaştırma için zaman atlama/aralık oynatma, filtreler, arama ve
+aktif fazlar sağlandı. 53 Python testi ve sentetik tarayıcı kontrolleri geçti;
+gerçek maç kareleri veya olay payload'ları hosted LLM'ye aktarılmadı.
+Model/eşik seçimi yapılmadı; dondurulmuş kaynaklar değişmedi. Bu görünüm
+bilimsel doğruluk değerlendirmesi değildir. Ayrıntılar:
+`docs/TRACKING_IZLEYICI_TR.md`, `tools/smart_tag_view.py`.
+
 ## V001 — salt okunur yerel tracking/video arayüzü, 4 Kasım 2026
 
 Kullanıcının açık isteği üzerine ham tracking mantığını açıklayan yerel
