@@ -9,6 +9,7 @@ import numpy as np
 from .dead_ball_features import extract
 from .player_motion import evidence
 from .team_transitions import detect
+from .set_piece_dead_ball import apply as apply_dead_ball
 
 
 @dataclass(frozen=True)
@@ -29,7 +30,10 @@ class MotionConfig:
             raise ValueError("Physical guard must exceed the fast-flight threshold")
 
 
-def predict(inputs, baseline_labels, config, dribble_config=None, transition_config=None):
+def predict(inputs, baseline_labels, config, dribble_config=None, transition_config=None,
+            *, dead_ball_config=None, automatic_tags=None):
+    if (dead_ball_config is None) != (automatic_tags is None):
+        raise ValueError('Dead-ball configuration and automatic tags must be supplied together')
     if transition_config is not None and dribble_config is None:
         raise ValueError('Team transition context requires player-motion configuration')
     features = extract(inputs)  # rejects label/event-bearing feature inputs
@@ -75,6 +79,15 @@ def predict(inputs, baseline_labels, config, dribble_config=None, transition_con
         dribble_team[supported] = teams[dribble_slot[supported]]
         labels[supported] = np.where(dribble_team[supported] == 0, 'H', 'A')
         reasons[supported] = 'persistent_ball_player_comotion'
+    dead_ball = {}
+    dead_mask = np.zeros(n, bool)
+    if dead_ball_config is not None:
+        if (automatic_tags.get('source_kind') not in ('automatic_provider_tags', 'synthetic_UI_fixture')
+                or automatic_tags.get('fps') != fps or automatic_tags.get('frame_count') != n):
+            raise ValueError('Automatic tags must match the input fixture clock and length')
+        dead_ball = apply_dead_ball(inputs, labels, automatic_tags['events'], dead_ball_config)
+        dead_mask = dead_ball['dead_ball_mask']
+        dead_ball.pop('labels')
     width = max(1, int(np.ceil(config.window_s * fps)))
     refractory = max(1, int(np.ceil(config.refractory_s * fps)))
     delta = np.full(n, np.nan)
@@ -98,6 +111,8 @@ def predict(inputs, baseline_labels, config, dribble_config=None, transition_con
             selected.append(frame)
     contacts = []
     for frame in sorted(selected):
+        if dead_mask[frame]:
+            continue
         d = np.linalg.norm(players[frame] - ball[frame], axis=1)
         # Require the same slot to be measured immediately before/at/after
         # contact; tracking slots still do not prove persistent person identity.
@@ -126,6 +141,7 @@ def predict(inputs, baseline_labels, config, dribble_config=None, transition_con
         if (sender['slot'] is None or receiver['slot'] is None
                 or sender['team'] != receiver['team'] or sender['slot'] == receiver['slot']
                 or (stop - start) / fps > config.max_pass_s
+                or dead_mask[start:stop + 1].any()
                 or np.any((dribble_team[start:stop + 1] >= 0)
                           & (dribble_team[start:stop + 1] != sender['team']))
                 or not reliable[start:stop + 1].all()
@@ -143,15 +159,24 @@ def predict(inputs, baseline_labels, config, dribble_config=None, transition_con
     transition = {}
     if transition_config is not None:
         direct = dribble_team.copy()
+        direct[dead_mask] = -1
         for contact in contacts:
             direct[contact['frame']] = contact['team'] if contact['team'] is not None else -1
         transition = detect(player_motion['player_velocity_mps'], teams, period, fps, direct, transition_config)
+        transition['team_transition_events'] = [event for event in transition['team_transition_events']
+            if not dead_mask[event['frame']] and all(event[key] is None or not dead_mask[event[key]]
+                for key in ('before_evidence_frame', 'after_evidence_frame'))]
         for event in transition['team_transition_events']:
             if event['status'] == 'supported_turnover_candidate':
                 frame = event['after_evidence_frame']
                 if labels[frame] == ('H' if event['to_team'] == 0 else 'A'):
                     reasons[frame] = 'team_change_with_ball_evidence'
-    return {**player_motion, **transition, 'labels': labels, 'reasons': reasons, 'velocity_mps': velocity,
+    if dead_ball_config is not None:
+        labels[dead_mask] = 'D'
+        reasons[dead_mask] = 'tag_supported_measured_dead_ball'
+        if 'dribble_slot' in player_motion:
+            player_motion['dribble_slot'][dead_mask] = -1
+    return {**player_motion, **transition, **dead_ball, 'labels': labels, 'reasons': reasons, 'velocity_mps': velocity,
             'delta_velocity_mps': delta, 'fast_flight': flight,
             'contacts': contacts, 'passes': passes,
             'contact_verified': False, 'selected_release': False}

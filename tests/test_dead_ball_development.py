@@ -221,12 +221,22 @@ class AuditIntegrationTests(unittest.TestCase):
             from development.motion_possession import MotionConfig
             from development.player_motion import DribbleConfig
             from development.team_transitions import TransitionConfig
+            from development.set_piece_dead_ball import DeadBallConfig
+            tag_files = {}
+            for fixture in plan['fixtures']:
+                path = root / (fixture['id'] + '-synthetic-tags.xml')
+                path.write_text('<file><instance><start>0.1</start><end>0.4</end><code>SET PIECES</code><label><group>Type</group><text>Free Kick</text></label></instance></file>')
+                tag_files[fixture['id']] = {'path': str(path), 'fixture_id': fixture['id'],
+                    'sha256': sha256(path), 'source_kind': 'automatic_provider_tags',
+                    'provenance': 'SYNTHETIC TEST ONLY, not real provider events'}
             config = root / 'synthetic-config.json'
             config.write_text(json.dumps({'parameters': asdict(MotionConfig(
                 .1, 3., 60., 4., .5, .3, .1, 3.)),
                 'rationale': 'Synthetic plumbing test only, not selected football settings',
                 'dribble_parameters': asdict(DribbleConfig(.8, .3, .5, 15., .3, .2, 1)),
-                'transition_parameters': asdict(TransitionConfig(.2, 1., .8, .3, .5, 1))}))
+                'transition_parameters': asdict(TransitionConfig(.2, 1., .8, .3, .5, 1)),
+                'dead_ball_parameters': asdict(DeadBallConfig(2., 1., .3, .2, .1, 2., .2, .2, 60., 1., 5.)),
+                'automatic_tag_files': tag_files}))
             summaries = motion_run(root / 'audit', config, root / 'motion')
             self.assertEqual(len(summaries), 2)
             registration = json.loads((root / 'motion' / 'registration.json').read_text())
@@ -234,6 +244,9 @@ class AuditIntegrationTests(unittest.TestCase):
             self.assertEqual(registration['config_sha256'], sha256(config))
             self.assertIsNotNone(registration['dribble_config'])
             self.assertIsNotNone(registration['transition_config'])
+            self.assertIsNotNone(registration['dead_ball_config'])
+            events = json.loads((root / 'motion' / 'metrica-sample-1-events.json').read_text())
+            self.assertIn('dead_ball_events', events)
             with np.load(root / 'motion' / 'metrica-sample-1-team-transitions.npz') as transition:
                 self.assertIn('team_change_cohort_counts', transition.files)
             with np.load(root / 'motion' / 'metrica-sample-1-player-motion.npz') as motion:

@@ -16,6 +16,12 @@ The `develop/dead-ball-data-audit` branch starts the next development stage in
 tools. This code is unselected and does not alter frozen inference. See
 [the Turkish development guide](docs/GELISTIRME_TR.md).
 
+The experimental motion pipeline can additionally consume automatic SET PIECES
+tags and measured waiting/restart evidence to produce candidate D intervals.
+It does not label whole tag spans or missing ball frames as D. This layer is
+not externally selected or part of the frozen release; see
+[the dead-ball development notes](docs/DURAN_TOP_KATMANI_TR.md).
+
 ## Local tracking viewer
 
 Run `TRACKING-IZLE.cmd` on this workstation to view raw tracking circles,

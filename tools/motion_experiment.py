@@ -11,6 +11,8 @@ from clean_model.select import infer
 from development.motion_possession import MotionConfig, predict
 from development.player_motion import DribbleConfig
 from development.team_transitions import TransitionConfig
+from development.set_piece_dead_ball import DeadBallConfig
+from .smart_tag_view import load_tags
 from .dead_ball_audit import _frozen_model
 from .metrica_data import external_output, sha256
 
@@ -27,6 +29,7 @@ def run(audit_dir, config_path, out):
     config = MotionConfig(**spec['parameters'])
     dribble = DribbleConfig(**spec['dribble_parameters']) if 'dribble_parameters' in spec else None
     transition = TransitionConfig(**spec['transition_parameters']) if 'transition_parameters' in spec else None
+    dead_ball = DeadBallConfig(**spec['dead_ball_parameters']) if 'dead_ball_parameters' in spec else None
     if transition is not None and dribble is None:
         raise ValueError('Transition parameters require dribble/player-motion parameters')
     repo = Path(__file__).resolve().parents[1]
@@ -36,11 +39,14 @@ def run(audit_dir, config_path, out):
     out.mkdir(parents=True, exist_ok=False)
     source_paths = [Path(__file__), repo / 'development' / 'motion_possession.py',
                     repo / 'development' / 'dead_ball_features.py', repo / 'development' / 'player_motion.py',
-                    repo / 'development' / 'team_transitions.py']
+                    repo / 'development' / 'team_transitions.py', repo / 'development' / 'set_piece_dead_ball.py',
+                    repo / 'tools' / 'smart_tag_view.py']
     manifest = {'version': 'motion-evidence-experimental-v1', 'selected_release': False,
                 'provided_fixture_used': False, 'config': asdict(config),
                 'dribble_config': asdict(dribble) if dribble is not None else None,
                 'transition_config': asdict(transition) if transition is not None else None,
+                'dead_ball_config': asdict(dead_ball) if dead_ball is not None else None,
+                'automatic_tags': spec.get('automatic_tag_files', {}),
                 'config_sha256': sha256(config_path), 'rationale': spec['rationale'],
                 'audit_report_sha256': sha256(root / 'report.json'),
                 'baseline_model_sha256': baseline_hash,
@@ -61,7 +67,20 @@ def run(audit_dir, config_path, out):
         for key in ('confirmation_frames', 'gap_frames', 'hold_frames'):
             params[key] = math.ceil(params[key] * float(inputs['fps']) / model['training_fps'])
         base = infer(inputs, DecoderConfig(**params), model['policy'])
-        result = predict(inputs, base, config, dribble, transition)
+        tag_data = None
+        if dead_ball is not None:
+            tag_spec = spec.get('automatic_tag_files', {}).get(mid)
+            if (not tag_spec or tag_spec.get('fixture_id') != mid
+                    or tag_spec.get('source_kind') != 'automatic_provider_tags' or not tag_spec.get('provenance')):
+                raise ValueError('Registered automatic-tag provenance for this external fixture required')
+            tag_path = Path(tag_spec['path'])
+            if not tag_path.is_absolute():
+                tag_path = Path(config_path).resolve().parent / tag_path
+            if sha256(tag_path) != tag_spec['sha256']:
+                raise ValueError('Automatic tag source hash differs')
+            tag_data = load_tags(tag_path, float(inputs['fps']), len(base))
+        result = predict(inputs, base, config, dribble, transition,
+                         dead_ball_config=dead_ball, automatic_tags=tag_data)
         if dribble is not None:
             names = ('dribble_slot', 'dribble_velocity_error_mps', 'player_velocity_mps',
                      'team_mean_velocity_mps', 'team_mean_speed_mps', 'team_velocity_counts')
@@ -72,12 +91,14 @@ def run(audit_dir, config_path, out):
             writer.writerows(zip(inputs['frame'].tolist(), result['labels'].tolist(), result['reasons'].tolist()))
         events = {'contacts': result['contacts'], 'candidate_passes': result['passes'],
                   'team_transitions': result.get('team_transition_events', []),
+                  'dead_ball_events': result.get('dead_ball_events', []),
                   'contact_verified': False, 'slot_identity_verified': False}
         (out / (mid + '-events.json')).write_text(json.dumps(events, indent=2), encoding='utf-8')
         summaries.append({'id': mid, 'split': fixture['split'], 'frames': len(base),
                           'motion_candidates': len(result['contacts']),
                           'candidate_passes': len(result['passes']),
-                          'dribble_frames': int((result['dribble_slot'] >= 0).sum()) if dribble is not None else 0})
+                          'dribble_frames': int((result['dribble_slot'] >= 0).sum()) if dribble is not None else 0,
+                          'dead_ball_frames': int((result['labels'] == 'D').sum())})
         if transition is not None:
             names = ('team_vector_change_mps', 'team_speed_change_mps', 'team_change_cohort_counts')
             np.savez_compressed(out / (mid + '-team-transitions.npz'), **{name: result[name] for name in names})

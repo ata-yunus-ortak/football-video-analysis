@@ -1,5 +1,22 @@
 # Deney kaydı
 
+## D002 — otomatik SET PIECES + ölçülen bekleme/başlangıç, 4 Kasım 2026
+
+Kullanıcı isteğiyle beş yeniden başlama türü için deneysel D katmanı eklendi.
+Etiket arama ön bilgisidir; tüm etiket aralığı D kabul edilmez. Ölçülen
+bekleme, yakın gözlenen oyuncu, uygun saha bölgesi ve süreklilikle desteklenen
+yeniden hareket aranır. D başlangıcı ölçülen bekleme/çıkıştır; kesin düdük
+anı iddiası yoktur. Kayıp top veya N/A takım etiketi tek başına D/H/A üretmez.
+
+Veri/split: sentetik mühendislik senaryoları ve sentetik uçtan uca dosyalar.
+Dış eğitim/doğrulama ya da parametre seçimi yapılmadı; verilen maçın görüntü,
+elle not veya public skorlarından seçim girdisi alınmadı. Ayarlar
+`tests/test_set_piece_dead_ball.py` içinde sentetik olarak kayıtlıdır.
+63 test geçti. Bağımsız dış maçların eşleşen otomatik tag dosyaları ve
+değerlendirilebilir D/canlı oyun hedefleri henüz yoktur; bu eksik tamamlanmadan
+yeni teslim sürümü seçilmiş sayılmaz. Temel sürüm değişmedi ve yeni tam maç
+çıktısı üretilmedi. Ayrıntılar: `docs/DURAN_TOP_KATMANI_TR.md`.
+
 ## V002 — yerel Smart Tagging olay tarayıcısı, 4 Kasım 2026
 
 Kullanıcının tüm otomatik olayları video yanında anlamak için istediği salt
