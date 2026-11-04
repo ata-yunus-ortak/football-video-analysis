@@ -1,5 +1,21 @@
 # Deney kaydı
 
+## L001 — LONG BALL aralığında hareket ve yakınlık engeli, 4 Kasım 2026
+
+Kullanıcı isteğiyle otomatik LONG BALL aralıklarında kesintisiz hızlı ve
+uzun yer değiştiren top hareketi aranır. Net mesafe, süre ve yol tutarlılığı
+ölçülür; eksik noktalar, yön dönüşleri, devre ve sıçramalar diziyi keser.
+D/dripling bölgeleri hariç tutulur. Uçuş içindeki salt yakınlık sahipliği
+bastırılır; temas/pas gibi ek kanıt ve uç noktalar korunur. Yükseklik iddiası
+yoktur. Tag tek başına uzun top veya takım sahipliği hedefi değildir.
+
+Veri/split: yalnız sentetik testler ve sentetik uçtan uca dosyalar.
+`tests/test_long_ball.py` sayıları mühendislik örnekleridir. Dış maç ayar
+seçimi/başarı değerlendirmesi veya yeni teslim sürümü yoktur. 72 test geçti;
+bu bir futbol doğruluk skoru değildir. Yarışma görüntüleri, elle notları
+ve public skorları seçim girdisi yapılmadı. Temel sürüm korundu.
+Ayrıntılar: `docs/UZUN_TOP_KATMANI_TR.md`.
+
 ## D002 — otomatik SET PIECES + ölçülen bekleme/başlangıç, 4 Kasım 2026
 
 Kullanıcı isteğiyle beş yeniden başlama türü için deneysel D katmanı eklendi.

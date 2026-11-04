@@ -21,6 +21,9 @@ tags and measured waiting/restart evidence to produce candidate D intervals.
 It does not label whole tag spans or missing ball frames as D. This layer is
 not externally selected or part of the frozen release; see
 [the dead-ball development notes](docs/DURAN_TOP_KATMANI_TR.md).
+An optional LONG BALL layer finds measured fast, long-distance runs inside
+automatic tag spans and suppresses proximity-only ownership during flight.
+See [the long-ball notes](docs/UZUN_TOP_KATMANI_TR.md); this is also unselected.
 
 ## Local tracking viewer
 

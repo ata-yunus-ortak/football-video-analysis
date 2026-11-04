@@ -10,6 +10,7 @@ from .dead_ball_features import extract
 from .player_motion import evidence
 from .team_transitions import detect
 from .set_piece_dead_ball import apply as apply_dead_ball
+from .long_ball import detect as detect_long_ball
 
 
 @dataclass(frozen=True)
@@ -31,9 +32,10 @@ class MotionConfig:
 
 
 def predict(inputs, baseline_labels, config, dribble_config=None, transition_config=None,
-            *, dead_ball_config=None, automatic_tags=None):
-    if (dead_ball_config is None) != (automatic_tags is None):
-        raise ValueError('Dead-ball configuration and automatic tags must be supplied together')
+            *, dead_ball_config=None, automatic_tags=None, long_ball_config=None):
+    needs_tags = dead_ball_config is not None or long_ball_config is not None
+    if needs_tags != (automatic_tags is not None):
+        raise ValueError('Tag configuration and automatic tags must be supplied together')
     if transition_config is not None and dribble_config is None:
         raise ValueError('Team transition context requires player-motion configuration')
     features = extract(inputs)  # rejects label/event-bearing feature inputs
@@ -43,6 +45,9 @@ def predict(inputs, baseline_labels, config, dribble_config=None, transition_con
     teams = np.asarray(inputs['teams'])
     n = len(ball)
     fps = float(inputs['fps'])
+    if needs_tags and (automatic_tags.get('source_kind') not in ('automatic_provider_tags', 'synthetic_UI_fixture')
+            or automatic_tags.get('fps') != fps or automatic_tags.get('frame_count') != n):
+        raise ValueError('Automatic tags must match the input fixture clock and length')
     baseline = np.asarray(baseline_labels)
     if (baseline.shape != (n,) or not np.isin(baseline, ('H', 'A', 'X')).all()
             or teams.shape != (players.shape[1],) or not np.isin(teams, (0, 1)).all()):
@@ -82,9 +87,6 @@ def predict(inputs, baseline_labels, config, dribble_config=None, transition_con
     dead_ball = {}
     dead_mask = np.zeros(n, bool)
     if dead_ball_config is not None:
-        if (automatic_tags.get('source_kind') not in ('automatic_provider_tags', 'synthetic_UI_fixture')
-                or automatic_tags.get('fps') != fps or automatic_tags.get('frame_count') != n):
-            raise ValueError('Automatic tags must match the input fixture clock and length')
         dead_ball = apply_dead_ball(inputs, labels, automatic_tags['events'], dead_ball_config)
         dead_mask = dead_ball['dead_ball_mask']
         dead_ball.pop('labels')
@@ -176,7 +178,15 @@ def predict(inputs, baseline_labels, config, dribble_config=None, transition_con
         reasons[dead_mask] = 'tag_supported_measured_dead_ball'
         if 'dribble_slot' in player_motion:
             player_motion['dribble_slot'][dead_mask] = -1
-    return {**player_motion, **transition, **dead_ball, 'labels': labels, 'reasons': reasons, 'velocity_mps': velocity,
+    long_ball = {}
+    if long_ball_config is not None:
+        long_ball = detect_long_ball(inputs, automatic_tags['events'], long_ball_config,
+                                    blocked=~reliable | dead_mask | (dribble_team >= 0))
+        weak = np.isin(reasons, ('baseline_slow_or_unresolved', 'fast_ball_no_proximity_ownership'))
+        suppress = long_ball['long_ball_flight_mask'] & weak & ~dead_mask
+        labels[suppress] = 'X'
+        reasons[suppress] = 'long_ball_no_proximity_ownership'
+    return {**player_motion, **transition, **dead_ball, **long_ball, 'labels': labels, 'reasons': reasons, 'velocity_mps': velocity,
             'delta_velocity_mps': delta, 'fast_flight': flight,
             'contacts': contacts, 'passes': passes,
             'contact_verified': False, 'selected_release': False}
