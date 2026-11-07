@@ -1,5 +1,16 @@
 # Deney kaydı
 
+## D004 — Top özellikleri olmadan D ve sağlayıcılar arası kontrol, 7 Kasım 2026
+
+Dört eğitim / iki doğrulama maçında 18 aday karşılaştırıldı. Oyuncu hızları
+ve yayılımı dışında özellik kullanılmadı. D F1 0,8781 / 0,8577; bir saniyelik
+sınır F1 0,3430 / 0,4195. Ön kayıtlı ortalama sınır koşulu karşılanmadı;
+aday final sisteme alınmadı. Sabit adayın iki Metrica kısmi olay proxy'sindeki
+D F1 değeri 0,8497 / 0,7888; tam maç veya yeni bağımsız test değildir.
+Sağlanan maç kullanılmadı, ayrılmış Sportec testi açılmadı. 236 testten
+234 geçti, iki isteğe bağlı AV atlandı. [Ayrıntılar](D_OGRENME_DENEYI_TR.md).
+Makine tarafından okunabilir terfi kararı: `dead-ball-promotion-decisions.json`.
+
 ## D003 — Öğrenilmiş D ve aktarım riski, 7 Kasım 2026
 
 Dört Sportec eğitim ve iki doğrulama maçında 48 aday karşılaştırıldı.

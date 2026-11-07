@@ -20,11 +20,51 @@ Yapay eksik gözlem testi bu sabit koordinat özelliğini ortadan kaldırmadığ
 tek başına aktarım sorununu çözmez. Tam sonuçlar
 `dead-ball-external-results-v1.json`; denetim `dead-ball-transfer-audit.json`.
 
-Sonraki ayrı deneyde topa bağlı özellikler tamamen çıkarılacak. Oyuncu hız
-dağılımları ve takım kimliğinden bağımsız mekânsal yayılım kullanılacak.
-Yeni aday dış maçlarda seçilecek; ilk deneyin kayıtları değiştirilmeyecek.
-Metrica'nın olaydan türetilmiş kısmi duruş/canlı aralıkları başka sağlayıcı
-kontrolü olarak kullanılabilir, fakat eksiksiz kare düzeyi gerçek sayılmaz.
+## D004: yalnız oyuncu hareketleri
+
+İkinci deney tamamlandı. Top konumu, hızı, yakınlığı ve kayıp bilgisi
+özelliklerden tamamen çıkarıldı. Oyuncu hız çeyrekleri ve mekânsal yayılımın
+anlık ve 0,4/1,6 saniyelik özetleri kullanıldı. Aynı dört eğitim ve iki
+doğrulama maçı yeniden kullanıldı; yeni bağımsız test iddiası yoktur.
+18 adaydan seçilen tanısal aday: L2=0,001, D olasılık eşiği=0,65,
+zamansal geçiş maliyeti=1 saniye. Özellikler hedef/olay bilgisi almaz.
+
+| Dış doğrulama | D F1 | Sınır F1, ±1 saniye | H/A/D bölüm F1: D olmadan → adayla |
+| --- | ---: | ---: | ---: |
+| J03WN1 | 0,8781 | 0,3430 | 0,2242 → 0,3184 |
+| J03WR9 | 0,8577 | 0,4195 | 0,2846 → 0,3788 |
+
+**Bu aday da final sisteme alınmadı.** Ön kayıtlı ortalama sınır F1≥0,50
+koşuluna karşı 0,3812 elde edildi. Duran oyunun genel aralığını yakalamak,
+tam durma ve başlama anını yeterince doğru bulmak anlamına gelmiyor.
+Sonuç görüldükten sonra kabul eşiği değiştirilmedi.
+
+Sabit aday ayrıca iki Metrica maçında değerlendirildi. Tahminler olay hedefleri
+puanlanmadan önce donduruldu. Eşleştirilmiş BALL OUT/SET PIECE aralıkları D,
+yalnız geçerli PASS aralıkları canlı oyun proxy'si; diğer kareler bilinmeyen
+bırakıldı. D F1: **0,8497 / 0,7888**. Bunlar kısmi, daha önce erişilmiş
+verilerdir; pas aralıkları bütün canlı oyunu temsil etmez. Bu kontrol tam
+maç kesinliğini veya sınır doğruluğunu doğrulamaz ve kabul kararını değiştirmez.
+
+Plan: `player-dead-ball-selection-plan.json`. Özetler:
+`player-dead-ball-external-results-v1.json`,
+`player-dead-ball-transfer-results-v1.json`. İki deney için nihai terfi kararı
+`dead-ball-promotion-decisions.json` içindedir; D003 raporundaki sayısal
+`accepted_external_candidate` tek başına final sürüm onayı değildir.
+
+Tekrarlama, ham veriler hazırlandıktan sonra, yeni özel çıktı dizinleriyle:
+
+```powershell
+python -m tools.player_dead_ball_selection --prepared /private/sportec-prepared --plan player-dead-ball-selection-plan.json --out /private/new-study
+python -m tools.player_dead_ball_recheck --candidate /private/study/candidate-freeze.json --audit /private/metrica-audit --data /private/metrica-data --out /private/new-recheck
+```
+
+236 test: 234 geçti, iki isteğe bağlı AV testi atlandı. Top verisini değiştirme
+testi oyuncu özelliklerinin aynı kaldığını; kısmi proxy testleri çakışmaların
+ve devre dışındaki pasların etiketlenmediğini doğruladı. Ayrılmış J03WMX
+test maçı açılmadı. Görüntü temelli karar ve iki kamera başarısı bu deneyle
+ölçülmüş değildir. Sıradaki ihtiyaç, izinli dış veride daha güvenilir top
+gözlemleri ve bağımsız durma/başlama kanıtıdır.
 
 İlk deneyde altı yeni testle toplam 231 test: 229 geçti, iki isteğe bağlı
 AV testi atlandı. Hedef sızıntısı reddi, takım simetrisi, kayıp gözlemde

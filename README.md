@@ -79,17 +79,10 @@ calibration, camera alignment and possession validation remain outstanding. See
 
 ## Local tracking viewer
 
-The requested first five match minutes are rendered progressively at
-`http://127.0.0.1:8777/`, with a large selected-player candidate label and
-highlight. This longer review uses the already registered native detector mode,
-not the earlier short SAHI demo. Processing status distinguishes ready chunks
-from a completed five-minute clip; see [five-minute local review](docs/ILK_BES_DAKIKA_YEREL_TR.md).
-
-The explicit user-requested Barcelona local review is available on this
-workstation at `http://127.0.0.1:8776/`: two short annotated videos, metadata
-identity candidates and separate strict/assumption-only control displays.
-The unvalidated broadcast mapping remains ineligible for final ownership.
-See [local integrated review](docs/YEREL_ENTEGRE_INCELEME_TR.md).
+The former annotated Barcelona services on ports 8776/8777 are stopped.
+Their [five-minute](docs/ILK_BES_DAKIKA_YEREL_TR.md) and
+[integrated-review](docs/YEREL_ENTEGRE_INCELEME_TR.md) records are historical,
+not instructions to resume output-versus-supplied-video comparisons.
 
 Run `TRACKING-IZLE.cmd` on this workstation to view raw tracking circles,
 scalar speeds and derived velocity arrows beside the local tactical video.

@@ -1,0 +1,29 @@
+{
+  "version": "dead-ball-promotion-decisions-v1",
+  "date": "2026-11-07",
+  "provided_fixture_used": false,
+  "promoted_model": null,
+  "experiments": [
+    {
+      "id": "D003",
+      "report": "dead-ball-external-results-v1.json",
+      "numerical_acceptance": true,
+      "promoted": false,
+      "reason": "All measurable training D ball velocities exactly zero; provider-specific shortcut risk. Numerical acceptance is not release approval."
+    },
+    {
+      "id": "D004",
+      "report": "player-dead-ball-external-results-v1.json",
+      "numerical_acceptance": false,
+      "promoted": false,
+      "mean_clean_boundary_f1_1s": 0.38122402831005975,
+      "required_mean_clean_boundary_f1_1s": 0.5,
+      "cross_provider_report": "player-dead-ball-transfer-results-v1.json",
+      "reason": "Pre-registered timing acceptance failed. Partial cross-provider proxies cannot replace full timing validation."
+    }
+  ],
+  "frozen_baseline_sha256": "1efa8f1073c0c204613cdd5ad1882e4525364ada7d982a70bb27387b854ff6cc",
+  "reserved_test_used": false,
+  "combined_release_selected": false,
+  "video_validated": false
+}

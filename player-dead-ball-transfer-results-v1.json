@@ -1,0 +1,59 @@
+{
+  "candidate_sha256": "4ee5eeb2e64acc8db94f90ba73db4bf1deeed77fad24b9a6ad23f063eca17217",
+  "audit_report_sha256": "c9c16b7508aa2d4b29ab769368c42d9df6b53b2b01b1273945a16af58c4b0ad3",
+  "source_sha256": "c799754ba52a618bf75a09b077fad83ffc51bca7001346afd32a181fe2a99f54",
+  "provided_fixture_used": false,
+  "model_selection": false,
+  "target_kind": "partial_event_paired_dead_and_pass_interval_live_proxy",
+  "exhaustive_truth": false,
+  "independent_new_test": false,
+  "before_predictions": true,
+  "results": [
+    {
+      "fixture": "metrica-sample-1",
+      "coverage": {
+        "partial_dead_frames": 16518,
+        "partial_pass_live_frames": 28444,
+        "conflicting_frames_withheld": 0,
+        "unknown_frames": 100044
+      },
+      "binary_partial_proxy": {
+        "dead": {
+          "precision": 0.8568790397045245,
+          "recall": 0.8427170359607701,
+          "f1": 0.8497390348869152
+        },
+        "live": {
+          "precision": 0.9095309398614061,
+          "recall": 0.9182604415693996,
+          "f1": 0.913874844736796
+        },
+        "macro_f1": 0.8818069398118555
+      }
+    },
+    {
+      "fixture": "metrica-sample-2",
+      "coverage": {
+        "partial_dead_frames": 13640,
+        "partial_pass_live_frames": 32646,
+        "conflicting_frames_withheld": 0,
+        "unknown_frames": 94870
+      },
+      "binary_partial_proxy": {
+        "dead": {
+          "precision": 0.7968130470561832,
+          "recall": 0.7808651026392962,
+          "f1": 0.7887584700262895
+        },
+        "live": {
+          "precision": 0.9092013730672256,
+          "recall": 0.9168045089750658,
+          "f1": 0.9129871120262335
+        },
+        "macro_f1": 0.8508727910262615
+      }
+    }
+  ],
+  "model_changed": false,
+  "limitation": "Pass-only live negatives are not representative of all live play; paired stoppages have uncertain boundary semantics. This cannot certify full D precision or timing."
+}

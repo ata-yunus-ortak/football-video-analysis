@@ -8,6 +8,12 @@ Sağlanan maçın çıktısını videoyla karşılaştırmayın; önceki çiziml
 gösterimler doğrulama yöntemi değildir. Yeni dış maç çalışmasının kodu ve
 özet sonuçları bu daldadır; donmuş temel model korunur.
 
+7 Kasım D deneylerinin ikisi de final sürüme alınmadı: ilkinde sağlayıcıya
+özgü sabit top örüntüsü riski, oyuncu-temelli ikincisinde yetersiz sınır
+doğruluğu bulundu. [Ölçümler ve tekrarlama](docs/D_OGRENME_DENEYI_TR.md).
+`dead-ball-promotion-decisions.json` nihai kararı belirtir. Deney raporundaki
+sayısal kabul alanı tek başına teslim modeli seçildiği anlamına gelmez.
+
 ## Kurulum
 
 ```bash
