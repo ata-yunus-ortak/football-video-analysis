@@ -1,0 +1,37 @@
+{
+  "fixture_id": "DFL-MAT-J03WOH",
+  "frames": 137214,
+  "fps": 25.0,
+  "labels": {
+    "A": 32819,
+    "D": 65269,
+    "H": 39126
+  },
+  "ball_status_values": {
+    "1": 71945,
+    "0": 65269
+  },
+  "ball_possession_values": {
+    "2": 67752,
+    "1": 69462
+  },
+  "dead_frames_with_finite_ball": 65269,
+  "live_frames_with_finite_ball": 71945,
+  "missing_ball_records": 0,
+  "native_discontinuities": 0,
+  "coordinate_visibility_semantics": "finite provider positions; no independent image detection mask supplied",
+  "target_attributes_excluded_from_features": [
+    "BallStatus",
+    "BallPossession"
+  ],
+  "events_used_as_inputs": false,
+  "provided_fixture_used": false,
+  "inputs_sha256": "62a9699d803cf7694924c277af03a28466be9e05edce71bed75bab0f55560426",
+  "targets_sha256": "7c67cabb03b14db4b4809dcea059501e473f55b3f91c6605daeb2380930ddb58",
+  "source_clock_sha256": "61b3618949d341b4eb7a2e2cd53c833bd096a4ca17126fcc18d2b48cc210845a",
+  "raw_sha256": {
+    "metadata": "f23b3ee13b988b1ff9a0bce438c416dac47e71355bbc7ee1dab21aaf3e33c18c",
+    "tracking": "ec4dcf30200aad694dea263d5289485fcd0ca42badddaeb7c81f5cd5a4229d4f"
+  },
+  "adapter_sha256": "b92045dae7c81b261255c4ab59550526de67bd4ea374bf6d2bcc8615251656d3"
+}

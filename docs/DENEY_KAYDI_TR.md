@@ -1,5 +1,19 @@
 # Deney kaydı
 
+## D002 — Sportec/DFL canlı ve duran oyun hedefleri, 7 Kasım 2026
+
+CC BY 4.0 lisanslı dış kaynak, indirme öncesinde 4 eğitim / 2 doğrulama /
+1 ayrılmış son kontrol olarak kaydedildi. İlk eğitim maçı J03WOH hazırlandı:
+137.214 kare; 65.269 D karesinin tamamında sonlu top koordinatı mevcut.
+71.945 canlı oyun karesi var. BallStatus/BallPossession yalnız ayrı hedef
+dosyasında; özelliklere verilmez. Bu kapsam sonucu, D model başarısı değildir.
+Yeni D sınıflandırıcısı veya birleşik teslim sürümü seçilmedi.
+
+Araçlar: `tools.sportec_download`, `tools.sportec_prepare`,
+`development/state_metrics.py`. Ayrılmış test maçına erişim kapalı.
+9 yeni testle toplam 225 test: 223 geçti, 2 isteğe bağlı AV atlandı.
+Ayrıntılar ve atıf: [Sportec dış veri](SPORTEC_DIS_VERI_TR.md).
+
 ## S001 — Dış maçlarda zamansal sahiplik seçimi, 7 Kasım 2026
 
 Plan: `sequence-selection-plan.json`; sonuç: `sequence-external-results.json`.
