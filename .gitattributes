@@ -1,5 +1,7 @@
 * text=auto eol=lf
 clean_model/*.py -text
 model.json -text
+tools/player_dead_ball_selection.py -text
+player-dead-ball-selection-plan.json -text
 *.md text eol=lf
 *.cmd text eol=crlf
