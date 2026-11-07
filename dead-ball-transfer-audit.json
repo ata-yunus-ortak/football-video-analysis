@@ -1,0 +1,37 @@
+{
+  "training_only_audit": true,
+  "provided_fixture_used": false,
+  "reserved_test_used": false,
+  "fixtures": [
+    {
+      "fixture": "J03WOH",
+      "inputs_sha256": "62a9699d803cf7694924c277af03a28466be9e05edce71bed75bab0f55560426",
+      "dead_frames_with_finite_velocity": 65268,
+      "dead_frames_with_exactly_zero_velocity": 65268,
+      "dead_zero_velocity_fraction": 1.0
+    },
+    {
+      "fixture": "J03WOY",
+      "inputs_sha256": "c3f58db9465763b23ba6e846402a07f45c89b24b5d7eec12ab9ab5d922bb903e",
+      "dead_frames_with_finite_velocity": 66249,
+      "dead_frames_with_exactly_zero_velocity": 66249,
+      "dead_zero_velocity_fraction": 1.0
+    },
+    {
+      "fixture": "J03WPY",
+      "inputs_sha256": "fda814e6aeaa3b2c7efb0038789ba48d896933e96ab6c49d7fda20470d1550cf",
+      "dead_frames_with_finite_velocity": 64751,
+      "dead_frames_with_exactly_zero_velocity": 64751,
+      "dead_zero_velocity_fraction": 1.0
+    },
+    {
+      "fixture": "J03WQQ",
+      "inputs_sha256": "18f0c6ade3d168b8c27fb29689b23c205fabbae813f6dee346a43d51e8a0450a",
+      "dead_frames_with_finite_velocity": 57993,
+      "dead_frames_with_exactly_zero_velocity": 57993,
+      "dead_zero_velocity_fraction": 1.0
+    }
+  ],
+  "decision": "Do not promote the full ball-feature D candidate on these scores. Constant ball coordinates during all measured dead frames are a provider-specific shortcut risk. This is observed behavior, not a confirmed statement of provider preprocessing. Run a separate player-only ablation and cross-provider checks.",
+  "candidate_freeze_sha256": "99f664680e0e7f3dfe4a7ff7efaca7ec52952085f5eb2fab533ffd6026dda320"
+}

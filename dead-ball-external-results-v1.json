@@ -1,0 +1,511 @@
+{
+  "version": "sportec-dead-ball-study-v1",
+  "accepted_external_candidate": true,
+  "selected_validation": {
+    "model_id": 0,
+    "threshold": 0.65,
+    "switch_cost_s": 1.0,
+    "games": [
+      {
+        "id": "J03WN1",
+        "mode": "clean",
+        "binary": {
+          "dead": {
+            "precision": 0.9944156961264865,
+            "recall": 0.995190205509401,
+            "f1": 0.9948028000682944
+          },
+          "live": {
+            "precision": 0.994847775175644,
+            "recall": 0.9940184564985302,
+            "f1": 0.9944329429321784
+          },
+          "macro_f1": 0.9946178715002364
+        },
+        "boundary": {
+          "f1": 0.9619047619047619,
+          "matched": 202,
+          "target_boundaries": 211,
+          "predicted_boundaries": 209,
+          "matched_median_error_s": 0.0,
+          "tolerance_s": 1.0
+        },
+        "combined": {
+          "macro_f1_HAD": 0.8626605043518455,
+          "per_class": {
+            "H": {
+              "precision": 0.8201017375400091,
+              "recall": 0.7879245490239147,
+              "f1": 0.8036912046826208,
+              "tp": 28697,
+              "fp": 6295,
+              "fn": 7724
+            },
+            "A": {
+              "precision": 0.7797173986022523,
+              "recall": 0.7995055701589686,
+              "f1": 0.7894875083046212,
+              "tp": 25549,
+              "fp": 7218,
+              "fn": 6407
+            },
+            "D": {
+              "precision": 0.9944156961264865,
+              "recall": 0.995190205509401,
+              "f1": 0.9948028000682944,
+              "tp": 72832,
+              "fp": 409,
+              "fn": 352
+            }
+          },
+          "external_spell_f1": 0.4198657718120805,
+          "known_target_frames": 141561,
+          "frame_agreement": 0.8976907481580378,
+          "competition_score": false
+        },
+        "without_D": {
+          "macro_f1_HAD": 0.4435826207560895,
+          "per_class": {
+            "H": {
+              "precision": 0.6027173913043479,
+              "recall": 0.7916861151533456,
+              "f1": 0.684397289374681,
+              "tp": 28834,
+              "fp": 19006,
+              "fn": 7587
+            },
+            "A": {
+              "precision": 0.5427714814263539,
+              "recall": 0.7987858305169608,
+              "f1": 0.6463505728935874,
+              "tp": 25526,
+              "fp": 21503,
+              "fn": 6430
+            },
+            "D": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 73184
+            }
+          },
+          "external_spell_f1": 0.22424242424242422,
+          "known_target_frames": 141561,
+          "frame_agreement": 0.38400406891728656,
+          "competition_score": false
+        }
+      },
+      {
+        "id": "J03WN1",
+        "mode": "dropout",
+        "binary": {
+          "dead": {
+            "precision": 0.9836933589230539,
+            "recall": 0.9874972671622213,
+            "f1": 0.9855916427436567
+          },
+          "live": {
+            "precision": 0.9865626927482598,
+            "recall": 0.9824794887169662,
+            "f1": 0.9845168570612072
+          },
+          "macro_f1": 0.985054249902432
+        },
+        "boundary": {
+          "f1": 0.8732394366197183,
+          "matched": 186,
+          "target_boundaries": 211,
+          "predicted_boundaries": 215,
+          "matched_median_error_s": 0.0,
+          "tolerance_s": 1.0
+        },
+        "combined": {
+          "macro_f1_HAD": 0.7753122609430384,
+          "per_class": {
+            "H": {
+              "precision": 0.7701709812538625,
+              "recall": 0.615908404491914,
+              "f1": 0.6844554289288602,
+              "tp": 22432,
+              "fp": 6694,
+              "fn": 13989
+            },
+            "A": {
+              "precision": 0.7437606634130858,
+              "recall": 0.586587808236325,
+              "f1": 0.6558897111565982,
+              "tp": 18745,
+              "fp": 6458,
+              "fn": 13211
+            },
+            "D": {
+              "precision": 0.9836933589230539,
+              "recall": 0.9874972671622213,
+              "f1": 0.9855916427436567,
+              "tp": 72269,
+              "fp": 1198,
+              "fn": 915
+            }
+          },
+          "external_spell_f1": 0.34477419354838706,
+          "known_target_frames": 141561,
+          "frame_agreement": 0.8013930390432393,
+          "competition_score": false
+        },
+        "without_D": {
+          "macro_f1_HAD": 0.3793871606828258,
+          "per_class": {
+            "H": {
+              "precision": 0.5771841415128297,
+              "recall": 0.6163751681722084,
+              "f1": 0.5961362278430592,
+              "tp": 22449,
+              "fp": 16445,
+              "fn": 13972
+            },
+            "A": {
+              "precision": 0.5039401845028375,
+              "recall": 0.5863374640130179,
+              "f1": 0.5420252542054182,
+              "tp": 18737,
+              "fp": 18444,
+              "fn": 13219
+            },
+            "D": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 73184
+            }
+          },
+          "external_spell_f1": 0.18627968337730869,
+          "known_target_frames": 141561,
+          "frame_agreement": 0.2909417141726888,
+          "competition_score": false
+        }
+      },
+      {
+        "id": "J03WR9",
+        "mode": "clean",
+        "binary": {
+          "dead": {
+            "precision": 0.9991804890841146,
+            "recall": 0.9913487494714932,
+            "f1": 0.99524921228348
+          },
+          "live": {
+            "precision": 0.993799389263153,
+            "recall": 0.9994139434572648,
+            "f1": 0.9965987587222553
+          },
+          "macro_f1": 0.9959239855028676
+        },
+        "boundary": {
+          "f1": 0.9834254143646409,
+          "matched": 178,
+          "target_boundaries": 182,
+          "predicted_boundaries": 180,
+          "matched_median_error_s": 0.0,
+          "tolerance_s": 1.0
+        },
+        "combined": {
+          "macro_f1_HAD": 0.8989767989890834,
+          "per_class": {
+            "H": {
+              "precision": 0.87655851257747,
+              "recall": 0.9032476192265069,
+              "f1": 0.8897029574741672,
+              "tp": 48088,
+              "fp": 6772,
+              "fn": 5151
+            },
+            "A": {
+              "precision": 0.8319921491658488,
+              "recall": 0.7929045733703276,
+              "f1": 0.811978227209603,
+              "tp": 25434,
+              "fp": 5136,
+              "fn": 6643
+            },
+            "D": {
+              "precision": 0.9991804890841146,
+              "recall": 0.9913487494714932,
+              "f1": 0.99524921228348,
+              "tp": 60962,
+              "fp": 50,
+              "fn": 532
+            }
+          },
+          "external_spell_f1": 0.48384879725085916,
+          "known_target_frames": 146810,
+          "frame_agreement": 0.9160411416116069,
+          "competition_score": false
+        },
+        "without_D": {
+          "macro_f1_HAD": 0.49795774223202666,
+          "per_class": {
+            "H": {
+              "precision": 0.7338036520655,
+              "recall": 0.9065346832209471,
+              "f1": 0.8110746996050752,
+              "tp": 48263,
+              "fp": 17508,
+              "fn": 4976
+            },
+            "A": {
+              "precision": 0.601754552803005,
+              "recall": 0.7890700501917262,
+              "f1": 0.6827985270910047,
+              "tp": 25311,
+              "fp": 16751,
+              "fn": 6766
+            },
+            "D": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 61494
+            }
+          },
+          "external_spell_f1": 0.28457350272232307,
+          "known_target_frames": 146810,
+          "frame_agreement": 0.5011511477419794,
+          "competition_score": false
+        }
+      },
+      {
+        "id": "J03WR9",
+        "mode": "dropout",
+        "binary": {
+          "dead": {
+            "precision": 0.9845237899445751,
+            "recall": 0.973460825446385,
+            "f1": 0.9789610538279762
+          },
+          "live": {
+            "precision": 0.9810248003069517,
+            "recall": 0.9889704158657228,
+            "f1": 0.9849815844924499
+          },
+          "macro_f1": 0.9819713191602131
+        },
+        "boundary": {
+          "f1": 0.8532608695652174,
+          "matched": 157,
+          "target_boundaries": 182,
+          "predicted_boundaries": 186,
+          "matched_median_error_s": 0.04,
+          "tolerance_s": 1.0
+        },
+        "combined": {
+          "macro_f1_HAD": 0.8086852117862401,
+          "per_class": {
+            "H": {
+              "precision": 0.8488780200620429,
+              "recall": 0.7041642405003851,
+              "f1": 0.7697788546436418,
+              "tp": 37489,
+              "fp": 6674,
+              "fn": 15750
+            },
+            "A": {
+              "precision": 0.7863265474326218,
+              "recall": 0.594849892446301,
+              "f1": 0.6773157268871022,
+              "tp": 19081,
+              "fp": 5185,
+              "fn": 12996
+            },
+            "D": {
+              "precision": 0.9845237899445751,
+              "recall": 0.973460825446385,
+              "f1": 0.9789610538279762,
+              "tp": 59862,
+              "fp": 941,
+              "fn": 1632
+            }
+          },
+          "external_spell_f1": 0.3888524590163934,
+          "known_target_frames": 146810,
+          "frame_agreement": 0.7930794904979225,
+          "competition_score": false
+        },
+        "without_D": {
+          "macro_f1_HAD": 0.4327740489648084,
+          "per_class": {
+            "H": {
+              "precision": 0.7064089062735068,
+              "recall": 0.705572982212288,
+              "f1": 0.7059906968002632,
+              "tp": 37564,
+              "fp": 15612,
+              "fn": 15675
+            },
+            "A": {
+              "precision": 0.5731529535249869,
+              "recall": 0.612837858902017,
+              "f1": 0.592331450094162,
+              "tp": 19658,
+              "fp": 14640,
+              "fn": 12419
+            },
+            "D": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "tp": 0,
+              "fp": 0,
+              "fn": 61494
+            }
+          },
+          "external_spell_f1": 0.23419689119170983,
+          "known_target_frames": 146810,
+          "frame_agreement": 0.38976908929909404,
+          "competition_score": false
+        }
+      }
+    ],
+    "mean_binary_macro_f1": 0.9893918565164372,
+    "mean_boundary_f1": 0.9179576206135845,
+    "mean_combined_spell_f1": 0.4093353054069301
+  },
+  "post_selection_stress": [
+    {
+      "id": "J03WN1",
+      "binary": {
+        "dead": {
+          "precision": 0.9743092583616093,
+          "recall": 0.9612756886751203,
+          "f1": 0.967748591709139
+        },
+        "live": {
+          "precision": 0.9591383586135301,
+          "recall": 0.9728709946326981,
+          "f1": 0.9659558711419921
+        },
+        "macro_f1": 0.9668522314255655
+      },
+      "boundary": {
+        "f1": 0.7524271844660194,
+        "matched": 155,
+        "target_boundaries": 211,
+        "predicted_boundaries": 201,
+        "matched_median_error_s": 0.12,
+        "tolerance_s": 1.0
+      },
+      "combined": {
+        "macro_f1_HAD": 0.6432665997448489,
+        "per_class": {
+          "H": {
+            "precision": 0.7539141131737866,
+            "recall": 0.3701985118475605,
+            "f1": 0.49656569376668813,
+            "tp": 13483,
+            "fp": 4401,
+            "fn": 22938
+          },
+          "A": {
+            "precision": 0.7360265259169035,
+            "recall": 0.340374264613844,
+            "f1": 0.46548551375871955,
+            "tp": 10877,
+            "fp": 3901,
+            "fn": 21079
+          },
+          "D": {
+            "precision": 0.9743092583616093,
+            "recall": 0.9612756886751203,
+            "f1": 0.967748591709139,
+            "tp": 70350,
+            "fp": 1855,
+            "fn": 2834
+          }
+        },
+        "external_spell_f1": 0.25365853658536586,
+        "known_target_frames": 141561,
+        "frame_agreement": 0.6690402017504822,
+        "competition_score": false
+      }
+    },
+    {
+      "id": "J03WR9",
+      "binary": {
+        "dead": {
+          "precision": 0.9811178644619992,
+          "recall": 0.9108693531076203,
+          "f1": 0.9446894632542059
+        },
+        "live": {
+          "precision": 0.9389092611375517,
+          "recall": 0.9873646209386282,
+          "f1": 0.9625274945010998
+        },
+        "macro_f1": 0.9536084788776529
+      },
+      "boundary": {
+        "f1": 0.6594594594594595,
+        "matched": 122,
+        "target_boundaries": 182,
+        "predicted_boundaries": 188,
+        "matched_median_error_s": 0.12,
+        "tolerance_s": 1.0
+      },
+      "combined": {
+        "macro_f1_HAD": 0.6619080000775943,
+        "per_class": {
+          "H": {
+            "precision": 0.8451592803177818,
+            "recall": 0.4076335017562313,
+            "f1": 0.5499955649606548,
+            "tp": 21702,
+            "fp": 3976,
+            "fn": 31537
+          },
+          "A": {
+            "precision": 0.7623203622284926,
+            "recall": 0.3621598029740936,
+            "f1": 0.49103897201792207,
+            "tp": 11617,
+            "fp": 3622,
+            "fn": 20460
+          },
+          "D": {
+            "precision": 0.9811178644619992,
+            "recall": 0.9108693531076203,
+            "f1": 0.9446894632542059,
+            "tp": 56013,
+            "fp": 1078,
+            "fn": 5481
+          }
+        },
+        "external_spell_f1": 0.3504424778761062,
+        "known_target_frames": 146810,
+        "frame_agreement": 0.6084871602751856,
+        "competition_score": false
+      }
+    }
+  ],
+  "source_hashes": {
+    "tools/dead_ball_selection.py": "e0d9c32eb54310329d0775d94e2c3e338b770c0adf3f767ad2c1f3e59ad4ce7a",
+    "development/learned_dead_ball.py": "2fde1ef01f5a051b436d215a6eed1c9275dd1f3bb087592348ae860c70769408",
+    "development/state_metrics.py": "324f2828aab7424beea044a4b6ff62665f913ce306273b0a2d0ddb931181bfd3",
+    "development/sequence_possession.py": "54a81a02b78dc2d6c318ac3261d1df6dcc06f051130cd35108dc4db2fdc8afb7",
+    "development/dead_ball_features.py": "58a9ee743e08de97bc7ed3999dc5b76633c2c8ea2348800911bbffd49c4537b1",
+    "development/continuity.py": "a27e15659574878e3727cc8048bd9500aad3d961f101620595a271447c081d8a",
+    "tools/sportec_prepare.py": "b92045dae7c81b261255c4ab59550526de67bd4ea374bf6d2bcc8615251656d3"
+  },
+  "freeze_sha256": "99f664680e0e7f3dfe4a7ff7efaca7ec52952085f5eb2fab533ffd6026dda320",
+  "provided_fixture_used": false,
+  "reserved_test_used": false,
+  "human_ground_truth": false,
+  "combined_release_selected": false,
+  "video_validated": false,
+  "competition_score": false,
+  "elapsed_seconds": 393.8573358999565
+}

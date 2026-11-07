@@ -1,0 +1,21 @@
+{
+  "version": "sportec-dead-ball-study-v1",
+  "registered_on": "2026-11-07",
+  "provided_fixture_used": false,
+  "data_plan": "sportec-data-plan.json",
+  "train": ["J03WOH", "J03WOY", "J03WPY", "J03WQQ"],
+  "validation": ["J03WN1", "J03WR9"],
+  "reserved_test": "J03WMX",
+  "test_access_allowed": false,
+  "targets": "Explicit provider BallStatus; no missingness-derived D targets. BallStatus and BallPossession never enter features.",
+  "features": "Symmetric metric ball-boundary geometry, ball speed, nearest player distance, player speed distribution and spread. Centered 0.4/1.6 second summaries, without period/source-gap crossing; no events, clock-of-match, identities, height or targets.",
+  "model": "L2 logistic regression with training-only median imputation/scaling and explicit missing indicators. Equal fixture contribution, no class reweighting. Deterministic 5 Hz training samples; full 25 Hz evaluation.",
+  "l2": [0.001, 0.01, 0.1],
+  "dead_probability_thresholds": [0.35, 0.5, 0.65, 0.8],
+  "switch_cost_seconds": [0.0, 0.25, 0.5, 1.0],
+  "corruption": "Clean and deterministic label-independent contiguous ball dropout (20 percent of 2-second blocks) plus 20 percent independent player-block dropout. Training seed 731, validation seed 917. Also stress-test 50 percent ball dropout with seed 1123; not a simulation of all real detector errors.",
+  "selection": "Mean clean/corrupted validation binary dead/live macro F1, then D boundary F1 at 1 second, then combined H/A/D spell F1. Preserve all candidates and source hashes. No selection on the reserved test or supplied fixture.",
+  "acceptance": "On each validation fixture clean D precision >=0.80 and recall >=0.70; mean corrupted D F1 >=0.65; clean combined spell F1 improves over fixed sequence-without-D. Otherwise retain as unpromoted experiment.",
+  "combined": "Keep the externally frozen H/A sequence parameters unchanged; predicted D resets team sequence across stoppage. X never becomes D without classifier evidence.",
+  "limits": "Provider labels are not challenge ground truth. Corrected/complete external tracking differs from automatic challenge tracking. This experiment does not validate video, automatic Smart Tags, broadcast fusion or final competition performance."
+}

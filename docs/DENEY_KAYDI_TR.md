@@ -1,5 +1,15 @@
 # Deney kaydı
 
+## D003 — Öğrenilmiş D ve aktarım riski, 7 Kasım 2026
+
+Dört Sportec eğitim ve iki doğrulama maçında 48 aday karşılaştırıldı.
+Temiz doğrulama D F1: 0,9948 / 0,9952. Sayısal kabul geçmiş olsa da aday
+final sisteme alınmadı: dört eğitim maçındaki ölçülebilir D top hızlarının
+tamamı sıfır. Sağlayıcıya özgü sabit koordinat örüntüsünü öğrenmiş olma riski
+var. Başarı yarışma/görüntü başarısı diye sunulmadı. Ayrı oyuncu-temelli
+deney ve başka sağlayıcı denetimi gerekiyor. [Ayrıntılar](D_OGRENME_DENEYI_TR.md).
+231 test: 229 geçti, 2 isteğe bağlı AV atlandı. Temel ve H/A adayı korundu.
+
 ## D002 — Sportec/DFL canlı ve duran oyun hedefleri, 7 Kasım 2026
 
 CC BY 4.0 lisanslı dış kaynak, indirme öncesinde 4 eğitim / 2 doğrulama /
