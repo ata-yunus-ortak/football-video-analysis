@@ -1,5 +1,10 @@
 # İlk beş maç dakikası: yerel inceleme
 
+**7 Kasım düzeltmesi:** Bu belge geçmiş üretimin kaydıdır, yeni kullanım
+talimatı değildir. Öncelikli 3 Kasım e-postası çıktıyı sağlanan videoyla
+karşılaştırmayı yasaklıyor. 8777 sunucusu kapatıldı. Bu çıktı geliştirme veya
+doğrulama girdisi olarak kullanılmayacak. [Güncel süreç](OTONOM_GELISTIRME_TR.md).
+
 Kullanıcı iki saniyelik gösterim yerine maç saati 00:00–05:00 bölümünü,
 algoritmanın seçtiği oyuncuyla birlikte istedi. Yerel ekran:
 `http://127.0.0.1:8777/`.

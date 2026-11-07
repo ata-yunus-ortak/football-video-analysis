@@ -1,0 +1,273 @@
+{
+  "study": {
+    "version": "external-sequence-study-v1",
+    "selected_config": {
+      "radius_m": 3.8073350256105085,
+      "relative_speed_scale_mps": 3.4176014981269645,
+      "max_gap_s": 5.9,
+      "switch_cost_s": 0.25,
+      "mode": "relative_motion"
+    },
+    "selected_mean": {
+      "provider_filled_spell_f1": 0.4838791091685337,
+      "provider_macro_f1_HA": 0.7913181728895609,
+      "provider_team_spell_iou_f1": 0.42415575557873,
+      "provider_frame_agreement": 0.7604536270687472,
+      "abstention_fraction": 0.4763075867583201
+    },
+    "baseline_mean": {
+      "provider_filled_spell_f1": 0.36065410787633545,
+      "provider_macro_f1_HA": 0.6812276352915426,
+      "provider_team_spell_iou_f1": 0.16854236948533985,
+      "provider_frame_agreement": 0.5809203888316081,
+      "abstention_fraction": 0.5528242199436612
+    },
+    "selected_games": [
+      {
+        "id": "1886347",
+        "metrics": {
+          "provider_frame_agreement": 0.7875077881619937,
+          "provider_macro_f1_HA": 0.8134836356575259,
+          "provider_team_spell_iou_f1": 0.4434504792332269,
+          "known_teacher_frames": 32100,
+          "human_ground_truth": false,
+          "competition_score": false,
+          "provider_filled_spell_f1": 0.5140916808149406,
+          "abstention_fraction": 0.42613569021858755,
+          "D_validated": false
+        }
+      },
+      {
+        "id": "1986691",
+        "metrics": {
+          "provider_frame_agreement": 0.7393325015595757,
+          "provider_macro_f1_HA": 0.7843917414407561,
+          "provider_team_spell_iou_f1": 0.420563847429519,
+          "known_teacher_frames": 32060,
+          "human_ground_truth": false,
+          "competition_score": false,
+          "provider_filled_spell_f1": 0.4925795053003533,
+          "abstention_fraction": 0.45642240649856153,
+          "D_validated": false
+        }
+      },
+      {
+        "id": "2006363",
+        "metrics": {
+          "provider_frame_agreement": 0.7717172946977537,
+          "provider_macro_f1_HA": 0.7992770022245351,
+          "provider_team_spell_iou_f1": 0.4254658385093168,
+          "known_teacher_frames": 32854,
+          "human_ground_truth": false,
+          "competition_score": false,
+          "provider_filled_spell_f1": 0.48681135225375627,
+          "abstention_fraction": 0.4188254005854385,
+          "D_validated": false
+        }
+      },
+      {
+        "id": "2011166",
+        "metrics": {
+          "provider_frame_agreement": 0.7432569238556657,
+          "provider_macro_f1_HA": 0.7681203122354261,
+          "provider_team_spell_iou_f1": 0.40714285714285714,
+          "known_teacher_frames": 27658,
+          "human_ground_truth": false,
+          "competition_score": false,
+          "provider_filled_spell_f1": 0.4420338983050847,
+          "abstention_fraction": 0.6038468497306927,
+          "D_validated": false
+        }
+      }
+    ],
+    "validation_spell_wins": 4,
+    "accepted_external_proxy_candidate": true,
+    "candidate_count": 42,
+    "source_hashes": {
+      "tools/sequence_selection.py": "1f34be6de5912fecbd30efb2a564734615f68f932fbaa35202369b3b3e864074",
+      "development/sequence_possession.py": "54a81a02b78dc2d6c318ac3261d1df6dcc06f051130cd35108dc4db2fdc8afb7",
+      "development/sequence_metrics.py": "5f60407994a29fba6827d84642511adc4c68569b00e8509044e4b4786dc84632",
+      "development/continuity.py": "a27e15659574878e3727cc8048bd9500aad3d961f101620595a271447c081d8a"
+    },
+    "provided_fixture_used": false,
+    "fresh_test_used": false,
+    "human_ground_truth": false,
+    "competition_score": false,
+    "selected_combined_release": false,
+    "D_validated": false,
+    "vision_validated": false,
+    "calibration": {
+      "radii": [
+        1.7362315513778692,
+        3.8073350256105085,
+        6.588993853382859
+      ],
+      "relative_speed_scale_mps": 3.4176014981269645,
+      "max_gap_s": 5.9,
+      "training_fixture_count": 12
+    },
+    "elapsed_seconds": 23.552162300096825
+  },
+  "recheck": {
+    "candidate_sha256": "1103d248486de5db614e3f559c747c5bfa322a9ab9d0b9eff7cba696189d0784",
+    "source_hashes": {
+      "tools/sequence_selection.py": "1f34be6de5912fecbd30efb2a564734615f68f932fbaa35202369b3b3e864074",
+      "development/sequence_possession.py": "54a81a02b78dc2d6c318ac3261d1df6dcc06f051130cd35108dc4db2fdc8afb7",
+      "development/sequence_metrics.py": "5f60407994a29fba6827d84642511adc4c68569b00e8509044e4b4786dc84632",
+      "development/continuity.py": "a27e15659574878e3727cc8048bd9500aad3d961f101620595a271447c081d8a"
+    },
+    "recheck_code_sha256": "c0917ee3123841765844cec985b7fe505952b89f6222af49ae0076fdb1f43954",
+    "preparation_code_sha256": "b657c2dec09cd6a1d19b8263be9b12c1cf6fcb84fbf840b4d19383831d6576db",
+    "baseline_model_sha256": "1efa8f1073c0c204613cdd5ad1882e4525364ada7d982a70bb27387b854ff6cc",
+    "manifest_sha256": "685acabf133a4aad40387095d61b9fd51752debeb8cac57e8e2b2443f7afe6c1",
+    "fixture_ids": [
+      2013725,
+      2015213,
+      2016236,
+      2017461
+    ],
+    "previously_accessed_for_baseline": true,
+    "fresh_test": false,
+    "selection_allowed": false,
+    "provided_fixture_used": false,
+    "games": {
+      "sequence": [
+        {
+          "id": "2013725",
+          "metrics": {
+            "provider_frame_agreement": 0.6984107002360346,
+            "provider_macro_f1_HA": 0.7287859587998426,
+            "provider_team_spell_iou_f1": 0.39893333333333336,
+            "known_teacher_frames": 31775,
+            "human_ground_truth": false,
+            "competition_score": false,
+            "provider_filled_spell_f1": 0.446262341325811,
+            "abstention_fraction": 0.526682894193677,
+            "D_validated": false
+          }
+        },
+        {
+          "id": "2015213",
+          "metrics": {
+            "provider_frame_agreement": 0.6963539506842323,
+            "provider_macro_f1_HA": 0.729262735345525,
+            "provider_team_spell_iou_f1": 0.3862448418156809,
+            "known_teacher_frames": 31349,
+            "human_ground_truth": false,
+            "competition_score": false,
+            "provider_filled_spell_f1": 0.44816446402349486,
+            "abstention_fraction": 0.5268304184407984,
+            "D_validated": false
+          }
+        },
+        {
+          "id": "2016236",
+          "metrics": {
+            "provider_frame_agreement": 0.7121385887607895,
+            "provider_macro_f1_HA": 0.7491748562063186,
+            "provider_team_spell_iou_f1": 0.39999999999999997,
+            "known_teacher_frames": 33134,
+            "human_ground_truth": false,
+            "competition_score": false,
+            "provider_filled_spell_f1": 0.49079365079365084,
+            "abstention_fraction": 0.527798483846922,
+            "D_validated": false
+          }
+        },
+        {
+          "id": "2017461",
+          "metrics": {
+            "provider_frame_agreement": 0.7137219606757131,
+            "provider_macro_f1_HA": 0.7378026119938348,
+            "provider_team_spell_iou_f1": 0.42576489533011275,
+            "known_teacher_frames": 28888,
+            "human_ground_truth": false,
+            "competition_score": false,
+            "provider_filled_spell_f1": 0.4756756756756756,
+            "abstention_fraction": 0.5840226168982939,
+            "D_validated": false
+          }
+        }
+      ],
+      "baseline": [
+        {
+          "id": "2013725",
+          "metrics": {
+            "provider_frame_agreement": 0.5422501966955153,
+            "provider_macro_f1_HA": 0.6393806547071916,
+            "provider_team_spell_iou_f1": 0.1969080553295362,
+            "known_teacher_frames": 31775,
+            "human_ground_truth": false,
+            "competition_score": false,
+            "provider_filled_spell_f1": 0.3496357960457856,
+            "abstention_fraction": 0.5963616176282188,
+            "D_validated": false
+          }
+        },
+        {
+          "id": "2015213",
+          "metrics": {
+            "provider_frame_agreement": 0.5594117834699671,
+            "provider_macro_f1_HA": 0.6577194820505086,
+            "provider_team_spell_iou_f1": 0.17376775271512113,
+            "known_teacher_frames": 31349,
+            "human_ground_truth": false,
+            "competition_score": false,
+            "provider_filled_spell_f1": 0.34942528735632183,
+            "abstention_fraction": 0.5867602391090276,
+            "D_validated": false
+          }
+        },
+        {
+          "id": "2016236",
+          "metrics": {
+            "provider_frame_agreement": 0.5438220558942476,
+            "provider_macro_f1_HA": 0.6443148274985331,
+            "provider_team_spell_iou_f1": 0.155810147299509,
+            "known_teacher_frames": 33134,
+            "human_ground_truth": false,
+            "competition_score": false,
+            "provider_filled_spell_f1": 0.32711864406779656,
+            "abstention_fraction": 0.6099351626559402,
+            "D_validated": false
+          }
+        },
+        {
+          "id": "2017461",
+          "metrics": {
+            "provider_frame_agreement": 0.5122542232068679,
+            "provider_macro_f1_HA": 0.6150115729054755,
+            "provider_team_spell_iou_f1": 0.17319189971070395,
+            "known_teacher_frames": 28888,
+            "human_ground_truth": false,
+            "competition_score": false,
+            "provider_filled_spell_f1": 0.37702871410736577,
+            "abstention_fraction": 0.6707533834376006,
+            "D_validated": false
+          }
+        }
+      ]
+    },
+    "means": {
+      "sequence": {
+        "provider_filled_spell_f1": 0.4652240329546581,
+        "provider_macro_f1_HA": 0.7362565405863803,
+        "provider_team_spell_iou_f1": 0.40273576761978175,
+        "provider_frame_agreement": 0.7051563000891924,
+        "abstention_fraction": 0.5413336033449228
+      },
+      "baseline": {
+        "provider_filled_spell_f1": 0.3508021103943174,
+        "provider_macro_f1_HA": 0.6391066342904272,
+        "provider_team_spell_iou_f1": 0.17491946376371756,
+        "provider_frame_agreement": 0.5394345648166494,
+        "abstention_fraction": 0.6159526007076968
+      }
+    },
+    "candidate_changed": false,
+    "human_ground_truth": false,
+    "competition_score": false,
+    "D_validated": false,
+    "vision_validated": false
+  }
+}

@@ -2,5 +2,11 @@
   "initial_rules_snapshot_date": "2026-10-20",
   "initial_rules_sha256": "49eb57f807519f47757162555b19c30cb68bc265606d8289943521842f526ed4",
   "current_rules_url": "https://github.com/metrica-sports/more-than-a-hack-2027/blob/main/RULES.md",
-  "organizer_clarification_date": "2026-11-03"
+  "organizer_clarification_date": "2026-11-03",
+  "precedence_reverified_on": "2026-11-07",
+  "precedence_source": "Organizer broadcast email, 2026-11-03 12:23 UTC, Clarification of the rules for the Initial Challenge",
+  "supplied_output_vs_video_comparison_allowed": false,
+  "supplied_data_upload_to_ai_allowed": false,
+  "training_and_parameter_selection": "External data only",
+  "earlier_local_review_guidance_superseded": true
 }

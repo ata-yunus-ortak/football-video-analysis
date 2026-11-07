@@ -1,5 +1,40 @@
 # Deney kaydı
 
+## S001 — Dış maçlarda zamansal sahiplik seçimi, 7 Kasım 2026
+
+Plan: `sequence-selection-plan.json`; sonuç: `sequence-external-results.json`.
+SkillCorner'ın kayıtlı 12 eğitim / 4 doğrulama maçı kullanıldı. Önceden
+erişilmiş dış veridir. 42 adayın ayarları doğrulama öncesinde sabitlendi.
+Seçilen adayın ek dört maçtaki tahminleri hedefler puanlanmadan donduruldu.
+Bu dört maç daha önce temel model kontrolünde görüldüğünden yeni test değildir.
+
+| Ölçüm | Eski temel | Yeni aday |
+| --- | ---: | ---: |
+| Doğrulama: X doldurmalı bölüm proxy F1 | 0,360654 | 0,483879 |
+| Doğrulama: H/A makro F1 | 0,681228 | 0,791318 |
+| Ek kontrol: X doldurmalı bölüm proxy F1 | 0,350802 | 0,465224 |
+| Ek kontrol: H/A makro F1 | 0,639107 | 0,736257 |
+
+Her iki grupta da dört maçın tamamında bölüm proxy iyileşti. Bunlar otomatik
+sağlayıcı hedefleriyle uyumdur, insan doğruluğu veya yarışma skoru değildir.
+Eski X'i bölümlere ayıran proxy de raporda ayrı tutuldu. D ve görüntü başarısı
+bu deneyde ölçülmedi; yeni birleşik teslim sürümü seçilmedi.
+
+Seçilen geometri yarıçapı 3,807335 m, göreli hız ölçeği 3,417601 m/s,
+azami kanıtsız bağlantı 5,9 s ve geçiş maliyeti 0,25 s. İlk üçü yalnız eğitim
+verisinden, sonuncusu ön kayıtlı adaylar arasından dış doğrulamayla seçildi.
+Ek dört maç sonucuyla değiştirilmedi. Kaynak/plan/veri hash'leri özel
+`sequence-development-20261107` kaydında. Temel model bytes değişmedi.
+
+11 yeni sentetik test; toplam 216 test, 214 geçti, 2 isteğe bağlı AV atlandı.
+Dinamik program kaba kuvvet en iyi sonuçla, takım değişim simetrisi, FPS,
+uzun kayıp/devre/kare kopması ve hedef sızıntısı reddiyle doğrulandı.
+
+Öncelikli 3 Kasım kural e-postası yeniden okundu: sağlanan çıktı-video
+karşılaştırması yasak. Önceki yerel gösterim yaklaşımı düzeltildi,
+8776/8777 sunucuları durduruldu. Sağlanan maç bu deneyde kullanılmadı.
+[Güncel süreç ve sonraki aşamalar](OTONOM_GELISTIRME_TR.md).
+
 ## V012 — Görüntü karar verir, tracking oyuncuyu etiketler, 7 Kasım 2026
 
 `development/visual_possession.py`, `tools/visual_identity_context.py` ve

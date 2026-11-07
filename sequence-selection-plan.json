@@ -1,0 +1,18 @@
+{
+  "version": "external-sequence-study-v1",
+  "registered_on": "2026-11-07",
+  "provided_fixture_used": false,
+  "source_registry": "external-selection.json",
+  "split_policy": "Reuse the registered 12 training / 4 validation external fixtures. Previously exposed data, not a fresh test. Do not access the four post-freeze fixtures in this selection.",
+  "hypothesis": "Accumulating symmetric team-control evidence over time reduces incidental-touch fragmentation compared with isolated nearest-player decisions.",
+  "radius_training_quantiles": [0.5, 0.75, 0.9],
+  "switch_cost_seconds": [0.25, 0.5, 1.0, 2.0, 4.0, 8.0],
+  "evidence_modes": ["geometry", "relative_motion"],
+  "abstention": "No observed ball or missing team coverage gives neutral evidence; no answer before first evidence, after last evidence or in an entirely unsupported block. Long missing runs split decoding at a training-derived median gap duration.",
+  "selection": "Mean external provider spell proxy with prediction-X forward fill only inside contiguous known-target blocks, then H/A macro F1. Also report old frozen proxy for direct comparison.",
+  "acceptance": "Improvement over frozen baseline on mean spell proxy and at least three of four validation fixtures, with no mean H/A macro-F1 loss. Selection remains an external automatic-provider proxy candidate, not validated video or D release.",
+  "controls": ["frozen baseline", "nearest", "zero switch-cost ablation"],
+  "D": "Not inferred from missing coordinates or provider X. Needs independently evaluable live/dead evidence.",
+  "source_freeze": "Record code, registry, input and target hashes before calibration; store full results before selecting; never use Barcelona pixels, public scores or annotations.",
+  "next": "Separate visual control and D evaluation; independent final validation before a combined release. No guarantee of competition performance."
+}

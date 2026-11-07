@@ -1,5 +1,23 @@
 # Technical report — remediation release
 
+## Later external experiment — 7 November 2026
+
+The original frozen release below remains unchanged. The external sequence
+experiment is documented in `docs/OTONOM_GELISTIRME_TR.md` and
+`sequence-external-results.json`. On four reused validation fixtures its
+automatic-provider, abstention-filled spell proxy increased from 0.360654 to
+0.483879; on four additional previously accessed fixtures, with the candidate
+fixed before inference, from 0.350802 to 0.465224. These are not official
+scores or independent human labels. D and image validation remain outstanding.
+
+The organizer's 3 November 12:23 UTC broadcast clarification was re-read on
+7 November: it expressly supersedes earlier guidance and prohibits checking
+outputs against the supplied video. The previous local annotated review
+guidance is withdrawn; services 8776/8777 were stopped and no comparison
+results were used in this external study. Earlier production history is
+retained, not represented as automatically compliant. No blanket eligibility
+or provider-side deletion certification is claimed.
+
 ## Prior process and organizer clarification
 
 Development initially relied on a local 20 October 2026 rules snapshot whose

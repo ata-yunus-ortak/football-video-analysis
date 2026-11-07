@@ -1,5 +1,13 @@
 # Clean development instructions
 
+- Read `docs/OTONOM_GELISTIRME_TR.md`: the 3 November 12:23 UTC organizer
+  clarification takes precedence over earlier web/document/email guidance.
+  Do not compare supplied-match outputs against its video, even for a claimed
+  viewing-only diagnostic. No supplied data uploads to AI services. External
+  training/selection continues; automatic frozen inference remains allowed.
+  Earlier local-review documents are historical, not authorization to resume
+  those comparisons. Do not erase the history or claim blanket compliance.
+
 - Read `README.md`, `TECHNICAL_REPORT.md`, `REMEDIATION.md`, `model.json`,
   `docs/GELISTIRME_TR.md` and the latest entry in `docs/DENEY_KAYDI_TR.md`.
 - Keep `main` and the frozen `model.json` / `clean_model/` bytes as the baseline.

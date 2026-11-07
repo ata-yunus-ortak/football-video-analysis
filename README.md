@@ -1,5 +1,11 @@
 # Remediated external-fixture possession model
 
+**Current development:** see [external evaluation and rule precedence](docs/OTONOM_GELISTIRME_TR.md).
+The 3 November organizer clarification prohibits comparing supplied-match
+outputs against its video. The earlier Barcelona overlay review services
+(8776/8777) have been stopped; their documentation below is historical.
+New development uses external fixtures, with the baseline unchanged.
+
 **Team development:** start with [TEAM_START_TR.md](TEAM_START_TR.md).
 This branch contains the current clean development code; the repository's
 default portfolio branch is a separate project history. Use the branch-specific

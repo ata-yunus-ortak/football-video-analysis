@@ -1,0 +1,140 @@
+{
+  "version": "sportec-external-data-v1",
+  "repository": "https://huggingface.co/datasets/pysport/idsse-data",
+  "commit": "a715a38dfbaf5f58e431727c2b78d174101a703c",
+  "license": "CC-BY-4.0",
+  "citation": "Bassek, M., Rein, R., Weber, H. et al. An integrated dataset of spatiotemporal and event data in elite soccer. Scientific Data 12, 195 (2025). https://doi.org/10.1038/s41597-025-04505-y",
+  "provided_fixture_used": false,
+  "registered_on": "2026-11-07",
+  "scope": "Independent provider H/A/D target coverage and external development, no supplied match data. State/ownership attributes are targets only and excluded from features. Event labels not inference inputs. No video is included.",
+  "split_rationale": "Four Fortuna fixtures training; one Fortuna and one Bundesliga validation; separate Bundesliga fixture reserved before this-stage access. Prior exposure outside accessible records unknown; no unconditional untouched-test claim.",
+  "test_access": "Do not download reserved_test until combined candidate freeze.",
+  "files": [
+    {
+      "fixture_id": "J03WMX",
+      "split": "reserved_test",
+      "path": "DFL_02_01_matchinformation_DFL-COM-000001_DFL-MAT-J03WMX.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_02_01_matchinformation_DFL-COM-000001_DFL-MAT-J03WMX.xml",
+      "bytes": 11930,
+      "git_blob_sha1": "8f2a82d84428c28e0e01f0a908c8395cc8d23900",
+      "sha256": null
+    },
+    {
+      "fixture_id": "J03WN1",
+      "split": "validation",
+      "path": "DFL_02_01_matchinformation_DFL-COM-000001_DFL-MAT-J03WN1.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_02_01_matchinformation_DFL-COM-000001_DFL-MAT-J03WN1.xml",
+      "bytes": 11722,
+      "git_blob_sha1": "45d2f112aed6c4212e66db8a91e8da1b8d728090",
+      "sha256": null
+    },
+    {
+      "fixture_id": "J03WOH",
+      "split": "train",
+      "path": "DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WOH.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WOH.xml",
+      "bytes": 11745,
+      "git_blob_sha1": "a693a0cacc2b597357e65a04eec5febfdaff79aa",
+      "sha256": null
+    },
+    {
+      "fixture_id": "J03WOY",
+      "split": "train",
+      "path": "DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WOY.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WOY.xml",
+      "bytes": 11952,
+      "git_blob_sha1": "bce56e5f518216e62d1e93a38322d4b9e357e5ab",
+      "sha256": null
+    },
+    {
+      "fixture_id": "J03WPY",
+      "split": "train",
+      "path": "DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WPY.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WPY.xml",
+      "bytes": 11922,
+      "git_blob_sha1": "46f1ffe15e1b96b12aab10594b12886c503c2f68",
+      "sha256": null
+    },
+    {
+      "fixture_id": "J03WQQ",
+      "split": "train",
+      "path": "DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WQQ.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WQQ.xml",
+      "bytes": 11932,
+      "git_blob_sha1": "7ec8acbff5a0c6167b632cc230d2a8b0e7b44b1c",
+      "sha256": null
+    },
+    {
+      "fixture_id": "J03WR9",
+      "split": "validation",
+      "path": "DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WR9.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_02_01_matchinformation_DFL-COM-000002_DFL-MAT-J03WR9.xml",
+      "bytes": 11823,
+      "git_blob_sha1": "7a8eb84881a1631da510982c01c90a3afd1b2e23",
+      "sha256": null
+    },
+    {
+      "fixture_id": "J03WMX",
+      "split": "reserved_test",
+      "path": "DFL_04_03_positions_raw_observed_DFL-COM-000001_DFL-MAT-J03WMX.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_04_03_positions_raw_observed_DFL-COM-000001_DFL-MAT-J03WMX.xml",
+      "bytes": 418524833,
+      "git_blob_sha1": "0d8c8c9171c7acabfe3a70c42ccfd8b3956429bc",
+      "sha256": "d3dd92e509421a6466acb0a083c009035f1751bc5fd9ef42ffa8f20d01cf7d49"
+    },
+    {
+      "fixture_id": "J03WN1",
+      "split": "validation",
+      "path": "DFL_04_03_positions_raw_observed_DFL-COM-000001_DFL-MAT-J03WN1.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_04_03_positions_raw_observed_DFL-COM-000001_DFL-MAT-J03WN1.xml",
+      "bytes": 391722803,
+      "git_blob_sha1": "16247fd16e67117394540365241e9fb84d3626c8",
+      "sha256": "56ef948961a18e150dba0b7b16869d0008ff66f3050a0c355d31fa5b8ec2fcec"
+    },
+    {
+      "fixture_id": "J03WOH",
+      "split": "train",
+      "path": "DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WOH.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WOH.xml",
+      "bytes": 348945715,
+      "git_blob_sha1": "f3866cbd719d396d62edb56a2b63381f4e3f759f",
+      "sha256": "ec4dcf30200aad694dea263d5289485fcd0ca42badddaeb7c81f5cd5a4229d4f"
+    },
+    {
+      "fixture_id": "J03WOY",
+      "split": "train",
+      "path": "DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WOY.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WOY.xml",
+      "bytes": 362567859,
+      "git_blob_sha1": "e012fa0d832945077a309d2882b473799c7c683c",
+      "sha256": "a228ef0e676d009cefff1580fcb721b53f598454eb120ec347e0a628a3a4646b"
+    },
+    {
+      "fixture_id": "J03WPY",
+      "split": "train",
+      "path": "DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WPY.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WPY.xml",
+      "bytes": 371688499,
+      "git_blob_sha1": "24ea68e0f06a5821735a96dfa016e7b984aca87f",
+      "sha256": "845202c29ad93d696653436da426a7cdaefb848298e07b7343de6529581671e1"
+    },
+    {
+      "fixture_id": "J03WQQ",
+      "split": "train",
+      "path": "DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WQQ.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WQQ.xml",
+      "bytes": 356219423,
+      "git_blob_sha1": "845de30f406b4b3a1edf59d2c426f548702051ba",
+      "sha256": "cbefcb0bd7f39f3b94ee69a7bc97aac0f936425062c1cc1b144733df36804d6f"
+    },
+    {
+      "fixture_id": "J03WR9",
+      "split": "validation",
+      "path": "DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WR9.xml",
+      "url": "https://huggingface.co/datasets/pysport/idsse-data/resolve/a715a38dfbaf5f58e431727c2b78d174101a703c/DFL_04_03_positions_raw_observed_DFL-COM-000002_DFL-MAT-J03WR9.xml",
+      "bytes": 372934140,
+      "git_blob_sha1": "41f025c938c9724508cd1ea118684eabac3c7bcc",
+      "sha256": "70b63069189019066fb7e3d9db891122edfe787f3a43ba522ebe45ed89ea0269"
+    }
+  ]
+}

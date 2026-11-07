@@ -1,5 +1,9 @@
 # Barcelona yerel bütünleşik gösterim — 7 Kasım 2026
 
+**7 Kasım düzeltmesi:** Tarihsel üretim kaydıdır. Öncelikli 3 Kasım e-postası
+çıktıyı sağlanan videoyla karşılaştırmayı yasaklıyor; 8776 sunucusu kapatıldı.
+Bu gösterim doğrulama/seçim için kullanılmaz. [Güncel süreç](OTONOM_GELISTIRME_TR.md).
+
 Kullanıcının açık görüntüleme talebi için `tools.visual_local_review` çalıştırıldı.
 Gösterim: `http://127.0.0.1:8776/`. Taktik ve yayın kaydı kendi görüntü
 dedektörü, kişi/top ölçümü ve zamansal top takip durumuyla yan yanadır.

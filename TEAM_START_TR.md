@@ -3,10 +3,15 @@
 Bu dal, More Than a Hack 2027 için temiz tracking/sahiplik geliştirmesidir.
 Varsayılan daldaki eski portföy projesinden ayrı bir Git geçmişiyle korunur.
 
+Güncel çalışma ve kural önceliği: [OTONOM_GELISTIRME_TR.md](docs/OTONOM_GELISTIRME_TR.md).
+Sağlanan maçın çıktısını videoyla karşılaştırmayın; önceki çizimli yerel
+gösterimler doğrulama yöntemi değildir. Yeni dış maç çalışmasının kodu ve
+özet sonuçları bu daldadır; donmuş temel model korunur.
+
 ## Kurulum
 
 ```bash
-git clone --branch feature/reachability-vision --single-branch https://github.com/ata-yunus-ortak/football-video-analysis.git
+git clone --branch feature/external-possession-selection --single-branch https://github.com/ata-yunus-ortak/football-video-analysis.git
 cd football-video-analysis
 python -m venv .venv
 ```
