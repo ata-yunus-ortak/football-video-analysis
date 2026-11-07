@@ -6,13 +6,14 @@ used here. Positions use metres with the pitch's top-left corner as the origin.
 """
 import warnings
 import numpy as np
+from .continuity import pair_masks
 
 
-def _run_age(mask, period, fps):
+def _run_age(mask, period, fps, pairs=None):
     age = np.zeros(len(mask), float)
     first = 0
     for index in range(len(mask)):
-        if index == 0 or not mask[index - 1] or period[index] != period[index - 1]:
+        if index == 0 or not mask[index - 1] or period[index] != period[index - 1] or pairs is not None and not pairs[index]:
             first = index
         if mask[index]:
             age[index] = (index - first) / fps
@@ -46,15 +47,13 @@ def extract(inputs):
     outside = present & (margin < 0)
     adjacent = np.zeros(n, bool)
     adjacent[1:] = active[1:] & (period[1:] == period[:-1])
-    ball_pair = adjacent.copy()
+    ball_pair, player_pair = pair_masks(inputs)
     ball_pair[1:] &= present[1:] & present[:-1]
     speed = np.full(n, np.nan)
     step = np.linalg.norm(np.diff(ball, axis=0), axis=1) * fps
     speed[1:] = np.where(ball_pair[1:], step, np.nan)
-    player_pair = np.isfinite(players[1:]).all(axis=2) & np.isfinite(players[:-1]).all(axis=2)
-    player_pair &= adjacent[1:, None]
     player_speed = np.linalg.norm(np.diff(players, axis=0), axis=2) * fps
-    player_speed[~player_pair] = np.nan
+    player_speed[~player_pair[1:]] = np.nan
     median_player_speed = np.full(n, np.nan)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
@@ -63,7 +62,7 @@ def extract(inputs):
     return_step = np.zeros(n, bool)
     exit_step[1:] = ball_pair[1:] & outside[1:] & ~outside[:-1]
     return_step[1:] = ball_pair[1:] & ~outside[1:] & outside[:-1]
-    outside_age = _run_age(outside, period, fps)
+    outside_age = _run_age(outside, period, fps, ball_pair)
     outside_age[~outside] = np.nan
     missing_age = _run_age(~present & active, period, fps)
     missing_age[~active] = np.nan

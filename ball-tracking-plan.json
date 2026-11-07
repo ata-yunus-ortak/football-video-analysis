@@ -1,0 +1,22 @@
+{
+  "version": "temporal-ball-engineering-v1",
+  "registered_on": "2026-11-07",
+  "provided_fixture_used": false,
+  "selected_release": false,
+  "parameters_origin": "Fixed synthetic engineering checks, not football accuracy selection",
+  "scope": "Previously exposed SoccerNet training gallery. No Barcelona video/tracking access. No reference labels as inputs.",
+  "parameters": {
+    "min_confidence": 0.3,
+    "confirmation_observations": 3,
+    "max_missing_s": 0.2,
+    "match_radius_diagonal": 0.035,
+    "prediction_growth_diagonal_per_s": 0.15,
+    "max_speed_diagonal_per_s": 3.0,
+    "confidence_weight": 0.25,
+    "size_weight": 0.1,
+    "ambiguity_margin": 0.15,
+    "velocity_smoothing": 0.5,
+    "duplicate_iou": 0.6,
+    "duplicate_center_diagonal": 0.002
+  }
+}

@@ -6,7 +6,7 @@ Varsayılan daldaki eski portföy projesinden ayrı bir Git geçmişiyle korunur
 ## Kurulum
 
 ```bash
-git clone --branch develop/dead-ball-data-audit --single-branch https://github.com/ata-yunus-ortak/football-video-analysis.git
+git clone --branch feature/reachability-vision --single-branch https://github.com/ata-yunus-ortak/football-video-analysis.git
 cd football-video-analysis
 python -m venv .venv
 ```
@@ -59,12 +59,63 @@ elle doğruluk etiketi/düzeltme toplamaz ve veriyi harici servise yüklemez.
 | `tools/motion_experiment.py` | Kayıtlı dış verilerde deney çalıştırıcısı |
 | `tests/` | Sentetik ve bütünlük testleri |
 | `docs/DENEY_KAYDI_TR.md` | Deneylerin veri, seçim ve doğrulama durumu |
+| `development/visual_possession.py` | Görüntüden kontrol/sahiplik adayı ve kamera tercihi |
+| `tools/visual_identity_context.py` | Tracking/XML'den yalnız oyuncu kimliği bağlamı |
+| `tools/visual_possession_experiment.py` | Dış/sentetik veride görüntü temelli H/A/X çalıştırıcısı |
+| `tools/visual_long_review.py`, `tools/visual_review_server.py` | Yerel ilk beş dakika gösterimi ve seçilen oyuncu vurgusu |
 
 Deneysel katmanlar uygulanmıştır; bütün eşikleri gerçek dış maçlarda seçilmiş
 ve doğrulanmış yeni bir teslim modeli henüz değildir. Sentetik test ayarlarını
 doğrulanmış futbol parametresi diye kullanma. Ayrıntılar ilgili `docs/` belgelerinde.
 
+## Yeni görüntü/sahiplik akışını çalıştırma
+
+Görüntü için ayrı Python 3.10+ ortamı kullan:
+
+```powershell
+python -m venv .venv-vision
+.\.venv-vision\Scripts\Activate.ps1
+python -m pip install -r requirements-vision.txt
+python -m tools.vision_weights --size nano --out D:/football-private/nano-weights
+```
+
+CPU kurulumu ve tam bağımlılık sürümleri için `docs/UYGULAMA_PLANI_TR.md` ve
+`requirements-vision-lock.txt` dosyalarını kullan. GPU paketini kendi kart/sürücü
+uyumluluğuna göre ayrı ortamda kur; bir arkadaşın ortamını veya sürücüsünü
+otomatik değiştirme. Örnek kaynak kaydı ve dış veri edinme adımları
+`docs/GORUNTU_ISLEME_TR.md`, `docs/SOCCERNET_ASAMALARI_TR.md` içindedir.
+
+İşlem sırası: kayıtlı dış video tespiti → `tools.match_analysis` ile zamansal
+top takibi → `tools.visual_identity_context` ile oyuncu/takım bağlamı →
+`tools.visual_possession_experiment`. Ayrıntılı sözleşme ve komutlar
+`docs/GORUNTU_TEMELLI_SAHIPLIK_TR.md` içindedir. Tracking topu ve eski sahiplik
+etiketleri bu yeni karar yoluna girmez. Eşleme/geometri/canlılık kanıtı yoksa X
+kalması beklenir; doğrulama bayraklarını sırf sonuç almak için true yapma.
+
+Kullanıcının yalnız yerel inceleme talebine özel ilk beş dakika aracı:
+
+```powershell
+python -m tools.visual_long_review --alignment D:/football-private/alignment.json --external-run D:/football-private/completed-native-external-run --clock D:/football-private/automatic-clock/observations.jsonl --ball-plan ball-tracking-plan.json --owner-plan visual-possession-plan.json --out D:/football-private/new-first-five-review --device cpu --local-review
+python -m tools.visual_review_server --root D:/football-private/new-first-five-review --broadcast-video D:/football-private/BAR-ATH_broadcast.mp4 --port 8777
+```
+
+Sunucu ikinci terminalde çalışabilir; hazır parçalar `http://127.0.0.1:8777/`
+adresinde görünür. Kaynak yollarını kendi yetkili dosyalarına göre değiştir.
+Tamamlanmış dış koşunun kayıt/hash dosyaları da kendi kurulumundan üretilmelidir;
+depoda maç verisi veya arkadaşının özel manifesti bulunmaz. Bu inceleme komutu
+eğitim/seçim aracı değildir; varsayım görünümü doğrulanmış sahiplik değildir.
+Detaylar: `docs/ILK_BES_DAKIKA_YEREL_TR.md`.
+
 ## Birlikte geliştirme
+
+Görüntüden otomatik tespit eklemek için adaylar, kod/ağırlık lisansları ve
+önerilen dış maç deneyleri:
+[açık kaynak görüntü araştırması](docs/ACIK_KAYNAK_GORUNTU_ARASTIRMASI_TR.md).
+Bu liste yeni bir modelin kurulmuş veya seçilmiş olduğu anlamına gelmez.
+
+Erişim süresi entegrasyonu ve yerel görüntü/iki video çalışmasının adımları:
+[uygulama planı](docs/UYGULAMA_PLANI_TR.md). Deneysel kodlar
+`feature/reachability-vision` dalındadır; donmuş teslim modeli korunur.
 
 ```bash
 git switch -c feature/kisa-aciklama

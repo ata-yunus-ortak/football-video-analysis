@@ -13,6 +13,7 @@ from development.player_motion import DribbleConfig
 from development.team_transitions import TransitionConfig
 from development.set_piece_dead_ball import DeadBallConfig
 from development.long_ball import LongBallConfig
+from development.reachability import ReachabilityConfig
 from .smart_tag_view import load_tags
 from .dead_ball_audit import _frozen_model
 from .metrica_data import external_output, sha256
@@ -32,6 +33,7 @@ def run(audit_dir, config_path, out):
     transition = TransitionConfig(**spec['transition_parameters']) if 'transition_parameters' in spec else None
     dead_ball = DeadBallConfig(**spec['dead_ball_parameters']) if 'dead_ball_parameters' in spec else None
     long_ball = LongBallConfig(**spec['long_ball_parameters']) if 'long_ball_parameters' in spec else None
+    arrival = ReachabilityConfig(**spec['reachability_parameters']) if 'reachability_parameters' in spec else None
     if transition is not None and dribble is None:
         raise ValueError('Transition parameters require dribble/player-motion parameters')
     repo = Path(__file__).resolve().parents[1]
@@ -42,13 +44,15 @@ def run(audit_dir, config_path, out):
     source_paths = [Path(__file__), repo / 'development' / 'motion_possession.py',
                     repo / 'development' / 'dead_ball_features.py', repo / 'development' / 'player_motion.py',
                     repo / 'development' / 'team_transitions.py', repo / 'development' / 'set_piece_dead_ball.py',
-                    repo / 'tools' / 'smart_tag_view.py', repo / 'development' / 'long_ball.py']
+                    repo / 'tools' / 'smart_tag_view.py', repo / 'development' / 'long_ball.py',
+                    repo / 'development' / 'reachability.py', repo / 'development' / 'continuity.py']
     manifest = {'version': 'motion-evidence-experimental-v1', 'selected_release': False,
                 'provided_fixture_used': False, 'config': asdict(config),
                 'dribble_config': asdict(dribble) if dribble is not None else None,
                 'transition_config': asdict(transition) if transition is not None else None,
                 'dead_ball_config': asdict(dead_ball) if dead_ball is not None else None,
                 'long_ball_config': asdict(long_ball) if long_ball is not None else None,
+                'reachability_config': asdict(arrival) if arrival is not None else None,
                 'automatic_tags': spec.get('automatic_tag_files', {}),
                 'config_sha256': sha256(config_path), 'rationale': spec['rationale'],
                 'audit_report_sha256': sha256(root / 'report.json'),
@@ -83,7 +87,12 @@ def run(audit_dir, config_path, out):
                 raise ValueError('Automatic tag source hash differs')
             tag_data = load_tags(tag_path, float(inputs['fps']), len(base))
         result = predict(inputs, base, config, dribble, transition,
-                         dead_ball_config=dead_ball, automatic_tags=tag_data, long_ball_config=long_ball)
+                         dead_ball_config=dead_ball, automatic_tags=tag_data, long_ball_config=long_ball,
+                         reachability_config=arrival)
+        if arrival is not None:
+            names = ('arrival_time_s', 'team_arrival_time_s', 'arrival_team_counts',
+                     'arrival_player_velocity_mps')
+            np.savez_compressed(out / (mid + '-arrival.npz'), **{name: result[name] for name in names})
         if dribble is not None:
             names = ('dribble_slot', 'dribble_velocity_error_mps', 'player_velocity_mps',
                      'team_mean_velocity_mps', 'team_mean_speed_mps', 'team_velocity_counts')
@@ -102,6 +111,8 @@ def run(audit_dir, config_path, out):
         summaries.append({'id': mid, 'split': fixture['split'], 'frames': len(base),
                           'motion_candidates': len(result['contacts']),
                           'candidate_passes': len(result['passes']),
+                          'arrival_supported_contacts': sum(e['assignment_evidence'] == 'motion_and_arrival_time'
+                                                            for e in result['contacts']),
                           'dribble_frames': int((result['dribble_slot'] >= 0).sum()) if dribble is not None else 0,
                           'dead_ball_frames': int((result['labels'] == 'D').sum()),
                           'long_ball_candidates': len(result.get('long_ball_events', []))})

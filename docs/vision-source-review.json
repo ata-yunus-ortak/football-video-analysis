@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-11-05",
+  "purpose": "Research shortlist only; not pipeline selection or complete dependency legal audit.",
+  "models_installed": true,
+  "weights_downloaded": true,
+  "match_material_uploaded": false,
+  "competition_fixture_used_for_selection": false,
+  "dependency_audit_complete": false,
+  "repositories": [
+    {
+      "repo": "roboflow/rf-detr",
+      "commit": "e8f5db605f1dbbb24bb61fbd014be29bc736d5e4",
+      "default_branch": "develop",
+      "license_spdx": "Apache-2.0",
+      "files": {
+        "README.md": {
+          "sha256": "45ef2927aeeed7272e5a41408d097e7a7e6bbcb5877a745241939059dcd9ef31",
+          "bytes": 31828
+        },
+        "LICENSE": {
+          "sha256": "8cabf52c61130fc97a7e5da5e3685ccf44841c0c53d6f881189369b136603cca",
+          "bytes": 11345
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/roboflow/rf-detr",
+      "role": "first_detector_candidate",
+      "weights_review": "explicit_apache_2_0_for_nano_small_medium_large_detection_only",
+      "source_snapshot_url": "https://github.com/roboflow/rf-detr/tree/e8f5db605f1dbbb24bb61fbd014be29bc736d5e4",
+      "code_license_url": "https://github.com/roboflow/rf-detr/blob/e8f5db605f1dbbb24bb61fbd014be29bc736d5e4/LICENSE",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "Megvii-BaseDetection/YOLOX",
+      "commit": "6ddff4824372906469a7fae2dc3206c7aa4bbaee",
+      "default_branch": "main",
+      "license_spdx": "Apache-2.0",
+      "files": {
+        "README.md": {
+          "sha256": "023dbf0a5f2c48c944cc6220f9c4750febe2ceafc535445278455186bec7ec6b",
+          "bytes": 13314
+        },
+        "LICENSE": {
+          "sha256": "0ec3668d3274bcf29e8a29e9576d5a2cd96fc78d3c5bec4387355a796e5d9088",
+          "bytes": 11371
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/Megvii-BaseDetection/YOLOX",
+      "role": "secondary_detector_candidate",
+      "weights_review": "separate_checkpoint_terms_not_confirmed",
+      "source_snapshot_url": "https://github.com/Megvii-BaseDetection/YOLOX/tree/6ddff4824372906469a7fae2dc3206c7aa4bbaee",
+      "code_license_url": "https://github.com/Megvii-BaseDetection/YOLOX/blob/6ddff4824372906469a7fae2dc3206c7aa4bbaee/LICENSE",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "FoundationVision/ByteTrack",
+      "commit": "d1bf0191adff59bc8fcfeaa0b33d3d1642552a99",
+      "default_branch": "main",
+      "license_spdx": "MIT",
+      "files": {
+        "README.md": {
+          "sha256": "126d307a421e4421aa9d3917e7849d1cf63c95f7b36864e1ca92a9d1a451c247",
+          "bytes": 15448
+        },
+        "LICENSE": {
+          "sha256": "e9d83751678cbaba6dfba902ea39215c423d93425e58f8450d6001f7261696f9",
+          "bytes": 1067
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/FoundationVision/ByteTrack",
+      "role": "player_association_candidate",
+      "weights_review": "not_required_for_association_component",
+      "source_snapshot_url": "https://github.com/FoundationVision/ByteTrack/tree/d1bf0191adff59bc8fcfeaa0b33d3d1642552a99",
+      "code_license_url": "https://github.com/FoundationVision/ByteTrack/blob/d1bf0191adff59bc8fcfeaa0b33d3d1642552a99/LICENSE",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "roboflow/supervision",
+      "commit": "2e663bace4879fc0b89b351b22a131e16eaa8931",
+      "default_branch": "develop",
+      "license_spdx": "MIT",
+      "files": {
+        "README.md": {
+          "sha256": "763f75cba29aa85b429a5d3ed20c145d18242a5978470a8b8fb49ddee51995db",
+          "bytes": 12313
+        },
+        "LICENSE.md": {
+          "sha256": "72bb009f9633af978da6c49f3a927a83d04ddf8ed992492f6f2a62122de95227",
+          "bytes": 1065
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/roboflow/supervision",
+      "role": "optional_utilities",
+      "weights_review": "not_a_trained_model",
+      "source_snapshot_url": "https://github.com/roboflow/supervision/tree/2e663bace4879fc0b89b351b22a131e16eaa8931",
+      "code_license_url": "https://github.com/roboflow/supervision/blob/2e663bace4879fc0b89b351b22a131e16eaa8931/LICENSE.md",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "roboflow/sports",
+      "commit": "42c80c06b6b65a7f89455b89fe31cdf4c38ba227",
+      "default_branch": "main",
+      "license_spdx": "MIT",
+      "files": {
+        "README.md": {
+          "sha256": "4f1d4076f085e22926ba0514caddd93fd70a0e565a43efc481f33359a7cbf95a",
+          "bytes": 3768
+        },
+        "LICENSE": {
+          "sha256": "9b643489f635eb955b4be522cf73d6eea50b65e33aaa5ece18e804676469c20d",
+          "bytes": 1065
+        },
+        "sports/common/team.py": {
+          "sha256": "d7439721ef5bbf3965845760b7861d095b16cbc737bc97328300b17addbf1b3b",
+          "bytes": 3644
+        },
+        "examples/soccer/requirements.txt": {
+          "sha256": "a4da3c7ac541b1066acd0a217d8a4f2a10b198450919281473d781547dcd38a0",
+          "bytes": 17
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/roboflow/sports",
+      "role": "team_classifier_component_candidate",
+      "weights_review": "siglip_card_apache_2_0_full_soccer_example_includes_ultralytics",
+      "source_snapshot_url": "https://github.com/roboflow/sports/tree/42c80c06b6b65a7f89455b89fe31cdf4c38ba227",
+      "code_license_url": "https://github.com/roboflow/sports/blob/42c80c06b6b65a7f89455b89fe31cdf4c38ba227/LICENSE",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "jac99/FootAndBall",
+      "commit": "01261092a93de55026745e532a2e12188ad86801",
+      "default_branch": "master",
+      "license_spdx": "MIT",
+      "files": {
+        "README.md": {
+          "sha256": "57efe27c970b583dcac2d9a4255f22cd10ddf726e909f9b677a4829c5411d559",
+          "bytes": 4006
+        },
+        "LICENSE": {
+          "sha256": "e7bc64a1a8040de937dc4bbdf6349457295526d7ccb1914a350bc272f44f0bd4",
+          "bytes": 1086
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/jac99/FootAndBall",
+      "role": "secondary_football_detector_candidate",
+      "weights_review": "separate_checkpoint_terms_not_confirmed",
+      "source_snapshot_url": "https://github.com/jac99/FootAndBall/tree/01261092a93de55026745e532a2e12188ad86801",
+      "code_license_url": "https://github.com/jac99/FootAndBall/blob/01261092a93de55026745e532a2e12188ad86801/LICENSE",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "default_branch": "main",
+      "license_spdx": "GPL-3.0",
+      "files": {
+        "README.md": {
+          "sha256": "217aae418a582365a905df99fd23294a4902e9a6d33259a5739cbc9c030ff160",
+          "bytes": 22916
+        },
+        "LICENSE": {
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+          "bytes": 35149
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/SoccerNet/sn-gamestate",
+      "role": "reference_pipeline_not_first_integration",
+      "weights_review": "gpl_pipeline_with_separate_component_terms",
+      "source_snapshot_url": "https://github.com/SoccerNet/sn-gamestate/tree/1c958345067218297d221e45e1a6405f975f83e0",
+      "code_license_url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/LICENSE",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "default_branch": "main",
+      "license_spdx": "MIT",
+      "files": {
+        "README.md": {
+          "sha256": "edad9920dabd2a1372a91e8be758633319db97aefcff09d9d5022f8f858469c6",
+          "bytes": 17205
+        },
+        "LICENSE": {
+          "sha256": "e3fec57e1fa422c2b81c208d30a8910603b1bc6b070db22cc23febdd25b0fbb3",
+          "bytes": 1067
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/TrackingLaboratory/tracklab",
+      "role": "reference_framework",
+      "weights_review": "module_and_checkpoint_terms_separate",
+      "source_snapshot_url": "https://github.com/TrackingLaboratory/tracklab/tree/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "code_license_url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/LICENSE",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "obss/sahi",
+      "commit": "10061afd5fa076e00f8eda55e2ee290f9d72f3c1",
+      "default_branch": "main",
+      "license_spdx": "MIT",
+      "files": {
+        "README.md": {
+          "sha256": "9d6f57c8b9c7ec57bb8805e49891e552479a9c9c2dae401c2802c3d1e6d45bf3",
+          "bytes": 22269
+        },
+        "LICENSE": {
+          "sha256": "7b2e5b979948fb176f483b0e9404a237f94c485387755a32258f7bd6830fffe1",
+          "bytes": 1061
+        },
+        "sahi/models/roboflow.py": {
+          "sha256": "ccafee034c8e42dfa51e6a41a81f7e8fb6fa877625c28cdc491bb5867ec390a8",
+          "bytes": 13030
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/obss/sahi",
+      "role": "small_object_slicing_candidate",
+      "weights_review": "not_a_model_detector_license_separate",
+      "source_snapshot_url": "https://github.com/obss/sahi/tree/10061afd5fa076e00f8eda55e2ee290f9d72f3c1",
+      "code_license_url": "https://github.com/obss/sahi/blob/10061afd5fa076e00f8eda55e2ee290f9d72f3c1/LICENSE",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "nttcom/WASB-SBDT",
+      "commit": "923462cacdeb3353b84ddebdedb3f4b7a8553b0f",
+      "default_branch": "main",
+      "license_spdx": "MIT",
+      "files": {
+        "README.md": {
+          "sha256": "54638c43de0e2572d8b97a8455f88d65050e688793e8fefaa97b7a1111c0bb7c",
+          "bytes": 2128
+        },
+        "LICENSE.md": {
+          "sha256": "baacee1457206bea9c07ee9e515c2e56b0d6d06773f070718bd019c2e11db652",
+          "bytes": 1087
+        },
+        "MODEL_ZOO.md": {
+          "sha256": "1589a8a13c531b2508796a85a1fe59fdebbe8305b509cb73900815d51ebe4d14",
+          "bytes": 4465
+        },
+        "GET_STARTED.md": {
+          "sha256": "008b86e4d228054a9a268d499ec17e9fe16ff1978306b3c9393b0d2332837fc5",
+          "bytes": 11728
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/nttcom/WASB-SBDT",
+      "role": "specialist_ball_research_candidate",
+      "weights_review": "linked_checkpoint_terms_not_separately_confirmed",
+      "source_snapshot_url": "https://github.com/nttcom/WASB-SBDT/tree/923462cacdeb3353b84ddebdedb3f4b7a8553b0f",
+      "code_license_url": "https://github.com/nttcom/WASB-SBDT/blob/923462cacdeb3353b84ddebdedb3f4b7a8553b0f/LICENSE.md",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "lyuwenyu/RT-DETR",
+      "commit": "df2a96c8c3a098567a1149bf0248da6efe6d495d",
+      "default_branch": "main",
+      "license_spdx": "Apache-2.0",
+      "files": {
+        "README.md": {
+          "sha256": "599e90b38354c7c5cb7f7f1679454fd0537a608b5feab5703210ba79353f30c9",
+          "bytes": 8247
+        },
+        "LICENSE": {
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357
+        },
+        "rtdetrv2_pytorch/README.md": {
+          "sha256": "43c4b95deb8976111cf75129cb8bea38a678b82038eb3c4f7a99be1ed130ec93",
+          "bytes": 9072
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/lyuwenyu/RT-DETR",
+      "role": "alternate_detector_candidate",
+      "weights_review": "pekingu_rtdetr_v2_r18vd_model_card_apache_2_0",
+      "source_snapshot_url": "https://github.com/lyuwenyu/RT-DETR/tree/df2a96c8c3a098567a1149bf0248da6efe6d495d",
+      "code_license_url": "https://github.com/lyuwenyu/RT-DETR/blob/df2a96c8c3a098567a1149bf0248da6efe6d495d/LICENSE",
+      "selected_for_pipeline": false
+    },
+    {
+      "repo": "Friends-of-Tracking-Data-FoTD/LaurieOnTracking",
+      "commit": "7ed3ff857940d3f4611be55f3c08c79525c32171",
+      "default_branch": "master",
+      "license_spdx": "MIT",
+      "files": {
+        "LICENSE": {
+          "sha256": "9172ed42b991e0f36fd9220cf7c7f9ea88970513b0e6ec72ba25d0f733d0bf39",
+          "bytes": 1086
+        },
+        "README.md": {
+          "sha256": "03dec9ac331aa41289471e4db5fba26153a1c36a29db2343261ffa186182eb51",
+          "bytes": 2056
+        },
+        "Metrica_PitchControl.py": {
+          "sha256": "d0b6644fff32fd31c00ddbf23a37762dae77894b7d9126a34e191b8e015f0cb2",
+          "bytes": 19843
+        },
+        "Metrica_Velocities.py": {
+          "sha256": "b17b2e3c54a8e88814f78b3d978df038b790e34d82f300e99c92a813b18ed541",
+          "bytes": 4487
+        }
+      },
+      "archived": false,
+      "url": "https://github.com/Friends-of-Tracking-Data-FoTD/LaurieOnTracking",
+      "role": "optional_local_time_to_intercept_research_reference",
+      "weights_review": "not_a_neural_model",
+      "selected_for_pipeline": false,
+      "source_snapshot_url": "https://github.com/Friends-of-Tracking-Data-FoTD/LaurieOnTracking/tree/7ed3ff857940d3f4611be55f3c08c79525c32171",
+      "code_license_url": "https://github.com/Friends-of-Tracking-Data-FoTD/LaurieOnTracking/blob/7ed3ff857940d3f4611be55f3c08c79525c32171/LICENSE"
+    }
+  ],
+  "additional_references": [
+    {
+      "url": "https://huggingface.co/google/siglip-base-patch16-224",
+      "role": "siglip_weights_model_card",
+      "sha256": "86c231c4a7bf0ee2435295413ad5c7cf567c9426f00b79711ce8eda884b7a8d3",
+      "bytes": 4116,
+      "revision_pinned": false
+    },
+    {
+      "url": "https://huggingface.co/PekingU/rtdetr_v2_r18vd",
+      "role": "rtdetr_weights_model_card",
+      "sha256": "4a26a3a6de73500f181e4edbc75b3f3f19ca6dde0fdaceeeb78167f223973305",
+      "bytes": 3542,
+      "revision_pinned": false
+    },
+    {
+      "url": "https://raw.githubusercontent.com/metrica-sports/more-than-a-hack-2027/main/RULES.md",
+      "role": "competition_rules",
+      "sha256": "b6f63456d215e2e6016619f6268580ed8921bb96ba41c7d3037f2733f8d10153",
+      "bytes": 5965,
+      "revision_pinned": false
+    },
+    {
+      "url": "https://roboflow.com/model-licenses/rf-detr",
+      "role": "explicit_model_size_weights_license_statement",
+      "revision_pinned": false
+    },
+    {
+      "url": "https://arxiv.org/html/2311.05237v2",
+      "role": "wasb_paper_and_benchmark_scope",
+      "revision_pinned": true
+    },
+    {
+      "url": "https://www.ultralytics.com/license",
+      "role": "vendor_agpl_or_enterprise_statement",
+      "revision_pinned": false
+    }
+  ],
+  "implementation_progress_document": "docs/UYGULAMA_PLANI_TR.md",
+  "installed_runtime_trial": {
+    "variant": "RF-DETR Nano",
+    "rfdetr": "1.11.2",
+    "supervision": "0.29.0",
+    "sahi": "0.14.0",
+    "device_verified": "cpu",
+    "checkpoint_sha256": "d8d6b9ee57d4d0ed2b1f305163624712a0532cb7bce0c747317984fc5457440d",
+    "selected_release": false,
+    "competition_fixture_used": false,
+    "source_review_is_not_complete_dependency_legal_audit": true
+  }
+}

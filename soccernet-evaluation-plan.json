@@ -1,0 +1,13 @@
+{
+  "version": "soccernet-descriptive-box-audit-v1",
+  "registered_on": "2026-11-07",
+  "scope": "SNGS-060 training images 000001-000025 only",
+  "iou_threshold": 0.5,
+  "matching": "Confidence-descending predictions, best remaining reference IoU; one to one, deterministic ties.",
+  "prediction_class": "person",
+  "reference_scope": "Audit actual schema first; count person annotations only, report categories and exclusions explicitly.",
+  "report": ["annotation box coverage", "unmatched predicted person boxes", "candidate ball counts", "runtime"],
+  "limitations": "Training example; one second only under assumed 25 FPS clock. Not AP, HOTA, ball accuracy, precision without annotation coverage audit, field-coordinate accuracy or independent generalization. No parameter selection from this sample.",
+  "labels_as_inference_inputs": false,
+  "provided_fixture_used": false
+}

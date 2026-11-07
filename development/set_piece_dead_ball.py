@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import re
 import numpy as np
 from .dead_ball_features import extract
+from .continuity import pair_masks
 
 
 @dataclass(frozen=True)
@@ -77,6 +78,7 @@ def apply(inputs, labels, events, cfg):
     if base.shape != (n,) or not np.isin(base, ('H', 'A', 'X')).all():
         raise ValueError('Aligned pre-D H/A/X labels required')
     observed = features['ball_present']
+    ball_pair = pair_masks(inputs)[0]
     speed = features['ball_speed_mps']
     jumps = np.isfinite(speed) & (speed > cfg.max_ball_speed_mps)
     reliable = observed & ~jumps
@@ -122,6 +124,7 @@ def apply(inputs, labels, events, cfg):
             while begin > left and still[begin - 1] and period[begin - 1] == period[restart]:
                 begin -= 1
             if (last_wait - begin + 1 < waiting or not reliable[begin:end].all()
+                    or not ball_pair[begin + 1:end].all()
                     or not np.all(period[begin:end] == period[restart])):
                 continue
             if np.max(np.linalg.norm(ball[begin:last_wait + 1] - ball[last_wait], axis=1)) > cfg.stationary_radius_m:

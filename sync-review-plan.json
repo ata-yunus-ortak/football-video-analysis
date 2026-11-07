@@ -1,0 +1,31 @@
+{
+  "version": "automatic-review-alignment-v1",
+  "purpose": "Read-only synchronization prototype; no possession or submission inference",
+  "parameters_origin": "synthetic_engineering_checks_only",
+  "selected_for_submission": false,
+  "clock_ocr": {
+    "sample_interval_s": 5.0,
+    "roi": [0.0, 0.0, 0.45, 0.22],
+    "min_confidence": 0.8,
+    "threads": 2
+  },
+  "clock_alignment": {
+    "min_confidence": 0.8,
+    "max_sample_gap_s": 15.0,
+    "max_clock_residual_s": 1.1,
+    "min_run_samples": 3,
+    "min_run_span_s": 10.0,
+    "clock_uncertainty_s": 1.0,
+    "max_mapping_rate_error": 0.25
+  },
+  "geometry_support": {
+    "search_radius_s": 2.0,
+    "temporal_step_s": 0.2,
+    "min_pairs_per_team": 3,
+    "min_pair_fraction": 0.5,
+    "max_distance_m": 5.0,
+    "peak_exclusion_s": 0.4,
+    "min_peak_margin_m": 0.15
+  },
+  "failure_policy": "Keep gaps, repeated clocks and conflicting geometry unresolved; do not extrapolate or average tracking sources."
+}

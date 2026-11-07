@@ -1,0 +1,16 @@
+{
+  "version": "tracking-ball-support-engineering-v1",
+  "registered_on": "2026-11-07",
+  "provided_fixture_used": false,
+  "selected_release": false,
+  "parameters_origin": "Fixed synthetic engineering checks, not football accuracy selection",
+  "parameters": {
+    "radius_diagonal": 0.02,
+    "separation_diagonal": 0.005,
+    "max_clock_error_s": 0.02
+  },
+  "scope": "Controlled synthetic gates and previously exposed external training image runs. No supplied match. Current gallery lacks independent automatic tracking; missing support is reported, not synthesized from reference labels.",
+  "reference_annotations_as_inputs": false,
+  "possession_updated": false,
+  "next_stage": "After external tracking support evaluation, investigate image-supported stop/restart boundaries inside automatic SET PIECES tag windows. A stationary ball alone is not a stopped game; missing images or tracking are not D. No D release without evaluable live/stopped targets."
+}

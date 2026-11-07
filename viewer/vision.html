@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Görüntü inceleme masası</title>
+<style>
+:root{color-scheme:dark;font-family:Segoe UI,Arial,sans-serif;background:#10171c;color:#e4ecef}*{box-sizing:border-box}body{margin:0;padding:22px;max-width:1800px;margin:auto}h1{font-size:24px;margin:0 0 6px}p{margin:6px 0;color:#a6b9c3}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:18px 0}button,select{font:inherit;background:#22323c;border:1px solid #49616f;border-radius:7px;color:inherit;padding:8px 12px;cursor:pointer}button:disabled{opacity:.4}button:hover{background:#354b58}input[type=range]{flex:1;min-width:140px;accent-color:#58cfc4}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel{border:1px solid #334852;border-radius:10px;overflow:hidden;background:#18242b}.title{padding:10px 14px;display:flex;justify-content:space-between;gap:10px}.count{font-size:13px;color:#b7c6cf}canvas{width:100%;display:block;aspect-ratio:16/9;cursor:crosshair}.details{padding:10px 14px;color:#a6b9c3;font-size:13px;border-top:1px solid #334852}.note{background:#203137;border-left:3px solid #58cfc4;padding:12px 16px;margin:16px 0;line-height:1.5}.key{color:#72dbd2}#error{color:#ffb494}label{display:flex;align-items:center;gap:5px}#status{font-variant-numeric:tabular-nums}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #58cfc4;outline-offset:3px}@media(max-width:800px){.grid{grid-template-columns:1fr}body{padding:12px}}
+</style></head><body>
+<h1>Görüntü inceleme masası</h1><p>SoccerNet GSR · Mavi/turuncu: model adayları · Yeşil: veri seti referansı</p>
+<div class="note" id="scope">Örnek yükleniyor…</div><div id="error" role="alert"></div>
+<div class="toolbar"><strong>İnceleme galerisi</strong><button id="clipPrev" disabled>← Kesit</button><select id="clipSelect" aria-label="İncelenecek kesit"><option value="first">İlk örnek</option></select><button id="clipNext" disabled>Kesit →</button><label><input id="loop" type="checkbox" checked>Döngü</label><label><input id="playlist" type="checkbox">Kesitleri peş peşe oynat</label><span class="count" id="galleryStatus">Kesitler yükleniyor…</span></div>
+<div class="toolbar">
+<button id="prev" disabled aria-label="Önceki kare">← Kare</button><button id="play" disabled>Oynat</button><button id="next" disabled aria-label="Sonraki kare">Kare →</button>
+<select id="speed" aria-label="Oynatma hızı"><option value="0.1">0,1×</option><option value="0.25" selected>0,25×</option><option value="0.5">0,5×</option><option value="1">1×</option></select>
+<input id="timeline" type="range" min="0" max="0" value="0" aria-label="Kaynak kare"><span id="status"></span>
+</div><div class="toolbar">
+<label><input type="checkbox" id="people" checked>Kişi kutuları</label><label><input type="checkbox" id="balls" checked>Top kutuları</label><label><input type="checkbox" id="labels" checked>Kimlik / güven</label>
+<label><input type="checkbox" id="ballTracks" checked>Top adayı izleri</label><span class="count">Düz çember: tespit · pembe kesikli çember: tahmin · sarı: henüz onaylanmamış iz</span>
+<button id="zoomIn" disabled>Yakınlaştır +</button><button id="zoomOut" disabled>Uzaklaştır −</button><button id="ballFocus" disabled>Referans topa yakınlaş</button><button id="reset" disabled>Tüm görüntü</button>
+<span class="count">Görüntüye tıklayarak yakınlaştırma merkezini seç. Space: oynat/duraklat · ← →: kare</span>
+</div>
+<div class="grid">
+<section class="panel"><div class="title"><strong>Ham görüntü</strong><span class="count">Kutular eklenmeden</span></div><canvas id="source" aria-label="Ham maç görüntüsü"></canvas><div class="details">Dedektörün gördüğü kaynak kare. Tracking veya referans konumu eklenmez.</div></section>
+<section class="panel"><div class="title"><strong>Model · kişi ve top adayları</strong><span class="count" id="nativeCount"></span></div><canvas id="native" aria-label="Normal dedektör tahminleri"></canvas><div class="details">Görüntüyü tek parça işler. Kişi: mavi · top adayı: turuncu. Hakem/oyuncu ve takım sınıfı henüz üretilmiyor.</div></section>
+<section class="panel"><div class="title"><strong>Model · Nano + SAHI</strong><span class="count" id="slicedCount"></span></div><canvas id="sliced" aria-label="SAHI dedektör tahminleri"></canvas><div class="details" id="slicedTrackState">Top adayı takibi yükleniyor…</div><div class="details">Parçalar üzerinde kişi/top tespiti. Hakem/oyuncu ve takım ayrımı henüz yok; yanlış veya tekrarlı kutular olabilir.</div></section>
+<section class="panel"><div class="title"><strong>Veri seti referansı · model tahmini değil</strong><span class="count" id="referenceCount"></span></div><canvas id="reference" aria-label="Veri seti referans etiketleri"></canvas><div class="details">Yeşil paneldeki oyuncu/hakem etiketleri veri setinden gelir. Model bu etiketleri girdi olarak kullanmaz.</div></section>
+</div><div class="note">Önce şunlara bak: Top kaçırılıyor mu? Fazladan top adayı çıkıyor mu? Bir oyuncuda birden fazla kutu var mı? Takip kimliği kareler arasında değişiyor mu? <span class="key">Bu ekran ayar değiştirmez ve düzeltme kaydetmez.</span> Kişi kimliği oyuncu/forması kimliği değildir; güven puanı doğruluk olasılığı değildir.</div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id), modes=['source','native','sliced','reference'];
+let data,images=[],index=0,timer=null,zoom=1,cx=0,cy=0,loading=false;
+function stop(){clearInterval(timer);timer=null;$('play').textContent='Oynat'}
+function toggle(){if(loading||!data)return;if(timer){stop();return}if(index===data.frames.length-1)index=0;render();$('play').textContent='Duraklat';timer=setInterval(()=>{if(index>=data.frames.length-1){if($('playlist').checked){stop();const select=$('clipSelect');if(select.selectedIndex===select.options.length-1&&!$('loop').checked)return;select.selectedIndex=(select.selectedIndex+1)%select.options.length;start(select.value).then(ok=>{if(ok)toggle()});return}if($('loop').checked)index=-1;else{stop();return}}index++;render()},1000/data.fps/Number($('speed').value))}
+function viewport(){const w=data.width/zoom,h=data.height/zoom;cx=Math.max(w/2,Math.min(data.width-w/2,cx));cy=Math.max(h/2,Math.min(data.height-h/2,cy));return {x:cx-w/2,y:cy-h/2,w,h}}
+function render(){
+ const frame=data.frames[index],v=viewport();$('timeline').value=index;
+ $('status').textContent=`Kare ${index+1}/${data.frames.length} · ${(index/data.fps).toFixed(2)} sn · ${zoom.toFixed(1)}×`;
+ $('prev').disabled=index===0;$('next').disabled=index===data.frames.length-1;
+ for(const mode of modes){const canvas=$(mode),ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(images[index],v.x,v.y,v.w,v.h,0,0,canvas.width,canvas.height);
+  if(mode==='source')continue;
+  const rows=frame[mode];$(mode+'Count').textContent=`${rows.filter(r=>r.kind==='person').length} kişi · ${rows.filter(r=>r.kind==='sports ball').length} top`;
+  for(const row of rows){if((row.kind==='person'&&!$('people').checked)||(row.kind==='sports ball'&&!$('balls').checked))continue;
+   const [x0,y0,x1,y1]=row.box_xyxy,s=canvas.width/v.w,x=(x0-v.x)*s,y=(y0-v.y)*s,w=(x1-x0)*s,h=(y1-y0)*s;
+   const color=mode==='reference'?'#76f399':row.kind==='person'?'#54c9ff':'#ffbd54';ctx.strokeStyle=color;ctx.lineWidth=2;ctx.strokeRect(x,y,w,h);
+   if($('labels').checked){const text=mode==='reference'?row.role:((row.kind==='sports ball'?'top':'#'+(row.track_id??'?'))+' '+(100*row.confidence).toFixed(0)+'%');ctx.font='16px Segoe UI';const tw=ctx.measureText(text).width;const tx=Math.max(0,Math.min(canvas.width-tw-8,x)),ty=Math.max(18,Math.min(canvas.height-2,y-3));ctx.fillStyle='#10171ce8';ctx.fillRect(tx,ty-17,tw+8,21);ctx.fillStyle=color;ctx.fillText(text,tx+4,ty)}
+  }
+  const temporal=frame.ball_tracking?.[mode];
+  if(mode==='sliced')$('slicedTrackState').textContent=temporal?`Top adayı izleri: ${temporal.tracks.filter(t=>t.state==='observed').length} onaylı tespit · ${temporal.tracks.filter(t=>t.state==='tentative').length} aday · ${temporal.tracks.filter(t=>t.state==='predicted').length} tahmin · ${temporal.tracks.filter(t=>['lost','ambiguous'].includes(t.state)).length} kapanan/belirsiz. Oyundaki top seçilmiş değildir.`:'Bu çıktıda zamansal top takibi kapalı.';
+  if(temporal&&$('ballTracks').checked){for(const track of temporal.tracks){
+   const predicted=track.state==='predicted',point=predicted?track.predicted_position_px:track.measured_position_px;
+   if(!point||!['observed','tentative','predicted'].includes(track.state))continue;
+   const s=canvas.width/v.w,x=(point[0]-v.x)*s,y=(point[1]-v.y)*s;
+   ctx.save();ctx.strokeStyle=predicted?'#ff83d3':track.state==='tentative'?'#ffe17a':'#61e9ff';ctx.lineWidth=4;ctx.setLineDash(predicted?[9,7]:[]);ctx.beginPath();ctx.arc(x,y,14,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+   const text=(predicted?'TAHMİN ':track.state==='tentative'?'ADAY ':'TESPİT ')+track.track_id.split('/').pop();ctx.font='24px Segoe UI';const tx=Math.max(2,Math.min(canvas.width-ctx.measureText(text).width-10,x+18)),ty=Math.max(26,Math.min(canvas.height-8,y-18));ctx.fillStyle='#10171ce8';ctx.fillRect(tx-3,ty-24,ctx.measureText(text).width+8,30);ctx.fillStyle=ctx.strokeStyle;ctx.fillText(text,tx,ty);ctx.restore();
+  }}
+ }
+}
+async function start(clip='first'){if(loading)return;loading=true;stop();index=0;zoom=1;$('error').textContent='';$('scope').textContent='Kesitin görüntüleri yükleniyor…';document.querySelectorAll('button').forEach(b=>b.disabled=true);$('clipSelect').disabled=true;
+ try{const response=await fetch('/api/review?clip='+encodeURIComponent(clip));if(!response.ok)throw Error('Veri yüklenemedi');data=await response.json();
+ images=await Promise.all(data.frames.map((_,i)=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(Error('Kare yüklenemedi: '+i));img.src=(data.image_base||'/image/')+i})));
+ for(const mode of modes){$(mode).width=data.width;$(mode).height=data.height;$(mode).onclick=event=>{const r=event.currentTarget.getBoundingClientRect(),v=viewport();cx=v.x+(event.clientX-r.left)/r.width*v.w;cy=v.y+(event.clientY-r.top)/r.height*v.h;zoom=Math.max(zoom,2);render()}}
+ cx=data.width/2;cy=data.height/2;$('timeline').max=data.frames.length-1;
+ $('scope').textContent=`${data.project_analysis_connected?'Proje analiz akışı · ':''}${data.sequence} · Kaynak maç ${data.source_game_id||'?'} · ${data.frames.length} kare · ${data.fps} FPS · ${(data.frames.length/data.fps).toFixed(1)} saniye · Kaynak kesitte başlangıç ${((data.source_start_frame||0)/data.fps).toFixed(1)} sn. Eğitim örneği; kusursuzluk veya bağımsız test kanıtı değildir. Hibrit tracking eklenmedi.`;
+ document.querySelectorAll('button').forEach(b=>b.disabled=false);render();return true;
+ }catch(error){$('error').textContent=error.message;$('scope').textContent='Örnek açılamadı.';return false}
+ finally{loading=false;$('clipSelect').disabled=false;clipButtons()}}
+function clipButtons(){const select=$('clipSelect');$('clipPrev').disabled=loading||select.selectedIndex<=0;$('clipNext').disabled=loading||select.selectedIndex>=select.options.length-1}
+async function refreshCatalog(){try{const response=await fetch('/api/clips');if(!response.ok)return;const clips=await response.json(),select=$('clipSelect');for(const clip of clips){if(!Array.from(select.options).some(option=>option.value===clip.id)){const option=document.createElement('option');option.value=clip.id;option.textContent=clip.title+' · '+(clip.frames/clip.fps).toFixed(1)+' sn';select.appendChild(option)}}$('galleryStatus').textContent=clips.length+' hazır kesit · liste otomatik güncellenir';clipButtons()}catch(error){$('galleryStatus').textContent='Kesit listesi güncellenemedi'}}
+ $('clipSelect').onchange=()=>start($('clipSelect').value);for(const [id,step] of [['clipPrev',-1],['clipNext',1]])$(id).onclick=()=>{const select=$('clipSelect');select.selectedIndex+=step;start(select.value)};
+ $('play').onclick=toggle;$('prev').onclick=()=>{stop();index=Math.max(0,index-1);render()};$('next').onclick=()=>{stop();index=Math.min(data.frames.length-1,index+1);render()};
+ $('timeline').oninput=event=>{if(!data||loading)return;stop();index=Number(event.target.value);render()};$('speed').onchange=()=>{if(timer){stop();toggle()}};
+ for(const id of ['people','balls','labels','ballTracks'])$(id).onchange=()=>{if(data&&!loading)render()};
+ $('zoomIn').onclick=()=>{zoom=Math.min(8,zoom*1.5);render()};$('zoomOut').onclick=()=>{zoom=Math.max(1,zoom/1.5);render()};$('reset').onclick=()=>{zoom=1;cx=data.width/2;cy=data.height/2;render()};
+ $('ballFocus').onclick=()=>{const ball=data.frames[index].reference.find(r=>r.kind==='sports ball');if(!ball)return;cx=(ball.box_xyxy[0]+ball.box_xyxy[2])/2;cy=(ball.box_xyxy[1]+ball.box_xyxy[3])/2;zoom=6;render()};
+ document.addEventListener('keydown',event=>{if(!data||loading||['INPUT','SELECT','BUTTON'].includes(event.target.tagName))return;if(event.code==='Space'){event.preventDefault();toggle()}if(event.code==='ArrowLeft'){event.preventDefault();$('prev').click()}if(event.code==='ArrowRight'){event.preventDefault();$('next').click()}});
+ refreshCatalog();start();setInterval(refreshCatalog,15000);
+</script></body></html>

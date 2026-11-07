@@ -1,0 +1,18 @@
+{
+  "version": "soccernet-gsr-acquisition-v1",
+  "registered_on": "2026-11-07",
+  "dataset": "SoccerNet/SN-GSR-2024",
+  "commit": "3cc710eb6d53a23350a3d2863311c1c0a2e645d7",
+  "archive": "train.zip",
+  "archive_bytes": 9755097159,
+  "archive_sha256": "f216ebed0347f5af52ee7d975a9b5f6f33b5370bdbed75dd1aded9f8b5ae8316",
+  "dataset_card_license": "GPL-3.0",
+  "video_conditions": "SoccerNet research use only; no redistribution or commercial use. Public ungated GSR archive, no NDA acceptance performed. Code/data-card license is not a commercial video-rights grant.",
+  "conditions_url": "https://www.soccer-net.org/faq",
+  "provided_fixture_used": false,
+  "scope": "Training archive directory audit, then first lexicographic training clip's first 25 JPEG frames and its supplied metadata/labels. No validation/test/challenge content.",
+  "max_download_bytes": 100000000,
+  "selection": "Deterministic first training sequence, not selected for detector success. Existing detector settings unchanged. Initial run is pipeline smoke test and descriptive coverage, not model selection or independent test.",
+  "split_policy": "Do not infer independent matches from clip IDs. Resolve shared source matches before any calibration/validation split or claims of generalization.",
+  "final_goal": "Image measurement layer, independently checked identity/calibration/time, then guarded fusion with tracking; supplied-match manual corrections never training inputs."
+}

@@ -6,6 +6,7 @@ neither a team mean vector nor a speed magnitude identifies possession.
 from dataclasses import dataclass
 import numpy as np
 from .dead_ball_features import extract
+from .continuity import pair_masks
 
 
 @dataclass(frozen=True)
@@ -28,8 +29,31 @@ class DribbleConfig:
             raise ValueError('Valid player speed guard and team coverage required')
 
 
+def measured_motion(inputs, max_player_speed_mps):
+    """Velocity from adjacent measured slots, quarantining both jump endpoints."""
+    extract(inputs)
+    players = np.asarray(inputs['players'], float)
+    period = np.asarray(inputs['period'])
+    n, p, _ = players.shape
+    detected = np.asarray(inputs.get('player_detected', np.isfinite(players).all(2)))
+    if detected.shape != (n, p) or detected.dtype.kind != 'b':
+        raise ValueError('Boolean player observation flags required')
+    measured = detected & np.isfinite(players).all(2) & np.isin(period, (1, 2))[:, None]
+    pair = pair_masks(inputs)[1][1:] & measured[1:] & measured[:-1]
+    player_velocity = np.full_like(players, np.nan)
+    player_velocity[1:] = np.where(pair[..., None], np.diff(players, axis=0) * float(inputs['fps']), np.nan)
+    speeds = np.linalg.norm(player_velocity, axis=2)
+    jumps = np.isfinite(speeds) & (speeds > max_player_speed_mps)
+    measured &= ~jumps
+    measured[:-1] &= ~jumps[1:]
+    valid_velocity = np.isfinite(speeds) & measured
+    valid_velocity[1:] &= measured[:-1]
+    player_velocity[~valid_velocity] = np.nan
+    return player_velocity, measured, valid_velocity
+
+
 def evidence(inputs, ball_velocity, reliable_ball, cfg):
-    extract(inputs)  # enforce tracking-only aligned inputs
+    player_velocity, measured, valid_velocity = measured_motion(inputs, cfg.max_player_speed_mps)
     players = np.asarray(inputs['players'], float)
     ball = np.asarray(inputs['ball'], float)
     teams = np.asarray(inputs['teams'])
@@ -39,20 +63,7 @@ def evidence(inputs, ball_velocity, reliable_ball, cfg):
     reliable = np.asarray(reliable_ball, bool)
     if velocity.shape != (n, 2) or reliable.shape != (n,) or teams.shape != (p,) or not np.isin(teams, (0, 1)).all():
         raise ValueError('Aligned velocities, reliability and team slots required')
-    detected = np.asarray(inputs.get('player_detected', np.isfinite(players).all(2)))
-    if detected.shape != (n, p) or detected.dtype.kind != 'b':
-        raise ValueError('Boolean player observation flags required')
-    measured = detected & np.isfinite(players).all(2) & np.isin(period, (1, 2))[:, None]
-    pair = measured[1:] & measured[:-1] & (period[1:] == period[:-1])[:, None]
-    player_velocity = np.full_like(players, np.nan)
-    player_velocity[1:] = np.where(pair[..., None], np.diff(players, axis=0) * float(inputs['fps']), np.nan)
     speeds = np.linalg.norm(player_velocity, axis=2)
-    jumps = np.isfinite(speeds) & (speeds > cfg.max_player_speed_mps)
-    measured &= ~jumps
-    measured[:-1] &= ~jumps[1:]
-    valid_velocity = np.isfinite(speeds) & measured
-    valid_velocity[1:] &= measured[:-1]
-    player_velocity[~valid_velocity] = np.nan
     means = np.full((n, 2, 2), np.nan)
     mean_speed = np.full((n, 2), np.nan)
     counts = np.zeros((n, 2), int)

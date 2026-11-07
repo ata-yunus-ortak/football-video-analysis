@@ -1,5 +1,42 @@
 # Tracking Stüdyosu
 
+## Televizyon yayını + kendi tracking/homografi verisi
+
+`YAYIN-IZLE.cmd` yayın kaydını `http://127.0.0.1:8767` adresinde açar;
+`TRACKING-IZLE.cmd` taktik kaynak için 8765 portunu kullanmaya devam eder.
+Yayın başlatıcısının dosyaları:
+
+- `broadcast/BAR-ATH_broadcast_atd.txt`: kare kare oyuncu/top x, y ve ham hız.
+- `broadcast/BAR-ATH_broadcast_atd.xml`: takım, takip yuvaları, kanal/birim,
+  saha ölçüleri ve FPS tanımları. Smart Tagging olay dosyası değildir.
+- `broadcast/BAR-ATH_broadcast_homography.csv`: her kare için normalize saha
+  düzleminden görüntü pikseline 3×3 dönüşüm, geçerlilik ve yeniden izdüşüm hatası.
+- `%USERPROFILE%/Downloads/BAR-ATH_broadcast.mp4`: yerel yayın videosu.
+
+Veri kökü `MTAH_DATA_DIR`, yayın videosu `MTAH_BROADCAST_VIDEO` ile
+Git'e alınmayan `viewer-local.cmd` içinde değiştirilebilir. Hiçbir ham veri
+veya video kaynak deposuna kopyalanmaz.
+
+Seçilen oyuncu/top ayrıntısında o karenin homografi geçerliliği ve normalize
+konumun görüntü pikseline dönüşümü gösterilir. Matris yoksa, sağlayıcı
+geçersiz işaretlemişse veya matris tekil/sonlu değilse piksel konumu gösterilmez.
+Matris veya top izi araları doldurulmaz. Hata değeri yalnız kaynak verisidir;
+bu görüntüden bir güven eşiği seçilmedi. Havadaki top için zemin düzlemi
+dönüşümü gerçek top merkezi/zemin izdüşümü veya yükseklik ölçümü değildir.
+
+Yayın videosunda 164.487 kare, ATD/homografide 164.488 kayıt var. Video
+eşlemesi açıkken yalnız ortak karelere gidilir; kapatınca tüm ATD kayıtları
+incelenebilir. Süre benzerliği görüntü-kare eşleşmesini kanıtlamaz. Taktik
+olay zamanları yayın videosuna taşınmaz. Bu görünüm iki kamerayı birbirine
+eşlemez ve görüntü modeli/sahiplik çıkarımı çalıştırmaz.
+
+Ek CLI seçenekleri: `--homography C:/path/homography.csv --source-name Yayın`.
+6 Kasım kontrolünde 95 Python testi geçti; sentetik 249 karelik video ve 250
+kayıtla ortak kare sınırı, tüm kayıtları koruma ve geçersiz matris gösterimi
+tarayıcıda sınandı. Gerçek maçta yalnız dosya/hash, şema/kayıt sayıları,
+video metadata/son paket ve yerel API erişimi kontrol edildi; gerçek maç
+görüntüleri QA için dışarı aktarılmadı.
+
 ## Smart Tagging + video
 
 Üstteki “Smart Tagging + video” görünümü otomatik XML dosyasının tüm

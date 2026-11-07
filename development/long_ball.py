@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import numpy as np
 from .dead_ball_features import extract
 from .set_piece_dead_ball import normalized
+from .continuity import pair_masks
 
 
 @dataclass(frozen=True)
@@ -33,7 +34,7 @@ def detect(inputs, events, cfg, blocked=None):
         raise ValueError('Aligned blocked-frame mask required')
     observed = features['ball_present'] & (features['ball_edge_margin_m'] >= 0)
     velocity = np.full((n, 2), np.nan)
-    valid = observed[1:] & observed[:-1] & (period[1:] == period[:-1])
+    valid = pair_masks(inputs)[0][1:] & observed[1:] & observed[:-1]
     velocity[1:] = np.where(valid[:, None], np.diff(ball, axis=0) * fps, np.nan)
     speed = np.linalg.norm(velocity, axis=1)
     bad_jump = np.isfinite(speed) & (speed > cfg.max_speed_mps)

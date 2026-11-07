@@ -1,0 +1,16 @@
+{
+  "version": "project-image-integration-v1",
+  "registered_on": "2026-11-07",
+  "source": "Completed registered SoccerNet training gallery runs, eight sequences, three already exposed source matches",
+  "sequences": ["SNGS-060","SNGS-068","SNGS-076","SNGS-103","SNGS-111","SNGS-154","SNGS-162","SNGS-170"],
+  "modes": ["native", "sliced"],
+  "frames_per_run": 75,
+  "purpose": "Connect the existing detector to one project analysis entry point and a source-bound measurement contract. Check all frames and preserve uncertainty, no threshold/model selection.",
+  "reference_annotations_as_inputs": false,
+  "provided_fixture_used": false,
+  "roles_predicted": false,
+  "teams_predicted": false,
+  "possession_updated_from_images": false,
+  "selected_release": false,
+  "independent_accuracy_test": false
+}

@@ -4,6 +4,8 @@ __pycache__/
 .env.*
 !.env.example
 .venv/
+.venv-vision/
+.venv-sync/
 venv/
 viewer-local.cmd
 viewer-local.json

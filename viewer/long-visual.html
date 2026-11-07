@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Barcelona — ilk beş dakika ve algoritmanın seçimi</title>
+<style>
+body{background:#0b1422;color:#eaf2ff;font:16px system-ui;max-width:1800px;margin:24px auto;padding:0 20px}h1{font-size:26px;margin:0 0 8px}p{color:#c3d1e5;line-height:1.6}.status{background:#172b43;padding:14px 18px;border-radius:10px;margin:16px 0}.grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px}video{width:100%;background:#000;border-radius:10px}h2{font-size:18px}.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0}button{background:#254261;color:#f0f5ff;border:0;border-radius:7px;padding:11px 16px;cursor:pointer}button:disabled{opacity:.5}input{flex:1;min-width:200px}.legend{display:flex;gap:12px;flex-wrap:wrap}.legend span{background:#18283e;padding:10px;border-radius:7px}.green{color:#66ff90}.yellow{color:#ffda70}.pink{color:#ff83d5}.note{border-left:3px solid #d7a34e;padding:0 15px}.placeholder{background:#152235;padding:24px;border-radius:10px;color:#c6d6ec}#broadcast[hidden]{display:none}details{margin-top:18px}#time{font-variant-numeric:tabular-nums}a{color:#9dccff}@media(max-width:1050px){.grid{grid-template-columns:1fr}}
+</style>
+<h1>Barcelona — maçın ilk 5 dakikası</h1>
+<p>Normal hızda, kare atlamadan görüntü analizi. <strong>Yeşil kutu ve ok algoritmanın seçtiği oyuncuyu</strong> gösterir. Büyük “ALG SECIMI” yazısında takım ve forma numarası bulunur; seçim yoksa “BELIRSIZ (X)” yazar.</p>
+<div id="status" class="status" role="status">Yerel görüntü işleme ortamı hazırlanıyor…</div>
+<div class="grid">
+<section><h2>Taktik görüntü + kendi tespitlerimiz + seçilen oyuncu</h2><video id="video" playsinline controls preload="metadata"></video></section>
+<section><h2>Ham yayın — yaklaşık eşleme, karar girdisi değil</h2><video id="broadcast" playsinline muted preload="none" hidden></video><div id="unmapped" class="placeholder">Bu anda doğrulanmış yayın eşlemesi yok. Taktik görüntü esas alınır.</div><p id="broadcastInfo">Yayın yalnız karşılaştırma içindir; üzerinde yeni tespit çizimi yoktur.</p></section>
+</div>
+<div class="bar"><button id="play">Oynat</button><button id="pause">Duraklat</button><button id="back">−10 saniye</button><button id="next">+10 saniye</button><button id="frame">Bir kare ilerle</button><input id="seek" type="range" min="0" max="300" value="0" step="0.04" aria-label="Maç içindeki gösterim zamanı"><output id="time">00:00 / 05:00</output></div>
+<div class="bar"><button id="fullscreen">Taktiği tam ekran göster</button><button id="full" disabled>Tek parça 5 dakikayı aç</button><label><input id="sync" type="checkbox" checked> Ham yayını yaklaşık eşle</label></div>
+<div class="legend"><span class="green">Kalın yeşil kutu/ok: seçilen oyuncu adayı</span><span class="green">Yeşil çember: onaylı, gözlenen top izi</span><span class="yellow">Sarı çember: henüz onaylanmamış top izi</span><span class="pink">Pembe kesikli: kısa top konum tahmini</span></div>
+<p class="note">Gösterilen sahiplik, mevcut görüntü kuralının <strong>aday kararıdır</strong>. Oyuncu eşlemesi için native saat/homografi varsayımı kullanılır; bağımsız doğrulama değildir. “strict decision” satırı eksik doğrulama nedeniyle X kalır. X duran oyun demek değildir. Algoritma oyuncu seçemediğinde zorla en yakın oyuncuya sahiplik verilmez.</p>
+<details><summary>Kaynak ve kapsam</summary><p>İlk üç otomatik saat okumasından maç başlangıcı yaklaşık bulunur; video dosyasının ilk beş dakikası yerine maç saati 00:00–05:00 gösterilir. Bütün 7.500 kaynak kare işlenir; zaman veya tespit örneklemesi yapılmaz. İlk parçalar hazır oldukça oynatılır; sonunda kesintisiz 5 dakikalık video da oluşur.</p><p>Top ve kişi konumları dedektördendir. Oyuncu/takım ve forma bilgisi tracking/XML eşleme adayıdır; tracking topu ve eski sahiplik çizelgesi kullanılmaz. Yayının eşleme belirsizliği nedeniyle nihai birleştirme kapalıdır. Bu ekranda eğitim, ayar seçimi, insan etiketi veya düzeltme kaydı yoktur.</p></details>
+<script>
+const v=document.getElementById('video'),b=document.getElementById('broadcast'),seek=document.getElementById('seek');
+let state={chunks:[],ready_seconds:0},mapping={segments:[]},part=-1,full=false,wantPlay=false,waiting=null,loaded=false;
+const fmt=s=>`${Math.floor(s/60).toString().padStart(2,'0')}:${Math.floor(s%60).toString().padStart(2,'0')}`;
+const now=()=>full?v.currentTime:Math.max(0,part)*10+v.currentTime;
+function pause(){wantPlay=false;waiting=null;v.pause();b.pause()}
+async function go(seconds,play=false){seconds=Math.max(0,Math.min(299.96,seconds));wantPlay=play;if(seconds>=state.ready_seconds-.02){waiting=seconds;v.pause();b.pause();document.getElementById('status').textContent='Bu bölüm hazırlanıyor; hazır olduğunda devam edecek.';return}waiting=null;
+ if(full){v.currentTime=seconds;if(play)v.play().catch(()=>{});return}
+ const index=Math.floor(seconds/10),local=seconds-index*10;if(!state.chunks[index])return;
+ if(part!==index||!loaded){part=index;loaded=true;v.src='/media/'+state.chunks[index].file;v.onloadedmetadata=()=>{v.currentTime=local;if(wantPlay)v.play().catch(()=>{})};v.load()}else{v.currentTime=local;if(play)v.play().catch(()=>{})}}
+function openFull(seconds=0,play=false){wantPlay=play;waiting=null;full=true;loaded=true;v.src='/media/'+state.full_video;v.onloadedmetadata=()=>{v.currentTime=Math.min(seconds,299.96);if(wantPlay)v.play().catch(()=>{})};v.load()}
+function syncBroadcast(){const absolute=(mapping.source_start_s||0)+now();const s=mapping.segments.find(s=>absolute>=s.t0&&absolute<s.t1);const enabled=document.getElementById('sync').checked;
+ if(!s||!enabled){b.hidden=true;document.getElementById('unmapped').hidden=false;b.pause();return}
+ const target=s.b0+(absolute-s.t0)*(s.b1-s.b0)/(s.t1-s.t0);b.hidden=false;document.getElementById('unmapped').hidden=true;
+ if(!b.getAttribute('src')){b.src='/video/broadcast';b.load()}
+ if(b.readyState>0&&Math.abs(b.currentTime-target)>.3)b.currentTime=target;
+ if(!v.paused){b.playbackRate=Math.max(.5,Math.min(2,(s.b1-s.b0)/(s.t1-s.t0)));b.play().catch(()=>{})}else b.pause();
+ document.getElementById('broadcastInfo').textContent=`Yaklaşık eşleme; belirsizlik ±${s.uncertainty_s||'?'} sn. Sahiplikte devre dışı.`;}
+async function refresh(){try{state=await (await fetch('/api/status',{cache:'no-store'})).json();document.getElementById('status').textContent=state.error?'İşleme durdu: '+state.error:state.complete?'İlk 5 dakikanın tamamı hazır. 7.500 kare işlendi.':state.preparing?'Yerel GPU ortamı hazırlanıyor…':`${fmt(state.ready_seconds)} hazır / 05:00 — ${state.processed_frames} / ${state.total_frames} kare işlendi.`;
+ document.getElementById('full').disabled=!state.complete;
+ if(state.complete&&!full)openFull(loaded?now():0,loaded&&!v.paused);else if(!loaded&&state.chunks.length)await go(0,false);if(waiting!==null&&waiting<state.ready_seconds-.02)await go(waiting,wantPlay);
+ if(!mapping.segments.length){mapping=await (await fetch('/api/mapping',{cache:'no-store'})).json()}}
+ catch(e){document.getElementById('status').textContent='Yerel işleme hazırlanıyor…'}}
+v.ontimeupdate=()=>{const t=now();seek.value=t;document.getElementById('time').textContent=fmt(t)+' / 05:00';syncBroadcast()};
+v.onended=()=>{if(!full&&part<29)go((part+1)*10,true);else pause()};v.onplay=()=>{wantPlay=true;syncBroadcast()};v.onpause=()=>b.pause();
+document.getElementById('play').onclick=()=>{wantPlay=true;if(!loaded)go(0,true);else v.play().catch(()=>{})};document.getElementById('pause').onclick=pause;
+document.getElementById('back').onclick=()=>go(now()-10,false);document.getElementById('next').onclick=()=>go(now()+10,false);document.getElementById('frame').onclick=()=>go(now()+.04,false);
+seek.oninput=()=>go(Number(seek.value),false);document.getElementById('fullscreen').onclick=()=>v.requestFullscreen();document.getElementById('sync').onchange=syncBroadcast;
+document.getElementById('full').onclick=()=>openFull(now(),false);
+refresh();setInterval(refresh,2000);
+</script>
+</html>

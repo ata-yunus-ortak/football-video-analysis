@@ -1,0 +1,27 @@
+{
+  "version": "video-led-possession-engineering-v1",
+  "provided_fixture_used": false,
+  "selected_release": false,
+  "parameters_origin": "synthetic_engineering_checks_only",
+  "parameters": {
+    "identity_radius_heights": 0.6,
+    "identity_margin_heights": 0.15,
+    "identity_confirmation_s": 0.08,
+    "control_radius_heights": 0.5,
+    "control_margin_heights": 0.15,
+    "max_relative_motion_heights_s": 1.5,
+    "control_confirmation_s": 0.16,
+    "min_confidence": 0.3,
+    "min_players_per_team": 2,
+    "min_identity_fraction": 0.75,
+    "max_alignment_error_s": 0.02,
+    "cross_camera_radius_m": 1.5,
+    "min_common_players": 4,
+    "max_player_speed_mps": 15.0,
+    "bulk_jump_fraction": 0.5
+  },
+  "tracking_role": "Automatic player ID/team association only; tracking ball and provider possession forbidden",
+  "decision_role": "Current image ball/person detections, stable relative control, temporal confirmation",
+  "camera_policy": "Tactical primary; validated live broadcast with matching image-derived player geometry preferred for eligible visible players",
+  "limitations": "Unselected image control heuristic, no validated in-play/airborne classifier, no ball-flight pass ownership, no D. Existing supplied-fixture clock review is not validated identity or camera alignment."
+}

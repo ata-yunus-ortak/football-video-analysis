@@ -9,10 +9,12 @@ from urllib.parse import parse_qs, urlsplit
 import xml.etree.ElementTree as ET
 import numpy as np
 from .smart_tag_view import load_tags, demo_tags
+from development.homography import FrameHomographies
 
 
 class Tracking:
     def __init__(self, meta, raw):
+        self.source_paths = {'meta': str(Path(meta).resolve()), 'tracking': str(Path(raw).resolve())}
         root = ET.parse(meta).getroot()
         channels = {e.get('id'): (e.findtext('Name'), e.findtext('Unit')) for e in root.iter('Channel')}
         if channels.get('x') != ('position_x', 'normalized') or channels.get('y') != ('position_y', 'normalized') or channels.get('s') != ('speed_kph', 'kph'):
@@ -97,11 +99,40 @@ class Tracking:
         return {'start': start, 'frames': safe.tolist()}
 
 
-def server_for(tracking, port=0, video=None, smart_tagging=None):
+def projected_players(tracking, geometry, frame):
+    if frame >= len(geometry.matrices): return None
+    points = geometry.project(frame, np.asarray(tracking.data[frame, :-1, :2], float))
+    safe = points.astype(object);safe[~np.isfinite(points)] = None
+    return {'source_frame': frame, 'atd_record': frame + 1, 'homography_frame': frame,
+            'players_px': safe.tolist(), 'ball_projected': False}
+
+
+def bound_clock_audit(path, tracking, video, homography):
+    if path is None: return {'available': False}
+    report = json.loads(Path(path).read_text())
+    actual = {**getattr(tracking, 'source_paths', {}), 'video': str(Path(video).resolve()),
+              'homography': str(Path(homography).resolve())}
+    if set(actual) != set(report['sources']): raise ValueError('Clock audit source bindings missing')
+    for key, name in actual.items():
+        spec = report['sources'][key];stat = Path(name).stat()
+        if name != spec['path'] or stat.st_size != spec['bytes'] or stat.st_mtime_ns != spec['mtime_ns']:
+            raise ValueError('Clock audit source fingerprint changed')
+    if (report['tracking_frames'] != len(tracking.data) or report['tracking_fps'] != tracking.fps
+            or report.get('purpose') != 'same_camera_read_only_projection_review'
+            or report.get('independent_image_alignment_validated') is not False
+            or report.get('usable_for_possession') is not False):
+        raise ValueError('Compatible read-only clock audit required')
+    return {**{k: v for k, v in report.items() if k != 'sources'}, 'available': True}
+
+
+def server_for(tracking, port=0, video=None, smart_tagging=None, homography=None, source_name=None, clock_audit=None):
     html = Path(__file__).resolve().parents[1] / 'viewer' / 'index.html'
     video = Path(video).resolve() if video is not None else None
     if video is not None and not video.is_file():
         raise ValueError('Video file not found')
+    geometry = FrameHomographies(homography) if homography is not None else None
+    geometry_meta = geometry.metadata(len(tracking.data)) if geometry is not None else {'available': False}
+    clock_report = bound_clock_audit(clock_audit, tracking, video, homography)
     if smart_tagging is not None:
         tag_data = load_tags(smart_tagging, tracking.fps, len(tracking.data))
     elif tracking.synthetic:
@@ -121,10 +152,14 @@ def server_for(tracking, port=0, video=None, smart_tagging=None):
                     payload, content_type = html.read_bytes(), 'text/html; charset=utf-8'
                 elif url.path == '/smart-tagging.js':
                     payload, content_type = (html.parent / 'smart-tagging.js').read_bytes(), 'text/javascript; charset=utf-8'
+                elif url.path == '/tracking-projection.js':
+                    payload, content_type = (html.parent / 'tracking-projection.js').read_bytes(), 'text/javascript; charset=utf-8'
                 elif url.path == '/api/tags':
                     payload, content_type = json.dumps(tag_data, ensure_ascii=False, allow_nan=False).encode(), 'application/json'
                 elif url.path == '/api/meta':
-                    payload, content_type = json.dumps({**tracking.metadata(), 'video_available': video is not None}, ensure_ascii=False).encode(), 'application/json'
+                    payload, content_type = json.dumps({**tracking.metadata(), 'video_available': video is not None,
+                        'source_name': source_name or ('Sentetik örnek' if tracking.synthetic else 'Yerel kayıt'),
+                        'homography': geometry_meta, 'clock_audit': clock_report}, ensure_ascii=False).encode(), 'application/json'
                 elif url.path == '/video' and video is not None:
                     size = video.stat().st_size
                     start, end = 0, size - 1
@@ -165,6 +200,10 @@ def server_for(tracking, port=0, video=None, smart_tagging=None):
                 elif url.path == '/api/frames':
                     query = parse_qs(url.query)
                     value = tracking.frames(int(query.get('start', ['0'])[0]), int(query.get('count', ['250'])[0]))
+                    if geometry is not None:
+                        value['homography'] = geometry.frames(value['start'], len(value['frames']))
+                        value['projected_players'] = [projected_players(tracking, geometry, f)
+                            for f in range(value['start'], value['start'] + len(value['frames']))]
                     payload, content_type = json.dumps(value, allow_nan=False, separators=(',', ':')).encode(), 'application/json'
                 else:
                     self.send_error(404)
@@ -194,15 +233,18 @@ if __name__ == '__main__':
     parser.add_argument('--tracking')
     parser.add_argument('--demo', action='store_true')
     parser.add_argument('--port', type=int, default=8765)
-    parser.add_argument('--video', help='Optional local tactical video, served on loopback only')
+    parser.add_argument('--video', help='Optional local video from the same source, served on loopback only')
     parser.add_argument('--smart-tagging', help='Optional local automatic SportsCode XML')
+    parser.add_argument('--homography', help='Optional same-source normalized-pitch to image-pixel CSV')
+    parser.add_argument('--source-name', help='Display label for this video/tracking source')
+    parser.add_argument('--clock-audit', help='Source-bound native packet-clock report for projection review')
     parser.add_argument('--open', action='store_true', help='Open the viewer in the default browser')
     args = parser.parse_args()
     if not args.demo and (not args.meta or not args.tracking):
         parser.error('--meta and --tracking are required unless --demo is used')
     print('Tracking yükleniyor...', flush=True)
     tracking = Tracking.demo() if args.demo else Tracking(args.meta, args.tracking)
-    server = server_for(tracking, args.port, args.video, args.smart_tagging)
+    server = server_for(tracking, args.port, args.video, args.smart_tagging, args.homography, args.source_name, args.clock_audit)
     print('Hazır: http://127.0.0.1:' + str(server.server_port), flush=True)
     if args.open:
         import webbrowser

@@ -1,0 +1,94 @@
+{
+  "version": "vision-data-candidate-v1",
+  "registered_on": "2026-11-05",
+  "status": "training_sample_acquired_reference_audit_pending_provider_quota",
+  "provided_fixture_used": false,
+  "match_content_accessed": true,
+  "dataset": "SoccerTrack v2",
+  "repository": "https://github.com/AtomScott/SoccerTrack-v2",
+  "documentation_commit": "a752d294df2a0e816e827b70f284980698f5a50e",
+  "documentation_license_sha256": "35a20f5f925dcd821c3d002976a6b2758132227ac2d2440ddbd05edc99848711",
+  "dataset_url": "https://huggingface.co/datasets/atomscott/soccertrack-v2",
+  "requested_release": "v1.2",
+  "dataset_commit": null,
+  "data_license": "CC-BY-4.0",
+  "access": "Hugging Face files are gated. The publisher also links a public Google Drive alternative; its MOT folder and selected training download are accessible without login.",
+  "initial_scope": "Audit only the curated short MOT clips and paired annotations before considering full-match videos.",
+  "split_policy": "Use the publisher match-level split. Never split halves/cameras from one match across calibration and validation.",
+  "planned_initial_train_matches": [
+    117092,
+    118575
+  ],
+  "planned_initial_validation_matches": [
+    117093,
+    132877
+  ],
+  "reserved_test_matches": [
+    128057,
+    132831
+  ],
+  "prior_exposure": "No match files accessed in this study. Earlier exposure history not independently verified; not claimed untouched.",
+  "annotation_cautions": [
+    "The ball/ track is reconstructed from annotated event anchors using constant-speed interpolation; not independent per-frame observed ball truth.",
+    "Do not input that reconstructed ball track when evaluating contact timing/possession against the events that generated it.",
+    "GSR documentation flags schema and image-dimension discrepancies. Inspect actual selected-release headers against decoded video before adapting.",
+    "BAS action timestamps do not provide exhaustive live/dead-ball or possession-interval truth.",
+    "Resolve release commit, selected file sizes/digests, clip coverage, reference quality, attribution and organizer access before any selection experiment."
+  ],
+  "selection_allowed_now": false,
+  "automatic_full_dataset_download": false,
+  "public_alternate": "https://drive.google.com/drive/folders/1N2Qx2qkFgRtpbHitl2Vh6sLVYGgqkWwn",
+  "initial_training_artifacts": [
+    {
+      "match_id": 117092,
+      "kind": "mot_clip",
+      "drive_file_id": "1VVzkBvQnwxegI0TUG8Y5nfJMpm0Y7-Ik",
+      "bytes": 587873512
+    },
+    {
+      "match_id": 117092,
+      "kind": "mot_reference",
+      "drive_file_id": "1fJ3GDAFhaltRBWXeJmasWU_0XBn13w3O",
+      "bytes": 6245767
+    }
+  ],
+  "alternate_release_caution": "Google Drive content is not assumed identical to Hugging Face v1.2. Record file hashes and audit the actual paired MOT clip/reference.",
+  "accessed_match_content": [
+    {
+      "match_id": 117092,
+      "split": "train",
+      "scope": "First 2048 bytes of the selected public MOT reference for schema audit; full paired clip/reference transfer started after registration."
+    }
+  ],
+  "observed_contract_warning": "The selected public Drive MOT prefix starts at frame 0 and has -1 values in conf/class/visibility fields, unlike the current documented 1-based MOT GT contract. No accuracy scoring is approved from this observation.",
+  "training_sample": {
+    "match_id": 117092,
+    "source_frames": [
+      0,
+      9
+    ],
+    "lossless_rgb_verified": true,
+    "complete_source_clip_downloaded": false,
+    "complete_reference_downloaded": false,
+    "purpose": "Runtime check only, not accuracy selection"
+  },
+  "access_blocker": "Public Drive returned Too many users have viewed or downloaded this file recently during further clip/reference transfer. Requests were stopped; quota was not bypassed.",
+  "additional_runtime_samples": [
+    {
+      "fixture_id": "soccertrack-mot-117092-first125",
+      "match_id": 117092,
+      "split": "train",
+      "source_frames": [
+        0,
+        124
+      ],
+      "rgb_lossless_verified": true,
+      "network_requests": 0,
+      "source": "Existing registered byte-range cache",
+      "full_source_clip_downloaded": false,
+      "purpose": "Image position/preview integration; no accuracy selection",
+      "native_frames_processed": 125,
+      "sliced_frames_processed": 25
+    }
+  ]
+}

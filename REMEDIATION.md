@@ -37,3 +37,39 @@ script interpreter or hidden helper. The user completed the deletion separately.
 
 The organizer's normal evaluation remains conditional on these steps. This file
 is not an approval certificate and earlier public scores are not validation.
+
+## Read-only verification — 7 November 2026
+
+The user requested verification, not deletion. The staged artifact directory
+is still absent. Active and archived saved-chat history were listed to completion:
+the known old conversation remained in active history, not archived. Its contents
+were not opened or recovered. Account-specific identifiers stay in the private audit.
+
+Of the four exact local transcript paths recorded in the earlier provider
+audit, three are absent and one still exists. Existence/size only were checked;
+no legacy transcript content was read. The last recorded CLI deletion attempt
+failed with exit code 1. Separate uploaded-file deletion and final provider-side
+purging cannot be verified from the available records and listing capabilities.
+No deletion or outgoing message was performed in this verification.
+
+Evidence: `C:/Users/Abra/FootballPrivate/remediation-20261103/provider-verification-20261107.json`.
+Provider cleanup therefore remains incomplete in the accessible app/local
+surfaces, and provider backend deletion remains unverified. The earlier
+working-artifact directory deletion is a separate completed path check.
+
+## User-authorized chat deletion — 7 November 2026
+
+Following the verification above, the user explicitly requested deletion.
+The application's delete-thread control was invoked once for the known old conversation.
+Subsequent active and archived
+history listings were exhausted (nextCursor null): the thread is absent
+from both. All four exact local legacy transcript paths are now absent,
+including the file that existed before this action. No legacy transcript
+contents were opened or backed up. The current working chat was not targeted.
+
+The raw action response was not retained; this result is based on the
+subsequent app listings and filesystem existence checks. Separate uploaded
+files and final provider-side backend purging remain unverified. This does
+not establish that every organizer condition is complete.
+
+Evidence: `C:/Users/Abra/FootballPrivate/remediation-20261103/provider-deletion-20261107.json`.
