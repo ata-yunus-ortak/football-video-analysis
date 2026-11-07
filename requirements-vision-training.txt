@@ -1,0 +1,14 @@
+# Separate local CUDA 11.8 training environment; never the frozen NumPy runtime.
+# Direct dependencies used by the external one-epoch feasibility run.
+# Other optional RF-DETR training backends/loggers are deliberately not enabled.
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.7.1+cu118
+torchvision==0.22.1+cu118
+rfdetr==1.11.2
+numpy==2.2.6
+transformers==5.20.2
+pytorch-lightning==2.6.1
+torchmetrics==1.8.2
+simplejpeg==1.9.0
+faster-coco-eval==1.8.0
+pycocotools==2.0.11

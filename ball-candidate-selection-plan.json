@@ -1,0 +1,20 @@
+{
+  "version": "external-ball-candidate-filter-v1",
+  "dataset": "SoccerNet/SN-GSR-2024",
+  "archive": "train.zip",
+  "train_games": ["4"],
+  "validation_games": ["6"],
+  "recheck_games": ["9"],
+  "previously_exposed": true,
+  "independent_test": false,
+  "provided_fixture_used": false,
+  "modes": ["native", "sliced"],
+  "features": "Detector confidence, log box aspect/area relative to image, nearest detected person foot distance relative to person height, ball/person height ratio. No labels, IDs, game clocks, pixels or tracking ground truth enter features.",
+  "training_targets": "Maximum ball-reference IoU >=0.5 positive, <=0.1 negative, intermediate overlaps ignored. Frame without ball annotation excluded from fitting but retained in descriptive full-frame evaluation.",
+  "l2": [0.001, 0.01, 0.1],
+  "thresholds": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+  "confidence_thresholds": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+  "selection": "Choose highest pooled box F1 among candidates satisfying gates separately for each validation mode; tie break retained matches then fewer unmatched predictions. Include keep-all and confidence-only baselines. Use one-to-one matching at IoU 0.5.",
+  "acceptance": "For each mode, retain >=95 percent of keep-all matched boxes and reduce unmatched predictions >=20 percent. Freeze candidate before scoring game 9; repeat same gates there. If either stage fails, do not integrate.",
+  "limits": "Short previously exposed training clips. Box matching is not in-play ball identity or possession correctness. Empty references may be incomplete. No camera fusion validation. Recheck does not permit retuning this experiment."
+}

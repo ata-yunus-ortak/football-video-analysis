@@ -1,0 +1,140 @@
+{
+  "counts": {
+    "native": {
+      "reference_boxes": 525,
+      "predicted_boxes": 409,
+      "one_to_one_matches_by_iou": {
+        "0.1": 200,
+        "0.25": 180,
+        "0.5": 134,
+        "0.75": 32
+      },
+      "reference_best_iou_quartiles_and_p90": [
+        0.0,
+        0.0,
+        0.5062590560400845,
+        0.6872955848626777
+      ],
+      "nearest_centre_error_px_quartiles_and_p90": [
+        2.442792049945118,
+        5.752517212426685,
+        20.16704203787305,
+        484.3445828128704
+      ],
+      "nearest_centre_error_reference_diagonals_quartiles_and_p90": [
+        0.09271016898296688,
+        0.21701264925645294,
+        0.7685020006516274,
+        18.48439216678185
+      ],
+      "centre_error_scored_references": 272,
+      "predictions_iou_below_0_1_on_annotated_frames": 162,
+      "predictions_iou_0_1_to_0_5": 68,
+      "duplicate_high_overlap_predictions": 6,
+      "predictions_on_unannotated_ball_frames": 39
+    },
+    "sliced": {
+      "reference_boxes": 525,
+      "predicted_boxes": 1210,
+      "one_to_one_matches_by_iou": {
+        "0.1": 405,
+        "0.25": 379,
+        "0.5": 250,
+        "0.75": 61
+      },
+      "reference_best_iou_quartiles_and_p90": [
+        0.16877600662457667,
+        0.48816159135319426,
+        0.6554757669950245,
+        0.7659751361346558
+      ],
+      "nearest_centre_error_px_quartiles_and_p90": [
+        1.696133770385594,
+        3.5020865122032108,
+        9.488395366333657,
+        335.4700771749473
+      ],
+      "nearest_centre_error_reference_diagonals_quartiles_and_p90": [
+        0.08721852440298976,
+        0.1856059675519737,
+        0.3622266233883029,
+        12.406719854174632
+      ],
+      "centre_error_scored_references": 496,
+      "predictions_iou_below_0_1_on_annotated_frames": 584,
+      "predictions_iou_0_1_to_0_5": 156,
+      "duplicate_high_overlap_predictions": 0,
+      "predictions_on_unannotated_ball_frames": 220
+    }
+  },
+  "provenance": {
+    "SNGS-060": {
+      "reference_sha256": "e8412eb3707195292502dfd84fdddb131f4bbc627ba5550f98f6c2ee3ace55c6",
+      "mapping_sha256": "bb78829606a3cf200a88212551e8f55d274904a0f54cc6c6680801315fd55119",
+      "analyses": {
+        "native": "5579a69733901f179f01129a2101ac4141d3fcfaa9894a950a8cde3180561ebc",
+        "sliced": "ae0ac9e170fd51b7cf94f8d1852a2980597dbdaa1ab534fa1fd74c246d8c751d"
+      }
+    },
+    "SNGS-068": {
+      "reference_sha256": "66da2c3832912c63449f8c9240609ccb0aca35cfc401d8fbe7c8674d7d540b5b",
+      "mapping_sha256": "82eb56d19a7f0d69525f29aa89817163063664548877fb09166a2e0ad8193ec4",
+      "analyses": {
+        "native": "c6d5f497724131b2ec55ba512b17102cc0f1523de00b342d4e8ecb1e1b263a2d",
+        "sliced": "dff8dc8f8eca21a5ac5ae95a55bab62adc89cfee87cc55fdde574dfdf6fc9f73"
+      }
+    },
+    "SNGS-076": {
+      "reference_sha256": "42b2a47b0d496c74131230138614bf0f232407bc31423a538a8c00bdc2507edc",
+      "mapping_sha256": "a55a3b1874575fbc6c58dd4a18edcf5f0e3502d15402e95a4a11f885a1176bb0",
+      "analyses": {
+        "native": "a0eb52f92ee63377d3da08e683fa95dd192a5b07e8a0e97b3bc5443e4915c0c5",
+        "sliced": "16a6c4c8d2d915e930a8244279a68ccfbe25753fc5180db89ba3880b8669ce44"
+      }
+    },
+    "SNGS-103": {
+      "reference_sha256": "15aec2dc564539f5ecd2fa9dc5adbc6b145767e9b389e0be50a38142f0e93649",
+      "mapping_sha256": "134815eb86cb1af3aae011fb9a3131d1ff7d916e29cad206c5f9f97732c43422",
+      "analyses": {
+        "native": "e63f206de5e5a0771df63eb2080039a9b0f66fd4b3d228de1692c0a61d66ab90",
+        "sliced": "1df4c11e1c64006be32df377a72123a11d639df6bc253e639c3c97fecb0c9f81"
+      }
+    },
+    "SNGS-111": {
+      "reference_sha256": "a217eb444babe4f8ec4b9412f50ddd8e766fd69bad99949b98c9750d64edc96c",
+      "mapping_sha256": "bb1cc4349927ce63b5b0e007875a296a449629bb109b797f057a0fe51375d484",
+      "analyses": {
+        "native": "94112b4eb8aa7d8a4afdff540aa1209eb8bf3db247248b146083068b9a230e4d",
+        "sliced": "c651e40b8280539c2381521713ed67d71a61ffd8d35e95fc4e68696301ae7df6"
+      }
+    },
+    "SNGS-154": {
+      "reference_sha256": "4eabbce546b8b418d487b41c77061d666c2fbfc0a654e9c32bd4204f0ffd2c49",
+      "mapping_sha256": "496d7a90f19b2ef87aa0b16f6347676dc41c1684b961d6006165194a1a9b1071",
+      "analyses": {
+        "native": "d8e221a40aa87e613494318d45dfdd8bd49dd07d38eab1592242202089e16f25",
+        "sliced": "24f64cc5dcae29022240fc5cd71e13fa51d18967346193ff7f9a5dab342ace53"
+      }
+    },
+    "SNGS-162": {
+      "reference_sha256": "291ff1835aa4927d6fa8ad0311b7240d995cd81e910693072fcf30f3c82966cf",
+      "mapping_sha256": "1184644cb937711e06e91c77496fc8dc7766e58245c9d7d9baccd6d417142ee6",
+      "analyses": {
+        "native": "bc4aaab60c78b834fc7735b47ce55979c943de44b466bee67d24411e5a74f403",
+        "sliced": "5b3949bf2a82aab58d2604c5b735cd20face7ec2ce45c545ead3a46b78389180"
+      }
+    },
+    "SNGS-170": {
+      "reference_sha256": "eb0b37bb69b6a191a4872f2dc39ce09f13d5b15ebe726f185db443221756c8f3",
+      "mapping_sha256": "7d21381f15ddc0d44f49055f3f48cee0a53a3636eda9e8b5bb7c8ffbbe08f488",
+      "analyses": {
+        "native": "fafa7ee588cf35d10998ef9fb4c20defd70f2e617b3497dc6df12358cc5cdcc5",
+        "sliced": "6d745fb22878201edce88a85640b9b0c47996d6f366d4885086c5cf8bcbe915d"
+      }
+    }
+  },
+  "provided_fixture_used": false,
+  "model_changed": false,
+  "independent_test": false,
+  "limitations": "Nearest centre can belong to a false candidate; distances are pixel diagnostics, not physical ball accuracy. Empty ball annotations are not certified negatives. Sensitivity thresholds are not replacement acceptance criteria."
+}

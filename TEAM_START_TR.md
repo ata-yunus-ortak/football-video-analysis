@@ -14,6 +14,11 @@ doğruluğu bulundu. [Ölçümler ve tekrarlama](docs/D_OGRENME_DENEYI_TR.md).
 `dead-ball-promotion-decisions.json` nihai kararı belirtir. Deney raporundaki
 sayısal kabul alanı tek başına teslim modeli seçildiği anlamına gelmez.
 
+8 Kasım görüntü çalışması: [top adayı filtresi, konum denetimi ve dış veri
+eğitim hattı](docs/TOP_ADAYI_DENEYI_TR.md). Filtre henüz varsayılan modele
+alınmadı; yeni dedektör eğitimi ayrı deneydir. Ham görüntüler ve ağırlıklar
+bu depoda dağıtılmaz.
+
 ## Kurulum
 
 ```bash

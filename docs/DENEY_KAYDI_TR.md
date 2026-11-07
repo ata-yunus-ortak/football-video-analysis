@@ -1,5 +1,15 @@
 # Deney kaydı
 
+## V013 — Top adayı filtresi ve konum hassasiyeti, 8 Kasım 2026
+
+SoccerNet kaynak maçları 4/6/9 ayrımıyla geometri/güven filtresi öğrenildi.
+Sabit aday kontrolünde parçalı tarama eşleşmeyenleri 442→224 azalttı,
+85→84 doğru eşleşme korundu; normal tarama 134→128 ile %20 azalma
+koşulunu geçemedi. Final modele alınmadı. Betimleyici IoU incelemesi
+yer/boyut hatası yanında çok sayıda uzak adayı da gösterdi.
+Maçlar daha önce erişilmiş dış veridir; Barcelona kullanılmadı.
+[Ayrıntı, özetler ve eğitim veri hattı](TOP_ADAYI_DENEYI_TR.md).
+
 ## D004 — Top özellikleri olmadan D ve sağlayıcılar arası kontrol, 7 Kasım 2026
 
 Dört eğitim / iki doğrulama maçında 18 aday karşılaştırıldı. Oyuncu hızları

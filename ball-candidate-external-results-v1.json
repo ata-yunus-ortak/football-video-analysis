@@ -1,0 +1,127 @@
+{
+  "version": "external-ball-candidate-filter-v1",
+  "accepted": false,
+  "candidate_kind": "learned",
+  "threshold": 0.3,
+  "selection_accepted": true,
+  "validation": {
+    "native": {
+      "matched": 46,
+      "predicted": 120,
+      "reference": 150,
+      "unmatched_predictions": 74,
+      "precision": 0.38333333333333336,
+      "recall": 0.30666666666666664,
+      "f1": 0.34074074074074073
+    },
+    "sliced": {
+      "matched": 71,
+      "predicted": 166,
+      "reference": 150,
+      "unmatched_predictions": 95,
+      "precision": 0.42771084337349397,
+      "recall": 0.47333333333333333,
+      "f1": 0.44936708860759494
+    }
+  },
+  "validation_baseline": {
+    "native": {
+      "matched": 47,
+      "predicted": 151,
+      "reference": 150,
+      "unmatched_predictions": 104,
+      "precision": 0.31125827814569534,
+      "recall": 0.31333333333333335,
+      "f1": 0.3122923588039867
+    },
+    "sliced": {
+      "matched": 71,
+      "predicted": 291,
+      "reference": 150,
+      "unmatched_predictions": 220,
+      "precision": 0.24398625429553264,
+      "recall": 0.47333333333333333,
+      "f1": 0.3219954648526077
+    }
+  },
+  "recheck": {
+    "native": {
+      "matched": 53,
+      "predicted": 181,
+      "reference": 150,
+      "unmatched_predictions": 128,
+      "precision": 0.292817679558011,
+      "recall": 0.35333333333333333,
+      "f1": 0.3202416918429003
+    },
+    "sliced": {
+      "matched": 84,
+      "predicted": 308,
+      "reference": 150,
+      "unmatched_predictions": 224,
+      "precision": 0.2727272727272727,
+      "recall": 0.56,
+      "f1": 0.36681222707423583
+    }
+  },
+  "recheck_baseline": {
+    "native": {
+      "matched": 53,
+      "predicted": 187,
+      "reference": 150,
+      "unmatched_predictions": 134,
+      "precision": 0.28342245989304815,
+      "recall": 0.35333333333333333,
+      "f1": 0.314540059347181
+    },
+    "sliced": {
+      "matched": 85,
+      "predicted": 527,
+      "reference": 150,
+      "unmatched_predictions": 442,
+      "precision": 0.16129032258064516,
+      "recall": 0.5666666666666667,
+      "f1": 0.2511078286558346
+    }
+  },
+  "recheck_provenance": {
+    "SNGS-154": {
+      "reference_sha256": "4eabbce546b8b418d487b41c77061d666c2fbfc0a654e9c32bd4204f0ffd2c49",
+      "mapping_sha256": "496d7a90f19b2ef87aa0b16f6347676dc41c1684b961d6006165194a1a9b1071",
+      "analyses": {
+        "native": "d8e221a40aa87e613494318d45dfdd8bd49dd07d38eab1592242202089e16f25",
+        "sliced": "24f64cc5dcae29022240fc5cd71e13fa51d18967346193ff7f9a5dab342ace53"
+      }
+    },
+    "SNGS-162": {
+      "reference_sha256": "291ff1835aa4927d6fa8ad0311b7240d995cd81e910693072fcf30f3c82966cf",
+      "mapping_sha256": "1184644cb937711e06e91c77496fc8dc7766e58245c9d7d9baccd6d417142ee6",
+      "analyses": {
+        "native": "bc4aaab60c78b834fc7735b47ce55979c943de44b466bee67d24411e5a74f403",
+        "sliced": "5b3949bf2a82aab58d2604c5b735cd20face7ec2ce45c545ead3a46b78389180"
+      }
+    },
+    "SNGS-170": {
+      "reference_sha256": "eb0b37bb69b6a191a4872f2dc39ce09f13d5b15ebe726f185db443221756c8f3",
+      "mapping_sha256": "7d21381f15ddc0d44f49055f3f48cee0a53a3636eda9e8b5bb7c8ffbbe08f488",
+      "analyses": {
+        "native": "fafa7ee588cf35d10998ef9fb4c20defd70f2e617b3497dc6df12358cc5cdcc5",
+        "sliced": "6d745fb22878201edce88a85640b9b0c47996d6f366d4885086c5cf8bcbe915d"
+      }
+    }
+  },
+  "candidate_sha256": "e5377d3a85ba8b91febbead4f4a49d96a31b744e7873aec18208a9d35b7a5135",
+  "source_hashes": {
+    "development/ball_candidate_filter.py": "a411dd7ed09d4ed8cfec85aed978892447c2488313a449c32cef25e8c9a134a3",
+    "development/learned_dead_ball.py": "2fde1ef01f5a051b436d215a6eed1c9275dd1f3bb087592348ae860c70769408",
+    "development/vision_box_audit.py": "0d5a0ac65d79f1ddd295d789f7c3956e1bb52fa4018be6c95315c553095d4741",
+    "tools/ball_candidate_selection.py": "260c25ba9a0f9a07d658a0be225e145948217a1e0467e48585d570295bb8e10a"
+  },
+  "training_rows": 355,
+  "training_positives": 129,
+  "provided_fixture_used": false,
+  "independent_test": false,
+  "in_play_ball_validated": false,
+  "possession_validated": false,
+  "limitation": "Short previously exposed training clips. Box matching is not in-play ball identity or possession correctness. Empty references may be incomplete. No camera fusion validation. Recheck does not permit retuning this experiment."
+}

@@ -1,0 +1,23 @@
+{
+  "version": "external-ball-detector-feasibility-v1",
+  "registered_on": "2026-11-08",
+  "dataset": "SoccerNet/SN-GSR-2024",
+  "archive": "train.zip",
+  "splits": {"train": ["4"], "valid": ["6"], "test": ["9"]},
+  "provided_fixture_used": false,
+  "previously_exposed": true,
+  "independent_test": false,
+  "purpose": "Validate a local, reproducible external ball-specific detector training path. One epoch is a feasibility run, not model selection or a final release.",
+  "export": "Only manifest-verified images marked labeled, with a finite in-image ball box and no ignore regions. Unknown/unannotated ball frames excluded, never fabricated as negatives. Preserve original pixels. All game splits disjoint. Test exported separately but run_test=false.",
+  "model": "RFDETRNano, existing licensed COCO initialization",
+  "epochs": 1,
+  "batch_size": 1,
+  "grad_accum_steps": 16,
+  "num_workers": 0,
+  "seed": 731,
+  "use_ema": false,
+  "multi_scale": false,
+  "run_test": false,
+  "cloud_logging": false,
+  "limitations": "Short, previously accessed external clips from only three games; ball-present-only export cannot validate absence behavior. Full-frame downsampling may erase small balls. Feasibility success does not establish accuracy, suitability for final inference or competition eligibility."
+}
