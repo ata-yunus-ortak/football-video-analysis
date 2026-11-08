@@ -1,0 +1,16 @@
+{
+ "version":"six-step-external-development-acquisition-v1",
+ "provided_fixture_used":false,
+ "dataset":"SoccerNet/SN-GSR-2024",
+ "archive":"valid.zip",
+ "commit":"3cc710eb6d53a23350a3d2863311c1c0a2e645d7",
+ "archive_bytes":11169497921,
+ "max_download_bytes":300000000,
+ "sequence_indices":[0,19],
+ "expected_sequences":["SNGS-021","SNGS-040"],
+ "allowed_game_ids":["2","3"],
+ "reserved_game_ids":["5"],
+ "frame_start":0,"frame_stop":250,"frame_stride":1,
+ "splits":{"train":["2"],"validation":["3"],"recheck":["5"]},
+ "limits":"Two contiguous ten-second external development clips. Match 5 images remain reserved. Previously inspected metadata is disclosed; no untouched-test certification. Dataset boxes are not independent control/contact truth. Raw assets stay private. No supplied fixture use."
+}

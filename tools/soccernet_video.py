@@ -14,7 +14,13 @@ from .metrica_data import external_output, sha256
 
 def image_members(manifest):
     files = [r for r in manifest['acquired_files'] if r['member'].lower().endswith('.jpg')]
-    start, stop = manifest.get('frame_range', [0, 25])
+    if 'frame_range' not in manifest and 'frame_numbers' in manifest:
+        numbers=manifest['frame_numbers']
+        if (manifest.get('sparse') is not False or not numbers or any(type(n) is not int for n in numbers)
+                or numbers!=list(range(numbers[0],numbers[-1]+1))):
+            raise ValueError('Explicit consecutive source frames required; sparse inputs rejected')
+        start,stop=numbers[0]-1,numbers[-1]
+    else:start, stop = manifest.get('frame_range', [0, 25])
     if type(start) is not int or type(stop) is not int or not 0 <= start < stop <= 750:
         raise ValueError('Explicit bounded source frame range required')
     if (manifest.get('complete') is not True or manifest.get('provided_fixture_used') is not False
@@ -34,6 +40,7 @@ def run(sample, out, fps):
     manifest = json.loads((sample / 'manifest.json').read_text())
     files = image_members(manifest)
     if not 0 < fps <= 120: raise ValueError('Explicit positive sequence clock required')
+    if 'source_fps' in manifest and manifest['source_fps']!=fps:raise ValueError('Registered source FPS differs')
     out = external_output(out)
     out.mkdir(parents=True, exist_ok=False)
     (out / 'before-decode.json').write_text(json.dumps({
