@@ -19,6 +19,11 @@ eğitim hattı](docs/TOP_ADAYI_DENEYI_TR.md). Filtre henüz varsayılan modele
 alınmadı; yeni dedektör eğitimi ayrı deneydir. Ham görüntüler ve ağırlıklar
 bu depoda dağıtılmaz.
 
+Güncel [gelişim planı](docs/GELISIM_PLANI_20261108_TR.md) ve
+[çözünürlük/sınıf aktarımı deneyleri](docs/TOP_COZUNURLUK_AKTARIM_TR.md).
+COCO analiz yolu artık tek sınıflı ağırlıkları açıkça reddeder; böyle bir
+ağırlıkla kişi/top sınıfları sessizce karıştırılmaz.
+
 ## Kurulum
 
 ```bash

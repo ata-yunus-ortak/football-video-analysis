@@ -1,0 +1,19 @@
+{
+  "official_completed": true,
+  "custom_checkpoint_rejected": true,
+  "shared_adapter_guard": true,
+  "provided_fixture_used": false,
+  "accuracy_evaluated": false,
+  "version": "shared-coco-contract-v1",
+  "unit_tests": {
+    "total": 257,
+    "passed": 255,
+    "skipped": 2
+  },
+  "source_sha256": "0996c19c58c25077db74c9959faf4a158e419fdea986da8a084bba2b81359c39",
+  "optional_av_verification": {
+    "previously_skipped_cases_passed": 2,
+    "targeted_tests_passed": 9,
+    "separate_vision_runtime": true
+  }
+}

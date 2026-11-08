@@ -1,0 +1,96 @@
+{
+  "version": "external-ball-resolution-v1",
+  "accepted_for_extended_validation": false,
+  "selected_release": false,
+  "provided_fixture_used": false,
+  "independent_test": false,
+  "summaries": {
+    "baseline": {
+      "4": {
+        "frames": 45,
+        "references": 45,
+        "predictions": 77,
+        "matched": 17,
+        "unmatched_predictions": 60,
+        "predictions_on_unannotated_frames": 0,
+        "precision_proxy": 0.22077922077922077,
+        "recall": 0.37777777777777777
+      },
+      "6": {
+        "frames": 30,
+        "references": 30,
+        "predictions": 67,
+        "matched": 12,
+        "unmatched_predictions": 55,
+        "predictions_on_unannotated_frames": 0,
+        "precision_proxy": 0.1791044776119403,
+        "recall": 0.4
+      },
+      "9": {
+        "frames": 45,
+        "references": 30,
+        "predictions": 107,
+        "matched": 15,
+        "unmatched_predictions": 92,
+        "predictions_on_unannotated_frames": 45,
+        "precision_proxy": 0.14018691588785046,
+        "recall": 0.5
+      }
+    },
+    "native_scale_tiles": {
+      "4": {
+        "frames": 45,
+        "references": 45,
+        "predictions": 81,
+        "matched": 25,
+        "unmatched_predictions": 56,
+        "predictions_on_unannotated_frames": 0,
+        "precision_proxy": 0.30864197530864196,
+        "recall": 0.5555555555555556
+      },
+      "6": {
+        "frames": 30,
+        "references": 30,
+        "predictions": 71,
+        "matched": 14,
+        "unmatched_predictions": 57,
+        "predictions_on_unannotated_frames": 0,
+        "precision_proxy": 0.19718309859154928,
+        "recall": 0.4666666666666667
+      },
+      "9": {
+        "frames": 45,
+        "references": 30,
+        "predictions": 107,
+        "matched": 15,
+        "unmatched_predictions": 92,
+        "predictions_on_unannotated_frames": 40,
+        "precision_proxy": 0.14018691588785046,
+        "recall": 0.5
+      }
+    }
+  },
+  "reference_sha256": {
+    "SNGS-060": "e8412eb3707195292502dfd84fdddb131f4bbc627ba5550f98f6c2ee3ace55c6",
+    "SNGS-068": "66da2c3832912c63449f8c9240609ccb0aca35cfc401d8fbe7c8674d7d540b5b",
+    "SNGS-076": "42b2a47b0d496c74131230138614bf0f232407bc31423a538a8c00bdc2507edc",
+    "SNGS-103": "15aec2dc564539f5ecd2fa9dc5adbc6b145767e9b389e0be50a38142f0e93649",
+    "SNGS-111": "a217eb444babe4f8ec4b9412f50ddd8e766fd69bad99949b98c9750d64edc96c",
+    "SNGS-154": "4eabbce546b8b418d487b41c77061d666c2fbfc0a654e9c32bd4204f0ffd2c49",
+    "SNGS-162": "291ff1835aa4927d6fa8ad0311b7240d995cd81e910693072fcf30f3c82966cf",
+    "SNGS-170": "eb0b37bb69b6a191a4872f2dc39ce09f13d5b15ebe726f185db443221756c8f3"
+  },
+  "prediction_freeze_sha256": "1b6b5e63bf09bcf4d84ba30aaaebcd6d596f4f7f9691c2398719263b4e18629c",
+  "elapsed_seconds": {
+    "baseline": 60.14339350000955,
+    "native_scale_tiles": 109.50494539993815
+  },
+  "limits": "Sparse previously exposed short training clips; no temporal tracking validation, in-play ball identity, possession or exhaustive negative labels. Timing is descriptive local runtime, not a hardware benchmark.",
+  "source_hashes": {
+    "tools/ball_resolution_experiment.py": "3d3de01a2500db6bcb26ace85bb42dae203b45569eec63fbba71df7fed8afda1",
+    "development/vision.py": "ab8b3e67e8d3c54b0a4395bb3e6c0afd8aca39f40b3d0f41d34a4923444ee965",
+    "development/vision_box_audit.py": "0d5a0ac65d79f1ddd295d789f7c3956e1bb52fa4018be6c95315c553095d4741"
+  },
+  "vision_source_git_revision": "dbfb7ab3c5a8c6be71abd1e6f24f2f2eed1a3a42",
+  "source_note": "Resolution study ran before the later shared COCO class-contract guard; preserve the recorded original source hashes."
+}

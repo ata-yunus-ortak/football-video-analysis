@@ -1,0 +1,19 @@
+{
+  "version": "external-ball-resolution-v1",
+  "registered_on": "2026-11-08",
+  "provided_fixture_used": false,
+  "dataset": "SoccerNet/SN-GSR-2024",
+  "archive": "train.zip",
+  "development_games": ["4", "6"],
+  "fixed_recheck_games": ["9"],
+  "previously_exposed": true,
+  "independent_test": false,
+  "frame_stride": 5,
+  "initial_weights_sha256": "d8d6b9ee57d4d0ed2b1f305163624712a0532cb7bce0c747317984fc5457440d",
+  "threshold": 0.3,
+  "overlap_ratio": 0.2,
+  "modes": {"baseline": {"height": 512, "width": 768}, "native_scale_tiles": {"height": 384, "width": 384}},
+  "protocol": "Recompute both modes on the same GPU, verified original RGB pixels, every fifth frame of each registered clip. Identical official Nano checkpoint and thresholds; only tile dimensions differ. Freeze all predictions before reading ball reference labels. No threshold or model search.",
+  "acceptance": "On each development game and fixed recheck game, one-to-one IoU>=0.5 matches must increase >=20 percent relative to baseline; unmatched predictions must not increase more than 25 percent. Positive reference and baseline match counts required. Pass permits longer external validation only, never automatic final promotion.",
+  "limits": "Sparse previously exposed short training clips; no temporal tracking validation, in-play ball identity, possession or exhaustive negative labels. Timing is descriptive local runtime, not a hardware benchmark."
+}

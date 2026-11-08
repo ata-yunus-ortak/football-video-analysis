@@ -8,6 +8,16 @@ from dataclasses import dataclass
 import numpy as np
 
 
+def validate_coco_contract(names, num_classes, expected_names):
+    if num_classes != 90 or not expected_names or list(names) != list(expected_names):
+        raise ValueError('COCO class contract mismatch: custom checkpoints require a dedicated class mapping')
+
+
+def validate_coco_head_shapes(shapes):
+    if not shapes or any(not shape or shape[0] != 91 for shape in shapes):
+        raise ValueError('COCO checkpoint head mismatch: refusing automatic head replacement')
+
+
 @dataclass(frozen=True)
 class VisionConfig:
     size: str
@@ -84,13 +94,20 @@ class LocalVision:
     def __init__(self, cfg, weights, fps, device):
         import supervision as sv
         from rfdetr import RFDETRNano, RFDETRSmall
-        from rfdetr.assets.coco_classes import COCO_CLASSES
+        from rfdetr.assets.coco_classes import COCO_CLASSES, COCO_CLASS_NAMES
+        from rfdetr.utilities.io import _safe_torch_load
         if not np.isfinite(fps) or fps <= 0 or device not in ('cpu', 'cuda'):
             raise ValueError('Positive video FPS and explicit cpu/cuda device required')
         self.cfg, self.sv, self.fps = cfg, sv, float(fps)
         self.names = dict(COCO_CLASSES)
+        checkpoint = _safe_torch_load(weights, trust=False)
+        validate_coco_head_shapes([tuple(v.shape) for k,v in checkpoint['model'].items()
+                                  if 'class_embed' in k and k.endswith(('.weight','.bias'))])
+        del checkpoint
         cls = RFDETRNano if cfg.size == 'nano' else RFDETRSmall
         self.detector = cls(pretrain_weights=str(weights), device=device, trust_checkpoint=False)
+        validate_coco_contract(self.detector.class_names, self.detector.model_config.num_classes,
+                               COCO_CLASS_NAMES)
         self.reset_tracking()
         self.sliced_model = None
         if cfg.sliced:

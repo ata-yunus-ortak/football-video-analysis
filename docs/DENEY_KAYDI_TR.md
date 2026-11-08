@@ -1,5 +1,14 @@
 # Deney kaydı
 
+## V015 — Sabit çözünürlük deneyi ve sınıf sözleşmesi, 8 Kasım 2026
+
+120 dış karede aynı GPU/ağırlık/eşik kullanıldı. 384×384 parçalar,
+512×768'e karşı üç kaynak maçta eşleşmeleri 17→25, 12→14, 15→15 yaptı.
+Her maçta ≥%20 artış koşulu geçilmedi; süre yaklaşık 60→110 saniye.
+Varsayılan dedektör değişmedi. Ayrı düzeltmeyle COCO analiz yolu,
+tek sınıflı checkpoint'i model kurmadan reddeder; gerçek dosyalarla kontrol
+edildi. [Plan ve yöntem](TOP_COZUNURLUK_AKTARIM_TR.md).
+
 ## V014 — Dış top dedektörü eğitim altyapısı, 8 Kasım 2026
 
 Manifest-doğrulanmış 225 eğitim / 150 doğrulama görüntüsüyle yerel Nano
