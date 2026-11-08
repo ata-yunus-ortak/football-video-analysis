@@ -22,6 +22,13 @@ it does not yet include an independently selected image or dead-ball classifier.
 Earlier affected visual/throw/referee prototypes are excluded from this release.
 New experimental image modules under `development/` remain separate from frozen inference.
 
+The [six-step experimental control pipeline](docs/ALTI_ADIM_ENTEGRASYON_TR.md)
+separates touches, player control and team possession, with offline timing,
+external-reference validation, new registered clips, guarded camera/tag
+integration and component ablations. All six code stages are connected;
+independent real-match contact, identity and two-camera validation remain
+incomplete. This is not a promoted release.
+
 The external temporal proposal study adds geometry plus bounded-lookahead
 confirmation features and an optional `tools.ball_temporal_evidence` adapter.
 It preserves raw detections, tracks and ownership. Validation improved, but

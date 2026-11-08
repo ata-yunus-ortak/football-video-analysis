@@ -1,5 +1,16 @@
 # Deney kaydı
 
+## C001 — Altı aşamalı görüntü kontrol hattı, 8 Kasım 2026
+
+Temas/kontrol/takım sahipliği ayrımı; bağımsız dış olay referansı sözleşmesi;
+görüntü hareket kanıtı; doğrulama ve başlangıç zamanının ayrılması; dış maç
+ayrımı/edinimi; kamera-tag bağlantısı ve bileşen kapatma aracı eklendi.
+Maç 2/3'ten 500 ardışık kare ve RGB doğrulanmış iki kayıpsız video hazır.
+Maç 5 görüntüleri ayrılmış kaldı. Altı sentetik aç/kapat çalıştırması tamam.
+295 test: 293 geçti, 2 AV atlandı; ilgili 9 test AV ortamında ayrıca geçti.
+Gerçek temas referansları boş; gerçek görüntü sahipliği başarısı veya final
+terfi iddiası yok. [Altı adım ve açık doğrulama](ALTI_ADIM_ENTEGRASYON_TR.md).
+
 ## S002 — Sahiplik geçiş zamanları ve belirsizlik, 8 Kasım 2026
 
 Yönlü bire bir geçiş eşleştirmesi, 0,2/0,5/1/2 s toleransları ve X boşlukları

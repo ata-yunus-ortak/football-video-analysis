@@ -1,0 +1,221 @@
+{
+  "version": "six-step-control-integration-v1",
+  "provided_fixture_used": false,
+  "selected_release": false,
+  "code_steps_implemented": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "independent_contact_reference_ready": false,
+  "real_two_camera_validation_completed": false,
+  "accuracy_evaluated": false,
+  "synthetic_ablations": {
+    "full": {
+      "frames": 8,
+      "state_counts": {
+        "unknown": 4,
+        "control": 4
+      },
+      "team_counts": {
+        "X": 4,
+        "A": 4
+      },
+      "sources": {
+        "tactical": 4,
+        "broadcast": 4
+      },
+      "components": {
+        "motion": true,
+        "backdating": true,
+        "flight": true,
+        "broadcast": true,
+        "tags": true
+      },
+      "evaluation_status": "pending_independent_transition_reference"
+    },
+    "without_motion": {
+      "frames": 8,
+      "state_counts": {
+        "unknown": 4,
+        "control": 4
+      },
+      "team_counts": {
+        "X": 4,
+        "A": 4
+      },
+      "sources": {
+        "tactical": 4,
+        "broadcast": 4
+      },
+      "components": {
+        "motion": false,
+        "backdating": true,
+        "flight": true,
+        "broadcast": true,
+        "tags": true
+      },
+      "evaluation_status": "pending_independent_transition_reference"
+    },
+    "without_backdating": {
+      "frames": 8,
+      "state_counts": {
+        "unknown": 6,
+        "control": 2
+      },
+      "team_counts": {
+        "X": 6,
+        "A": 2
+      },
+      "sources": {
+        "tactical": 4,
+        "broadcast": 4
+      },
+      "components": {
+        "motion": true,
+        "backdating": false,
+        "flight": true,
+        "broadcast": true,
+        "tags": true
+      },
+      "evaluation_status": "pending_independent_transition_reference"
+    },
+    "without_flight": {
+      "frames": 8,
+      "state_counts": {
+        "unknown": 4,
+        "control": 4
+      },
+      "team_counts": {
+        "X": 4,
+        "A": 4
+      },
+      "sources": {
+        "tactical": 4,
+        "broadcast": 4
+      },
+      "components": {
+        "motion": true,
+        "backdating": true,
+        "flight": false,
+        "broadcast": true,
+        "tags": true
+      },
+      "evaluation_status": "pending_independent_transition_reference"
+    },
+    "without_broadcast": {
+      "frames": 8,
+      "state_counts": {
+        "unknown": 2,
+        "control": 6
+      },
+      "team_counts": {
+        "X": 2,
+        "H": 6
+      },
+      "sources": {
+        "tactical": 8
+      },
+      "components": {
+        "motion": true,
+        "backdating": true,
+        "flight": true,
+        "broadcast": false,
+        "tags": true
+      },
+      "evaluation_status": "pending_independent_transition_reference"
+    },
+    "without_tags": {
+      "frames": 8,
+      "state_counts": {
+        "unknown": 4,
+        "control": 4
+      },
+      "team_counts": {
+        "X": 4,
+        "A": 4
+      },
+      "sources": {
+        "tactical": 4,
+        "broadcast": 4
+      },
+      "components": {
+        "motion": true,
+        "backdating": true,
+        "flight": true,
+        "broadcast": true,
+        "tags": false
+      },
+      "evaluation_status": "pending_independent_transition_reference"
+    }
+  },
+  "external_acquisition": {
+    "version": "six-step-external-development-acquisition-v1",
+    "complete": true,
+    "clips": 2,
+    "frames": 500,
+    "by_game": {
+      "2": 250,
+      "3": 250
+    },
+    "downloaded_range_bytes": 188889910,
+    "provided_fixture_used": false,
+    "independent_new_matches": false,
+    "archive_sha256_verified": false,
+    "limits": "Two contiguous ten-second external development clips. Match 5 images remain reserved. Previously inspected metadata is disclosed; no untouched-test certification. Dataset boxes are not independent control/contact truth. Raw assets stay private. No supplied fixture use."
+  },
+  "review_pack": {
+    "clips": [
+      {
+        "sequence": "SNGS-021",
+        "game_id": "2",
+        "split": "train",
+        "frames": 250,
+        "video_sha256": "a4caf62831562e4db085aaea6bfbe2a29ea29165fba8c25187ec97647d820ed6",
+        "rgb_lossless_verified": true,
+        "reference_ready": false
+      },
+      {
+        "sequence": "SNGS-040",
+        "game_id": "3",
+        "split": "validation",
+        "frames": 250,
+        "video_sha256": "7715e0595e17ccc9115d208c8b0f14c87cc9a8cccb7fa0c6cab278d6183be1d6",
+        "rgb_lossless_verified": true,
+        "reference_ready": false
+      }
+    ],
+    "provided_fixture_used": false,
+    "reserved_images_used": false,
+    "reference_truth_created": false,
+    "source_sha256": "2b1bd00b25919459941c8b4ddb103f08cebbaa96f0ef11bbe367587bb58e6551",
+    "video_adapter_sha256": "11cd66f9734ce737deb038dedb59741417546b108f1ed36f1504c032f1c39d1c"
+  },
+  "limitations": [
+    "Synthetic routing tests are not football accuracy.",
+    "External review templates are intentionally empty and rejected as truth.",
+    "Source match 5 images remain reserved.",
+    "New states remain separate from the frozen release."
+  ],
+  "source_hashes": {
+    "development/control_states.py": "65c4f056b92958b853e5da9a35e0a06f9994441f4c216ba0e8c6ce33d6e563ea",
+    "development/transition_benchmark.py": "323fde35bbc1eeb7c4ae6b511e9eb5f2cb5aa5927073b616fc4b5bcb1bd52439",
+    "development/control_evidence.py": "1a8231463d056ccd58ce54c33c5ab8c89907cdd9fe194790a237c69ef9f98f57",
+    "development/control_decoder.py": "c46ef23a4a65f0c2fbe8e764c46f88158da290767c2eb20b8838f108d790a257",
+    "development/control_tag_gate.py": "cad57598abc7f1b2d42b7cdac202184dadc5acdb9dde7223073c28b4ff386c50",
+    "tools/control_experiment.py": "c50fb9dbaf3c9e2f185c70e6b2beccfc0f6f93c800a06de6e7d77510facb22aa",
+    "tools/control_ablation.py": "18ec46212d66b58bb0a06d889d79d836a6275850132987aeae5334b02580bc6b",
+    "tools/control_external_acquisition.py": "010142bfc54fe0e1bf2e83b634484e114ddf4c5e54f32ce0c6b66fb8467486b6",
+    "tools/control_review_pack.py": "2b1bd00b25919459941c8b4ddb103f08cebbaa96f0ef11bbe367587bb58e6551",
+    "tools/soccernet_video.py": "11cd66f9734ce737deb038dedb59741417546b108f1ed36f1504c032f1c39d1c"
+  },
+  "tests": {
+    "total": 295,
+    "passed": 293,
+    "optional_av_skipped": 2,
+    "related_av_environment_tests_passed": 9
+  }
+}
