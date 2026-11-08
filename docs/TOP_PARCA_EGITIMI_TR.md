@@ -56,3 +56,27 @@ teslim doğruluğu anlamına gelmez. Barcelona görüntüsü kullanılmaz.
 Araçlar: `tools.ball_data_expansion`, `tools.ball_detector_data`,
 `tools.ball_patch_data`, `tools.ball_patch_training`.
 Edinme ve veri kapsamı özeti: `ball-data-expansion-results-v1.json`.
+
+## Sonuç ve karar
+
+İki epoch tamamlandı; en iyi parça doğrulama mAP@50:95=0,20434,
+mAP@50=0,55018. Tam görüntü doğrulamasında 40 karede 43 referans kutusu var.
+Orijinal model 24 doğru eşleşme / 54 eşleşmeyen aday verdi. Adayın sekiz
+eşikteki en yüksek doğru eşleşmesi 22; hiçbir eşik temel modeli korumadı.
+0,3 eşikte 18 doğru / 21 eşleşmeyen aday var. Daha az yanlış aday,
+kaybedilen gerçek top tespitleri nedeniyle kabul için yeterli olmadı.
+
+**Aday reddedildi; ana model değişmedi.** Doğrulamada eşik seçilemediği için
+45 karelik sabit kontrol çalıştırılmadı. Bu veri daha önce erişilmiş kaynak
+maçtan gelir; çalıştırılmaması onu yeni bağımsız test yapmaz.
+Özet ve tüm doğrulama eşikleri: `ball-patch-results-v1.json`.
+
+267 testin 265'i temel ortamda geçti, iki AV testi atlandı; ilgili video
+modülleri AV kurulu ortamda ayrıca çalıştırıldı ve toplam dokuz test geçti.
+Sabit temel model ve kaynak bütünlüğü testleri korundu. Bu sonuçlar top
+sahipliği doğruluğu veya tüm yarışma koşullarının tamamlandığı iddiası değildir.
+
+Sonraki geliştirme, bu başarısız adayın eşiğini tekrar tekrar değiştirmek
+yerine ayrı ön kayıtla daha çeşitli maçlar ve tam karedeki zor arka plan
+örneklerini kapsamalı. Zamansal iz başarısı ayrıca ölçülmeli; seyrek kareler
+kesintisiz iz verisi yerine kullanılamaz.

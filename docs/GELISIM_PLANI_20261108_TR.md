@@ -43,3 +43,15 @@ futbol doğruluğu anlamına gelmez. Kusursuzluk/yarışmayı kazanma garantisi 
 gelişme iddiası karşılaştırmalı dış ölçüme dayanacaktır. Önceki deneylerin
 kabul koşulları sonuçlara göre gevşetilmez. Ham veri ve ağırlıklar yerelde,
 kod ve özet raporlar ekip deposunda kalır.
+
+## 8 Kasım uygulama sonucu
+
+V015 çözünürlük, V016 başlık aktarımı, V017 eşik kalibrasyonu ve V019 doğal
+ölçek parça eğitimi tamamlandı; hiçbir aday bütün kabul koşullarını geçmedi.
+V018 ile 25 kesitten 1.875 ek dış kare hazırlandı. Bu aynı üç maçın sahne
+çeşitliliğini artırdı, maç çeşitliliğini artırmadı. Ana model korunuyor.
+[Son deney ve açık sınırlar](TOP_PARCA_EGITIMI_TR.md).
+Sıradaki veri ihtiyacı daha çeşitli dış maçlar ve gerçek tam kare arka plan
+negatifleridir. Zamansal değerlendirme için seyrek örnekleme kullanılamaz;
+kesintisiz kayıt ve ayrı iz ölçümleri gerekir. Bu veri koşulları çözülmeden
+görüntüden sahiplik veya iki kamera başarısı ilan edilmeyecek.

@@ -1,5 +1,28 @@
 # Deney kaydı
 
+## V019 — Doğal ölçekte eğitim ve tam kare kontrolü, 8 Kasım 2026
+
+212 eğitim parçasıyla iki epoch tamamlandı. Parça doğrulama mAP@50:95
+0,20434; tam karede temel 24 doğru / 54 eşleşmeyen adaya karşı yeni model
+0,3 eşikte 18 / 21 verdi. Sekiz eşiğin hiçbiri temel doğru eşleşme sayısını
+korumadı (en yüksek 22). Aday reddedildi; ayrı maç kontrolü çalıştırılmadı.
+SAHI düşük eşik otomatik NMS geçişi sonuç görülmeden kaynak incelemesinde
+bulundu; eğitim korunup sabit ağırlıkla GREEDYNMM/IOS değerlendirmesi yeniden
+üretildi. Eski kısmi tahminler kullanılmadı. `ball-patch-results-v1.json`.
+267 test: 265 geçti, 2 AV atlandı; AV ortamındaki ilgili 9 test ayrıca geçti.
+[Yöntem, kapsam ve sınırlamalar](TOP_PARCA_EGITIMI_TR.md).
+
+## V018 — Dış sahne kapsamı ve parça verisi, 8 Kasım 2026
+
+25 ek kesitten 1.875 seyrek kare edinildi: eğitim maçından 1.050,
+doğrulamadan 375, sabit kontrolden 450. Aynı üç kaynak maç kullanıldı;
+yeni bağımsız maç iddiası yok. Üye CRC/SHA doğrulandı, tam arşiv hash'i
+doğrulanmadı. İlk hatalı sıra numarası görüntü erişiminden önce reddedildi.
+Doğal ölçekte 212 eğitim / 960 sabit ızgara doğrulama parçası hazırlandı.
+Kontrolün 45 tam karesi eğitim parçası yapılmadı. Bu veri kapsamı sonucudur,
+algoritma başarı iddiası değildir. `ball-data-expansion-results-v1.json`;
+[yöntem](TOP_PARCA_EGITIMI_TR.md).
+
 ## V017 — Sabit modelde güven eşiği kalibrasyonu, 8 Kasım 2026
 
 Sekiz ön kayıtlı eşik yalnız doğrulama maçında karşılaştırıldı. Eşik 0,15
