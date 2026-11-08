@@ -1,0 +1,10 @@
+{
+ "version":"six-step-video-control-v1",
+ "provided_fixture_used":false,
+ "selected_release":false,
+ "parameters_origin":"synthetic_engineering_checks_only",
+ "parameters":{"confirmation_s":0.12,"proximity_heights":0.35,"separation_heights":0.12,"relative_speed_heights_s":2.0,"flight_speed_heights_s":3.0,"turn_cosine":0.0,"confidence":0.5,"max_flight_s":3.0,"stationary_speed_heights_s":0.1,"stationary_s":0.4,"restart_speed_heights_s":1.0},
+ "components":{"motion":true,"backdating":true,"flight":true,"broadcast":true,"tags":true},
+ "splits":{"train":["2"],"validation":["3"],"recheck":["5"]},
+ "limits":"Experimental pixel-relative evidence, not physical ball height or verified contact. Independent external event references and camera/identity validation required. No supplied-match comparison."
+}
