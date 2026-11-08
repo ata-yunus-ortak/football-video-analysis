@@ -55,3 +55,10 @@ Sıradaki veri ihtiyacı daha çeşitli dış maçlar ve gerçek tam kare arka p
 negatifleridir. Zamansal değerlendirme için seyrek örnekleme kullanılamaz;
 kesintisiz kayıt ve ayrı iz ölçümleri gerekir. Bu veri koşulları çözülmeden
 görüntüden sahiplik veya iki kamera başarısı ilan edilmeyecek.
+
+V020/V021 ile süreklilik ve öğrenilmiş zamansal/geometrik top puanlaması
+eklendi. V021 doğrulama koşulunu geçti, sabit normal-tarama kontrolünde
+gerekli yanlış aday azalmasını sağlayamadı. Projeye yalnız ayrı deneysel
+kanıt alanı olarak bağlandı; sahiplik kararı değişmedi. Farklı kaynak
+maçlar 2/3/5 için metadata envanteri tamamlandı, görüntü erişimi yapılmadı.
+[Son ölçümler ve sonraki veri ayrımı](TOP_ZAMANSAL_OGRENME_TR.md).

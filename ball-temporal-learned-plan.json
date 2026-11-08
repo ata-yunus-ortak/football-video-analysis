@@ -1,0 +1,15 @@
+{
+  "version": "external-ball-temporal-learned-v1",
+  "provided_fixture_used": false,
+  "train_games": ["4"],
+  "validation_games": ["6"],
+  "recheck_games": ["9"],
+  "modes": ["native", "sliced"],
+  "base_plan": "ball-tracking-plan.json",
+  "l2": [0.001, 0.01, 0.1],
+  "thresholds": [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9],
+  "features": "Five existing geometry/confidence features plus 2/3/5-observation bounded-lookahead confirmation flags. No reference inputs. Up to four future contiguous frames. No forecast promoted to measurement.",
+  "training": "Game 4 only, maximum reference IoU >=0.5 positive, <=0.1 negative; intermediate and unknown/ignored frames excluded. Equal total training weight per clip/mode. Separate geometry-only models form an ablation.",
+  "selection": "Among temporal models retaining >=95% of raw matches and removing >=20% unmatched in each validation mode, choose pooled F1 then matches then fewer unmatched. Freeze before game 9. Same gates on recheck; no retuning. No recheck if validation fails. Geometry-only ablation is descriptive, not a fallback release.",
+  "limits": "Same previously exposed short external clips, not independent testing. Only labeled nonignored ball-present targets. In-play identity, absent-ball, temporal identity accuracy and possession unvalidated. A pass permits broader external evaluation only. The previous hard-filter experiment remains failed."
+}

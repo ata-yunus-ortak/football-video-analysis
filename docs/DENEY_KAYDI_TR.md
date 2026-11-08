@@ -1,5 +1,24 @@
 # Deney kaydı
 
+## V021 — Geometri ve zamansal kanıtı birlikte öğrenme, 8 Kasım 2026
+
+355 eğitim adayıyla öğrenildi. Doğrulamada normal/parçalı doğru eşleşmeler
+47→46 / 71→71, eşleşmeyenler 104→55 / 220→75. Sabit kontrolde doğru
+eşleşmeler 53 ve 85 korundu; eşleşmeyenler 95→83 / 222→165. Normal
+kontroldeki %12,6 azalma gerekli %20'yi geçmedi; final kabul başarısız.
+Eşik değiştirilmedi. Ayrı deneysel kanıt alanı 1.200 analiz paketine
+eklendi; ham kutular, izler ve sahiplik korunuyor. 277 test: 275 geçti,
+2 AV atlandı; ilgili 9 test AV ortamında ayrıca geçti.
+[Yöntem, kapsam ve yeni dış maç metadata envanteri](TOP_ZAMANSAL_OGRENME_TR.md).
+
+## V020 — Sınırlı gelecek kareyle tespit doğrulama, 8 Kasım 2026
+
+27 sabit süreklilik adayı karşılaştırıldı. Normal taramada bazı adaylar
+47 doğru eşleşmenin tamamını koruyup eşleşmeyenleri 104→37 azalttı;
+parçalı taramada kayıplar nedeniyle ortak doğrulama koşulu geçilmedi.
+Ayrı maç kontrolü çalıştırılmadı. Tahminler gerçek ölçüm yapılmadı;
+bilinmeyen referanslar negatif sayılmadı. `ball-temporal-selection-results-v1.json`.
+
 ## V019 — Doğal ölçekte eğitim ve tam kare kontrolü, 8 Kasım 2026
 
 212 eğitim parçasıyla iki epoch tamamlandı. Parça doğrulama mAP@50:95

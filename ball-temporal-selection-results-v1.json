@@ -1,0 +1,47 @@
+{
+  "version": "external-ball-temporal-confirmation-v1",
+  "results": {
+    "validation": {
+      "baseline": {
+        "native": {
+          "matched": 47,
+          "predicted": 151,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 0,
+          "unmatched_predictions": 104,
+          "precision": 0.31125827814569534,
+          "recall": 0.31333333333333335
+        },
+        "sliced": {
+          "matched": 71,
+          "predicted": 291,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 0,
+          "unmatched_predictions": 220,
+          "precision": 0.24398625429553264,
+          "recall": 0.47333333333333333
+        }
+      },
+      "selected": null,
+      "eligible_candidates": 0
+    }
+  },
+  "parameters": null,
+  "accepted_for_extended_validation": false,
+  "provided_fixture_used": false,
+  "selected_release": false,
+  "independent_test": false,
+  "possession_validated": false,
+  "candidate_freeze_sha256": "0e8cd88a724701a90110832b690b53082eaafa6fbc4a5cb07923b08e9e057ca5",
+  "source_hashes": {
+    "tools/ball_temporal_selection.py": "bc39859821d0164863166219691f020296dee647ae8bc37668fdcecaa8a6b40b",
+    "development/confirmed_ball_filter.py": "e4117f9211e84e331b44e9e710966c9ff510feb80a3e543c4ef246cb375563cd",
+    "development/ball_tracking.py": "c8ed1fa91fbd70b626170a13d5870b67621cc076cb858071e9994ac5c87c9a1a",
+    "development/vision_box_audit.py": "0d5a0ac65d79f1ddd295d789f7c3956e1bb52fa4018be6c95315c553095d4741",
+    "tools/ball_detector_data.py": "64888f2593ce97ac83770ba17ff854a0c76099ff601fd8cd479f0d7724d6a118",
+    "tools/ball_candidate_selection.py": "260c25ba9a0f9a07d658a0be225e145948217a1e0467e48585d570295bb8e10a"
+  },
+  "limits": "Reused short external clips from previously exposed games. Reference-present, labeled, nonignored frames only; unknown frames are not negative targets. Sparse new samples excluded. No in-play, physical motion, possession or independent test claim. Passing permits larger external evaluation only."
+}

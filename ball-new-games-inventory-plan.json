@@ -1,0 +1,13 @@
+{
+  "version": "external-gsr-valid-metadata-inventory-v1",
+  "provided_fixture_used": false,
+  "dataset": "SoccerNet/SN-GSR-2024",
+  "commit": "3cc710eb6d53a23350a3d2863311c1c0a2e645d7",
+  "archive": "valid.zip",
+  "archive_bytes": 11169497921,
+  "advertised_archive_sha256": "d60e517e0bfbce83d46a2805842d73bc98bbb65e84ba76be7b55af9bb3047a50",
+  "max_download_bytes": 30000000,
+  "selection": "Sorted sequence indices 0, floor(N/3), floor(2N/3), N-1; deduplicated. Only ZIP metadata and selected label files; no images.",
+  "known_development_games": ["4","6","9"],
+  "purpose": "Identify source games outside the repeatedly reused train archive before registering later image acquisition and train/validation/recheck splits. Metadata inspection is not untouched-test certification. No model selection from these references."
+}

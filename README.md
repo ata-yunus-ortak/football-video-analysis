@@ -22,6 +22,12 @@ it does not yet include an independently selected image or dead-ball classifier.
 Earlier affected visual/throw/referee prototypes are excluded from this release.
 New experimental image modules under `development/` remain separate from frozen inference.
 
+The external temporal proposal study adds geometry plus bounded-lookahead
+confirmation features and an optional `tools.ball_temporal_evidence` adapter.
+It preserves raw detections, tracks and ownership. Validation improved, but
+the fixed recheck failed the required reduction in unmatched native proposals;
+the candidate is not promoted. See [measurements and limits](docs/TOP_ZAMANSAL_OGRENME_TR.md).
+
 The `develop/dead-ball-data-audit` branch starts the next development stage in
 `development/`, with a pinned external data plan and tracking/event coverage
 tools. This code is unselected and does not alter frozen inference. See

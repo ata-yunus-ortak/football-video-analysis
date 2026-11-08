@@ -1,0 +1,142 @@
+{
+  "version": "external-ball-temporal-learned-v1",
+  "results": {
+    "validation": {
+      "baseline": {
+        "native": {
+          "matched": 47,
+          "predicted": 151,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 0,
+          "unmatched_predictions": 104,
+          "precision": 0.31125827814569534,
+          "recall": 0.31333333333333335
+        },
+        "sliced": {
+          "matched": 71,
+          "predicted": 291,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 0,
+          "unmatched_predictions": 220,
+          "precision": 0.24398625429553264,
+          "recall": 0.47333333333333333
+        }
+      },
+      "selected": {
+        "native": {
+          "matched": 46,
+          "predicted": 101,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 0,
+          "unmatched_predictions": 55,
+          "precision": 0.45544554455445546,
+          "recall": 0.30666666666666664
+        },
+        "sliced": {
+          "matched": 71,
+          "predicted": 146,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 0,
+          "unmatched_predictions": 75,
+          "precision": 0.4863013698630137,
+          "recall": 0.47333333333333333
+        }
+      },
+      "eligible_candidates": 5,
+      "best_geometry_only_by_f1": {
+        "native": {
+          "matched": 39,
+          "predicted": 69,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 0,
+          "unmatched_predictions": 30,
+          "precision": 0.5652173913043478,
+          "recall": 0.26
+        },
+        "sliced": {
+          "matched": 68,
+          "predicted": 118,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 0,
+          "unmatched_predictions": 50,
+          "precision": 0.576271186440678,
+          "recall": 0.4533333333333333
+        }
+      }
+    },
+    "recheck": {
+      "baseline": {
+        "native": {
+          "matched": 53,
+          "predicted": 148,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 75,
+          "unmatched_predictions": 95,
+          "precision": 0.3581081081081081,
+          "recall": 0.35333333333333333
+        },
+        "sliced": {
+          "matched": 85,
+          "predicted": 307,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 75,
+          "unmatched_predictions": 222,
+          "precision": 0.2768729641693811,
+          "recall": 0.5666666666666667
+        }
+      },
+      "selected": {
+        "native": {
+          "matched": 53,
+          "predicted": 136,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 75,
+          "unmatched_predictions": 83,
+          "precision": 0.3897058823529412,
+          "recall": 0.35333333333333333
+        },
+        "sliced": {
+          "matched": 85,
+          "predicted": 250,
+          "reference": 150,
+          "evaluated_frames": 150,
+          "unknown_frames": 75,
+          "unmatched_predictions": 165,
+          "precision": 0.34,
+          "recall": 0.5666666666666667
+        }
+      },
+      "accepted": false
+    }
+  },
+  "accepted_for_extended_validation": false,
+  "provided_fixture_used": false,
+  "selected_release": false,
+  "independent_test": false,
+  "possession_validated": false,
+  "training_rows": 355,
+  "training_positives": 129,
+  "source_hashes": {
+    "tools/ball_temporal_learned.py": "218dbc0acccf3d98f1d9a9e494b092e35136cab06d7487d385391a239672942e",
+    "development/temporal_ball_features.py": "96d588ce1cdb42fb4a99a88b3d433d5098f92e62e48c82a74271950bbbe1760e",
+    "development/confirmed_ball_filter.py": "e4117f9211e84e331b44e9e710966c9ff510feb80a3e543c4ef246cb375563cd",
+    "development/ball_tracking.py": "c8ed1fa91fbd70b626170a13d5870b67621cc076cb858071e9994ac5c87c9a1a",
+    "development/ball_candidate_filter.py": "a411dd7ed09d4ed8cfec85aed978892447c2488313a449c32cef25e8c9a134a3",
+    "development/learned_dead_ball.py": "2fde1ef01f5a051b436d215a6eed1c9275dd1f3bb087592348ae860c70769408",
+    "tools/ball_temporal_selection.py": "bc39859821d0164863166219691f020296dee647ae8bc37668fdcecaa8a6b40b",
+    "tools/ball_candidate_selection.py": "260c25ba9a0f9a07d658a0be225e145948217a1e0467e48585d570295bb8e10a",
+    "tools/ball_detector_data.py": "64888f2593ce97ac83770ba17ff854a0c76099ff601fd8cd479f0d7724d6a118",
+    "development/vision_box_audit.py": "0d5a0ac65d79f1ddd295d789f7c3956e1bb52fa4018be6c95315c553095d4741"
+  },
+  "candidate_freeze_sha256": "9ede9cfb934bcc7b26709a3f57cbe08ee528a43bb9ca9659f43601aeaed948ee",
+  "limits": "Same previously exposed short external clips, not independent testing. Only labeled nonignored ball-present targets. In-play identity, absent-ball, temporal identity accuracy and possession unvalidated. A pass permits broader external evaluation only. The previous hard-filter experiment remains failed."
+}

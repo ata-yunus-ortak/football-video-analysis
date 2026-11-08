@@ -1,0 +1,48 @@
+{
+  "version": "external-gsr-valid-metadata-inventory-v1",
+  "sequences": [
+    {
+      "sequence": "SNGS-021",
+      "game_id": "2",
+      "fps": 25,
+      "frames": 750,
+      "metadata_sha256": "b0cc0802499a6e5e7b80ef8b76b27c4f9757c49feccb2d3f72971e5b3c0d4e7f",
+      "zip_crc_verified": true,
+      "outside_known_development_games": true
+    },
+    {
+      "sequence": "SNGS-040",
+      "game_id": "3",
+      "fps": 25,
+      "frames": 750,
+      "metadata_sha256": "493278b4fa0fa59def71e06830c1bd3b929a82cfae14c3ac48d3167d61ec1f41",
+      "zip_crc_verified": true,
+      "outside_known_development_games": true
+    },
+    {
+      "sequence": "SNGS-059",
+      "game_id": "3",
+      "fps": 25,
+      "frames": 750,
+      "metadata_sha256": "5e23f6f9ffcd0f6bdcf18dbc8032a76b72886b1265a1a0a6414851cfafec6863",
+      "zip_crc_verified": true,
+      "outside_known_development_games": true
+    },
+    {
+      "sequence": "SNGS-096",
+      "game_id": "5",
+      "fps": 25,
+      "frames": 750,
+      "metadata_sha256": "de02024a3dc4ee8119e5ae31fff4c5948c6d2078f0358bd5d957e21d8c9c8a46",
+      "zip_crc_verified": true,
+      "outside_known_development_games": true
+    }
+  ],
+  "provided_fixture_used": false,
+  "image_members_downloaded": 0,
+  "downloaded_range_bytes": 20439852,
+  "archive_sha256_verified": false,
+  "independent_test_certified": false,
+  "labels_used_for_model_selection": false,
+  "source_url": "https://huggingface.co/datasets/SoccerNet/SN-GSR-2024/resolve/3cc710eb6d53a23350a3d2863311c1c0a2e645d7/valid.zip"
+}

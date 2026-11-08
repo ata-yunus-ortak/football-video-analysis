@@ -1,0 +1,17 @@
+{
+  "version": "external-ball-temporal-confirmation-v1",
+  "provided_fixture_used": false,
+  "dataset": "SoccerNet/SN-GSR-2024",
+  "archive": "train.zip",
+  "train_games": ["4"],
+  "validation_games": ["6"],
+  "recheck_games": ["9"],
+  "modes": ["native", "sliced"],
+  "confirmation_observations": [2, 3, 5],
+  "match_radius_diagonal": [0.005, 0.015, 0.035],
+  "ambiguity_margin": [0.01, 0.05, 0.15],
+  "base_plan": "ball-tracking-plan.json",
+  "policy": "Offline bounded lookahead: retain actual measured detections from tracks that confirm within N-1 contiguous frames. Never export forecasts as measurements. Raw boxes and confidence unchanged.",
+  "acceptance": "Each mode must retain at least 95% of raw matched boxes and remove at least 20% of unmatched boxes, both validation and frozen recheck. Rank eligible candidates by pooled F1, matched count, fewer unmatched, then earliest grid entry. No recheck if validation fails.",
+  "limits": "Reused short external clips from previously exposed games. Reference-present, labeled, nonignored frames only; unknown frames are not negative targets. Sparse new samples excluded. No in-play, physical motion, possession or independent test claim. Passing permits larger external evaluation only."
+}

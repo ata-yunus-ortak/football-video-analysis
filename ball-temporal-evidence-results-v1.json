@@ -1,0 +1,138 @@
+{
+  "runs": [
+    {
+      "clip": "SNGS-060",
+      "mode": "native",
+      "frames": 75,
+      "raw_candidates": 20,
+      "passing_candidates": 18,
+      "output_sha256": "c0e6a136f2145798e6a11f749aed3f10e1729faf013b07c9a23a404b6bdc60e9"
+    },
+    {
+      "clip": "SNGS-060",
+      "mode": "sliced",
+      "frames": 75,
+      "raw_candidates": 109,
+      "passing_candidates": 81,
+      "output_sha256": "cb7e6248e01e72c19ab9c0ecaa50b224d39557f59bc2e43a702c64392a6fe156"
+    },
+    {
+      "clip": "SNGS-068",
+      "mode": "native",
+      "frames": 75,
+      "raw_candidates": 49,
+      "passing_candidates": 42,
+      "output_sha256": "2069a7f434e124efcbc912f410fd2e14ef43546196b518437b989dee6aed85d3"
+    },
+    {
+      "clip": "SNGS-068",
+      "mode": "sliced",
+      "frames": 75,
+      "raw_candidates": 151,
+      "passing_candidates": 92,
+      "output_sha256": "5ad7bfd24d52db44db5f0e4c9bf0d4d02533b2edc94dd3ed791a909f4cacc8a0"
+    },
+    {
+      "clip": "SNGS-076",
+      "mode": "native",
+      "frames": 75,
+      "raw_candidates": 2,
+      "passing_candidates": 0,
+      "output_sha256": "d975218c28aca7f2367c989bdd9c75a20f66dd4ae74a911df7adaebff91ebc3c"
+    },
+    {
+      "clip": "SNGS-076",
+      "mode": "sliced",
+      "frames": 75,
+      "raw_candidates": 132,
+      "passing_candidates": 92,
+      "output_sha256": "892cdc128b6636ffb9dbc2e55e2ef772f24e9614ac7a06e192d743ce9a564b40"
+    },
+    {
+      "clip": "SNGS-103",
+      "mode": "native",
+      "frames": 75,
+      "raw_candidates": 36,
+      "passing_candidates": 29,
+      "output_sha256": "63c08c2d5ce57105f67e78eec9093c04bd3b8fce44fc20b9b5971f3cab44da89"
+    },
+    {
+      "clip": "SNGS-103",
+      "mode": "sliced",
+      "frames": 75,
+      "raw_candidates": 138,
+      "passing_candidates": 59,
+      "output_sha256": "cb694416a3a6dff1835a3e2f61ce2f07fbf969d0106f39c21efa1e5c0ba02a40"
+    },
+    {
+      "clip": "SNGS-111",
+      "mode": "native",
+      "frames": 75,
+      "raw_candidates": 115,
+      "passing_candidates": 72,
+      "output_sha256": "49676da398c38321f399348e90e26c88ff1e7c0e339201ba334a9c813cc6ae49"
+    },
+    {
+      "clip": "SNGS-111",
+      "mode": "sliced",
+      "frames": 75,
+      "raw_candidates": 153,
+      "passing_candidates": 87,
+      "output_sha256": "f55f7d5364d9080212049afaba0261ca3219f2ca23798882ca7770ba1cf216b5"
+    },
+    {
+      "clip": "SNGS-154",
+      "mode": "native",
+      "frames": 75,
+      "raw_candidates": 47,
+      "passing_candidates": 41,
+      "output_sha256": "1c6487b6583eaa2436f590129b07d86aefdfa1c392cb4600781bbc65d9bb1c24"
+    },
+    {
+      "clip": "SNGS-154",
+      "mode": "sliced",
+      "frames": 75,
+      "raw_candidates": 157,
+      "passing_candidates": 116,
+      "output_sha256": "e4e8476098fd4280d60e97b6c25e28c7eebb2da63c7be7df01c53d9b5931ac20"
+    },
+    {
+      "clip": "SNGS-162",
+      "mode": "native",
+      "frames": 75,
+      "raw_candidates": 101,
+      "passing_candidates": 95,
+      "output_sha256": "02caf2f49631d494661551f90263450299ca32416be2428efe41c049d02a911e"
+    },
+    {
+      "clip": "SNGS-162",
+      "mode": "sliced",
+      "frames": 75,
+      "raw_candidates": 150,
+      "passing_candidates": 134,
+      "output_sha256": "f1d5a7ac14bfce0bf2566699e3c394425c0871078e45469e27891fc0cced3b4e"
+    },
+    {
+      "clip": "SNGS-170",
+      "mode": "native",
+      "frames": 75,
+      "raw_candidates": 39,
+      "passing_candidates": 35,
+      "output_sha256": "10c5a1f3d3a4d6f38b4604ba166fb590ad0e2e106233c01f329f79fe4c9f874e"
+    },
+    {
+      "clip": "SNGS-170",
+      "mode": "sliced",
+      "frames": 75,
+      "raw_candidates": 220,
+      "passing_candidates": 85,
+      "output_sha256": "fe4ba125153e79ff79996439698f17b5d26813d3c33b80458e357ea8c535e963"
+    }
+  ],
+  "provided_fixture_used": false,
+  "selected_release": false,
+  "reference_annotations_read": false,
+  "raw_detections_preserved": true,
+  "existing_tracks_and_possession_preserved": true,
+  "purpose": "Offline experimental evidence only; full promotion gate failed."
+}
