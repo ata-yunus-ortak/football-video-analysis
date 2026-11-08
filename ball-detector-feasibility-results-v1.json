@@ -1,0 +1,111 @@
+{
+  "version": "external-ball-detector-feasibility-v1",
+  "training": {
+    "plan": {
+      "version": "external-ball-detector-feasibility-v1",
+      "registered_on": "2026-11-08",
+      "dataset": "SoccerNet/SN-GSR-2024",
+      "archive": "train.zip",
+      "splits": {
+        "train": [
+          "4"
+        ],
+        "valid": [
+          "6"
+        ],
+        "test": [
+          "9"
+        ]
+      },
+      "provided_fixture_used": false,
+      "previously_exposed": true,
+      "independent_test": false,
+      "purpose": "Validate a local, reproducible external ball-specific detector training path. One epoch is a feasibility run, not model selection or a final release.",
+      "export": "Only manifest-verified images marked labeled, with a finite in-image ball box and no ignore regions. Unknown/unannotated ball frames excluded, never fabricated as negatives. Preserve original pixels. All game splits disjoint. Test exported separately but run_test=false.",
+      "model": "RFDETRNano, existing licensed COCO initialization",
+      "epochs": 1,
+      "batch_size": 1,
+      "grad_accum_steps": 16,
+      "num_workers": 0,
+      "seed": 731,
+      "use_ema": false,
+      "multi_scale": false,
+      "run_test": false,
+      "cloud_logging": false,
+      "limitations": "Short, previously accessed external clips from only three games; ball-present-only export cannot validate absence behavior. Full-frame downsampling may erase small balls. Feasibility success does not establish accuracy, suitability for final inference or competition eligibility."
+    },
+    "plan_sha256": "096d109b45d5fe9efb8057f0b4d9efc31023e872dc31e8169fb654871756842f",
+    "data_manifest_sha256": "5276677446ed3b53cfb6ac2c1ca8720fa6ada836f5e0c7049787fd2d2b66ca4e",
+    "initial_weights_sha256": "d8d6b9ee57d4d0ed2b1f305163624712a0532cb7bce0c747317984fc5457440d",
+    "source_sha256": "7e02613c28c64b25dbfda923945aca0d1c87556646e228c88a806dfbabc4dee0",
+    "versions": {
+      "rfdetr": "1.11.2",
+      "torch": "2.7.1+cu118",
+      "torchvision": "0.22.1+cu118"
+    },
+    "provided_fixture_used": false,
+    "test_evaluated": false,
+    "selected_release": false,
+    "training_completed": true,
+    "checkpoint_sha256": {
+      "training\\checkpoint_best_regular.pth": "b251680de5eb6aae6350116ae603d73fd6672879de42989a99da215ff943c013",
+      "training\\checkpoint_best_total.pth": "87d9cfa2bfa189e0ceb7c2b86f865443676a10dad5f7c343e5df0efd62082b7f",
+      "training\\last.ckpt": "5ab92f2960370ae3807358178d65a1da412efe404e9e93735f6be98849640dfa"
+    },
+    "accuracy_claim": false,
+    "limitation": "Short, previously accessed external clips from only three games; ball-present-only export cannot validate absence behavior. Full-frame downsampling may erase small balls. Feasibility success does not establish accuracy, suitability for final inference or competition eligibility."
+  },
+  "checkpoint_check": {
+    "training_report_sha256": "4c2f033a446fa9e5194eb0551f469671326d7c04163aa3248f25114899ea815e",
+    "checkpoint_sha256": "87d9cfa2bfa189e0ceb7c2b86f865443676a10dad5f7c343e5df0efd62082b7f",
+    "shared_backbone_tensors": 249,
+    "changed_backbone_tensors": 248,
+    "synthetic_inference_completed": true,
+    "synthetic_candidate_count": 300,
+    "class_names": [
+      "ball"
+    ],
+    "synthetic_class_ids": [
+      0,
+      1
+    ],
+    "provided_fixture_used": false,
+    "real_image_evaluated": false,
+    "accuracy_validated": false,
+    "selected_release": false
+  },
+  "validation_metrics_from_training_log": {
+    "map_50_95": 0.0103,
+    "map_50": 0.0382,
+    "map_75": 0.0036,
+    "mar_at_500": 0.12,
+    "rounded_display_values": true
+  },
+  "source_games": {
+    "train": [
+      "4"
+    ],
+    "validation": [
+      "6"
+    ],
+    "not_evaluated": [
+      "9"
+    ]
+  },
+  "training_images": 225,
+  "validation_images": 150,
+  "test_images_not_evaluated": 150,
+  "local_execution_failures": [
+    {
+      "run": "v1",
+      "reason": "Missing training dependencies; no training completed"
+    },
+    {
+      "run": "v2",
+      "reason": "Windows cp1254 Unicode metric-table failure before checkpoint export"
+    }
+  ],
+  "promoted": false,
+  "requires_dedicated_class_mapping": true,
+  "reason": "One epoch is a feasibility check; low validation detection quality and limited previously seen data do not justify promotion. Ball-only output IDs cannot reuse the COCO person/ball mapping."
+}

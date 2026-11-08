@@ -24,8 +24,11 @@ def run(training, initial, out):
     out = external_output(out); out.mkdir(parents=True, exist_ok=False)
     os.environ['HF_HUB_OFFLINE'] = '1'; os.environ['TRANSFORMERS_OFFLINE'] = '1'
     import torch
-    before = torch.load(initial, map_location='cpu', weights_only=True)['model']
-    after = torch.load(path, map_location='cpu', weights_only=True)['model']
+    from rfdetr.utilities.io import _safe_torch_load
+    # RF-DETR's strict loader also supports the legacy args Namespace without
+    # enabling unrestricted pickle deserialization.
+    before = _safe_torch_load(initial, trust=False)['model']
+    after = _safe_torch_load(path, trust=False)['model']
     common = [k for k in before if k in after and before[k].shape == after[k].shape
               and torch.is_floating_point(before[k]) and 'backbone' in k]
     changed = [k for k in common if not torch.equal(before[k], after[k])]

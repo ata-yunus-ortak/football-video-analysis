@@ -72,6 +72,27 @@ bağımlılığı nedeniyle eğitim başlamadan durdu; eğitim bağımlılıklar
 tamamlanarak yeni özel çıktı dizininde tekrar başlatıldı. Eski başarısız
 kayıt korunur. 248 testten 246'sı geçti, iki isteğe bağlı AV testi atlandı.
 
+Yerel eğitim tamamlandı; üçüncü koşuda checkpoint üretildi. İkinci koşu
+doğrulama tablosunu cp1254 konsoluna yazarken kesildi; UTF-8 düzeltmesiyle
+aynı ayarlar tekrar çalıştırıldı. Donanım GTX 1650 Ti, yaklaşık 2 GB GPU
+belleği. Dış doğrulama mAP@50:95=0,0103, mAP@50=0,0382 (yuvarlatılmış
+eğitim tablosu). Bu düşük sonuç başarı veya eski dedektörden iyileşme değildir.
+Bir epoch sonunda yeni tek sınıflı model **kullanıma hazır değil**.
+
+Kaydedilen modelin 249 ortak omurga tensöründen 248'i başlangıca göre
+değişti; tüm tensörler sonlu. Güvenli yeniden yükleme ve sentetik boş
+görüntüde API çalıştırma geçti. Boş görüntüye sıfır eşikle yapılan kontrol,
+yanlış pozitif başarısı olarak puanlanmadı. Test maçı değerlendirilmedi.
+Özet ve checkpoint hash'i `ball-detector-feasibility-results-v1.json`.
+
+**Yeni ağırlıkları mevcut COCO arayüzüne doğrudan takmayın.** Tek sınıflı
+checkpoint'in sınıf adları ve ID sözleşmesi farklıdır; boş görüntü kontrolünde
+0 ve 1 çıktıları görüldü. COCO'nun kişi/top eşlemesi bu modele uygulanamaz.
+Ayrı ve doğrulanmış sınıf eşlemesi olmadan görüntü sahipliğine bağlanmayacak.
+Sonraki eğitim çalışması daha çeşitli dış maçlar, küçük top için çözünürlük
+stratejisi, yeni sınıf başlığının başlangıcı ve sabit karşılaştırma protokolü
+gerektirir. Burada yalnız yerel eğitim altyapısının çalışabilirliği doğrulandı.
+
 SoccerNet veri kullanımı araştırma amaçlıdır; ham veri yeniden dağıtılmaz.
 RF-DETR Nano paketi/ağırlıkları Apache-2.0 kapsamındadır; proje sıfırdan
 yazılmış dedektör iddiasında bulunmaz ve ilgili atıfları korur.

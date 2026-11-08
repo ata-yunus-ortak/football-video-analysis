@@ -1,5 +1,16 @@
 # Deney kaydı
 
+## V014 — Dış top dedektörü eğitim altyapısı, 8 Kasım 2026
+
+Manifest-doğrulanmış 225 eğitim / 150 doğrulama görüntüsüyle yerel Nano
+tek epoch eğitimi tamamlandı; ayrı 150 kontrol görüntüsü değerlendirilmedi.
+İlk eksik bağımlılık ve ardından Windows konsol kodlama hatası çözüldü;
+başarısız kayıtlar saklandı. mAP@50:95=0,0103, mAP@50=0,0382: kullanım
+kalitesi kanıtlanmadı, final modele alınmadı. 248/249 omurga tensörü
+güncellendi; güvenli yeniden yükleme ve sentetik çıkarım geçti. Yeni sınıf
+numaraları eski COCO arayüzüne doğrudan uygulanamaz. Özet:
+`ball-detector-feasibility-results-v1.json`. 248 test: 246 geçti, 2 atlandı.
+
 ## V013 — Top adayı filtresi ve konum hassasiyeti, 8 Kasım 2026
 
 SoccerNet kaynak maçları 4/6/9 ayrımıyla geometri/güven filtresi öğrenildi.
