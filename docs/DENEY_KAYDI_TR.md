@@ -1,5 +1,14 @@
 # Deney kaydı
 
+## S002 — Sahiplik geçiş zamanları ve belirsizlik, 8 Kasım 2026
+
+Yönlü bire bir geçiş eşleştirmesi, 0,2/0,5/1/2 s toleransları ve X boşlukları
+için belirsiz zaman aralığı eklendi. Dört dış doğrulama maçında altı değişim
+maliyeti karşılaştırıldı. Mevcut adayın 0,5 s sınır F1'i 0,11277; 0,025 s
+maliyetle 0,16856'ya çıkarken aralık proxy F1'i 0,48388→0,30809 düştü.
+Ortak kabul geçilmedi; model değişmedi ve ayrı kontrol açılmadı. 283 test:
+281 geçti, 2 isteğe bağlı AV atlandı. [Yöntem ve sınırlar](SAHIPLIK_SINIRLARI_TR.md).
+
 ## V021 — Geometri ve zamansal kanıtı birlikte öğrenme, 8 Kasım 2026
 
 355 eğitim adayıyla öğrenildi. Doğrulamada normal/parçalı doğru eşleşmeler

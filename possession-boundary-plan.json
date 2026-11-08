@@ -1,0 +1,9 @@
+{
+ "version":"external-possession-boundary-study-v1",
+ "provided_fixture_used":false,
+ "switch_cost_seconds":[0.0,0.025,0.05,0.1,0.25,0.5],
+ "fixed_evidence":"Use the already selected external sequence configuration; vary only switch cost.",
+ "tolerances_s":[0.2,0.5,1.0,2.0],
+ "selection":"Four original validation fixtures only. Require mean 0.5-second directed boundary F1 improvement >=0.03, mean filled-spell F1 >=99% of existing sequence candidate, HA macro F1 >= existing minus 0.005. Rank boundary F1, spell F1 then grid order. No eligible candidate means no recheck and no release.",
+ "limits":"Automatic SkillCorner possession proxy, reused fixtures, not human contact timing. Unknown targets censor evaluation. Prediction gaps produce uncertain intervals, never exact boundary credit. No D, player identity or image-ownership accuracy claim."
+}
