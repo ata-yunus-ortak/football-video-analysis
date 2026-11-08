@@ -1,0 +1,57 @@
+{
+  "version": "external-ball-confidence-calibration-v1",
+  "threshold": 0.15,
+  "results": {
+    "valid": {
+      "baseline": {
+        "matched": 47,
+        "predicted": 151,
+        "reference": 150,
+        "unmatched_predictions": 104,
+        "precision": 0.31125827814569534,
+        "recall": 0.31333333333333335
+      },
+      "selected": {
+        "matched": 49,
+        "predicted": 226,
+        "reference": 150,
+        "unmatched_predictions": 177,
+        "precision": 0.2168141592920354,
+        "recall": 0.32666666666666666
+      },
+      "accepted": false
+    },
+    "test": {
+      "baseline": {
+        "matched": 53,
+        "predicted": 148,
+        "reference": 150,
+        "unmatched_predictions": 95,
+        "precision": 0.3581081081081081,
+        "recall": 0.35333333333333333
+      },
+      "selected": {
+        "matched": 57,
+        "predicted": 207,
+        "reference": 150,
+        "unmatched_predictions": 150,
+        "precision": 0.2753623188405797,
+        "recall": 0.38
+      },
+      "accepted": false
+    }
+  },
+  "accepted_for_extended_validation": false,
+  "provided_fixture_used": false,
+  "selected_release": false,
+  "independent_test": false,
+  "model_sha256": "1a58c428d14afdc28c868c8b2ad6834399bd889cd9b269691728a076887b6c49",
+  "model_changed": false,
+  "raw_prediction_hashes": {
+    "valid": "7b1bfd69a1924d19f4dd3efcf79c8954b2ab820d2047ed4eb83d59ed9c1a5bb4",
+    "test": "b643aa159253220bcbf711d82d5f844385d21e2817ce18c42d52544ca7debd40"
+  },
+  "threshold_freeze_sha256": "1148165c3dbd0a4a7058aceaf00cac8a65a9f404d45085ac4d6a5f605f43c4b8",
+  "source_sha256": "882b3615ac4d2a049fa1d81a1d06cd6f433a10aea5d26ff3f07bec14f62f2bbb",
+  "limits": "Repeated development use of short ball-present-only clips. Confidence is a ranking score, not a calibrated probability of correctness. No independent new test, no absent-ball behavior or possession validation."
+}

@@ -1,0 +1,35 @@
+{
+  "version": "external-ball-training-coverage-v1",
+  "registered_on": "2026-11-08",
+  "dataset": "SoccerNet/SN-GSR-2024",
+  "commit": "3cc710eb6d53a23350a3d2863311c1c0a2e645d7",
+  "archive": "train.zip",
+  "archive_bytes": 9755097159,
+  "provided_fixture_used": false,
+  "sequence_indices": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    9,
+    11,
+    12,
+    14,
+    15
+  ],
+  "frame_start": 0,
+  "frame_stop": 750,
+  "frame_stride": 10,
+  "max_download_bytes": 500000000,
+  "allowed_game_ids": [
+    "4"
+  ],
+  "game_roles": {
+    "4": "training"
+  },
+  "selection": "All remaining unused sequence indices from source game 4 (archive inventory only), excluding prior gallery and first expansion clips. Every tenth native frame. Registered before these image/label downloads; no content curation.",
+  "clock": "Sparse source image numbers preserved. These are not consecutive 25 FPS observations and must not be passed through the contiguous sample-video adapter.",
+  "conditions": "SoccerNet research-only public ungated training archive; no raw redistribution or cloud image upload. No new NDA accepted.",
+  "limits": "More scenes from the same previously exposed source games, not more independent matches. Prior unknown exposure cannot be ruled out. Data preparation alone is not an algorithm accuracy improvement."
+}

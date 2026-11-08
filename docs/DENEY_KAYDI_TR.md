@@ -1,5 +1,21 @@
 # Deney kaydı
 
+## V017 — Sabit modelde güven eşiği kalibrasyonu, 8 Kasım 2026
+
+Sekiz ön kayıtlı eşik yalnız doğrulama maçında karşılaştırıldı. Eşik 0,15
+doğru eşleşmeleri korudu, fakat eşleşmeyenler doğrulamada 104→177,
+sabit kontrolde 95→150 arttı. Kabul koşulu geçilmedi. Kontrolden sonra
+eşik değiştirilmedi, model tekrar eğitilmedi. `ball-confidence-results-v1.json`.
+
+## V016 — COCO top başlığını koruyarak eğitim, 8 Kasım 2026
+
+37 numaralı top logiti yeni dense 0'a tüm başlıklarda aktarıldı; diğer
+tensörlerin ve kurulan başlangıç modelinin bire bir korunduğu doğrulandı.
+Üç epoch düşük öğrenme hızıyla eğitim yapıldı. Sabit 0,3 eşikte doğrulama
+eşleşmesi 47→39, eşleşmeyenler 104→43; ayrı maçta 53→39 ve 95→42.
+Doğru eşleşmeler azaldığı için kabul edilmedi. Mevcut model korundu.
+`ball-transfer-results-v1.json`; [ayrıntı](TOP_COZUNURLUK_AKTARIM_TR.md).
+
 ## V015 — Sabit çözünürlük deneyi ve sınıf sözleşmesi, 8 Kasım 2026
 
 120 dış karede aynı GPU/ağırlık/eşik kullanıldı. 384×384 parçalar,

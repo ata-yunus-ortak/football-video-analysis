@@ -1,0 +1,21 @@
+{
+  "version": "external-ball-sparse-expansion-v2",
+  "registered_on": "2026-11-08",
+  "dataset": "SoccerNet/SN-GSR-2024",
+  "commit": "3cc710eb6d53a23350a3d2863311c1c0a2e645d7",
+  "archive": "train.zip",
+  "archive_bytes": 9755097159,
+  "provided_fixture_used": false,
+  "sequence_indices": [2,5,10,13,18,21,26,29,34,37,42,45,50,53,55],
+  "frame_start": 0,
+  "frame_stop": 750,
+  "frame_stride": 10,
+  "max_download_bytes": 700000000,
+  "allowed_game_ids": ["4","6","9"],
+  "game_roles": {"4":"training","6":"validation","9":"fixed_recheck"},
+  "selection": "Indices and every tenth frame registered before content access. Broaden scenes over each 30-second source clip without treating adjacent images as independent games. Never success-curate clips. No public challenge/test archive accessed.",
+  "clock": "Sparse source image numbers preserved. These are not consecutive 25 FPS observations and must not be passed through the contiguous sample-video adapter.",
+  "conditions": "SoccerNet research-only public ungated training archive; no raw redistribution or cloud image upload. No new NDA accepted.",
+  "limits": "More scenes from the same previously exposed source games, not more independent matches. Prior unknown exposure cannot be ruled out. Data preparation alone is not an algorithm accuracy improvement.",
+  "registration_correction": "First acquisition rejected out-of-range sequence index 58 before any image or label download. Replace with unused index 55; no visual content or accuracy result informed this metadata-only correction."
+}

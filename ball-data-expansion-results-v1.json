@@ -1,0 +1,71 @@
+{
+  "version": "external-ball-expansion-summary-v1",
+  "provided_fixture_used": false,
+  "independent_new_matches": false,
+  "acquisitions": [
+    {
+      "version": "external-ball-sparse-expansion-v2",
+      "complete": true,
+      "clips": 15,
+      "frames": 1125,
+      "by_game": {
+        "4": 300,
+        "6": 375,
+        "9": 450
+      },
+      "downloaded_range_bytes": 377346206,
+      "provided_fixture_used": false,
+      "independent_new_matches": false,
+      "archive_sha256_verified": false,
+      "limits": "More scenes from the same previously exposed source games, not more independent matches. Prior unknown exposure cannot be ruled out. Data preparation alone is not an algorithm accuracy improvement."
+    },
+    {
+      "version": "external-ball-training-coverage-v1",
+      "complete": true,
+      "clips": 10,
+      "frames": 750,
+      "by_game": {
+        "4": 750
+      },
+      "downloaded_range_bytes": 255989926,
+      "provided_fixture_used": false,
+      "independent_new_matches": false,
+      "archive_sha256_verified": false,
+      "limits": "More scenes from the same previously exposed source games, not more independent matches. Prior unknown exposure cannot be ruled out. Data preparation alone is not an algorithm accuracy improvement."
+    }
+  ],
+  "total_frames": 1875,
+  "total_clips": 25,
+  "by_game": {
+    "4": 1050,
+    "6": 375,
+    "9": 450
+  },
+  "patch_counts": {
+    "train": {
+      "source_images": 106,
+      "patches": 212,
+      "ball_boxes": 106,
+      "reference_free_patches": 106
+    },
+    "valid": {
+      "source_images": 40,
+      "patches": 960,
+      "ball_boxes": 93,
+      "reference_free_patches": 869
+    }
+  },
+  "full_frame_selected_counts": {
+    "train": 106,
+    "valid": 40,
+    "test": 45
+  },
+  "patch_manifest_sha256": "23804604835744f478654d5a645b9d17012aa0e636d295226d3f444f4530ade4",
+  "native_manifest_sha256": "36aab9caeef949962028daeb7cc509baf6d64f5acee7a439be30755361c2017e",
+  "source_hashes": {
+    "tools/ball_data_expansion.py": "9d72d261031570caad363886058e358513977a888e68171d531da79ad4cf1413",
+    "tools/ball_patch_data.py": "924efc4f1d14fe201fda3d8594edfa964fa2b6478a0ef3a65750f4ffa400d0e4",
+    "development/ball_patch_geometry.py": "80c87b338b52ed39e52795fafe8ed2ebaf925a2ad703f10adc919fdd36f400c9"
+  },
+  "limits": "Sparse observations, not contiguous 25 fps clips. Same previously exposed games. Ball-present reference coverage only. Full archive hash not verified; each downloaded ZIP member CRC and SHA-256 recorded privately. No raw data redistribution."
+}

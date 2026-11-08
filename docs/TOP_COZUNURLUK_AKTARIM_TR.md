@@ -63,3 +63,34 @@ modelin doğru eşleşmelerinin tamamı korunmalı; eşleşmeyen adaylar ≥%20
 azalmalı. Başarılı olsa bile bu küçük, daha önce görülmüş ve yalnız top
 etiketi olan görüntülerden oluşan grup final sürüm onayı değildir. Daha
 geniş dış doğrulama, top yokken davranış, takip ve sahiplik ayrıca gerekir.
+
+V016 tamamlandı. Sabit 0,3 eşikte sonuç:
+
+| Grup / model | Eşleşen | Eşleşmeyen |
+| --- | ---: | ---: |
+| Doğrulama / orijinal COCO | 47 | 104 |
+| Doğrulama / yalnız başlık aktarımı | 49 | 180 |
+| Doğrulama / üç epoch eğitim | 39 | 43 |
+| Sabit kontrol / orijinal COCO | 53 | 95 |
+| Sabit kontrol / yalnız başlık aktarımı | 55 | 157 |
+| Sabit kontrol / üç epoch eğitim | 39 | 42 |
+
+Yanlış aday azalması doğru eşleşme kaybıyla birlikte geldiği için kabul
+edilmedi. Yeni ağırlıklar mevcut dedektörün yerine geçirilmedi. Özet:
+`ball-transfer-results-v1.json`. En iyi doğrulama epoch'u üçüncüdür.
+
+## V017: sabit modelin çalışma eşiğini seçme
+
+Farklı modellerin 0,3 puanı aynı doğruluk olasılığı değildir. Ayrı kayıt
+`ball-confidence-calibration-plan.json`, aynı ağırlıklar için önceden
+belirlenen 0,05–0,5 eşikleri yalnız maç 6'da karşılaştırır. Eski modelin
+eşleşmelerini koruyanlar içinde en az eşleşmeyen üreten eşik sabitlenir;
+sonra maç 9 çıkarımı/puanlaması yapılır. Önceki kabul koşulu aynen kalır.
+Her iki maç daha önce görülmüştür; bu yeni bağımsız test diye sunulmaz ve
+kontrol sonucundan sonra eşik yeniden ayarlanmaz.
+
+V017 tamamlandı: seçilen eşik 0,15. Doğrulama eşleşmeleri 47→49 olsa da
+eşleşmeyenler 104→177 arttı. Sabit kontrolde 53→57 ve 95→150 çıktı.
+Kabul edilmedi; ağırlık ve eşik final sisteme alınmadı. Özet
+`ball-confidence-results-v1.json`. Bu sonuç aynı küçük veri üzerinde
+eşik ayarı yapmayı sürdürmek yerine sahne kapsamını büyütme ihtiyacını gösterdi.

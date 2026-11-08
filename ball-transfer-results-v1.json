@@ -1,0 +1,73 @@
+{
+  "version": "external-ball-head-transfer-v1",
+  "scores": {
+    "valid": {
+      "coco": {
+        "matched": 47,
+        "predicted": 151,
+        "reference": 150,
+        "unmatched_predictions": 104,
+        "precision": 0.31125827814569534,
+        "recall": 0.31333333333333335
+      },
+      "transferred": {
+        "matched": 49,
+        "predicted": 229,
+        "reference": 150,
+        "unmatched_predictions": 180,
+        "precision": 0.21397379912663755,
+        "recall": 0.32666666666666666
+      },
+      "trained": {
+        "matched": 39,
+        "predicted": 82,
+        "reference": 150,
+        "unmatched_predictions": 43,
+        "precision": 0.47560975609756095,
+        "recall": 0.26
+      }
+    },
+    "test": {
+      "coco": {
+        "matched": 53,
+        "predicted": 148,
+        "reference": 150,
+        "unmatched_predictions": 95,
+        "precision": 0.3581081081081081,
+        "recall": 0.35333333333333333
+      },
+      "transferred": {
+        "matched": 55,
+        "predicted": 212,
+        "reference": 150,
+        "unmatched_predictions": 157,
+        "precision": 0.25943396226415094,
+        "recall": 0.36666666666666664
+      },
+      "trained": {
+        "matched": 39,
+        "predicted": 81,
+        "reference": 150,
+        "unmatched_predictions": 42,
+        "precision": 0.48148148148148145,
+        "recall": 0.26
+      }
+    }
+  },
+  "accepted_for_extended_validation": false,
+  "selected_release": false,
+  "provided_fixture_used": false,
+  "independent_test": false,
+  "source_hashes": {
+    "tools/ball_transfer_training.py": "4ed675eac1694512d29994ea5ed6eb58d8b694de42ecd89ea80e5505513c0e1e",
+    "development/ball_head_transfer.py": "d2f892ff55779438e772fc10733eeb3c29337d0e629d04ef80419f8431852307",
+    "development/vision_box_audit.py": "0d5a0ac65d79f1ddd295d789f7c3956e1bb52fa4018be6c95315c553095d4741"
+  },
+  "weights_sha256": {
+    "coco": "d8d6b9ee57d4d0ed2b1f305163624712a0532cb7bce0c747317984fc5457440d",
+    "transferred": "c6a627127c86d98fc55e8a8ac4404ed0fcb38782063cd5308c925d2a4a6366e2",
+    "trained": "1a58c428d14afdc28c868c8b2ad6834399bd889cd9b269691728a076887b6c49"
+  },
+  "prediction_freeze_sha256": "f85944d5bad371fe5be8bbc258be67c009b13c8d2a206358840ab9a73a227481",
+  "limits": "Tiny previously exposed ball-present-only dataset; no absent-ball precision, temporal tracking, camera fusion or possession validation. Best epoch on validation is development selection, not independent evidence."
+}

@@ -1,0 +1,17 @@
+{
+  "version": "external-ball-confidence-calibration-v1",
+  "registered_on": "2026-11-08",
+  "provided_fixture_used": false,
+  "model_sha256": "1a58c428d14afdc28c868c8b2ad6834399bd889cd9b269691728a076887b6c49",
+  "model_origin": "external-ball-head-transfer-v1, best validation epoch; weights remain unchanged",
+  "validation_game": "6",
+  "fixed_recheck_game": "9",
+  "previously_exposed": true,
+  "independent_test": false,
+  "confidence_thresholds": [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5],
+  "raw_inference_threshold": 0.05,
+  "baseline": "Original COCO model at fixed 0.3, frozen predictions from the preceding transfer study",
+  "selection": "On validation only, among thresholds retaining at least baseline matched boxes, choose fewest unmatched predictions, then most matches, then larger threshold. If none retains baseline matches, no candidate is accepted. Freeze selected threshold before recheck inference/scoring. No retraining or recheck-based retuning.",
+  "acceptance": "Same prior gate on both groups: retain all baseline matches and reduce unmatched predictions by at least 20 percent. Extended validation only, not final release.",
+  "limits": "Repeated development use of short ball-present-only clips. Confidence is a ranking score, not a calibrated probability of correctness. No independent new test, no absent-ball behavior or possession validation."
+}

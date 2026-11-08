@@ -1,0 +1,10 @@
+{
+  "version": "external-ball-expanded-native-v1",
+  "registered_on": "2026-11-08",
+  "dataset": "SoccerNet/SN-GSR-2024",
+  "archive": "train.zip",
+  "provided_fixture_used": false,
+  "splits": {"train": ["4"], "valid": ["6"], "test": ["9"]},
+  "purpose": "Manifest-verified native images from the two registered sparse acquisitions. No detector selection or inference in this export.",
+  "limits": "Previously exposed source games; sparse source frames, not a contiguous video. Unknown ball and ignored regions are excluded by the existing export contract."
+}
