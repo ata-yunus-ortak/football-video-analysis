@@ -116,6 +116,8 @@ class HelperTests(unittest.TestCase):
         got = pd.error_class(tb, 1)
         self.assertEqual(got, 'ValueError @ possession/data.py:102 read_epts')
         self.assertEqual(pd.error_class('killed', -9), 'cikis kodu -9')
+        # block-buffered program output that reaches the log after the traceback (seen on GitHub runners)
+        self.assertEqual(pd.error_class(tb + 'secret label_counts 123\n', 1), 'ValueError @ possession/data.py:102 read_epts')
 
     def test_a_failed_release_check_names_the_changed_file_and_nothing_else(self):
         tb = ('Traceback (most recent call last):\n  File "<string>", line 1, in <module>\n'

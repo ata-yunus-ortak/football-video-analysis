@@ -1,5 +1,23 @@
 # Deney kaydı
 
+## K006 — İlk teslim zinciri ve GitHub testleri, 11 Kasım 2026 akşamı
+
+**Teslim zinciri (kullanıcının bilgisayarı, Windows 10, Python 3.10.11, commit `0810fec`).** Paylaşılan durum
+satırları: ORTAM, SURUM, TESTLER, GIRDI OKUMA, BICIM, MAKULLUK, ORGANIZATOR DOGRULAYICI, ACIK PENCERE (geçti/kaldı)
+OK; PLATFORM AYNI (yedi sentetik varyant Windows'ta da aynı bayt); TEKRAR URETIM ve TEMIZ KLON AYNI; URETIM
+`possession-v2.11, saatsiz`; SAAT ATLANDI (videolar zincirin beklediği yerde değil). Sonuç: teslim dosyası hazır,
+uyarı yalnız SAAT. Doğruluk ölçümü değildir; sağlanan maça dair başka hiçbir bilgi paylaşılmadı.
+
+**GitHub Actions #11 (aynı commit, Ubuntu/3.12 ve Windows/3.10, sahiplik paketleri ilk kez kurulu).** 411 testten
+biri iki makinede de kaldı: `test_possession_deliver` içinde yapay hatalı giriş noktasının hata sınıfı
+`ValueError` yerine `hata` okundu. Neden: alt programın `print` çıktısı dosyaya yazılırken tamponlanıyor ve
+traceback'ten sonra diske düşüyordu; `error_class` son satırı istisna satırı sanıyordu. Bulut oturumunda
+`PYTHONUNBUFFERED=1` tanımlı olduğu için görünmemişti (değişken kaldırılınca burada da tekrarlandı). Etki yalnız
+hata durumunda ekrana yazılan sınıf adıdır; üretilen dosyayı, sürümü ya da bu akşamki zinciri etkilemez.
+Düzeltme `tools/possession_deliver.py`: alt programlar `PYTHONUNBUFFERED=1` ile çalışır ve istisna satırı son
+çerçeveden sonraki ilk girintisiz satırdan okunur; teste tamponlu çıktı durumu eklendi. Dondurulmuş dosya
+değişmedi.
+
 ## K005 — Kayıt düzeltmesi: Metrica vekil etiketlerinde eşzamanlı olayların sırası, 11 Kasım 2026
 
 **Özet.** Yalnız raporlama amaçlı üç kayıt, duran top aralıklarının yaklaşık yarısını yitirmiş Metrica vekil

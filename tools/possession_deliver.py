@@ -67,7 +67,10 @@ def error_class(text, code):
         return f'cikis kodu {code}'
     tb = text[text.rindex('Traceback (most recent call last)'):]
     lines = [l for l in tb.strip().splitlines() if l.strip()]
-    m = re.match(r'^([A-Za-z_][\w.]*)\s*(:|$)', lines[-1]) if lines else None
+    frames = [i for i, l in enumerate(lines) if l.lstrip().startswith('File "')]
+    # the exception line is the first unindented line after the last frame (later lines may be buffered output)
+    tail = [l for l in lines[(frames[-1] + 1 if frames else 1):] if not l.startswith((' ', '\t'))]
+    m = re.match(r'^([A-Za-z_][\w.]*)\s*(:|$)', tail[0]) if tail else None
     name = m.group(1) if m else 'hata'
     where = ''
     for f, ln, fn in reversed(re.findall(r'File "([^"]+)", line (\d+), in (\S+)', tb)):
@@ -197,7 +200,9 @@ class Chain:
             start = fh.tell()
             t0, nxt = time.time(), 60
             try:
-                proc = subprocess.Popen(cmd, cwd=str(cwd), stdout=fh, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL)
+                # unbuffered child output keeps a traceback after the program's printed lines, so error_class finds it
+                proc = subprocess.Popen(cmd, cwd=str(cwd), stdout=fh, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
+                                        env=dict(os.environ, PYTHONUNBUFFERED='1'))
             except OSError as e:
                 return 127, type(e).__name__
             while True:
