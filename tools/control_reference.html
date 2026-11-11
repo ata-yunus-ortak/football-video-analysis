@@ -1,0 +1,17 @@
+<!doctype html><html lang="tr"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Dış maç — bağımsız referans</title><style>
+body{font:16px system-ui;background:#10171d;color:#edf4f8;max-width:1120px;margin:24px auto;padding:0 20px}video{width:100%;max-height:580px;background:black}button,input,select{font:inherit;padding:8px;margin:4px;border-radius:6px}button{cursor:pointer;background:#bfe8d4;color:#10271c;border:0}fieldset{margin:16px 0;border:1px solid #50636e;border-radius:8px}label{display:inline-block;margin:6px}input[type=number]{width:105px}.note{color:#bacdd8}#message{color:#ffd480;white-space:pre-wrap}li{padding:5px}a{color:#bfe8d4}</style>
+<h1>Bağımsız olay referansı</h1><p class="note">Yalnız izinli dış maçlar. Algoritmanın tahmini veya kutuları gösterilmez. Bu sayfa veri yüklemez; kaydınız JSON olarak bilgisayarınıza indirilir. Belirsiz anlar için tek zaman yerine aralık işaretleyin.</p>
+<label>Kesit <select id="clip"></select></label><span id="split"></span>
+<video id="video" controls preload="metadata"></video>
+<div><button id="prev">← 1 kare</button><button id="next">1 kare →</button><label>Hız <select id="rate"><option>1</option><option>0.5</option><option>0.25</option></select></label><span id="clock"></span></div>
+<fieldset><legend>Eksiksiz incelenen kapsam</legend><p class="note">Yalnız seçtiğiniz olay türlerinin tamamını incelediğiniz zaman aralığını ekleyin. İncelenmeyen süreler negatif örnek sayılmaz.</p><div id="kinds"></div>
+<label>Başlangıç (s) <input id="coverageStart" type="number" min="0" step="0.04" value="0"></label><label>Bitiş, hariç (s) <input id="coverageEnd" type="number" min="0" step="0.04"></label><button id="addCoverage">Kapsam ekle</button><ol id="coverage"></ol></fieldset>
+<fieldset><legend>Gözlenen olay</legend><label>Tür <select id="kind"></select></label><label>En erken (s) <input id="earliest" type="number" min="0" step="0.04" value="0"></label><button id="setEarly">Şimdiki kare</button>
+<label>En geç (s) <input id="latest" type="number" min="0" step="0.04" value="0"></label><button id="setLate">Şimdiki kare</button>
+<label>Takım <select id="team"><option value="">Bilinmiyor</option><option value="H">H — ev sahibi</option><option value="A">A — deplasman</option></select></label>
+<label>Doğrulanmış oyuncu ID <input id="owner" placeholder="Bilinmiyorsa boş"></label><button id="addEvent">Olay ekle</button>
+<p class="note">Takım ve kimliği doğrulayamadıysanız boş bırakın. Forma numarasını doğrulanmış oyuncu ID'si yerine yazmayın. Temas ile topu kontrol etmeye başlama ayrı olaylardır.</p><ol id="events"></ol></fieldset>
+<label><input id="attest" type="checkbox">İşaretlediğim kapsamı bağımsız inceledim; model tahminlerini referans olarak kopyalamadım.</label>
+<button id="export">Referans JSON indir</button><p id="message" role="status"></p>
+<script src="pack.js"></script><script src="review.js"></script></html>

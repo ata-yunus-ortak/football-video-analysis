@@ -20,7 +20,7 @@ def run(acquisition,plan,out):
         video=json.loads((dst/'video-manifest.json').read_text())
         template={'provided_fixture_used':False,'source_kind':'permitted_external_video','reference_origin':None,
             'split':split,'game_id':game,'video_sha256':video['video_sha256'],'coverage_s':[],'events':[],
-            'status':'unannotated_not_evaluable','allowed_event_kinds':['control_start','control_end','touch','pass','turnover','stop','restart'],
+            'status':'unannotated_not_evaluable','reviewed_event_kinds':[], 'allowed_event_kinds':['control_start','control_end','touch','pass','turnover','stop','restart'],
             'event_template':{'id':None,'kind':None,'earliest_s':None,'latest_s':None,'team':None,'owner_id':None},
             'instructions':'Record independently reviewed intervals only. Set coverage only where all specified event kinds are exhaustively reviewed. Never copy algorithm predictions as reference.'}
         write(dst/'reference-template.json',template)

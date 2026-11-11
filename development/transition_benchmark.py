@@ -17,14 +17,18 @@ def validate_reference(doc,split_plan,allow_recheck=False):
     if split=='recheck' and not allow_recheck:raise ValueError('Recheck locked until candidate freeze')
     h=doc['video_sha256']
     if len(h)!=64 or any(c not in '0123456789abcdef' for c in h):raise ValueError('Content hash required')
+    kinds=doc.get('reviewed_event_kinds')
+    if not isinstance(kinds,list) or not kinds or len(set(kinds))!=len(kinds) or not set(kinds)<=KINDS:
+        raise ValueError('Explicit nonempty reviewed event kinds required')
     windows=doc['coverage_s']
+    if not windows:raise ValueError('Nonempty reviewed time coverage required')
     for i,(a,b) in enumerate(windows):
         if not all(math.isfinite(v) for v in (a,b)) or not 0<=a<b or (i and a<windows[i-1][1]):raise ValueError('Ordered nonoverlapping coverage')
     ids=set()
     for e in doc['events']:
         if e['id'] in ids:raise ValueError('Duplicate reference event')
         ids.add(e['id']);a,b=e['earliest_s'],e['latest_s']
-        if e['kind'] not in KINDS or not all(math.isfinite(v) for v in (a,b)) or a>b or not any(x<=a<=b<=y for x,y in windows):
+        if e['kind'] not in kinds or not all(math.isfinite(v) for v in (a,b)) or a>b or not any(x<=a<=b<y for x,y in windows):
             raise ValueError('Event outside explicit evaluable coverage')
         if e.get('team') not in ('H','A',None):raise ValueError('Invalid team')
     return doc
@@ -33,17 +37,19 @@ def validate_reference(doc,split_plan,allow_recheck=False):
 def evaluate_events(predicted,reference,tolerance_s=.5):
     """Maximum-cardinality one-to-one matching; intervals do not imply exact times."""
     if not math.isfinite(tolerance_s) or tolerance_s<0:raise ValueError('Invalid tolerance')
-    refs=reference['events'];windows=reference['coverage_s']
+    refs=reference['events'];windows=reference['coverage_s'];kinds=set(reference['reviewed_event_kinds'])
+    def window(t):return next((i for i,(a,b) in enumerate(windows) if a<=t<b),None)
     selected=[];unscored=0
     for p in predicted:
         if p['kind'] not in KINDS or not math.isfinite(p['time_s']):raise ValueError('Invalid predicted event')
-        if p.get('left_censored') or p.get('right_censored'):unscored+=1;continue
+        if p.get('left_censored') or p.get('right_censored') or p['kind'] not in kinds:unscored+=1;continue
         if any(a<=p['time_s']<b for a,b in windows):selected.append(p)
         else:unscored+=1
     edges=[]
     for p in selected:
         choices=[]
         for j,r in enumerate(refs):
+            if window(p['time_s'])!=window(r['earliest_s']):continue
             if p['kind']!=r['kind'] or (r.get('team') is not None and p.get('team')!=r['team']):continue
             if r.get('owner_id') is not None and p.get('owner_id')!=r['owner_id']:continue
             distance=max(r['earliest_s']-p['time_s'],0,p['time_s']-r['latest_s'])

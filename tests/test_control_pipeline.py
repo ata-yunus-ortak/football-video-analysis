@@ -103,7 +103,7 @@ class SixStepTests(unittest.TestCase):
 
     def test_external_reference_split_and_uncertain_intervals(self):
         doc={'provided_fixture_used':False,'source_kind':'permitted_external_video','reference_origin':'external_human_review',
-            'split':'validation','game_id':'3','video_sha256':'a'*64,'coverage_s':[[0,10]],
+            'split':'validation','game_id':'3','video_sha256':'a'*64,'coverage_s':[[0,10]],'reviewed_event_kinds':['control_start'],
             'events':[{'id':'a','kind':'control_start','earliest_s':2,'latest_s':3,'team':'H','owner_id':'p0'}]}
         plan={'splits':{'train':['2'],'validation':['3'],'recheck':['5']}}
         validate_reference(doc,plan)
