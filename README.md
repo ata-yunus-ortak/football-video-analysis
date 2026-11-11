@@ -1,3 +1,87 @@
+# More Than a Hack 2027 — possession (team repository)
+
+## Submission system: possession v2.11
+
+Release `possession-v2.11`, entry point `python -m possession.run211`, manifest
+`possession-v211-release.json`. The release and its technical fall-backs (the next one is
+`possession-v2.9`) are named in `possession-release.json`.
+
+| where | what |
+|---|---|
+| [TECHNICAL_DOCUMENT.md](TECHNICAL_DOCUMENT.md) | short document for the submission form |
+| [TECHNICAL_DOCUMENT_V2.md](TECHNICAL_DOCUMENT_V2.md) | full record of the possession line |
+| [DATA_SOURCES.md](DATA_SOURCES.md) | data, labels (what, by whom, how much), licences, tools |
+| [docs/DENEY_KAYDI_TR.md](docs/DENEY_KAYDI_TR.md) | experiment log, newest entry first (Turkish) |
+| [docs/SAHIPLIK_V2_TR.md](docs/SAHIPLIK_V2_TR.md) | team guide (Turkish) |
+| `possession-v*-plan.json`, `possession-v*-results.json` | plan registered before each experiment, and its results |
+| `possession-final-test-plan.json` | registered final test of the frozen release on a reserved external match (`python -m tools.possession_final_test`); its results file exists once the team has run it |
+| [experiments/possession_v2/](experiments/possession_v2/) | the experiment scripts (archive; not needed to regenerate the file) |
+
+### Regenerate the submission file
+
+Needs the competition bundle (not in this repository; a folder with `tactical/` and `broadcast/`)
+and Python 3.10, 3.11 or 3.12.
+
+```
+# one command: environment, release hash check, synthetic tests, clock readings, generation, validation
+python -m tools.possession_deliver --data-dir <bundle root> --private <output folder> --team <team name>
+#   Windows: TESLIM-HAZIRLA.cmd (uses MTAH_DATA_DIR from viewer-local.cmd)
+
+# or by hand
+python -m pip install -r requirements-possession.txt
+# clock readings, separate OCR environment (requirements-sync-lock.txt):
+python -m tools.possession_clock --video <bundle root>/tactical/BAR-ATH_tactical.mp4 --out <clock>/tactical
+python -m tools.possession_clock --video <bundle root>/broadcast/BAR-ATH_broadcast.mp4 --out <clock>/broadcast
+python -m possession.run211 --data-dir <bundle root> --out <new folder> --tactical-clock <clock>/tactical --broadcast-clock <clock>/broadcast
+python -m possession.validate <new folder>/submission.csv
+```
+
+The delivery tool prints status words only (OK, FAIL, AYNI = same, FARKLI = different, ATLANDI =
+skipped) and writes all program output to a private log, because the provided data and anything
+derived from it must not be given to AI services. Never compare the output with the match video.
+
+Before generating, the tool checks the provided files against the facts `DATA.md` publishes about
+them and against a second reading done the way the organisers' `starter/baseline.py` reads the
+tracking (`python -m possession.inputs_check`, pass/fail only). The whole chain was rehearsed on
+synthetic bundles with the file names, sizes and slot counts of the provided files
+(`possession-rehearsal-results.json`, log entry K003).
+
+Reserve: `possession-release-graded-windows.json` names `possession.run211g`, the same system without
+the kick-off frame published in the FAQ. It is used only if the organisers answer that this constant
+may not be hard-coded: `python -m tools.possession_deliver --release-config possession-release-graded-windows.json ...`.
+
+### What it is
+
+Per-frame `H`/`A`/`D` from the provided automatic tracking, trained and selected only on external
+matches (Sportec/DFL open data, Metrica sample games) and run on the provided match locally by the
+team.
+
+- **Core (v2.1):** position features -> two gradient-boosted tree models (P dead, P home | alive) ->
+  second stage on out-of-fold stage-1 probabilities -> three-state Viterbi decoder.
+- **Noise gate (v2.4):** the frame-to-frame position noise of the tracking is measured; above 0.30 m
+  the same pipeline runs on smoothed positions with models trained on noisier data.
+- **Broadcast ball fill (v2.5, v2.5b):** the broadcast tracking is aligned to the tactical frames
+  (anchored on the match clock read by OCR in both videos); missing tactical balls are filled only
+  when both cameras agree within 0.50 m.
+- **Second-half kick-off (v2.5c):** play starts at the kick-off frame published in the organisers' FAQ.
+- **Registration (v2.9):** before that gate the broadcast ball is corrected by the calibration error
+  measured on players both cameras see (`possession/register.py`).
+- **Goalkeeper team check (v2.11):** goalkeeper track pieces that carry the other team's id are moved
+  to the team that defends their goal before the features are computed (`possession/keeper2.py`);
+  with correct ids nothing changes.
+
+External numbers (agreement with other providers' labels on corrupted copies; **not competition
+scores**): core 0.631 against 0.196 for the organisers' baseline logic; noise gate 0.603 -> 0.642 on
+24 fresh copies; simulated accurate broadcast +0.024; registration with a medium-quality simulated
+broadcast 0.653 -> 0.681 and with an accurate one 0.686 -> 0.684; goalkeeper check 0.659 -> 0.660
+with correct team ids, 0.335 -> 0.656 with both goalkeepers under the other team's id (simulated). Tested
+and not selected under gates written down beforehand: Smart Tagging evidence (v3), ungated
+broadcast fill (v4), wider noise training (v2.2), v2.3 alone, switch hazard (v2.6), gap features
+(v2.7), Metrica training (v2.8). The first goalkeeper check (v2.10) passed its gates and was replaced
+before release (log entry K004).
+
+---
+
 # Remediated external-fixture possession model
 
 **Current development:** see [external evaluation and rule precedence](docs/OTONOM_GELISTIRME_TR.md).

@@ -1,0 +1,44 @@
+{
+ "plan": "possession-v2.9 (broadcast ball registered to the tactical frame through the players, then smoothed; on top of v2.5b/v2.5c)",
+ "registered": "2026-11-11T01:05:28+03:00",
+ "registered_before_any_v2_9_score": true,
+ "motivation": [
+  "v2.7 (features), the decoder sweep and v2.8 (Metrica-labelled training, +0.001 on the held-out Metrica match, -0.011 to -0.014 on DFL copies; possession-v28-results.json) did not help; ball information is what helped so far (no missing ball: 0.61 -> 0.70; v2.5 fill with an accurate broadcast: +0.024/+0.037).",
+  "In v2.5 the fill is used only when the broadcast ball is already accurate (median distance <= 0.50 m): with medium calibration error the gate opened on 1 of 16 copies and the gain was +0.004. Players seen by both cameras measure the calibration error directly."
+ ],
+ "seen_before_registration": "One mechanical smoke test (Metrica game 1, degrade seed 5, stream seed 77, fixed quality values per regime): true broadcast ball error and gate state with and without registration; no possession score was computed. Seeds 5/77 are not evaluation seeds.",
+ "candidate": {
+  "module": "possession/register.py",
+  "sha256": "2601c559070dea1dfb14cc6ec9cf7e78aed7978d0605de6a5c884082656a72a4",
+  "constants": {
+   "MATCH_R_M": 3.0,
+   "TRIM_M": 1.0,
+   "MIN_MATCHES": 3,
+   "WEIGHT_SIGMA_M": 12.0,
+   "MEDIAN_HALF_S": 0.5,
+   "SMOOTH_HALF": 2
+  },
+  "steps": "clock-anchored alignment as v2.5b; per accepted broadcast frame the broadcast-minus-tactical offset at the ball from mutually nearest same-team player pairs (weights by distance to the broadcast ball, trimmed); median over +-0.5 s; subtract from the broadcast ball; +-2 frame NaN-aware mean; frames without an estimate get no broadcast ball; then the unchanged v2.5 accuracy gate (0.50 m median, 120 s, 5%) and fill",
+  "unchanged": "models, features, decoders, noise gate, alignment, gate thresholds"
+ },
+ "validation": {
+  "models": "4-match validation models of both paths (as v2.4/v2.5)",
+  "tactical_copies": "validation matches J03WN1, J03WR9, MET1, MET2; new degrade seeds 4100+10*i+j (v2.1 corruption) and 4500+10*i+j (player noise 0.3-0.6 m), j=0/1: 16 copies never used before",
+  "broadcast_streams": "work/synth_broadcast3.simulate_warp: the v2.5b simulator plus (a) a per-shot linear warp around the camera centre with entries sd = bias_sd/20 per metre, so the error differs between the players and the ball, and (b) a ball-only per-shot error of sd 0.25*bias_sd that players cannot reveal; regimes good/medium/bad as in v2.5 (bias_sd 0-0.2 / 0.2-0.6 / 0.6-1.5 m; ball and player noise 0.05-0.25 / 0.25-0.5 / 0.5-1.0 m); stream seed 39000+100*regime+copy; clock readings simulated as v2.5b with seed 49000+100*regime+copy",
+  "systems": "v2.4 (no broadcast), v2.5b (current release logic), v2.9; all on the same copy and stream",
+  "score": "mean official spell_f1_mean per regime over the 16 copies"
+ },
+ "selection_rule": {
+  "select_v2_9_only_if_all": [
+   "medium regime: v2.9 >= v2.5b + 0.010",
+   "good regime: v2.9 >= v2.5b - 0.003",
+   "bad regime: v2.9 >= v2.4 - 0.003",
+   "mean over the three regimes: v2.9 >= v2.5b + 0.005"
+  ],
+  "otherwise": "keep the v2.5c release",
+  "no_relaxation": true
+ },
+ "if_selected": "new release possession-v2.9 = v2.5c with register.py before the gate; new manifest, tests, byte-reproducibility check on an external full-size pair; run.json reports aggregate registration statistics only",
+ "limits": "Simulated streams designed by the same team that designed the method; the shared-error assumption (players and ball share most of the calibration error) is built into the simulator except for the warp and the ball-only term. Real broadcast errors (height parallax of aerial balls, wrong player matches in crowds, zoom-dependent distortion) may differ; the accuracy gate, which uses ball positions the registration never used, is the run-time protection. Not a competition score.",
+ "provided_fixture_used": false
+}

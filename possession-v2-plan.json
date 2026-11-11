@@ -1,0 +1,106 @@
+{
+  "version": "possession-v2-plan",
+  "registered_on": "2026-11-09",
+  "registered_before_validation_results": true,
+  "provided_fixture_used": false,
+  "public_window_used_for_selection": false,
+  "organizer_conditions": "3 Nov 2026 clarification + organizer reply to this team: every parameter, threshold and model-version choice re-made on other fixtures; public 5-minute window only as a final run check; freeze then regenerate automatically; disclose history in the technical document.",
+  "target": "Per-frame H/A/D for the supplied tactical recording, ranked by the organizers' spellF1 (possession_metrics.py, vendored unmodified as possession/official_metrics.py).",
+  "inference_inputs": [
+    "tactical ATD metadata XML (team of each track slot, pitch size, frame rate)",
+    "tactical ATD raw positions (x, y of slots and ball)"
+  ],
+  "not_used_in_v2": [
+    "supplied video",
+    "broadcast recording",
+    "homography",
+    "Smart Tagging (no external validation available yet)",
+    "ATD speed channel (recomputed from positions for consistency with external data)"
+  ],
+  "external_data": {
+    "dfl_sportec": {
+      "source": "IDSSE / Sportec Solutions open data, CC-BY 4.0, Bassek et al. 2025, doi:10.1038/s41597-025-04505-y",
+      "train": [
+        "J03WOH",
+        "J03WOY",
+        "J03WPY",
+        "J03WQQ"
+      ],
+      "validation": [
+        "J03WN1",
+        "J03WR9"
+      ],
+      "reserved_test": [
+        "J03WMX"
+      ],
+      "labels": "BallStatus=0 -> D, otherwise BallPossession 1/2 -> H/A (provider corrected tracking flags; structurally the same derivation the organizers describe for the ground truth)"
+    },
+    "metrica_sample": {
+      "source": "github.com/metrica-sports/sample-data @ e706dd506b360d69d9d123d5b8026e7294b13996 (publisher asks for acknowledgement)",
+      "validation": [
+        "Sample_Game_1",
+        "Sample_Game_2"
+      ],
+      "reserved_test": [
+        "Sample_Game_3"
+      ],
+      "labels": "event-derived proxy: possession from Metrica event definitions (team of last on-ball event; changes at opponent RECOVERY), D from BALL OUT end / goal / foul / forced stop to next SET PIECE start; underivable frames X (unscored)"
+    }
+  },
+  "previous_exposure": "DFL train/validation fixtures and Metrica games 1-2 were accessed by this team in earlier external studies (D002-D004, D001); they are not described as fresh. Reserved tests: J03WMX never downloaded according to the team's registration; Metrica game 3 exposure status unknown.",
+  "domain_gap_policy": "External tracking is clean; every training and validation copy is corrupted by possession/degrade.py with parameters sampled from broad ranges around the organizers' published aggregate statistics (ball missing ~41% of graded frames). Nothing is fitted to the supplied match.",
+  "validation_protocol": {
+    "degradation_seeds": [
+      101,
+      102
+    ],
+    "metric": "official spell_f1_mean, macro_f1 tie-break, computed per play half with X separators",
+    "selection_score": "mean spellF1 over DFL validation copies and Metrica games 1-2 copies (equal weight per fixture copy)"
+  },
+  "selectable": [
+    "feature set and degradation ranges (judged on validation only)",
+    "GBDT capacity within max_iter<=600, max_leaf_nodes<=63",
+    "decoder costs: switch, out_cost, in_cost, bias_dead"
+  ],
+  "comparators": [
+    "organizer baseline_smooth50 logic",
+    "team S001 sequence model (selected config)",
+    "frozen remediated-external-v1 not re-run (H/A/X only)"
+  ],
+  "acceptance": "Select v2 only if its mean validation spellF1 exceeds both comparators by more than the organizers' 0.04 noise band; otherwise report failure and keep investigating.",
+  "freeze_then_test": "After freezing features, models, decoder and source hashes: optional retrain of the same configuration on all DFL train+validation fixtures, then a single evaluation on reserved tests (Metrica game 3; J03WMX if obtainable). Test results are reported, never used to change the frozen version.",
+  "supplied_match": "Only the frozen pipeline runs on it, locally on the team's computer; the assistant never receives its data or outputs beyond pass/fail validator summaries; no output-versus-video comparison.",
+  "amendments": [
+    {
+      "recorded": "no later than 2026-11-09T22:43:48+03:00 (last write of this file)",
+      "before_results_of": [
+        "stage-2 stacking",
+        "feature set v3"
+      ],
+      "text": "Two candidates were added after registration and before any of their validation results existed, both judged by the unchanged selection_score: (a) an optional second stage (possession/stack.py) trained on leave-one-fixture-out stage-1 probabilities of the training fixtures, treated as a feature-set variant; (b) feature set v3 (player tempo from ~1 s displacements instead of frame differences, which position noise inflates). The decoder grid (switch, out/in cost, bias_dead) is re-run for each candidate on the same validation copies."
+    },
+    {
+      "recorded": "no later than 2026-11-09T22:43:48+03:00 (last write of this file)",
+      "text": "A simulated Smart Tagging experiment was dropped before it ran: Smart Tagging stays not_used_in_v2 because no external fixture has comparable automatic tags, so its noise cannot be validated."
+    },
+    {
+      "recorded": "no later than 2026-11-09T22:43:48+03:00 (last write of this file)",
+      "text": "Reader correction before freezing: possession.data.read_epts now follows the EPTS DataFormatSpecification (which player each raw group is) instead of assuming the Player list order, and drops slots of non-team ids; run.py checks the home team by name (DATA.md: home = Barcelona). Found while preparing the Metrica game 3 reserved test (its file has 11 specifications, 22 groups for 35 listed players); no result was looked at."
+    }
+  ],
+  "timestamp_correction": {
+    "corrected_on": "2026-11-10",
+    "note": "The clock times first written in this file were estimates typed by the coding agent without reading the system clock; they were 1-60 minutes later than the real write times. They were replaced on 2026-11-10 by times taken from the file system of the agent working copy (creation / last modification of this file and of the experiment logs). The original values are kept below. The order of plan, amendments and results is unchanged and is what the evidence supports; exact times inside a range cannot be recovered.",
+    "original_values": {
+      "amendments[0].recorded": "2026-11-09T22:45+03:00",
+      "amendments[1].recorded": "2026-11-09T22:45+03:00",
+      "amendments[2].recorded": "2026-11-09T22:45+03:00"
+    },
+    "file_system_evidence": {
+      "plan_file_created": "2026-11-09T21:49:36+03:00",
+      "plan_file_last_written": "2026-11-09T22:43:48+03:00",
+      "first_stage2_stacking_log": "stack_v2.log 22:47:54, eval_stack_v2.log 22:52:27",
+      "first_feature_set_v3_logs": "train_v3.log 22:56:38, eval_v3.log 22:58:54"
+    }
+  }
+}

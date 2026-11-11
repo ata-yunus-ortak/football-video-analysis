@@ -1,0 +1,42 @@
+{
+  "plan": "possession-v2.5b (v2.5 with the coarse alignment anchored on the on-screen match clock)",
+  "registered": "2026-11-10T14:03:16+03:00",
+  "registered_before_any_v2_5b_result": true,
+  "motivation": "The team proposed aligning the two recordings with the clock shown in both videos (automatic OCR already exists: S002, tools/clock_observations.py). While the registered v2.5 evaluation was running, one of its first copies (J03WN1 seed 2101, accurate 'good' broadcast) failed to align: the v4 whole-match ball cross-correlation chose a wrong axis flip at a spurious lag, so no broadcast frame was accepted and the fill was lost. This plan was written after seeing the first v2.5 rows (the exact number read from exp_v25.json at registration is recorded in seen_v2_5_rows) and is confirmed on new copies only.",
+  "candidate": {
+    "clock_lags": "possession/clocksync.py: runs/anchors from development/clock_alignment.py (S002 logic, registered S002 values: min confidence 0.8, max sample gap 15 s, residual 1.1 s, >= 3 samples over >= 10 s per run, unique runs only); per tactical half the median anchor lag if >= 10 anchors with IQR <= 1.5 s",
+    "alignment": "if every half has a clock lag: orient_at (axis flips by the median ball distance at the clock lags, team mapping by player matching there) and align_at (v4 window refinement, coarse-to-fine search +-40 frames around the clock lag, same acceptance check); otherwise the unchanged v4 orient/align",
+    "unchanged": "accuracy gate (median ball distance <= 0.50 m, >= 120 s overlap, >= 5% accepted), fill rule, v2.4 noise gate, models and decoders"
+  },
+  "validation": {
+    "tactical_copies": "16 NEW copies of the four validation matches: degrade seeds 3100 + 10*i + j (v2.1 corruption) and 3500 + 10*i + j (+ player noise 0.3-0.6 m), i = match index, j = 0/1",
+    "broadcast_streams": "synth_broadcast2.simulate_with_clock (identical stream generator, plus the live time shown by the clock), stream seed 19000 + 100*regime_index + copy_index, the three v2.5 accuracy regimes",
+    "clock_observations": "synth_clock.observations for both videos, every 5 s from a random phase, readable with p_read ~ U(0.5, 0.95) per video, misread p ~ U(0.01, 0.03), first-half added time overlapping second-half clock values; seed 29000 + 100*regime_index + copy_index",
+    "systems_on_the_same_copies": "v2.4 (reference), v2.5 (v4 alignment), v2.5b (clock alignment)"
+  },
+  "selection_rule": {
+    "select_v2_5b_only_if_all": [
+      "good regime: v2.5b mean >= v2.4 + 0.010",
+      "medium regime: v2.5b mean >= v2.4 - 0.005",
+      "bad regime: v2.5b mean >= v2.4 - 0.002",
+      "good regime: v2.5b mean >= v2.5 mean - 0.002 (same copies)",
+      "good regime: copies with accepted broadcast fraction < 5% (alignment failures) for v2.5b <= for v2.5"
+    ],
+    "otherwise": "v2.5 or v2.4 according to the v2.5 plan",
+    "no_relaxation": true
+  },
+  "limits_stated_in_advance": [
+    "Clock readings are simulated; on the real videos the S002 OCR is used, whose accuracy was not measured against independent truth.",
+    "Replays keep the live clock while showing old pictures; they are rejected by the player-position acceptance, as in v4.",
+    "The organisers' reproduction then needs the separate OCR environment (requirements-sync-lock.txt) and both videos; without clock files the pipeline falls back to the tracking-only alignment."
+  ],
+  "seen_v2_5_rows": {
+    "count": 10,
+    "copies": [
+      "J03WN1|2100|orig",
+      "J03WN1|2101|orig",
+      "J03WR9|2110|orig",
+      "J03WR9|2111|orig"
+    ]
+  }
+}

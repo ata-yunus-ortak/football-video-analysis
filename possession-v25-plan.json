@@ -1,0 +1,45 @@
+{
+  "plan": "possession-v2.5 (broadcast ball fill behind an accuracy gate, on top of v2.4)",
+  "registered": "2026-11-10T13:48:08+03:00",
+  "registered_before_any_v2_5_result": true,
+  "motivation": [
+    "Reporting-only decomposition (decomp.json, 4 validation matches, seed 101, v2.1 validation models): clean input 0.748; v2.1 corruption 0.610; the same corruption without ball missingness 0.700. About two thirds of the loss comes from missing ball positions (41% of graded ATD frames).",
+    "v4 (possession-v4-results.json) aligned synthetic broadcast streams correctly but every simulated broadcast ball had 0.25-0.9 m per-frame error plus up to 1.5 m per-shot bias (median tactical-broadcast distance 0.8-1.5 m); filling gaps with it lost 0.006 overall (DFL -0.007 to -0.073, Metrica +0.012 to +0.032). An accurate broadcast was never tested. The per-copy v4 numbers were seen before this plan.",
+    "The team asked to align the two recordings with the on-screen clock and to use broadcast tracking where aligned. Clock OCR (S002) gives a +-1 s anchor; this plan first tests the tracking side (alignment from the v4 module, accuracy gate, fill); the clock anchor is a later, separately registered robustness step."
+  ],
+  "candidate": {
+    "alignment": "unchanged v4 orient() and align() (possession/broadcast.py)",
+    "accuracy_gate": "on accepted (aligned) broadcast frames where both cameras have a ball: fusion only if overlap >= 3000 frames (120 s at 25 fps), accepted broadcast frames >= 5% of all broadcast frames, and the MEDIAN tactical-broadcast ball distance <= 0.50 m (fixed a priori: below the v4 streams' 0.8-1.5 m, above the about 0.3 m expected for accurate cameras; the distance bounds the broadcast error because the tactical error adds to it)",
+    "fill": "only frames where the tactical ball is missing; same plausibility check as v4 (VMAX 35 m/s against tactical balls within 0.5 s, 2 m margin); tactical balls are never replaced",
+    "then": "v2.4 unchanged: its noise gate is measured on the raw tactical tracking (before the fill), then the v2.1 or v2.3 path runs on the filled tracking",
+    "nothing_changes": "models, features, decoders, noise gate"
+  },
+  "validation": {
+    "models": "4-match validation models of both paths (as in v2.3/v2.4)",
+    "tactical_copies": "the four validation matches, fresh degrade seeds 2100 + 10*i + j (v2.1 corruption) and 2500 + 10*i + j (+ player noise 0.3-0.6 m), i = match index (J03WN1, J03WR9, MET1, MET2), j = 0/1: 16 copies never used before",
+    "broadcast_streams": "synth_broadcast.simulate() from the clean match with per-copy quality, three accuracy regimes; stream seed 9000 + 100*regime_index + copy_index",
+    "regimes": {
+      "good": "per-shot bias sd 0-0.2 m, ball noise 0.05-0.25 m, player noise 0.05-0.25 m",
+      "medium": "bias 0.2-0.6 m, ball noise 0.25-0.5 m, player noise 0.25-0.5 m",
+      "bad": "bias 0.6-1.5 m, ball noise 0.5-1.0 m, player noise 0.5-1.0 m (about the v4 default streams)"
+    },
+    "other_stream_properties": "as in v4 (cuts, replays, close-ups, drift, coverage, ball availability 0.55-0.85)",
+    "reference": "v2.4 without fusion on the same tactical copy",
+    "score": "mean official spell_f1_mean per regime over the 16 copies"
+  },
+  "selection_rule": {
+    "select_v2_5_only_if_all": [
+      "good regime: mean >= v2.4 + 0.010",
+      "medium regime: mean >= v2.4 - 0.005",
+      "bad regime: mean >= v2.4 - 0.002"
+    ],
+    "otherwise": "keep v2.4",
+    "no_relaxation": true,
+    "then": "v2.5 release = v2.4 release + fusion module + new entry point reading the broadcast ATD and homography validity; no retraining (models unchanged); clock anchor registered separately; final fresh test on DFL J03WMX after freezing (with a simulated broadcast stream, since it has none)"
+  },
+  "limits_stated_in_advance": [
+    "The broadcast streams are simulated; the accuracy of the real broadcast tracking is unknown. The gate decides at run time from the measured tactical-broadcast agreement.",
+    "Fresh copies come from the same four validation matches.",
+    "Real broadcast artefacts not in the simulator (zoom-dependent errors, replays flagged valid, partial-view team ambiguity) may change the outcome; the alignment acceptance check and the gate are the protection."
+  ]
+}

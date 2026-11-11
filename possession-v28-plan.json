@@ -1,0 +1,41 @@
+{
+ "version": "possession-v2.8-plan",
+ "registered_at": "2026-11-10T21:00:31+03:00",
+ "provided_fixture_used": false,
+ "note": "Written before any v2.8 training result exists. Context seen before writing: v2.7 failed its development gate (+0.002); a reporting-only decoder sweep on 16 old copies was flat (0.633-0.644 for switch 1.5-6 and logit temperature 0.7-2), so features and decoding of the tracking-only system look saturated.",
+ "hypothesis": "All models so far were trained on DFL labels only (BallStatus/BallPossession attributes). The competition labels come from Metrica Sports; our Metrica sample labels follow Metrica's event semantics. Adding Metrica-labelled matches to training should raise accuracy on Metrica-labelled matches without hurting DFL.",
+ "data": {
+  "added_training_fixtures": [
+   "Metrica sample game 1",
+   "Metrica sample game 2"
+  ],
+  "license": "Metrica Sports sample-data repository README: 'be responsible with the use of this data; if you use it for anything public, please acknowledge the source'. No raw or derived tracking is redistributed; only fitted trees would be published, with acknowledgement.",
+  "labels": "work/metrica_labels.py (events -> H/A/D, X unscored), unchanged"
+ },
+ "unchanged": "feature version 2, hyper-parameters, seeds 1-3, step 6, stack.py, decoders, noise gate, broadcast fill, clock alignment",
+ "variants": {
+  "A": "4 DFL training matches + Metrica 1 -> held-out Metrica 2",
+  "B": "4 DFL training matches + Metrica 2 -> held-out Metrica 1",
+  "baseline": "v2.1 models trained on the 4 DFL matches"
+ },
+ "stage_A_development": {
+  "copies": "old validation copies seeds 101/102",
+  "proceed_if": "mean spellF1 on the held-out Metrica match (4 copies: A on Metrica 2, B on Metrica 1) >= baseline + 0.005"
+ },
+ "stage_B_confirmation": {
+  "copies": "fresh copies, profile v2, seeds 7100 + 10*i + j (never scored by any model before)",
+  "gates": [
+   "held-out Metrica (4 copies) mean spellF1 >= baseline + 0.010",
+   "at least 3 of these 4 copies not worse",
+   "DFL J03WN1/J03WR9 fresh copies (4 copies, mean over variants A and B) >= baseline - 0.005"
+  ]
+ },
+ "stage_C_noisy_path": {
+  "variant": "A23 = 4 DFL + Metrica 1 with v2.3 training profile and input smoothing",
+  "copies": "Metrica 2 fresh copies: val-ext-ball seeds 7330/7331, val-ext-players seeds 7530/7531",
+  "baseline": "v2.3 path models (4 DFL)",
+  "gate": "mean spellF1 >= baseline + 0.005; otherwise the noisy path keeps possession-v2.3"
+ },
+ "release_rule": "If stage B passes: retrain on 6 DFL + Metrica 1 + Metrica 2 (low-noise path; noisy path too if stage C passes) and release as possession-v2.8 with a new manifest. Reserved Metrica game 3 (already used for reporting v2.1-v2.4, so not fresh) is scored once end-to-end; if it is more than 0.005 below the v2.4 value (0.665) the release is cancelled. J03WMX stays the final fresh DFL test.",
+ "limits": "Our Metrica labels are derived from events by our own rules and may differ from the organisers' labels; simulated corruption; not competition scores. Gates are not relaxed after results."
+}

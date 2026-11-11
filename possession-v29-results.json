@@ -1,0 +1,3117 @@
+{
+ "version": "possession-v2.9-results",
+ "written_at": "2026-11-11T02:50:29+03:00",
+ "provided_fixture_used": false,
+ "plan_sha256": "ef72cd8fb177edab1ea789eb5978ff2e4fbb06021053a2eb7e52437ed848c7ff",
+ "register_sha256": "2601c559070dea1dfb14cc6ec9cf7e78aed7978d0605de6a5c884082656a72a4",
+ "validation": {
+  "copies": "16 new tactical copies (seeds 4100-4131, 4500-4531) x 3 regimes of the warp simulator",
+  "summary": {
+   "good": {
+    "v2_4": 0.6474,
+    "v2_5b": 0.6832,
+    "v2_9": 0.6812,
+    "n": 16,
+    "gate_open": {
+     "v2_5b": 16,
+     "v2_9": 16
+    },
+    "true_ball_error_median_m": {
+     "v2_5b": 0.187,
+     "v2_9": 0.103
+    },
+    "v29_not_worse_than_v25b": 3,
+    "worst_diff": -0.0096,
+    "best_diff": 0.0114,
+    "macro": {
+     "v2_4": 0.8666,
+     "v2_5b": 0.8799,
+     "v2_9": 0.8796
+    },
+    "by_kind": {
+     "orig": {
+      "v2_4": 0.6518,
+      "v2_5b": 0.6852,
+      "v2_9": 0.6827
+     },
+     "ext_players": {
+      "v2_4": 0.6429,
+      "v2_5b": 0.6811,
+      "v2_9": 0.6796
+     }
+    }
+   },
+   "medium": {
+    "v2_4": 0.6474,
+    "v2_5b": 0.6474,
+    "v2_9": 0.6784,
+    "n": 16,
+    "gate_open": {
+     "v2_5b": 0,
+     "v2_9": 16
+    },
+    "true_ball_error_median_m": {
+     "v2_5b": 0.641,
+     "v2_9": 0.32
+    },
+    "v29_not_worse_than_v25b": 16,
+    "worst_diff": 0.0005,
+    "best_diff": 0.0815,
+    "macro": {
+     "v2_4": 0.8666,
+     "v2_5b": 0.8666,
+     "v2_9": 0.8777
+    },
+    "by_kind": {
+     "orig": {
+      "v2_4": 0.6518,
+      "v2_5b": 0.6518,
+      "v2_9": 0.6798
+     },
+     "ext_players": {
+      "v2_4": 0.6429,
+      "v2_5b": 0.6429,
+      "v2_9": 0.677
+     }
+    }
+   },
+   "bad": {
+    "v2_4": 0.6474,
+    "v2_5b": 0.6474,
+    "v2_9": 0.6474,
+    "n": 16,
+    "gate_open": {
+     "v2_5b": 0,
+     "v2_9": 0
+    },
+    "true_ball_error_median_m": {
+     "v2_5b": 1.293,
+     "v2_9": 0.741
+    },
+    "v29_not_worse_than_v25b": 16,
+    "worst_diff": 0.0,
+    "best_diff": 0.0,
+    "macro": {
+     "v2_4": 0.8666,
+     "v2_5b": 0.8666,
+     "v2_9": 0.8666
+    },
+    "by_kind": {
+     "orig": {
+      "v2_4": 0.6518,
+      "v2_5b": 0.6518,
+      "v2_9": 0.6518
+     },
+     "ext_players": {
+      "v2_4": 0.6429,
+      "v2_5b": 0.6429,
+      "v2_9": 0.6429
+     }
+    }
+   }
+  },
+  "mean_regime_gain_over_v2_5b": 0.0097,
+  "gates": {
+   "medium: v2.9 >= v2.5b + 0.010": true,
+   "good: v2.9 >= v2.5b - 0.003": true,
+   "bad: v2.9 >= v2.4 - 0.003": true,
+   "mean of regimes: v2.9 >= v2.5b + 0.005": true
+  }
+ },
+ "decision": "SELECTED",
+ "notes": [
+  "Medium regime: the v2.5b gate opened on 0 of 16 copies, the v2.9 gate on 16 of 16; spellF1 0.6474 -> 0.6784.",
+  "Good regime: v2.9 is lower than v2.5b on 13 of 16 copies (mean -0.0020, within the registered -0.003) although the true broadcast ball error fell from 0.19 to 0.10 m; the cause was not investigated.",
+  "Bad regime: both gates closed on 16 of 16 copies; identical output.",
+  "One process was killed by the memory limit after 3 rows and resumed from its saved rows; seeds and code unchanged.",
+  "Simulated streams only (see plan limits). Not a competition score."
+ ],
+ "rows": [
+  {
+   "copy": "J03WN1|4100|orig",
+   "kind": "orig",
+   "regime": "good",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.5779,
+   "broadcast_quality": {
+    "bias_sd": 0.0631,
+    "b_sd": 0.1329,
+    "p_sd": 0.2447,
+    "ball_frac": 0.5974,
+    "invalid": 0.2702
+   },
+   "v2_4": [
+    0.6432,
+    0.9123
+   ],
+   "registration": {
+    "accepted_ball_frames": 50841,
+    "registered_ball_frames": 50621,
+    "median_offset_m": 0.089,
+    "p90_offset_m": 0.1654
+   },
+   "v2_5b": [
+    0.6576,
+    0.9217
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 31689,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5779,
+     "accepted_ok": true,
+     "median_distance_m": 0.2358,
+     "median_ok": true,
+     "used": true,
+     "filled": 18752,
+     "rejected_implausible": 399,
+     "ball_visible_graded_before": 0.5974,
+     "ball_visible_graded_after": 0.7299
+    },
+    "true_ball_error_median_m": 0.1758
+   },
+   "v2_9": [
+    0.6566,
+    0.9211
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 31585,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5779,
+     "accepted_ok": true,
+     "median_distance_m": 0.1968,
+     "median_ok": true,
+     "used": true,
+     "filled": 18662,
+     "rejected_implausible": 373,
+     "ball_visible_graded_before": 0.5974,
+     "ball_visible_graded_after": 0.7292
+    },
+    "true_ball_error_median_m": 0.1031
+   }
+  },
+  {
+   "copy": "J03WN1|4100|orig",
+   "kind": "orig",
+   "regime": "medium",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.5709,
+   "broadcast_quality": {
+    "bias_sd": 0.5527,
+    "b_sd": 0.3322,
+    "p_sd": 0.3237,
+    "ball_frac": 0.6897,
+    "invalid": 0.2582
+   },
+   "v2_4": [
+    0.6432,
+    0.9123
+   ],
+   "registration": {
+    "accepted_ball_frames": 57968,
+    "registered_ball_frames": 57247,
+    "median_offset_m": 0.6914,
+    "p90_offset_m": 1.2231
+   },
+   "v2_5b": [
+    0.6432,
+    0.9123
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 35008,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5709,
+     "accepted_ok": true,
+     "median_distance_m": 0.7994,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.7796
+   },
+   "v2_9": [
+    0.6682,
+    0.9206
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 34519,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5709,
+     "accepted_ok": true,
+     "median_distance_m": 0.3919,
+     "median_ok": true,
+     "used": true,
+     "filled": 22244,
+     "rejected_implausible": 476,
+     "ball_visible_graded_before": 0.5974,
+     "ball_visible_graded_after": 0.7546
+    },
+    "true_ball_error_median_m": 0.3573
+   }
+  },
+  {
+   "copy": "J03WN1|4100|orig",
+   "kind": "orig",
+   "regime": "bad",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.3355,
+   "broadcast_quality": {
+    "bias_sd": 1.1758,
+    "b_sd": 0.896,
+    "p_sd": 0.6648,
+    "ball_frac": 0.6148,
+    "invalid": 0.2076
+   },
+   "v2_4": [
+    0.6432,
+    0.9123
+   ],
+   "registration": {
+    "accepted_ball_frames": 29342,
+    "registered_ball_frames": 28985,
+    "median_offset_m": 0.9189,
+    "p90_offset_m": 1.4074
+   },
+   "v2_5b": [
+    0.6432,
+    0.9123
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 18350,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3355,
+     "accepted_ok": true,
+     "median_distance_m": 1.5301,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.5168
+   },
+   "v2_9": [
+    0.6432,
+    0.9123
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 18138,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3355,
+     "accepted_ok": true,
+     "median_distance_m": 0.8735,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.8656
+   }
+  },
+  {
+   "copy": "J03WN1|4101|orig",
+   "kind": "orig",
+   "regime": "good",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.6593,
+   "broadcast_quality": {
+    "bias_sd": 0.186,
+    "b_sd": 0.0668,
+    "p_sd": 0.2219,
+    "ball_frac": 0.6901,
+    "invalid": 0.1812
+   },
+   "v2_4": [
+    0.636,
+    0.9113
+   ],
+   "registration": {
+    "accepted_ball_frames": 66927,
+    "registered_ball_frames": 66840,
+    "median_offset_m": 0.2136,
+    "p90_offset_m": 0.4038
+   },
+   "v2_5b": [
+    0.6715,
+    0.9205
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 40370,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6593,
+     "accepted_ok": true,
+     "median_distance_m": 0.4081,
+     "median_ok": true,
+     "used": true,
+     "filled": 24670,
+     "rejected_implausible": 1885,
+     "ball_visible_graded_before": 0.5822,
+     "ball_visible_graded_after": 0.7565
+    },
+    "true_ball_error_median_m": 0.2327
+   },
+   "v2_9": [
+    0.6648,
+    0.9202
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 40321,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6593,
+     "accepted_ok": true,
+     "median_distance_m": 0.3696,
+     "median_ok": true,
+     "used": true,
+     "filled": 24683,
+     "rejected_implausible": 1834,
+     "ball_visible_graded_before": 0.5822,
+     "ball_visible_graded_after": 0.7566
+    },
+    "true_ball_error_median_m": 0.1171
+   }
+  },
+  {
+   "copy": "J03WN1|4101|orig",
+   "kind": "orig",
+   "regime": "medium",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.7017,
+   "broadcast_quality": {
+    "bias_sd": 0.3806,
+    "b_sd": 0.3933,
+    "p_sd": 0.439,
+    "ball_frac": 0.755,
+    "invalid": 0.1625
+   },
+   "v2_4": [
+    0.636,
+    0.9113
+   ],
+   "registration": {
+    "accepted_ball_frames": 76846,
+    "registered_ball_frames": 76756,
+    "median_offset_m": 0.4657,
+    "p90_offset_m": 0.8708
+   },
+   "v2_5b": [
+    0.636,
+    0.9113
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 46581,
+     "overlap_ok": true,
+     "accepted_fraction": 0.7017,
+     "accepted_ok": true,
+     "median_distance_m": 0.7535,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.6559
+   },
+   "v2_9": [
+    0.6546,
+    0.912
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 46542,
+     "overlap_ok": true,
+     "accepted_fraction": 0.7017,
+     "accepted_ok": true,
+     "median_distance_m": 0.4867,
+     "median_ok": true,
+     "used": true,
+     "filled": 27996,
+     "rejected_implausible": 2214,
+     "ball_visible_graded_before": 0.5822,
+     "ball_visible_graded_after": 0.78
+    },
+    "true_ball_error_median_m": 0.3331
+   }
+  },
+  {
+   "copy": "J03WN1|4101|orig",
+   "kind": "orig",
+   "regime": "bad",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.3175,
+   "broadcast_quality": {
+    "bias_sd": 1.287,
+    "b_sd": 0.6519,
+    "p_sd": 0.768,
+    "ball_frac": 0.85,
+    "invalid": 0.2496
+   },
+   "v2_4": [
+    0.636,
+    0.9113
+   ],
+   "registration": {
+    "accepted_ball_frames": 39279,
+    "registered_ball_frames": 38536,
+    "median_offset_m": 0.9154,
+    "p90_offset_m": 1.4261
+   },
+   "v2_5b": [
+    0.636,
+    0.9113
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 23029,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3175,
+     "accepted_ok": true,
+     "median_distance_m": 1.4292,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.3634
+   },
+   "v2_9": [
+    0.636,
+    0.9113
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 22652,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3175,
+     "accepted_ok": true,
+     "median_distance_m": 0.8863,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.8054
+   }
+  },
+  {
+   "copy": "J03WR9|4110|orig",
+   "kind": "orig",
+   "regime": "good",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.5695,
+   "broadcast_quality": {
+    "bias_sd": 0.0714,
+    "b_sd": 0.1194,
+    "p_sd": 0.206,
+    "ball_frac": 0.6254,
+    "invalid": 0.2159
+   },
+   "v2_4": [
+    0.6447,
+    0.9121
+   ],
+   "registration": {
+    "accepted_ball_frames": 54891,
+    "registered_ball_frames": 53340,
+    "median_offset_m": 0.0876,
+    "p90_offset_m": 0.1742
+   },
+   "v2_5b": [
+    0.6858,
+    0.9354
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 31793,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5695,
+     "accepted_ok": true,
+     "median_distance_m": 0.2601,
+     "median_ok": true,
+     "used": true,
+     "filled": 22112,
+     "rejected_implausible": 985,
+     "ball_visible_graded_before": 0.552,
+     "ball_visible_graded_after": 0.7026
+    },
+    "true_ball_error_median_m": 0.1674
+   },
+   "v2_9": [
+    0.6765,
+    0.9353
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 30976,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5695,
+     "accepted_ok": true,
+     "median_distance_m": 0.2247,
+     "median_ok": true,
+     "used": true,
+     "filled": 21449,
+     "rejected_implausible": 914,
+     "ball_visible_graded_before": 0.552,
+     "ball_visible_graded_after": 0.6981
+    },
+    "true_ball_error_median_m": 0.0891
+   }
+  },
+  {
+   "copy": "J03WR9|4110|orig",
+   "kind": "orig",
+   "regime": "medium",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.5894,
+   "broadcast_quality": {
+    "bias_sd": 0.3356,
+    "b_sd": 0.3301,
+    "p_sd": 0.3108,
+    "ball_frac": 0.5987,
+    "invalid": 0.2996
+   },
+   "v2_4": [
+    0.6447,
+    0.9121
+   ],
+   "registration": {
+    "accepted_ball_frames": 53535,
+    "registered_ball_frames": 53265,
+    "median_offset_m": 0.3781,
+    "p90_offset_m": 0.7263
+   },
+   "v2_5b": [
+    0.6447,
+    0.9121
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 29914,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5894,
+     "accepted_ok": true,
+     "median_distance_m": 0.5879,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.5473
+   },
+   "v2_9": [
+    0.69,
+    0.9388
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 29708,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5894,
+     "accepted_ok": true,
+     "median_distance_m": 0.3436,
+     "median_ok": true,
+     "used": true,
+     "filled": 22626,
+     "rejected_implausible": 927,
+     "ball_visible_graded_before": 0.552,
+     "ball_visible_graded_after": 0.7061
+    },
+    "true_ball_error_median_m": 0.2695
+   }
+  },
+  {
+   "copy": "J03WR9|4110|orig",
+   "kind": "orig",
+   "regime": "bad",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.3697,
+   "broadcast_quality": {
+    "bias_sd": 0.9222,
+    "b_sd": 0.7589,
+    "p_sd": 0.9077,
+    "ball_frac": 0.5804,
+    "invalid": 0.2501
+   },
+   "v2_4": [
+    0.6447,
+    0.9121
+   ],
+   "registration": {
+    "accepted_ball_frames": 32390,
+    "registered_ball_frames": 32054,
+    "median_offset_m": 0.7812,
+    "p90_offset_m": 1.2729
+   },
+   "v2_5b": [
+    0.6447,
+    0.9121
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 18459,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3697,
+     "accepted_ok": true,
+     "median_distance_m": 1.3202,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.2869
+   },
+   "v2_9": [
+    0.6447,
+    0.9121
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 18306,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3697,
+     "accepted_ok": true,
+     "median_distance_m": 0.8031,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.7756
+   }
+  },
+  {
+   "copy": "J03WR9|4111|orig",
+   "kind": "orig",
+   "regime": "good",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.5554,
+   "broadcast_quality": {
+    "bias_sd": 0.1307,
+    "b_sd": 0.237,
+    "p_sd": 0.1131,
+    "ball_frac": 0.5946,
+    "invalid": 0.2851
+   },
+   "v2_4": [
+    0.6731,
+    0.9319
+   ],
+   "registration": {
+    "accepted_ball_frames": 48439,
+    "registered_ball_frames": 47830,
+    "median_offset_m": 0.1592,
+    "p90_offset_m": 0.2892
+   },
+   "v2_5b": [
+    0.7062,
+    0.9439
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 30784,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5554,
+     "accepted_ok": true,
+     "median_distance_m": 0.3628,
+     "median_ok": true,
+     "used": true,
+     "filled": 16709,
+     "rejected_implausible": 936,
+     "ball_visible_graded_before": 0.5749,
+     "ball_visible_graded_after": 0.6888
+    },
+    "true_ball_error_median_m": 0.3229
+   },
+   "v2_9": [
+    0.703,
+    0.9435
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 30439,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5554,
+     "accepted_ok": true,
+     "median_distance_m": 0.2245,
+     "median_ok": true,
+     "used": true,
+     "filled": 16486,
+     "rejected_implausible": 896,
+     "ball_visible_graded_before": 0.5749,
+     "ball_visible_graded_after": 0.6872
+    },
+    "true_ball_error_median_m": 0.1535
+   }
+  },
+  {
+   "copy": "J03WR9|4111|orig",
+   "kind": "orig",
+   "regime": "medium",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.6316,
+   "broadcast_quality": {
+    "bias_sd": 0.536,
+    "b_sd": 0.4108,
+    "p_sd": 0.3053,
+    "ball_frac": 0.686,
+    "invalid": 0.212
+   },
+   "v2_4": [
+    0.6731,
+    0.9319
+   ],
+   "registration": {
+    "accepted_ball_frames": 66404,
+    "registered_ball_frames": 66261,
+    "median_offset_m": 0.6463,
+    "p90_offset_m": 1.2199
+   },
+   "v2_5b": [
+    0.6731,
+    0.9319
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 41150,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6316,
+     "accepted_ok": true,
+     "median_distance_m": 0.85,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.8168
+   },
+   "v2_9": [
+    0.6981,
+    0.9392
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 41118,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6316,
+     "accepted_ok": true,
+     "median_distance_m": 0.4327,
+     "median_ok": true,
+     "used": true,
+     "filled": 23671,
+     "rejected_implausible": 1460,
+     "ball_visible_graded_before": 0.5749,
+     "ball_visible_graded_after": 0.7362
+    },
+    "true_ball_error_median_m": 0.4009
+   }
+  },
+  {
+   "copy": "J03WR9|4111|orig",
+   "kind": "orig",
+   "regime": "bad",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.4755,
+   "broadcast_quality": {
+    "bias_sd": 0.6384,
+    "b_sd": 0.7212,
+    "p_sd": 0.9309,
+    "ball_frac": 0.7853,
+    "invalid": 0.2948
+   },
+   "v2_4": [
+    0.6731,
+    0.9319
+   ],
+   "registration": {
+    "accepted_ball_frames": 57121,
+    "registered_ball_frames": 56691,
+    "median_offset_m": 0.6856,
+    "p90_offset_m": 1.1443
+   },
+   "v2_5b": [
+    0.6731,
+    0.9319
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 35003,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4755,
+     "accepted_ok": true,
+     "median_distance_m": 1.1536,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.1266
+   },
+   "v2_9": [
+    0.6731,
+    0.9319
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 34802,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4755,
+     "accepted_ok": true,
+     "median_distance_m": 0.6336,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.5992
+   }
+  },
+  {
+   "copy": "MET1|4120|orig",
+   "kind": "orig",
+   "regime": "good",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.6356,
+   "broadcast_quality": {
+    "bias_sd": 0.0866,
+    "b_sd": 0.1302,
+    "p_sd": 0.1039,
+    "ball_frac": 0.82,
+    "invalid": 0.2399
+   },
+   "v2_4": [
+    0.6441,
+    0.8253
+   ],
+   "registration": {
+    "accepted_ball_frames": 52800,
+    "registered_ball_frames": 52452,
+    "median_offset_m": 0.1064,
+    "p90_offset_m": 0.1895
+   },
+   "v2_5b": [
+    0.7011,
+    0.8452
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 39940,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6356,
+     "accepted_ok": true,
+     "median_distance_m": 0.2637,
+     "median_ok": true,
+     "used": true,
+     "filled": 11789,
+     "rejected_implausible": 1071,
+     "ball_visible_graded_before": 0.4653,
+     "ball_visible_graded_after": 0.5466
+    },
+    "true_ball_error_median_m": 0.1892
+   },
+   "v2_9": [
+    0.7125,
+    0.8459
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 39637,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6356,
+     "accepted_ok": true,
+     "median_distance_m": 0.2136,
+     "median_ok": true,
+     "used": true,
+     "filled": 11765,
+     "rejected_implausible": 1050,
+     "ball_visible_graded_before": 0.4653,
+     "ball_visible_graded_after": 0.5464
+    },
+    "true_ball_error_median_m": 0.0901
+   }
+  },
+  {
+   "copy": "MET1|4120|orig",
+   "kind": "orig",
+   "regime": "medium",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.6991,
+   "broadcast_quality": {
+    "bias_sd": 0.4882,
+    "b_sd": 0.3026,
+    "p_sd": 0.4731,
+    "ball_frac": 0.5892,
+    "invalid": 0.1539
+   },
+   "v2_4": [
+    0.6441,
+    0.8253
+   ],
+   "registration": {
+    "accepted_ball_frames": 40344,
+    "registered_ball_frames": 40244,
+    "median_offset_m": 0.5854,
+    "p90_offset_m": 1.123
+   },
+   "v2_5b": [
+    0.6441,
+    0.8253
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 29749,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6991,
+     "accepted_ok": true,
+     "median_distance_m": 0.7228,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.6796
+   },
+   "v2_9": [
+    0.6959,
+    0.8431
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 29659,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6991,
+     "accepted_ok": true,
+     "median_distance_m": 0.3843,
+     "median_ok": true,
+     "used": true,
+     "filled": 9640,
+     "rejected_implausible": 944,
+     "ball_visible_graded_before": 0.4653,
+     "ball_visible_graded_after": 0.5317
+    },
+    "true_ball_error_median_m": 0.3211
+   }
+  },
+  {
+   "copy": "MET1|4120|orig",
+   "kind": "orig",
+   "regime": "bad",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.4556,
+   "broadcast_quality": {
+    "bias_sd": 0.8209,
+    "b_sd": 0.9426,
+    "p_sd": 0.6036,
+    "ball_frac": 0.5896,
+    "invalid": 0.2867
+   },
+   "v2_4": [
+    0.6441,
+    0.8253
+   ],
+   "registration": {
+    "accepted_ball_frames": 27120,
+    "registered_ball_frames": 27014,
+    "median_offset_m": 0.7805,
+    "p90_offset_m": 1.3156
+   },
+   "v2_5b": [
+    0.6441,
+    0.8253
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 20088,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4556,
+     "accepted_ok": true,
+     "median_distance_m": 1.4318,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.3854
+   },
+   "v2_9": [
+    0.6441,
+    0.8253
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 20033,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4556,
+     "accepted_ok": true,
+     "median_distance_m": 0.7539,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.7078
+   }
+  },
+  {
+   "copy": "MET1|4121|orig",
+   "kind": "orig",
+   "regime": "good",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.7037,
+   "broadcast_quality": {
+    "bias_sd": 0.0838,
+    "b_sd": 0.1493,
+    "p_sd": 0.1832,
+    "ball_frac": 0.7984,
+    "invalid": 0.2018
+   },
+   "v2_4": [
+    0.659,
+    0.8339
+   ],
+   "registration": {
+    "accepted_ball_frames": 56245,
+    "registered_ball_frames": 56245,
+    "median_offset_m": 0.1074,
+    "p90_offset_m": 0.202
+   },
+   "v2_5b": [
+    0.7033,
+    0.8497
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 45768,
+     "overlap_ok": true,
+     "accepted_fraction": 0.7037,
+     "accepted_ok": true,
+     "median_distance_m": 0.3111,
+     "median_ok": true,
+     "used": true,
+     "filled": 9912,
+     "rejected_implausible": 564,
+     "ball_visible_graded_before": 0.5028,
+     "ball_visible_graded_after": 0.5712
+    },
+    "true_ball_error_median_m": 0.2075
+   },
+   "v2_9": [
+    0.6993,
+    0.8481
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 45768,
+     "overlap_ok": true,
+     "accepted_fraction": 0.7037,
+     "accepted_ok": true,
+     "median_distance_m": 0.2622,
+     "median_ok": true,
+     "used": true,
+     "filled": 9934,
+     "rejected_implausible": 542,
+     "ball_visible_graded_before": 0.5028,
+     "ball_visible_graded_after": 0.5714
+    },
+    "true_ball_error_median_m": 0.1021
+   }
+  },
+  {
+   "copy": "MET1|4121|orig",
+   "kind": "orig",
+   "regime": "medium",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.6415,
+   "broadcast_quality": {
+    "bias_sd": 0.4749,
+    "b_sd": 0.3991,
+    "p_sd": 0.494,
+    "ball_frac": 0.6086,
+    "invalid": 0.1913
+   },
+   "v2_4": [
+    0.659,
+    0.8339
+   ],
+   "registration": {
+    "accepted_ball_frames": 39723,
+    "registered_ball_frames": 39672,
+    "median_offset_m": 0.5533,
+    "p90_offset_m": 1.0613
+   },
+   "v2_5b": [
+    0.659,
+    0.8339
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 32679,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6415,
+     "accepted_ok": true,
+     "median_distance_m": 0.781,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.7429
+   },
+   "v2_9": [
+    0.692,
+    0.8454
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 32634,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6415,
+     "accepted_ok": true,
+     "median_distance_m": 0.4228,
+     "median_ok": true,
+     "used": true,
+     "filled": 6769,
+     "rejected_implausible": 268,
+     "ball_visible_graded_before": 0.5028,
+     "ball_visible_graded_after": 0.5495
+    },
+    "true_ball_error_median_m": 0.3446
+   }
+  },
+  {
+   "copy": "MET1|4121|orig",
+   "kind": "orig",
+   "regime": "bad",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.4542,
+   "broadcast_quality": {
+    "bias_sd": 0.9428,
+    "b_sd": 0.6019,
+    "p_sd": 0.586,
+    "ball_frac": 0.7227,
+    "invalid": 0.267
+   },
+   "v2_4": [
+    0.659,
+    0.8339
+   ],
+   "registration": {
+    "accepted_ball_frames": 32217,
+    "registered_ball_frames": 32189,
+    "median_offset_m": 0.8985,
+    "p90_offset_m": 1.3905
+   },
+   "v2_5b": [
+    0.659,
+    0.8339
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 25728,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4542,
+     "accepted_ok": true,
+     "median_distance_m": 1.2409,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.2027
+   },
+   "v2_9": [
+    0.659,
+    0.8339
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 25702,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4542,
+     "accepted_ok": true,
+     "median_distance_m": 0.6938,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.6437
+   }
+  },
+  {
+   "copy": "MET2|4130|orig",
+   "kind": "orig",
+   "regime": "good",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.6137,
+   "broadcast_quality": {
+    "bias_sd": 0.0839,
+    "b_sd": 0.088,
+    "p_sd": 0.2337,
+    "ball_frac": 0.7706,
+    "invalid": 0.2789
+   },
+   "v2_4": [
+    0.6582,
+    0.8075
+   ],
+   "registration": {
+    "accepted_ball_frames": 44152,
+    "registered_ball_frames": 44100,
+    "median_offset_m": 0.1124,
+    "p90_offset_m": 0.2087
+   },
+   "v2_5b": [
+    0.696,
+    0.8218
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 34309,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6137,
+     "accepted_ok": true,
+     "median_distance_m": 0.1786,
+     "median_ok": true,
+     "used": true,
+     "filled": 9609,
+     "rejected_implausible": 234,
+     "ball_visible_graded_before": 0.4667,
+     "ball_visible_graded_after": 0.5348
+    },
+    "true_ball_error_median_m": 0.1503
+   },
+   "v2_9": [
+    0.691,
+    0.8202
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 34257,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6137,
+     "accepted_ok": true,
+     "median_distance_m": 0.1341,
+     "median_ok": true,
+     "used": true,
+     "filled": 9626,
+     "rejected_implausible": 217,
+     "ball_visible_graded_before": 0.4667,
+     "ball_visible_graded_after": 0.5349
+    },
+    "true_ball_error_median_m": 0.0834
+   }
+  },
+  {
+   "copy": "MET2|4130|orig",
+   "kind": "orig",
+   "regime": "medium",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.669,
+   "broadcast_quality": {
+    "bias_sd": 0.3938,
+    "b_sd": 0.2927,
+    "p_sd": 0.3042,
+    "ball_frac": 0.6109,
+    "invalid": 0.1995
+   },
+   "v2_4": [
+    0.6582,
+    0.8075
+   ],
+   "registration": {
+    "accepted_ball_frames": 40432,
+    "registered_ball_frames": 40372,
+    "median_offset_m": 0.4872,
+    "p90_offset_m": 0.9306
+   },
+   "v2_5b": [
+    0.6582,
+    0.8075
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 31838,
+     "overlap_ok": true,
+     "accepted_fraction": 0.669,
+     "accepted_ok": true,
+     "median_distance_m": 0.6099,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.6041
+   },
+   "v2_9": [
+    0.6832,
+    0.8168
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 31778,
+     "overlap_ok": true,
+     "accepted_fraction": 0.669,
+     "accepted_ok": true,
+     "median_distance_m": 0.2893,
+     "median_ok": true,
+     "used": true,
+     "filled": 8340,
+     "rejected_implausible": 253,
+     "ball_visible_graded_before": 0.4667,
+     "ball_visible_graded_after": 0.5258
+    },
+    "true_ball_error_median_m": 0.2695
+   }
+  },
+  {
+   "copy": "MET2|4130|orig",
+   "kind": "orig",
+   "regime": "bad",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.5413,
+   "broadcast_quality": {
+    "bias_sd": 0.6702,
+    "b_sd": 0.786,
+    "p_sd": 0.8236,
+    "ball_frac": 0.7508,
+    "invalid": 0.2015
+   },
+   "v2_4": [
+    0.6582,
+    0.8075
+   ],
+   "registration": {
+    "accepted_ball_frames": 39177,
+    "registered_ball_frames": 39088,
+    "median_offset_m": 0.6806,
+    "p90_offset_m": 1.1536
+   },
+   "v2_5b": [
+    0.6582,
+    0.8075
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 31026,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5413,
+     "accepted_ok": true,
+     "median_distance_m": 1.1983,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.1841
+   },
+   "v2_9": [
+    0.6582,
+    0.8075
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 30942,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5413,
+     "accepted_ok": true,
+     "median_distance_m": 0.62,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.6083
+   }
+  },
+  {
+   "copy": "MET2|4131|orig",
+   "kind": "orig",
+   "regime": "good",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.6696,
+   "broadcast_quality": {
+    "bias_sd": 0.1528,
+    "b_sd": 0.1416,
+    "p_sd": 0.1671,
+    "ball_frac": 0.7882,
+    "invalid": 0.1846
+   },
+   "v2_4": [
+    0.656,
+    0.813
+   ],
+   "registration": {
+    "accepted_ball_frames": 52142,
+    "registered_ball_frames": 51992,
+    "median_offset_m": 0.1836,
+    "p90_offset_m": 0.3488
+   },
+   "v2_5b": [
+    0.6603,
+    0.8124
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 44988,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6696,
+     "accepted_ok": true,
+     "median_distance_m": 0.4274,
+     "median_ok": true,
+     "used": true,
+     "filled": 7008,
+     "rejected_implausible": 145,
+     "ball_visible_graded_before": 0.5098,
+     "ball_visible_graded_after": 0.5594
+    },
+    "true_ball_error_median_m": 0.254
+   },
+   "v2_9": [
+    0.6579,
+    0.8126
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 44848,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6696,
+     "accepted_ok": true,
+     "median_distance_m": 0.3781,
+     "median_ok": true,
+     "used": true,
+     "filled": 7011,
+     "rejected_implausible": 132,
+     "ball_visible_graded_before": 0.5098,
+     "ball_visible_graded_after": 0.5594
+    },
+    "true_ball_error_median_m": 0.1205
+   }
+  },
+  {
+   "copy": "MET2|4131|orig",
+   "kind": "orig",
+   "regime": "medium",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.5898,
+   "broadcast_quality": {
+    "bias_sd": 0.2385,
+    "b_sd": 0.2718,
+    "p_sd": 0.3047,
+    "ball_frac": 0.603,
+    "invalid": 0.2954
+   },
+   "v2_4": [
+    0.656,
+    0.813
+   ],
+   "registration": {
+    "accepted_ball_frames": 33520,
+    "registered_ball_frames": 33511,
+    "median_offset_m": 0.2982,
+    "p90_offset_m": 0.5825
+   },
+   "v2_5b": [
+    0.656,
+    0.813
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 28846,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5898,
+     "accepted_ok": true,
+     "median_distance_m": 0.5603,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.4397
+   },
+   "v2_9": [
+    0.6565,
+    0.8146
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 28837,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5898,
+     "accepted_ok": true,
+     "median_distance_m": 0.415,
+     "median_ok": true,
+     "used": true,
+     "filled": 4595,
+     "rejected_implausible": 79,
+     "ball_visible_graded_before": 0.5098,
+     "ball_visible_graded_after": 0.5423
+    },
+    "true_ball_error_median_m": 0.211
+   }
+  },
+  {
+   "copy": "MET2|4131|orig",
+   "kind": "orig",
+   "regime": "bad",
+   "path": "v2.1",
+   "mode": "clock",
+   "accepted_fraction": 0.2832,
+   "broadcast_quality": {
+    "bias_sd": 1.3766,
+    "b_sd": 0.9141,
+    "p_sd": 0.7919,
+    "ball_frac": 0.7342,
+    "invalid": 0.1792
+   },
+   "v2_4": [
+    0.656,
+    0.813
+   ],
+   "registration": {
+    "accepted_ball_frames": 19719,
+    "registered_ball_frames": 19414,
+    "median_offset_m": 0.9125,
+    "p90_offset_m": 1.3779
+   },
+   "v2_5b": [
+    0.656,
+    0.813
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 17054,
+     "overlap_ok": true,
+     "accepted_fraction": 0.2832,
+     "accepted_ok": true,
+     "median_distance_m": 1.5717,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.5274
+   },
+   "v2_9": [
+    0.656,
+    0.813
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 16794,
+     "overlap_ok": true,
+     "accepted_fraction": 0.2832,
+     "accepted_ok": true,
+     "median_distance_m": 0.9646,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.887
+   }
+  },
+  {
+   "copy": "J03WN1|4500|ext_players",
+   "kind": "ext_players",
+   "regime": "good",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6779,
+   "broadcast_quality": {
+    "bias_sd": 0.1379,
+    "b_sd": 0.0577,
+    "p_sd": 0.1,
+    "ball_frac": 0.7484,
+    "invalid": 0.1783
+   },
+   "v2_4": [
+    0.6053,
+    0.9015
+   ],
+   "registration": {
+    "accepted_ball_frames": 72731,
+    "registered_ball_frames": 72307,
+    "median_offset_m": 0.1766,
+    "p90_offset_m": 0.3257
+   },
+   "v2_5b": [
+    0.6555,
+    0.9193
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 47059,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6779,
+     "accepted_ok": true,
+     "median_distance_m": 0.2797,
+     "median_ok": true,
+     "used": true,
+     "filled": 25037,
+     "rejected_implausible": 634,
+     "ball_visible_graded_before": 0.6392,
+     "ball_visible_graded_after": 0.816
+    },
+    "true_ball_error_median_m": 0.1846
+   },
+   "v2_9": [
+    0.6541,
+    0.9199
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 46827,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6779,
+     "accepted_ok": true,
+     "median_distance_m": 0.2411,
+     "median_ok": true,
+     "used": true,
+     "filled": 24902,
+     "rejected_implausible": 577,
+     "ball_visible_graded_before": 0.6392,
+     "ball_visible_graded_after": 0.8151
+    },
+    "true_ball_error_median_m": 0.1019
+   }
+  },
+  {
+   "copy": "J03WN1|4500|ext_players",
+   "kind": "ext_players",
+   "regime": "medium",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6212,
+   "broadcast_quality": {
+    "bias_sd": 0.2014,
+    "b_sd": 0.4242,
+    "p_sd": 0.4613,
+    "ball_frac": 0.7267,
+    "invalid": 0.2053
+   },
+   "v2_4": [
+    0.6053,
+    0.9015
+   ],
+   "registration": {
+    "accepted_ball_frames": 65676,
+    "registered_ball_frames": 65443,
+    "median_offset_m": 0.256,
+    "p90_offset_m": 0.4976
+   },
+   "v2_5b": [
+    0.6053,
+    0.9015
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 42072,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6212,
+     "accepted_ok": true,
+     "median_distance_m": 0.6072,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.5667
+   },
+   "v2_9": [
+    0.6372,
+    0.9156
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 41944,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6212,
+     "accepted_ok": true,
+     "median_distance_m": 0.3612,
+     "median_ok": true,
+     "used": true,
+     "filled": 22939,
+     "rejected_implausible": 560,
+     "ball_visible_graded_before": 0.6392,
+     "ball_visible_graded_after": 0.8012
+    },
+    "true_ball_error_median_m": 0.2875
+   }
+  },
+  {
+   "copy": "J03WN1|4500|ext_players",
+   "kind": "ext_players",
+   "regime": "bad",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.4013,
+   "broadcast_quality": {
+    "bias_sd": 0.8416,
+    "b_sd": 0.5614,
+    "p_sd": 0.9718,
+    "ball_frac": 0.61,
+    "invalid": 0.2148
+   },
+   "v2_4": [
+    0.6053,
+    0.9015
+   ],
+   "registration": {
+    "accepted_ball_frames": 34807,
+    "registered_ball_frames": 34282,
+    "median_offset_m": 0.705,
+    "p90_offset_m": 1.1723
+   },
+   "v2_5b": [
+    0.6053,
+    0.9015
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 22784,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4013,
+     "accepted_ok": true,
+     "median_distance_m": 1.1067,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.0858
+   },
+   "v2_9": [
+    0.6053,
+    0.9015
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 22435,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4013,
+     "accepted_ok": true,
+     "median_distance_m": 0.6756,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.6385
+   }
+  },
+  {
+   "copy": "J03WN1|4501|ext_players",
+   "kind": "ext_players",
+   "regime": "good",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.5787,
+   "broadcast_quality": {
+    "bias_sd": 0.1134,
+    "b_sd": 0.0623,
+    "p_sd": 0.1133,
+    "ball_frac": 0.6124,
+    "invalid": 0.2977
+   },
+   "v2_4": [
+    0.5502,
+    0.8725
+   ],
+   "registration": {
+    "accepted_ball_frames": 50496,
+    "registered_ball_frames": 50108,
+    "median_offset_m": 0.1496,
+    "p90_offset_m": 0.2635
+   },
+   "v2_5b": [
+    0.624,
+    0.9078
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 24431,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5787,
+     "accepted_ok": true,
+     "median_distance_m": 0.2108,
+     "median_ok": true,
+     "used": true,
+     "filled": 24195,
+     "rejected_implausible": 1869,
+     "ball_visible_graded_before": 0.4722,
+     "ball_visible_graded_after": 0.6431
+    },
+    "true_ball_error_median_m": 0.1601
+   },
+   "v2_9": [
+    0.6222,
+    0.9065
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 24357,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5787,
+     "accepted_ok": true,
+     "median_distance_m": 0.1726,
+     "median_ok": true,
+     "used": true,
+     "filled": 23960,
+     "rejected_implausible": 1790,
+     "ball_visible_graded_before": 0.4722,
+     "ball_visible_graded_after": 0.6415
+    },
+    "true_ball_error_median_m": 0.0944
+   }
+  },
+  {
+   "copy": "J03WN1|4501|ext_players",
+   "kind": "ext_players",
+   "regime": "medium",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.5888,
+   "broadcast_quality": {
+    "bias_sd": 0.4651,
+    "b_sd": 0.4085,
+    "p_sd": 0.4777,
+    "ball_frac": 0.608,
+    "invalid": 0.2575
+   },
+   "v2_4": [
+    0.5502,
+    0.8725
+   ],
+   "registration": {
+    "accepted_ball_frames": 51815,
+    "registered_ball_frames": 51567,
+    "median_offset_m": 0.57,
+    "p90_offset_m": 1.0482
+   },
+   "v2_5b": [
+    0.5502,
+    0.8725
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 26272,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5888,
+     "accepted_ok": true,
+     "median_distance_m": 0.8034,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.7661
+   },
+   "v2_9": [
+    0.6317,
+    0.9063
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 26170,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5888,
+     "accepted_ok": true,
+     "median_distance_m": 0.4105,
+     "median_ok": true,
+     "used": true,
+     "filled": 23750,
+     "rejected_implausible": 1644,
+     "ball_visible_graded_before": 0.4722,
+     "ball_visible_graded_after": 0.64
+    },
+    "true_ball_error_median_m": 0.3793
+   }
+  },
+  {
+   "copy": "J03WN1|4501|ext_players",
+   "kind": "ext_players",
+   "regime": "bad",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.505,
+   "broadcast_quality": {
+    "bias_sd": 0.6758,
+    "b_sd": 0.6954,
+    "p_sd": 0.9395,
+    "ball_frac": 0.6736,
+    "invalid": 0.2557
+   },
+   "v2_4": [
+    0.5502,
+    0.8725
+   ],
+   "registration": {
+    "accepted_ball_frames": 49516,
+    "registered_ball_frames": 49005,
+    "median_offset_m": 0.6915,
+    "p90_offset_m": 1.1683
+   },
+   "v2_5b": [
+    0.5502,
+    0.8725
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 24067,
+     "overlap_ok": true,
+     "accepted_fraction": 0.505,
+     "accepted_ok": true,
+     "median_distance_m": 1.1662,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.1382
+   },
+   "v2_9": [
+    0.5502,
+    0.8725
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 23825,
+     "overlap_ok": true,
+     "accepted_fraction": 0.505,
+     "accepted_ok": true,
+     "median_distance_m": 0.625,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.6045
+   }
+  },
+  {
+   "copy": "J03WR9|4510|ext_players",
+   "kind": "ext_players",
+   "regime": "good",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6734,
+   "broadcast_quality": {
+    "bias_sd": 0.1727,
+    "b_sd": 0.1028,
+    "p_sd": 0.195,
+    "ball_frac": 0.7988,
+    "invalid": 0.2141
+   },
+   "v2_4": [
+    0.6954,
+    0.9418
+   ],
+   "registration": {
+    "accepted_ball_frames": 81267,
+    "registered_ball_frames": 81112,
+    "median_offset_m": 0.2188,
+    "p90_offset_m": 0.4106
+   },
+   "v2_5b": [
+    0.7307,
+    0.9481
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 53473,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6734,
+     "accepted_ok": true,
+     "median_distance_m": 0.2649,
+     "median_ok": true,
+     "used": true,
+     "filled": 26921,
+     "rejected_implausible": 870,
+     "ball_visible_graded_before": 0.6322,
+     "ball_visible_graded_after": 0.8155
+    },
+    "true_ball_error_median_m": 0.2479
+   },
+   "v2_9": [
+    0.7267,
+    0.9482
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 53426,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6734,
+     "accepted_ok": true,
+     "median_distance_m": 0.1701,
+     "median_ok": true,
+     "used": true,
+     "filled": 26845,
+     "rejected_implausible": 838,
+     "ball_visible_graded_before": 0.6322,
+     "ball_visible_graded_after": 0.815
+    },
+    "true_ball_error_median_m": 0.1342
+   }
+  },
+  {
+   "copy": "J03WR9|4510|ext_players",
+   "kind": "ext_players",
+   "regime": "medium",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.5816,
+   "broadcast_quality": {
+    "bias_sd": 0.2756,
+    "b_sd": 0.4539,
+    "p_sd": 0.3108,
+    "ball_frac": 0.6894,
+    "invalid": 0.2715
+   },
+   "v2_4": [
+    0.6954,
+    0.9418
+   ],
+   "registration": {
+    "accepted_ball_frames": 61419,
+    "registered_ball_frames": 61209,
+    "median_offset_m": 0.3414,
+    "p90_offset_m": 0.6341
+   },
+   "v2_5b": [
+    0.6954,
+    0.9418
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 41588,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5816,
+     "accepted_ok": true,
+     "median_distance_m": 0.642,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.6271
+   },
+   "v2_9": [
+    0.7332,
+    0.9456
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 41571,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5816,
+     "accepted_ok": true,
+     "median_distance_m": 0.337,
+     "median_ok": true,
+     "used": true,
+     "filled": 19020,
+     "rejected_implausible": 616,
+     "ball_visible_graded_before": 0.6322,
+     "ball_visible_graded_after": 0.7617
+    },
+    "true_ball_error_median_m": 0.3193
+   }
+  },
+  {
+   "copy": "J03WR9|4510|ext_players",
+   "kind": "ext_players",
+   "regime": "bad",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.3153,
+   "broadcast_quality": {
+    "bias_sd": 1.1484,
+    "b_sd": 0.5792,
+    "p_sd": 0.8758,
+    "ball_frac": 0.7884,
+    "invalid": 0.1965
+   },
+   "v2_4": [
+    0.6954,
+    0.9418
+   ],
+   "registration": {
+    "accepted_ball_frames": 37923,
+    "registered_ball_frames": 37491,
+    "median_offset_m": 0.8283,
+    "p90_offset_m": 1.301
+   },
+   "v2_5b": [
+    0.6954,
+    0.9418
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 24998,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3153,
+     "accepted_ok": true,
+     "median_distance_m": 1.2702,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.267
+   },
+   "v2_9": [
+    0.6954,
+    0.9418
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 24737,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3153,
+     "accepted_ok": true,
+     "median_distance_m": 0.7817,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.7745
+   }
+  },
+  {
+   "copy": "J03WR9|4511|ext_players",
+   "kind": "ext_players",
+   "regime": "good",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6586,
+   "broadcast_quality": {
+    "bias_sd": 0.0003,
+    "b_sd": 0.1119,
+    "p_sd": 0.1932,
+    "ball_frac": 0.7933,
+    "invalid": 0.1913
+   },
+   "v2_4": [
+    0.6821,
+    0.9382
+   ],
+   "registration": {
+    "accepted_ball_frames": 79738,
+    "registered_ball_frames": 79656,
+    "median_offset_m": 0.044,
+    "p90_offset_m": 0.0892
+   },
+   "v2_5b": [
+    0.6977,
+    0.9437
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 56413,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6586,
+     "accepted_ok": true,
+     "median_distance_m": 0.1502,
+     "median_ok": true,
+     "used": true,
+     "filled": 21991,
+     "rejected_implausible": 1333,
+     "ball_visible_graded_before": 0.6772,
+     "ball_visible_graded_after": 0.827
+    },
+    "true_ball_error_median_m": 0.1331
+   },
+   "v2_9": [
+    0.6993,
+    0.9427
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 56347,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6586,
+     "accepted_ok": true,
+     "median_distance_m": 0.1095,
+     "median_ok": true,
+     "used": true,
+     "filled": 22010,
+     "rejected_implausible": 1298,
+     "ball_visible_graded_before": 0.6772,
+     "ball_visible_graded_after": 0.8272
+    },
+    "true_ball_error_median_m": 0.082
+   }
+  },
+  {
+   "copy": "J03WR9|4511|ext_players",
+   "kind": "ext_players",
+   "regime": "medium",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6947,
+   "broadcast_quality": {
+    "bias_sd": 0.4967,
+    "b_sd": 0.4464,
+    "p_sd": 0.2875,
+    "ball_frac": 0.7421,
+    "invalid": 0.1702
+   },
+   "v2_4": [
+    0.6821,
+    0.9382
+   ],
+   "registration": {
+    "accepted_ball_frames": 77762,
+    "registered_ball_frames": 77221,
+    "median_offset_m": 0.5967,
+    "p90_offset_m": 1.1609
+   },
+   "v2_5b": [
+    0.6821,
+    0.9382
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 55719,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6947,
+     "accepted_ok": true,
+     "median_distance_m": 0.8095,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.7865
+   },
+   "v2_9": [
+    0.6874,
+    0.9409
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 55427,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6947,
+     "accepted_ok": true,
+     "median_distance_m": 0.4064,
+     "median_ok": true,
+     "used": true,
+     "filled": 20349,
+     "rejected_implausible": 1443,
+     "ball_visible_graded_before": 0.6772,
+     "ball_visible_graded_after": 0.8158
+    },
+    "true_ball_error_median_m": 0.396
+   }
+  },
+  {
+   "copy": "J03WR9|4511|ext_players",
+   "kind": "ext_players",
+   "regime": "bad",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.4976,
+   "broadcast_quality": {
+    "bias_sd": 0.9127,
+    "b_sd": 0.6599,
+    "p_sd": 0.6594,
+    "ball_frac": 0.6843,
+    "invalid": 0.1572
+   },
+   "v2_4": [
+    0.6821,
+    0.9382
+   ],
+   "registration": {
+    "accepted_ball_frames": 52004,
+    "registered_ball_frames": 51807,
+    "median_offset_m": 0.8867,
+    "p90_offset_m": 1.4146
+   },
+   "v2_5b": [
+    0.6821,
+    0.9382
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 36801,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4976,
+     "accepted_ok": true,
+     "median_distance_m": 1.2298,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.2102
+   },
+   "v2_9": [
+    0.6821,
+    0.9382
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 36676,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4976,
+     "accepted_ok": true,
+     "median_distance_m": 0.6667,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.652
+   }
+  },
+  {
+   "copy": "MET1|4520|ext_players",
+   "kind": "ext_players",
+   "regime": "good",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6795,
+   "broadcast_quality": {
+    "bias_sd": 0.1667,
+    "b_sd": 0.2355,
+    "p_sd": 0.066,
+    "ball_frac": 0.6741,
+    "invalid": 0.2186
+   },
+   "v2_4": [
+    0.6513,
+    0.8272
+   ],
+   "registration": {
+    "accepted_ball_frames": 44675,
+    "registered_ball_frames": 44642,
+    "median_offset_m": 0.2122,
+    "p90_offset_m": 0.3889
+   },
+   "v2_5b": [
+    0.6849,
+    0.8406
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 26072,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6795,
+     "accepted_ok": true,
+     "median_distance_m": 0.4473,
+     "median_ok": true,
+     "used": true,
+     "filled": 17764,
+     "rejected_implausible": 839,
+     "ball_visible_graded_before": 0.3688,
+     "ball_visible_graded_after": 0.4913
+    },
+    "true_ball_error_median_m": 0.3504
+   },
+   "v2_9": [
+    0.6834,
+    0.8409
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 26062,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6795,
+     "accepted_ok": true,
+     "median_distance_m": 0.3404,
+     "median_ok": true,
+     "used": true,
+     "filled": 17786,
+     "rejected_implausible": 794,
+     "ball_visible_graded_before": 0.3688,
+     "ball_visible_graded_after": 0.4915
+    },
+    "true_ball_error_median_m": 0.1782
+   }
+  },
+  {
+   "copy": "MET1|4520|ext_players",
+   "kind": "ext_players",
+   "regime": "medium",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.5825,
+   "broadcast_quality": {
+    "bias_sd": 0.3026,
+    "b_sd": 0.3562,
+    "p_sd": 0.4126,
+    "ball_frac": 0.607,
+    "invalid": 0.2696
+   },
+   "v2_4": [
+    0.6513,
+    0.8272
+   ],
+   "registration": {
+    "accepted_ball_frames": 36450,
+    "registered_ball_frames": 36253,
+    "median_offset_m": 0.3791,
+    "p90_offset_m": 0.7078
+   },
+   "v2_5b": [
+    0.6513,
+    0.8272
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 21715,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5825,
+     "accepted_ok": true,
+     "median_distance_m": 0.6326,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.571
+   },
+   "v2_9": [
+    0.6823,
+    0.8361
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 21650,
+     "overlap_ok": true,
+     "accepted_fraction": 0.5825,
+     "accepted_ok": true,
+     "median_distance_m": 0.4013,
+     "median_ok": true,
+     "used": true,
+     "filled": 14011,
+     "rejected_implausible": 591,
+     "ball_visible_graded_before": 0.3688,
+     "ball_visible_graded_after": 0.4654
+    },
+    "true_ball_error_median_m": 0.2744
+   }
+  },
+  {
+   "copy": "MET1|4520|ext_players",
+   "kind": "ext_players",
+   "regime": "bad",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.4891,
+   "broadcast_quality": {
+    "bias_sd": 0.9084,
+    "b_sd": 0.9406,
+    "p_sd": 0.675,
+    "ball_frac": 0.711,
+    "invalid": 0.1969
+   },
+   "v2_4": [
+    0.6513,
+    0.8272
+   ],
+   "registration": {
+    "accepted_ball_frames": 35061,
+    "registered_ball_frames": 34995,
+    "median_offset_m": 0.8623,
+    "p90_offset_m": 1.3173
+   },
+   "v2_5b": [
+    0.6513,
+    0.8272
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 20962,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4891,
+     "accepted_ok": true,
+     "median_distance_m": 1.5215,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.4745
+   },
+   "v2_9": [
+    0.6513,
+    0.8272
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 20924,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4891,
+     "accepted_ok": true,
+     "median_distance_m": 0.8233,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.7691
+   }
+  },
+  {
+   "copy": "MET1|4521|ext_players",
+   "kind": "ext_players",
+   "regime": "good",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6046,
+   "broadcast_quality": {
+    "bias_sd": 0.1479,
+    "b_sd": 0.1079,
+    "p_sd": 0.2341,
+    "ball_frac": 0.707,
+    "invalid": 0.2667
+   },
+   "v2_4": [
+    0.651,
+    0.8238
+   ],
+   "registration": {
+    "accepted_ball_frames": 43701,
+    "registered_ball_frames": 43648,
+    "median_offset_m": 0.194,
+    "p90_offset_m": 0.3631
+   },
+   "v2_5b": [
+    0.696,
+    0.839
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 33541,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6046,
+     "accepted_ok": true,
+     "median_distance_m": 0.2412,
+     "median_ok": true,
+     "used": true,
+     "filled": 10036,
+     "rejected_implausible": 123,
+     "ball_visible_graded_before": 0.4703,
+     "ball_visible_graded_after": 0.5395
+    },
+    "true_ball_error_median_m": 0.2233
+   },
+   "v2_9": [
+    0.7068,
+    0.8407
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 33492,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6046,
+     "accepted_ok": true,
+     "median_distance_m": 0.1594,
+     "median_ok": true,
+     "used": true,
+     "filled": 10054,
+     "rejected_implausible": 101,
+     "ball_visible_graded_before": 0.4703,
+     "ball_visible_graded_after": 0.5396
+    },
+    "true_ball_error_median_m": 0.1326
+   }
+  },
+  {
+   "copy": "MET1|4521|ext_players",
+   "kind": "ext_players",
+   "regime": "medium",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6051,
+   "broadcast_quality": {
+    "bias_sd": 0.5198,
+    "b_sd": 0.4455,
+    "p_sd": 0.3452,
+    "ball_frac": 0.6069,
+    "invalid": 0.2724
+   },
+   "v2_4": [
+    0.651,
+    0.8238
+   ],
+   "registration": {
+    "accepted_ball_frames": 35984,
+    "registered_ball_frames": 35936,
+    "median_offset_m": 0.6204,
+    "p90_offset_m": 1.1547
+   },
+   "v2_5b": [
+    0.651,
+    0.8238
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 27889,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6051,
+     "accepted_ok": true,
+     "median_distance_m": 0.8264,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.8232
+   },
+   "v2_9": [
+    0.6884,
+    0.8385
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 27842,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6051,
+     "accepted_ok": true,
+     "median_distance_m": 0.4045,
+     "median_ok": true,
+     "used": true,
+     "filled": 7970,
+     "rejected_implausible": 123,
+     "ball_visible_graded_before": 0.4703,
+     "ball_visible_graded_after": 0.5252
+    },
+    "true_ball_error_median_m": 0.397
+   }
+  },
+  {
+   "copy": "MET1|4521|ext_players",
+   "kind": "ext_players",
+   "regime": "bad",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.3399,
+   "broadcast_quality": {
+    "bias_sd": 1.2076,
+    "b_sd": 0.9453,
+    "p_sd": 0.6631,
+    "ball_frac": 0.7622,
+    "invalid": 0.1562
+   },
+   "v2_4": [
+    0.651,
+    0.8238
+   ],
+   "registration": {
+    "accepted_ball_frames": 26007,
+    "registered_ball_frames": 25896,
+    "median_offset_m": 0.9532,
+    "p90_offset_m": 1.3773
+   },
+   "v2_5b": [
+    0.651,
+    0.8238
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 20420,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3399,
+     "accepted_ok": true,
+     "median_distance_m": 1.6044,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.6082
+   },
+   "v2_9": [
+    0.651,
+    0.8238
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 20326,
+     "overlap_ok": true,
+     "accepted_fraction": 0.3399,
+     "accepted_ok": true,
+     "median_distance_m": 0.8871,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.8848
+   }
+  },
+  {
+   "copy": "MET2|4530|ext_players",
+   "kind": "ext_players",
+   "regime": "good",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6547,
+   "broadcast_quality": {
+    "bias_sd": 0.0404,
+    "b_sd": 0.1466,
+    "p_sd": 0.2092,
+    "ball_frac": 0.6236,
+    "invalid": 0.2175
+   },
+   "v2_4": [
+    0.665,
+    0.8112
+   ],
+   "registration": {
+    "accepted_ball_frames": 39377,
+    "registered_ball_frames": 39369,
+    "median_offset_m": 0.0642,
+    "p90_offset_m": 0.1223
+   },
+   "v2_5b": [
+    0.698,
+    0.8216
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 32416,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6547,
+     "accepted_ok": true,
+     "median_distance_m": 0.1993,
+     "median_ok": true,
+     "used": true,
+     "filled": 6932,
+     "rejected_implausible": 29,
+     "ball_visible_graded_before": 0.4842,
+     "ball_visible_graded_after": 0.5333
+    },
+    "true_ball_error_median_m": 0.181
+   },
+   "v2_9": [
+    0.6884,
+    0.821
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 32408,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6547,
+     "accepted_ok": true,
+     "median_distance_m": 0.138,
+     "median_ok": true,
+     "used": true,
+     "filled": 6942,
+     "rejected_implausible": 19,
+     "ball_visible_graded_before": 0.4842,
+     "ball_visible_graded_after": 0.5334
+    },
+    "true_ball_error_median_m": 0.1041
+   }
+  },
+  {
+   "copy": "MET2|4530|ext_players",
+   "kind": "ext_players",
+   "regime": "medium",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6831,
+   "broadcast_quality": {
+    "bias_sd": 0.2724,
+    "b_sd": 0.3716,
+    "p_sd": 0.2628,
+    "ball_frac": 0.5904,
+    "invalid": 0.1968
+   },
+   "v2_4": [
+    0.665,
+    0.8112
+   ],
+   "registration": {
+    "accepted_ball_frames": 37974,
+    "registered_ball_frames": 37962,
+    "median_offset_m": 0.3248,
+    "p90_offset_m": 0.6197
+   },
+   "v2_5b": [
+    0.665,
+    0.8112
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 31013,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6831,
+     "accepted_ok": true,
+     "median_distance_m": 0.5567,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.5532
+   },
+   "v2_9": [
+    0.6994,
+    0.8201
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 31001,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6831,
+     "accepted_ok": true,
+     "median_distance_m": 0.2778,
+     "median_ok": true,
+     "used": true,
+     "filled": 6946,
+     "rejected_implausible": 15,
+     "ball_visible_graded_before": 0.4842,
+     "ball_visible_graded_after": 0.5334
+    },
+    "true_ball_error_median_m": 0.2633
+   }
+  },
+  {
+   "copy": "MET2|4530|ext_players",
+   "kind": "ext_players",
+   "regime": "bad",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.4016,
+   "broadcast_quality": {
+    "bias_sd": 0.9947,
+    "b_sd": 0.7333,
+    "p_sd": 0.6876,
+    "ball_frac": 0.7745,
+    "invalid": 0.2105
+   },
+   "v2_4": [
+    0.665,
+    0.8112
+   ],
+   "registration": {
+    "accepted_ball_frames": 29653,
+    "registered_ball_frames": 29568,
+    "median_offset_m": 0.866,
+    "p90_offset_m": 1.3457
+   },
+   "v2_5b": [
+    0.665,
+    0.8112
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 24237,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4016,
+     "accepted_ok": true,
+     "median_distance_m": 1.3025,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.2991
+   },
+   "v2_9": [
+    0.665,
+    0.8112
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 24166,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4016,
+     "accepted_ok": true,
+     "median_distance_m": 0.7139,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.7131
+   }
+  },
+  {
+   "copy": "MET2|4531|ext_players",
+   "kind": "ext_players",
+   "regime": "good",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6879,
+   "broadcast_quality": {
+    "bias_sd": 0.0709,
+    "b_sd": 0.0594,
+    "p_sd": 0.2443,
+    "ball_frac": 0.6352,
+    "invalid": 0.1953
+   },
+   "v2_4": [
+    0.6432,
+    0.8026
+   ],
+   "registration": {
+    "accepted_ball_frames": 41259,
+    "registered_ball_frames": 41209,
+    "median_offset_m": 0.1142,
+    "p90_offset_m": 0.2179
+   },
+   "v2_5b": [
+    0.6619,
+    0.8077
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 34906,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6879,
+     "accepted_ok": true,
+     "median_distance_m": 0.3715,
+     "median_ok": true,
+     "used": true,
+     "filled": 6019,
+     "rejected_implausible": 334,
+     "ball_visible_graded_before": 0.5054,
+     "ball_visible_graded_after": 0.5481
+    },
+    "true_ball_error_median_m": 0.115
+   },
+   "v2_9": [
+    0.656,
+    0.8073
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 34884,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6879,
+     "accepted_ok": true,
+     "median_distance_m": 0.3827,
+     "median_ok": true,
+     "used": true,
+     "filled": 6011,
+     "rejected_implausible": 314,
+     "ball_visible_graded_before": 0.5054,
+     "ball_visible_graded_after": 0.548
+    },
+    "true_ball_error_median_m": 0.0999
+   }
+  },
+  {
+   "copy": "MET2|4531|ext_players",
+   "kind": "ext_players",
+   "regime": "medium",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.6696,
+   "broadcast_quality": {
+    "bias_sd": 0.4178,
+    "b_sd": 0.2642,
+    "p_sd": 0.4011,
+    "ball_frac": 0.7391,
+    "invalid": 0.2293
+   },
+   "v2_4": [
+    0.6432,
+    0.8026
+   ],
+   "registration": {
+    "accepted_ball_frames": 46449,
+    "registered_ball_frames": 46439,
+    "median_offset_m": 0.4841,
+    "p90_offset_m": 0.9156
+   },
+   "v2_5b": [
+    0.6432,
+    0.8026
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 39123,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6696,
+     "accepted_ok": true,
+     "median_distance_m": 0.6902,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.5845
+   },
+   "v2_9": [
+    0.6564,
+    0.809
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 39113,
+     "overlap_ok": true,
+     "accepted_fraction": 0.6696,
+     "accepted_ok": true,
+     "median_distance_m": 0.4787,
+     "median_ok": true,
+     "used": true,
+     "filled": 7004,
+     "rejected_implausible": 322,
+     "ball_visible_graded_before": 0.5054,
+     "ball_visible_graded_after": 0.555
+    },
+    "true_ball_error_median_m": 0.292
+   }
+  },
+  {
+   "copy": "MET2|4531|ext_players",
+   "kind": "ext_players",
+   "regime": "bad",
+   "path": "v2.3",
+   "mode": "clock",
+   "accepted_fraction": 0.4143,
+   "broadcast_quality": {
+    "bias_sd": 1.0758,
+    "b_sd": 0.9377,
+    "p_sd": 0.6252,
+    "ball_frac": 0.6111,
+    "invalid": 0.1851
+   },
+   "v2_4": [
+    0.6432,
+    0.8026
+   ],
+   "registration": {
+    "accepted_ball_frames": 23122,
+    "registered_ball_frames": 22942,
+    "median_offset_m": 0.891,
+    "p90_offset_m": 1.3652
+   },
+   "v2_5b": [
+    0.6432,
+    0.8026
+   ],
+   "v2_5b_info": {
+    "gate": {
+     "overlap_frames": 20206,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4143,
+     "accepted_ok": true,
+     "median_distance_m": 1.5612,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 1.5124
+   },
+   "v2_9": [
+    0.6432,
+    0.8026
+   ],
+   "v2_9_info": {
+    "gate": {
+     "overlap_frames": 20032,
+     "overlap_ok": true,
+     "accepted_fraction": 0.4143,
+     "accepted_ok": true,
+     "median_distance_m": 0.927,
+     "median_ok": false,
+     "used": false,
+     "filled": 0
+    },
+    "true_ball_error_median_m": 0.8416
+   }
+  }
+ ],
+ "release_manifest": "possession-v29-release.json",
+ "reproducibility": {
+  "check": "possession.run29 on a full-size external pair (Metrica sample game 3 tracking corrupted like the training copies + synthetic broadcast EPTS stream), with and without clock files, release manifest verified",
+  "python_3_13_numpy_2_5_3": "a42c5ce3c475c99680a277d8760acce660d4b8bbef07e1199cb2a8c1bfee72a5",
+  "python_3_10_numpy_1_26_4": "a42c5ce3c475c99680a277d8760acce660d4b8bbef07e1199cb2a8c1bfee72a5",
+  "identical": true,
+  "seconds_per_run": "166-207",
+  "peak_rss_gb": 3.6
+ },
+ "tests": "367 tests under Python 3.10 (14 skipped), all passing; synthetic, no accuracy claims"
+}

@@ -1,0 +1,28 @@
+{
+ "plan": "final pipeline-correctness check on the organisers' public 5-minute window (PASS/FAIL only)",
+ "registered": "2026-11-11T07:40:51+03:00",
+ "registered_before_any_run_on_a_provided_match_file": true,
+ "basis": [
+  "organiser RULES.md (lines 77-80): the published 5 minutes are for checking that the pipeline is correct - frames aligned, file well-formed, labels meaning what you think; not training data and not a tuning set",
+  "organiser EVALUATION.md (lines 139-141): never to choose between two versions of the pipeline",
+  "team condition recorded in possession-v2-plan.json: public window only as a final run check after the pipeline is frozen",
+  "AGENTS.md: do not start another selection cycle from that check"
+ ],
+ "tool": {
+  "module": "possession/public_check.py",
+  "sha256": "3388cc8375c0b5c4509d5063732e98286c0727f7f02fc76adc92b06ffe549977",
+  "scorer": "possession/official_metrics.py (the organisers' possession_metrics.py with a three-line header)"
+ },
+ "checks": {
+  "valid_submission": "organisers' validate_submission against the public ground-truth length",
+  "above_broken_floor": "spell_f1_mean >= 0.20 and macro_f1 >= 0.50",
+  "teams_not_exchanged": "spell_f1_mean and macro_f1 of the file are not lower than those of the same file with H and A exchanged"
+ },
+ "why_these_thresholds": "They separate a broken pipeline from a working one and say nothing about quality: the organisers' scorer gives a perfect prediction with exchanged teams spell_f1 0.00 and macro_f1 about 0.33, and the trivial published baselines score 0.33-0.42 spell_f1 on this window. No external or provided-match result was used to set them.",
+ "output": "PASS or FAIL per check; no score is printed or stored; the verdict of a (file, ground truth) pair is computed once and stored next to the file",
+ "when": "after the release is frozen, on the file that is going to be submitted; run locally by the team",
+ "if_fail": "look for a mapping or indexing bug (home/away assignment, frame offset, wrong input file). No model, threshold, decoder or release choice may be changed because of this check. A genuine pipeline bug is fixed in a new version with a synthetic regression test and is disclosed.",
+ "if_pass": "nothing changes",
+ "shared_with_the_ai_assistant": "PASS/FAIL words only",
+ "provided_fixture_used": "only the organisers' public 5-minute ground truth and the team's own output file, locally"
+}

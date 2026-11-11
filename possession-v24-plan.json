@@ -1,0 +1,106 @@
+{
+  "plan": "possession-v2.4 (noise-gated choice between the frozen v2.1 system and the v2.3 recipe)",
+  "registered": "2026-11-10T09:55:18+03:00",
+  "registered_before_any_v2_4_result": true,
+  "designed_after": "v2.3 validation results (possession-v23-results.json): v2.3 gained +0.014 overall and +0.044 on copies with player noise 0.38-0.44 m, but lost 0.014 on the original copies (noise <= 0.3 m) and was not selected. v2.4 was designed after seeing this, which is disclosed; it is confirmed on fresh copies only.",
+  "idea": "Measure the high-frequency position noise of the input automatically and use the v2.3 path only when it exceeds the noise v2.1 was trained with. No label, video or ground truth is used by the gate; it is a fixed function of the tracking input.",
+  "gate": {
+    "estimator": "sigma_hat = 1.4826 * MAD(d2) / sqrt(6) with d2 = x[t+1] - 2 x[t] + x[t-1] over frames where the three positions exist, x and y pooled, inside the play blocks (block ends separated); ball: one estimate; players: one estimate per slot with >= 500 valid values, then the median over slots",
+    "rule": "v2.3 path if sigma_hat_players > 0.30 m or sigma_hat_ball > 0.30 m, otherwise the v2.1 path",
+    "threshold_reason": "0.30 m is the upper end of the ball and player noise ranges v2.1 was trained with (possession/degrade.py RANGES); fixed a priori, not tuned",
+    "estimator_check_before_registration": {
+      "what": "known i.i.d. noise added by degrade() to clean external matches; no labels or possession scores involved (noise_est.py)",
+      "clean_sigma_hat": {
+        "J03WN1": {
+          "ball": 0.0,
+          "players": 0.0061
+        },
+        "J03WR9": {
+          "ball": 0.0,
+          "players": 0.0061
+        },
+        "J03WOH": {
+          "ball": 0.0,
+          "players": 0.0061
+        },
+        "MET1": {
+          "ball": 0.0006,
+          "players": 0.0006
+        },
+        "MET2": {
+          "ball": 0.0006,
+          "players": 0.0006
+        }
+      },
+      "added_0_1_0_3_0_5_m_recovered_as": {
+        "J03WN1": [
+          0.1,
+          0.3,
+          0.5,
+          0.106,
+          0.307,
+          0.505
+        ],
+        "J03WR9": [
+          0.1,
+          0.3,
+          0.5,
+          0.104,
+          0.305,
+          0.503
+        ],
+        "J03WOH": [
+          0.1,
+          0.3,
+          0.501,
+          0.104,
+          0.305,
+          0.503
+        ],
+        "MET1": [
+          0.1,
+          0.3,
+          0.5,
+          0.105,
+          0.305,
+          0.501
+        ],
+        "MET2": [
+          0.1,
+          0.3,
+          0.499,
+          0.105,
+          0.308,
+          0.505
+        ]
+      },
+      "format": "players at 0.1/0.3/0.5 m, then ball at 0.1/0.3/0.5 m"
+    },
+    "not_detected": "slowly varying bias and temporally correlated tracker error (they hardly change second differences); the gate only sees white-noise jitter"
+  },
+  "paths": {
+    "v2.1": "unchanged frozen v2.1 system (bundle models/possession-v2.npz, decoder 3/60/60/-0.3)",
+    "v2.3": "input smoothing (possession/smooth.py, +-2 frames) + v2.3 models (profile v2.3) + decoder 5/60/60/-0.3 as selected on the 24 v2.3 validation copies; fixed, not re-selected"
+  },
+  "validation": {
+    "models": "4-match validation models of each path (DFL J03WOH/J03WOY/J03WPY/J03WQQ), as in the v2.3 experiment",
+    "fresh_copies": "the four validation matches (DFL J03WN1, J03WR9; Metrica 1-2), each copy with its OWN degrade seed so every copy has its own noise configuration: seed = base + 10*i + j, i = match index 0-3 in that order, j = 0/1; bases 1100 (v2.1 corruption), 1300 (+ ball noise 0.3-0.6 m and ball bias 0.2-0.6 m), 1500 (+ player noise 0.3-0.6 m); 24 copies, never used before",
+    "reference": "v2.1 (4-match models, frozen decoder) on the same 24 fresh copies",
+    "score": "mean official spell_f1_mean"
+  },
+  "selection_rule": {
+    "select_v2_4_only_if_all": [
+      "mean spellF1 over the 24 fresh copies >= v2.1 on the same copies + 0.010",
+      "mean spellF1 over the 8 fresh v2.1-corruption copies (bases 1100) >= v2.1 on them - 0.005"
+    ],
+    "otherwise": "keep v2.1",
+    "no_relaxation": true,
+    "then": "final v2.3 bundle on the 6 DFL matches with the registered v2.3 recipe (profile v2.3, smoothing 2, decoder 5/60/60/-0.3); v2.4 release = frozen v2.1 bundle (unchanged) + that bundle + gate code, with its own source freeze and entry point (possession.run24); reserved Metrica game 3 test once (seeds 201/202 v2.1 corruption, 401/402 extended ball, 601/602 extended players) for v2.1 and v2.4, reported, not a gate; v2.1 must reproduce its registered reserved values 0.6253/0.7021 on 201/202"
+  },
+  "limits_stated_in_advance": [
+    "The fresh copies come from the same four validation matches; only the corruption is new.",
+    "The extended noise ranges are a physical prior, not measured on the provided match.",
+    "On the provided match the gate makes one binary choice from its measured jitter; if that jitter is near 0.30 m, both paths are expected to be close.",
+    "The gate cannot see slowly varying bias or smoothed (correlated) tracker error."
+  ]
+}

@@ -1,0 +1,5 @@
+# Possession v2 inference (python -m possession.run). Verified with Python 3.10.
+# numpy-only tree evaluation: scikit-learn is NOT needed to generate the submission.
+numpy==1.26.4
+scipy==1.11.4
+pandas==2.1.4

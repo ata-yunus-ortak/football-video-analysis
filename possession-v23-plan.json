@@ -1,0 +1,50 @@
+{
+  "plan": "possession-v2.3 (position-noise robustness: input smoothing + wider training noise)",
+  "registered": "2026-11-10T08:31:03+03:00",
+  "registered_before_any_v2_3_result": true,
+  "motivation": "Reporting-only sensitivity of the v2.1 recipe on the four validation matches (copy 101): base 0.610; extra i.i.d. ball noise 0.5 m 0.537; extra i.i.d. PLAYER noise 0.5 m 0.495; slowly varying 1 m ball bias 0.519. v2.2 (wider ball noise in training only) gained +0.016 on ball-noisy copies, lost 0.005 on the original copies and missed its +0.010 gate. The provided ATD is automatic and uncorrected; its position error is unknown and may exceed the 0.3 m used in training.",
+  "candidate": {
+    "preprocessing": "NaN-aware centred moving average of every player and ball coordinate over 5 frames (+-2, 0.2 s) inside each play block, applied after corruption and before features, identically in training and inference; a missing frame stays missing (no gap filling)",
+    "training_profile": "v2.3 = v2.2 ball ranges (ball noise 0.05-0.6 m, slowly varying ball bias 0-0.6 m) + player noise 0.03-0.6 m (was 0.03-0.3)",
+    "unchanged": "features v2, stage-1/stage-2 hyper-parameters and stacking recipe, training matches and seeds, decoder family",
+    "decoder": "re-selected for v2.3 on the 24 validation copies from the same 54-point grid"
+  },
+  "validation": {
+    "V_orig": "8 copies, seeds 101/102, v2.1 corruption",
+    "V_ext_ball": "8 copies, seeds 301/302, v2.1 corruption + ball noise 0.3-0.6 m + ball bias 0.2-0.6 m",
+    "V_ext_players": "8 copies, seeds 501/502, v2.1 corruption + player noise 0.3-0.6 m",
+    "systems": "frozen v2.1 recipe (4-match models, decoder 3/60/60/-0.3, no smoothing) vs v2.3 (4-match models, smoothing, own decoder) on the same 24 copies"
+  },
+  "selection_rule": {
+    "select_v2_3_only_if_all": [
+      "mean spellF1 over the 24 copies >= v2.1 on the same copies + 0.010",
+      "V_orig mean >= v2.1 V_orig (0.6312) - 0.010"
+    ],
+    "otherwise": "keep v2.1",
+    "no_relaxation": true,
+    "then": "final bundle on 6 DFL matches with its own source freeze and run entry point (possession.run23); reserved Metrica game 3 test once (v2.1 corruption 201/202, extended ball 401/402, extended players 601/602) for v2.1 and v2.3"
+  },
+  "limits_stated_in_advance": [
+    "The noise levels of V_ext_* are a physical prior, not measured on the provided match.",
+    "All validation copies come from the same four matches; v2.2 and the sensitivity checks were seen before this plan."
+  ],
+  "timestamp_correction": {
+    "corrected_on": "2026-11-10",
+    "note": "The clock times first written in this file were estimates typed by the coding agent without reading the system clock; they were 1-60 minutes later than the real write times. They were replaced on 2026-11-10 by times taken from the file system of the agent working copy (creation / last modification of this file and of the experiment logs). The original values are kept below. The order of plan, amendments and results is unchanged and is what the evidence supports; exact times inside a range cannot be recovered.",
+    "original_values": {
+      "registered": "2026-11-10T08:50+03:00"
+    },
+    "file_system_evidence": {
+      "plan_file_created_and_last_written": "08:31:03",
+      "first_v2_3_job_started_after": "run_v23.sh written 08:31:36; pre_s23t.log first output after that"
+    }
+  },
+  "amendments": [
+    {
+      "recorded": "2026-11-10T08:45:34+03:00",
+      "before_any_v2_3_result": true,
+      "evidence": "written while the v2.3 training job was still running (stage-1 training log had no result line; eval_v23.json did not exist)",
+      "text": "Clarification of the reserved test: it is reported, not a selection gate. The decision follows selection_rule only. The v2.1 bundle must reproduce its registered reserved-test copies (seeds 201/202: 0.6253 and 0.7021); a mismatch would mean a pipeline error and would stop the release until explained."
+    }
+  ]
+}

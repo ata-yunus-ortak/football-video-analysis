@@ -1,0 +1,287 @@
+{
+ "version": "possession-v4 experiment (broadcast ball fill)",
+ "provided_fixture_used": false,
+ "note": "synthetic broadcast streams generated from external matches; not a competition score",
+ "plan_sha256": "ecf0e484a7ef25b458744bb1345bcae505698ad6b118e1d879f2810182b14b4e",
+ "default": {
+  "v2_1": 0.6312,
+  "v4": 0.6251,
+  "difference": -0.0061,
+  "difference_dfl_mean": -0.0373,
+  "difference_metrica_mean": 0.0251,
+  "alignment_precision_mean": 0.9831,
+  "median_abs_lag_err_frames": 0.0,
+  "copies": [
+   {
+    "name": "J03WN1",
+    "seed": 101,
+    "v21": 0.575,
+    "v4": 0.5684,
+    "precision": 0.9999,
+    "recall": 0.8368,
+    "median_abs_lag_err": 0.0,
+    "fusion_used": true,
+    "overlap_agreement": 0.9608,
+    "filled_frames": 29301,
+    "ball_visible_graded": [
+     0.5187,
+     0.7257
+    ]
+   },
+   {
+    "name": "J03WN1",
+    "seed": 102,
+    "v21": 0.6476,
+    "v4": 0.6102,
+    "precision": 0.9998,
+    "recall": 0.7085,
+    "median_abs_lag_err": 0.0,
+    "fusion_used": true,
+    "overlap_agreement": 0.7199,
+    "filled_frames": 16216,
+    "ball_visible_graded": [
+     0.6744,
+     0.7889
+    ]
+   },
+   {
+    "name": "J03WR9",
+    "seed": 101,
+    "v21": 0.6697,
+    "v4": 0.5968,
+    "precision": 0.9801,
+    "recall": 0.8099,
+    "median_abs_lag_err": 0.0,
+    "fusion_used": true,
+    "overlap_agreement": 0.8827,
+    "filled_frames": 33920,
+    "ball_visible_graded": [
+     0.5311,
+     0.7621
+    ]
+   },
+   {
+    "name": "J03WR9",
+    "seed": 102,
+    "v21": 0.6944,
+    "v4": 0.6621,
+    "precision": 0.987,
+    "recall": 0.8309,
+    "median_abs_lag_err": 0.0,
+    "fusion_used": true,
+    "overlap_agreement": 0.9358,
+    "filled_frames": 19046,
+    "ball_visible_graded": [
+     0.7041,
+     0.8338
+    ]
+   },
+   {
+    "name": "MET1",
+    "seed": 101,
+    "v21": 0.6046,
+    "v4": 0.6338,
+    "precision": 0.9706,
+    "recall": 0.8716,
+    "median_abs_lag_err": 0.0,
+    "fusion_used": true,
+    "overlap_agreement": 0.8972,
+    "filled_frames": 15313,
+    "ball_visible_graded": [
+     0.3529,
+     0.4585
+    ]
+   },
+   {
+    "name": "MET1",
+    "seed": 102,
+    "v21": 0.6555,
+    "v4": 0.6871,
+    "precision": 1.0,
+    "recall": 0.5307,
+    "median_abs_lag_err": 0.0,
+    "fusion_used": true,
+    "overlap_agreement": 0.9055,
+    "filled_frames": 3874,
+    "ball_visible_graded": [
+     0.4927,
+     0.5194
+    ]
+   },
+   {
+    "name": "MET2",
+    "seed": 101,
+    "v21": 0.5901,
+    "v4": 0.6175,
+    "precision": 0.938,
+    "recall": 0.4829,
+    "median_abs_lag_err": 1.0,
+    "fusion_used": true,
+    "overlap_agreement": 0.7114,
+    "filled_frames": 9085,
+    "ball_visible_graded": [
+     0.3559,
+     0.4203
+    ]
+   },
+   {
+    "name": "MET2",
+    "seed": 102,
+    "v21": 0.6128,
+    "v4": 0.6251,
+    "precision": 0.9893,
+    "recall": 0.7345,
+    "median_abs_lag_err": 0.0,
+    "fusion_used": true,
+    "overlap_agreement": 0.7716,
+    "filled_frames": 6232,
+    "ball_visible_graded": [
+     0.4866,
+     0.5308
+    ]
+   }
+  ]
+ },
+ "bad": {
+  "v2_1": 0.6312,
+  "v4": 0.6312,
+  "fusion_used_copies": 0,
+  "copies": [
+   {
+    "name": "J03WN1",
+    "seed": 101,
+    "v21": 0.575,
+    "v4": 0.575,
+    "precision": 0.0,
+    "recall": 0.0,
+    "median_abs_lag_err": null,
+    "fusion_used": false,
+    "overlap_agreement": 0.0,
+    "filled_frames": 0,
+    "ball_visible_graded": [
+     null,
+     null
+    ]
+   },
+   {
+    "name": "J03WN1",
+    "seed": 102,
+    "v21": 0.6476,
+    "v4": 0.6476,
+    "precision": 0.0,
+    "recall": 0.0,
+    "median_abs_lag_err": null,
+    "fusion_used": false,
+    "overlap_agreement": 0.0,
+    "filled_frames": 0,
+    "ball_visible_graded": [
+     null,
+     null
+    ]
+   },
+   {
+    "name": "J03WR9",
+    "seed": 101,
+    "v21": 0.6697,
+    "v4": 0.6697,
+    "precision": 0.0,
+    "recall": 0.0,
+    "median_abs_lag_err": null,
+    "fusion_used": false,
+    "overlap_agreement": 0.0,
+    "filled_frames": 0,
+    "ball_visible_graded": [
+     null,
+     null
+    ]
+   },
+   {
+    "name": "J03WR9",
+    "seed": 102,
+    "v21": 0.6944,
+    "v4": 0.6944,
+    "precision": 0.0,
+    "recall": 0.0,
+    "median_abs_lag_err": null,
+    "fusion_used": false,
+    "overlap_agreement": 0.0,
+    "filled_frames": 0,
+    "ball_visible_graded": [
+     null,
+     null
+    ]
+   },
+   {
+    "name": "MET1",
+    "seed": 101,
+    "v21": 0.6046,
+    "v4": 0.6046,
+    "precision": 0.0,
+    "recall": 0.0,
+    "median_abs_lag_err": null,
+    "fusion_used": false,
+    "overlap_agreement": 0.0,
+    "filled_frames": 0,
+    "ball_visible_graded": [
+     null,
+     null
+    ]
+   },
+   {
+    "name": "MET1",
+    "seed": 102,
+    "v21": 0.6555,
+    "v4": 0.6555,
+    "precision": 0.0,
+    "recall": 0.0,
+    "median_abs_lag_err": 11.0,
+    "fusion_used": false,
+    "overlap_agreement": 0.0612,
+    "filled_frames": 0,
+    "ball_visible_graded": [
+     null,
+     null
+    ]
+   },
+   {
+    "name": "MET2",
+    "seed": 101,
+    "v21": 0.5901,
+    "v4": 0.5901,
+    "precision": 0.0,
+    "recall": 0.0,
+    "median_abs_lag_err": 9.0,
+    "fusion_used": false,
+    "overlap_agreement": 0.124,
+    "filled_frames": 0,
+    "ball_visible_graded": [
+     null,
+     null
+    ]
+   },
+   {
+    "name": "MET2",
+    "seed": 102,
+    "v21": 0.6128,
+    "v4": 0.6128,
+    "precision": 0.0,
+    "recall": 0.0,
+    "median_abs_lag_err": 7.0,
+    "fusion_used": false,
+    "overlap_agreement": 0.0753,
+    "filled_frames": 0,
+    "ball_visible_graded": [
+     null,
+     null
+    ]
+   }
+  ]
+ },
+ "gates": {
+  "default >= v2.1+0.010": false,
+  "bad >= v2.1-0.005": true,
+  "precision >= 0.98 and lag error <= 2": true
+ },
+ "selected": false,
+ "decision": "Not selected: alignment of synthetic broadcast streams was accurate (98% of accepted frames correct, median lag error 0 frames) and the ball was visible on far more frames, but filling gaps with a ball that carries ~0.5-1.5 m calibration error lowered spellF1 on the DFL copies (possession attribution depends on precise ball-player distances) and raised it on the Metrica copies; mean -0.006. v2.1 remains."
+}

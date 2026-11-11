@@ -1,0 +1,52 @@
+{
+  "release": "possession-v2.11g",
+  "note": "RESERVE configuration, read by tools/possession_deliver.py only when it is named with --release-config. To be used only if the organisers answer that the kick-off frame published in their FAQ.md may not be hard-coded: no step below uses that frame. 'steps' is the order of technical fall-backs: a lower step is used only when the step above ends with an error or writes a file that fails the organisers' format rules, never because of an output.",
+  "game": "BAR-ATH",
+  "rows": 199319,
+  "document": "TECHNICAL_DOCUMENT.md",
+  "clock_module": "tools.possession_clock",
+  "steps": [
+    {
+      "name": "possession-v2.11g",
+      "module": "possession.run211g",
+      "manifest": "possession-v211g-release.json",
+      "broadcast": true
+    },
+    {
+      "name": "possession-v2.9g",
+      "module": "possession.run29g",
+      "manifest": "possession-v29g-release.json",
+      "broadcast": true
+    },
+    {
+      "name": "possession-v2.5b",
+      "module": "possession.run25",
+      "manifest": "possession-v25-release.json",
+      "broadcast": true
+    },
+    {
+      "name": "possession-v2.5b tactical camera only",
+      "module": "possession.run25",
+      "manifest": "possession-v25-release.json",
+      "broadcast": false
+    }
+  ],
+  "tests": [
+    "tests.test_possession_v2",
+    "tests.test_possession_v23",
+    "tests.test_possession_v24",
+    "tests.test_possession_v25",
+    "tests.test_possession_v25c",
+    "tests.test_possession_v26",
+    "tests.test_possession_v27",
+    "tests.test_possession_v29",
+    "tests.test_possession_plausibility",
+    "tests.test_possession_public_check",
+    "tests.test_possession_release",
+    "tests.test_possession_reader_reference",
+    "tests.test_possession_inputs_check",
+    "tests.test_possession_v29g",
+    "tests.test_possession_v211",
+    "tests.test_possession_v211g"
+  ]
+}

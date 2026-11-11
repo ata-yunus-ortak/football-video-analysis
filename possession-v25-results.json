@@ -1,0 +1,1393 @@
+{
+  "version": "possession-v2.5 experiment (gated broadcast ball fill on top of v2.4)",
+  "provided_fixture_used": false,
+  "note": "Simulated broadcast streams from external matches (accuracy regimes) on 16 fresh tactical copies; agreement with other providers' labels, not a competition score.",
+  "written_at": "2026-11-10T15:21:19+03:00",
+  "plan_sha256": "67d08276de86b84ee2542f28857937ad3b3987ea75a5699a22277cfc57ac5325",
+  "code_sha256": {
+    "fusion.py": "4c093ff7e884d66391858fec73cc6ea6fdf8ac941f96aa3a5bbe83c4714d6355",
+    "broadcast.py": "4e23d826934e9bb2c2c546f03011823808f742d1fbce4b3f7ca7456aa3579a90"
+  },
+  "summary": {
+    "good": {
+      "n": 16,
+      "v2_4": 0.6509,
+      "v2_5": 0.6753,
+      "gate_open": 15,
+      "v2_4_macro": 0.869,
+      "v2_5_macro": 0.8769
+    },
+    "medium": {
+      "n": 16,
+      "v2_4": 0.6509,
+      "v2_5": 0.6553,
+      "gate_open": 1,
+      "v2_4_macro": 0.869,
+      "v2_5_macro": 0.8703
+    },
+    "bad": {
+      "n": 16,
+      "v2_4": 0.6509,
+      "v2_5": 0.6509,
+      "gate_open": 0,
+      "v2_4_macro": 0.869,
+      "v2_5_macro": 0.869
+    }
+  },
+  "gates": {
+    "good >= v2.4 + 0.010": true,
+    "medium >= v2.4 - 0.005": true,
+    "bad >= v2.4 - 0.002": true
+  },
+  "selected": true,
+  "alignment_failures_good_regime": [
+    "J03WN1|2101|orig"
+  ],
+  "per_copy": [
+    {
+      "copy": "J03WN1|2100|orig",
+      "regime": "good",
+      "path": "v2.1",
+      "v2_4": [
+        0.6697,
+        0.9186
+      ],
+      "v2_5": [
+        0.6822,
+        0.9251
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.3466,
+      "accepted_fraction": 0.6343,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        0.5643,
+        0.7575
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.173,
+        "b_sd": 0.191,
+        "p_sd": 0.1923,
+        "ball_frac": 0.7216,
+        "invalid": 0.2227
+      }
+    },
+    {
+      "copy": "J03WN1|2100|orig",
+      "regime": "medium",
+      "path": "v2.1",
+      "v2_4": [
+        0.6697,
+        0.9186
+      ],
+      "v2_5": [
+        0.6697,
+        0.9186
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.7934,
+      "accepted_fraction": 0.6389,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.473,
+        "b_sd": 0.4568,
+        "p_sd": 0.3677,
+        "ball_frac": 0.826,
+        "invalid": 0.255
+      }
+    },
+    {
+      "copy": "J03WN1|2100|orig",
+      "regime": "bad",
+      "path": "v2.1",
+      "v2_4": [
+        0.6697,
+        0.9186
+      ],
+      "v2_5": [
+        0.6697,
+        0.9186
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.4466,
+      "accepted_fraction": 0.5377,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.7899,
+        "b_sd": 0.9758,
+        "p_sd": 0.6275,
+        "ball_frac": 0.8364,
+        "invalid": 0.2531
+      }
+    },
+    {
+      "copy": "J03WN1|2101|orig",
+      "regime": "good",
+      "path": "v2.1",
+      "v2_4": [
+        0.6567,
+        0.9161
+      ],
+      "v2_5": [
+        0.6567,
+        0.9161
+      ],
+      "gate_used": false,
+      "median_distance_m": null,
+      "accepted_fraction": 0.0,
+      "alignment_precision": 0.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.1909,
+        "b_sd": 0.0572,
+        "p_sd": 0.1117,
+        "ball_frac": 0.7731,
+        "invalid": 0.1976
+      }
+    },
+    {
+      "copy": "J03WN1|2101|orig",
+      "regime": "medium",
+      "path": "v2.1",
+      "v2_4": [
+        0.6567,
+        0.9161
+      ],
+      "v2_5": [
+        0.6567,
+        0.9161
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.6143,
+      "accepted_fraction": 0.6078,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.4046,
+        "b_sd": 0.302,
+        "p_sd": 0.4581,
+        "ball_frac": 0.7899,
+        "invalid": 0.2578
+      }
+    },
+    {
+      "copy": "J03WN1|2101|orig",
+      "regime": "bad",
+      "path": "v2.1",
+      "v2_4": [
+        0.6567,
+        0.9161
+      ],
+      "v2_5": [
+        0.6567,
+        0.9161
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.3855,
+      "accepted_fraction": 0.4573,
+      "alignment_precision": 0.9938,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 1.0247,
+        "b_sd": 0.7958,
+        "p_sd": 0.54,
+        "ball_frac": 0.5811,
+        "invalid": 0.2705
+      }
+    },
+    {
+      "copy": "J03WR9|2110|orig",
+      "regime": "good",
+      "path": "v2.1",
+      "v2_4": [
+        0.6767,
+        0.9366
+      ],
+      "v2_5": [
+        0.7157,
+        0.9452
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.4135,
+      "accepted_fraction": 0.6332,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        0.6123,
+        0.7488
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.1475,
+        "b_sd": 0.1937,
+        "p_sd": 0.0912,
+        "ball_frac": 0.6273,
+        "invalid": 0.2145
+      }
+    },
+    {
+      "copy": "J03WR9|2110|orig",
+      "regime": "medium",
+      "path": "v2.1",
+      "v2_4": [
+        0.6767,
+        0.9366
+      ],
+      "v2_5": [
+        0.6767,
+        0.9366
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.7255,
+      "accepted_fraction": 0.5897,
+      "alignment_precision": 0.987,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.4419,
+        "b_sd": 0.3049,
+        "p_sd": 0.312,
+        "ball_frac": 0.7064,
+        "invalid": 0.285
+      }
+    },
+    {
+      "copy": "J03WR9|2110|orig",
+      "regime": "bad",
+      "path": "v2.1",
+      "v2_4": [
+        0.6767,
+        0.9366
+      ],
+      "v2_5": [
+        0.6767,
+        0.9366
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.3707,
+      "accepted_fraction": 0.383,
+      "alignment_precision": 0.9787,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 1.2994,
+        "b_sd": 0.683,
+        "p_sd": 0.6719,
+        "ball_frac": 0.7275,
+        "invalid": 0.2022
+      }
+    },
+    {
+      "copy": "J03WR9|2111|orig",
+      "regime": "good",
+      "path": "v2.1",
+      "v2_4": [
+        0.6534,
+        0.9286
+      ],
+      "v2_5": [
+        0.6876,
+        0.9402
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.4075,
+      "accepted_fraction": 0.6654,
+      "alignment_precision": 0.9774,
+      "ball_visible_graded": [
+        0.5878,
+        0.7373
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.1915,
+        "b_sd": 0.126,
+        "p_sd": 0.1255,
+        "ball_frac": 0.597,
+        "invalid": 0.1976
+      }
+    },
+    {
+      "copy": "J03WR9|2111|orig",
+      "regime": "medium",
+      "path": "v2.1",
+      "v2_4": [
+        0.6534,
+        0.9286
+      ],
+      "v2_5": [
+        0.6534,
+        0.9286
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.5836,
+      "accepted_fraction": 0.5808,
+      "alignment_precision": 0.9973,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.278,
+        "b_sd": 0.2968,
+        "p_sd": 0.3287,
+        "ball_frac": 0.6534,
+        "invalid": 0.2939
+      }
+    },
+    {
+      "copy": "J03WR9|2111|orig",
+      "regime": "bad",
+      "path": "v2.1",
+      "v2_4": [
+        0.6534,
+        0.9286
+      ],
+      "v2_5": [
+        0.6534,
+        0.9286
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.3686,
+      "accepted_fraction": 0.4296,
+      "alignment_precision": 0.9829,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.9901,
+        "b_sd": 0.7961,
+        "p_sd": 0.9231,
+        "ball_frac": 0.7093,
+        "invalid": 0.1887
+      }
+    },
+    {
+      "copy": "MET1|2120|orig",
+      "regime": "good",
+      "path": "v2.1",
+      "v2_4": [
+        0.6856,
+        0.8393
+      ],
+      "v2_5": [
+        0.7023,
+        0.8447
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.3597,
+      "accepted_fraction": 0.6945,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        0.4912,
+        0.554
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.1216,
+        "b_sd": 0.1942,
+        "p_sd": 0.0978,
+        "ball_frac": 0.6912,
+        "invalid": 0.1626
+      }
+    },
+    {
+      "copy": "MET1|2120|orig",
+      "regime": "medium",
+      "path": "v2.1",
+      "v2_4": [
+        0.6856,
+        0.8393
+      ],
+      "v2_5": [
+        0.6856,
+        0.8393
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.7167,
+      "accepted_fraction": 0.5943,
+      "alignment_precision": 0.9909,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.3377,
+        "b_sd": 0.4512,
+        "p_sd": 0.3842,
+        "ball_frac": 0.6259,
+        "invalid": 0.2729
+      }
+    },
+    {
+      "copy": "MET1|2120|orig",
+      "regime": "bad",
+      "path": "v2.1",
+      "v2_4": [
+        0.6856,
+        0.8393
+      ],
+      "v2_5": [
+        0.6856,
+        0.8393
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.4912,
+      "accepted_fraction": 0.5085,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.8954,
+        "b_sd": 0.9535,
+        "p_sd": 0.848,
+        "ball_frac": 0.8106,
+        "invalid": 0.2706
+      }
+    },
+    {
+      "copy": "MET1|2121|orig",
+      "regime": "good",
+      "path": "v2.1",
+      "v2_4": [
+        0.6819,
+        0.8369
+      ],
+      "v2_5": [
+        0.6777,
+        0.8432
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.3259,
+      "accepted_fraction": 0.6313,
+      "alignment_precision": 0.9825,
+      "ball_visible_graded": [
+        0.4453,
+        0.5094
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.1445,
+        "b_sd": 0.084,
+        "p_sd": 0.0689,
+        "ball_frac": 0.5749,
+        "invalid": 0.225
+      }
+    },
+    {
+      "copy": "MET1|2121|orig",
+      "regime": "medium",
+      "path": "v2.1",
+      "v2_4": [
+        0.6819,
+        0.8369
+      ],
+      "v2_5": [
+        0.6819,
+        0.8369
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.7157,
+      "accepted_fraction": 0.6212,
+      "alignment_precision": 0.9999,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.3778,
+        "b_sd": 0.4067,
+        "p_sd": 0.3962,
+        "ball_frac": 0.8234,
+        "invalid": 0.2573
+      }
+    },
+    {
+      "copy": "MET1|2121|orig",
+      "regime": "bad",
+      "path": "v2.1",
+      "v2_4": [
+        0.6819,
+        0.8369
+      ],
+      "v2_5": [
+        0.6819,
+        0.8369
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.5215,
+      "accepted_fraction": 0.3868,
+      "alignment_precision": 0.9211,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 1.1704,
+        "b_sd": 0.9179,
+        "p_sd": 0.833,
+        "ball_frac": 0.6134,
+        "invalid": 0.2961
+      }
+    },
+    {
+      "copy": "MET2|2130|orig",
+      "regime": "good",
+      "path": "v2.1",
+      "v2_4": [
+        0.6034,
+        0.8068
+      ],
+      "v2_5": [
+        0.6406,
+        0.8119
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.4042,
+      "accepted_fraction": 0.6445,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        0.3498,
+        0.4678
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.0851,
+        "b_sd": 0.161,
+        "p_sd": 0.229,
+        "ball_frac": 0.646,
+        "invalid": 0.1971
+      }
+    },
+    {
+      "copy": "MET2|2130|orig",
+      "regime": "medium",
+      "path": "v2.1",
+      "v2_4": [
+        0.6034,
+        0.8068
+      ],
+      "v2_5": [
+        0.6034,
+        0.8068
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.7113,
+      "accepted_fraction": 0.6548,
+      "alignment_precision": 0.9999,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.3885,
+        "b_sd": 0.2834,
+        "p_sd": 0.4997,
+        "ball_frac": 0.6645,
+        "invalid": 0.2079
+      }
+    },
+    {
+      "copy": "MET2|2130|orig",
+      "regime": "bad",
+      "path": "v2.1",
+      "v2_4": [
+        0.6034,
+        0.8068
+      ],
+      "v2_5": [
+        0.6034,
+        0.8068
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.1268,
+      "accepted_fraction": 0.5348,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.7287,
+        "b_sd": 0.6047,
+        "p_sd": 0.698,
+        "ball_frac": 0.736,
+        "invalid": 0.2809
+      }
+    },
+    {
+      "copy": "MET2|2131|orig",
+      "regime": "good",
+      "path": "v2.1",
+      "v2_4": [
+        0.6683,
+        0.8139
+      ],
+      "v2_5": [
+        0.6733,
+        0.8173
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.2988,
+      "accepted_fraction": 0.6692,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        0.5097,
+        0.551
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.015,
+        "b_sd": 0.1638,
+        "p_sd": 0.2295,
+        "ball_frac": 0.6587,
+        "invalid": 0.1918
+      }
+    },
+    {
+      "copy": "MET2|2131|orig",
+      "regime": "medium",
+      "path": "v2.1",
+      "v2_4": [
+        0.6683,
+        0.8139
+      ],
+      "v2_5": [
+        0.6683,
+        0.8139
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.6381,
+      "accepted_fraction": 0.6145,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.3684,
+        "b_sd": 0.347,
+        "p_sd": 0.3195,
+        "ball_frac": 0.7609,
+        "invalid": 0.2333
+      }
+    },
+    {
+      "copy": "MET2|2131|orig",
+      "regime": "bad",
+      "path": "v2.1",
+      "v2_4": [
+        0.6683,
+        0.8139
+      ],
+      "v2_5": [
+        0.6683,
+        0.8139
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.294,
+      "accepted_fraction": 0.3555,
+      "alignment_precision": 0.9989,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 1.1553,
+        "b_sd": 0.6822,
+        "p_sd": 0.9898,
+        "ball_frac": 0.7888,
+        "invalid": 0.2125
+      }
+    },
+    {
+      "copy": "J03WN1|2500|ext_players",
+      "regime": "good",
+      "path": "v2.3",
+      "v2_4": [
+        0.5954,
+        0.8849
+      ],
+      "v2_5": [
+        0.6369,
+        0.9074
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.431,
+      "accepted_fraction": 0.6568,
+      "alignment_precision": 0.9817,
+      "ball_visible_graded": [
+        0.5342,
+        0.7147
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.1172,
+        "b_sd": 0.2279,
+        "p_sd": 0.1429,
+        "ball_frac": 0.6292,
+        "invalid": 0.1968
+      }
+    },
+    {
+      "copy": "J03WN1|2500|ext_players",
+      "regime": "medium",
+      "path": "v2.3",
+      "v2_4": [
+        0.5954,
+        0.8849
+      ],
+      "v2_5": [
+        0.5954,
+        0.8849
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.6391,
+      "accepted_fraction": 0.5892,
+      "alignment_precision": 0.9997,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.3726,
+        "b_sd": 0.287,
+        "p_sd": 0.3794,
+        "ball_frac": 0.6056,
+        "invalid": 0.2978
+      }
+    },
+    {
+      "copy": "J03WN1|2500|ext_players",
+      "regime": "bad",
+      "path": "v2.3",
+      "v2_4": [
+        0.5954,
+        0.8849
+      ],
+      "v2_5": [
+        0.5954,
+        0.8849
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.3926,
+      "accepted_fraction": 0.32,
+      "alignment_precision": 0.9589,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 1.4785,
+        "b_sd": 0.6867,
+        "p_sd": 0.5086,
+        "ball_frac": 0.5732,
+        "invalid": 0.2871
+      }
+    },
+    {
+      "copy": "J03WN1|2501|ext_players",
+      "regime": "good",
+      "path": "v2.3",
+      "v2_4": [
+        0.6278,
+        0.9083
+      ],
+      "v2_5": [
+        0.6594,
+        0.9173
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.2553,
+      "accepted_fraction": 0.6208,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        0.6426,
+        0.7653
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.0049,
+        "b_sd": 0.1408,
+        "p_sd": 0.0567,
+        "ball_frac": 0.6443,
+        "invalid": 0.2814
+      }
+    },
+    {
+      "copy": "J03WN1|2501|ext_players",
+      "regime": "medium",
+      "path": "v2.3",
+      "v2_4": [
+        0.6278,
+        0.9083
+      ],
+      "v2_5": [
+        0.6278,
+        0.9083
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.5886,
+      "accepted_fraction": 0.6324,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.3758,
+        "b_sd": 0.2666,
+        "p_sd": 0.3385,
+        "ball_frac": 0.599,
+        "invalid": 0.2034
+      }
+    },
+    {
+      "copy": "J03WN1|2501|ext_players",
+      "regime": "bad",
+      "path": "v2.3",
+      "v2_4": [
+        0.6278,
+        0.9083
+      ],
+      "v2_5": [
+        0.6278,
+        0.9083
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.0964,
+      "accepted_fraction": 0.5861,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.8461,
+        "b_sd": 0.5171,
+        "p_sd": 0.642,
+        "ball_frac": 0.767,
+        "invalid": 0.2217
+      }
+    },
+    {
+      "copy": "J03WR9|2510|ext_players",
+      "regime": "good",
+      "path": "v2.3",
+      "v2_4": [
+        0.6586,
+        0.9321
+      ],
+      "v2_5": [
+        0.6719,
+        0.9328
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.4083,
+      "accepted_fraction": 0.5622,
+      "alignment_precision": 0.9884,
+      "ball_visible_graded": [
+        0.7914,
+        0.858
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.1757,
+        "b_sd": 0.1802,
+        "p_sd": 0.1528,
+        "ball_frac": 0.6731,
+        "invalid": 0.2805
+      }
+    },
+    {
+      "copy": "J03WR9|2510|ext_players",
+      "regime": "medium",
+      "path": "v2.3",
+      "v2_4": [
+        0.6586,
+        0.9321
+      ],
+      "v2_5": [
+        0.6586,
+        0.9321
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.712,
+      "accepted_fraction": 0.5866,
+      "alignment_precision": 0.973,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.3665,
+        "b_sd": 0.4061,
+        "p_sd": 0.2576,
+        "ball_frac": 0.7685,
+        "invalid": 0.2803
+      }
+    },
+    {
+      "copy": "J03WR9|2510|ext_players",
+      "regime": "bad",
+      "path": "v2.3",
+      "v2_4": [
+        0.6586,
+        0.9321
+      ],
+      "v2_5": [
+        0.6586,
+        0.9321
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.2535,
+      "accepted_fraction": 0.5122,
+      "alignment_precision": 0.9704,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.841,
+        "b_sd": 0.7421,
+        "p_sd": 0.836,
+        "ball_frac": 0.7302,
+        "invalid": 0.1593
+      }
+    },
+    {
+      "copy": "J03WR9|2511|ext_players",
+      "regime": "good",
+      "path": "v2.3",
+      "v2_4": [
+        0.7138,
+        0.943
+      ],
+      "v2_5": [
+        0.7201,
+        0.9442
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.365,
+      "accepted_fraction": 0.6501,
+      "alignment_precision": 0.9995,
+      "ball_visible_graded": [
+        0.7139,
+        0.8128
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.0952,
+        "b_sd": 0.0827,
+        "p_sd": 0.0902,
+        "ball_frac": 0.603,
+        "invalid": 0.2189
+      }
+    },
+    {
+      "copy": "J03WR9|2511|ext_players",
+      "regime": "medium",
+      "path": "v2.3",
+      "v2_4": [
+        0.7138,
+        0.943
+      ],
+      "v2_5": [
+        0.7138,
+        0.943
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.7863,
+      "accepted_fraction": 0.6398,
+      "alignment_precision": 0.9914,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.4677,
+        "b_sd": 0.3936,
+        "p_sd": 0.3266,
+        "ball_frac": 0.8047,
+        "invalid": 0.1696
+      }
+    },
+    {
+      "copy": "J03WR9|2511|ext_players",
+      "regime": "bad",
+      "path": "v2.3",
+      "v2_4": [
+        0.7138,
+        0.943
+      ],
+      "v2_5": [
+        0.7138,
+        0.943
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.3554,
+      "accepted_fraction": 0.5197,
+      "alignment_precision": 0.9681,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.6078,
+        "b_sd": 0.9432,
+        "p_sd": 0.6141,
+        "ball_frac": 0.7519,
+        "invalid": 0.2708
+      }
+    },
+    {
+      "copy": "MET1|2520|ext_players",
+      "regime": "good",
+      "path": "v2.3",
+      "v2_4": [
+        0.6512,
+        0.8287
+      ],
+      "v2_5": [
+        0.6628,
+        0.8358
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.3715,
+      "accepted_fraction": 0.6317,
+      "alignment_precision": 0.9943,
+      "ball_visible_graded": [
+        0.465,
+        0.5271
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.0379,
+        "b_sd": 0.2437,
+        "p_sd": 0.1223,
+        "ball_frac": 0.6318,
+        "invalid": 0.2248
+      }
+    },
+    {
+      "copy": "MET1|2520|ext_players",
+      "regime": "medium",
+      "path": "v2.3",
+      "v2_4": [
+        0.6512,
+        0.8287
+      ],
+      "v2_5": [
+        0.6512,
+        0.8287
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.8371,
+      "accepted_fraction": 0.6382,
+      "alignment_precision": 0.9957,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.532,
+        "b_sd": 0.4504,
+        "p_sd": 0.4301,
+        "ball_frac": 0.792,
+        "invalid": 0.2281
+      }
+    },
+    {
+      "copy": "MET1|2520|ext_players",
+      "regime": "bad",
+      "path": "v2.3",
+      "v2_4": [
+        0.6512,
+        0.8287
+      ],
+      "v2_5": [
+        0.6512,
+        0.8287
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.4361,
+      "accepted_fraction": 0.3156,
+      "alignment_precision": 0.9858,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 1.3828,
+        "b_sd": 0.8344,
+        "p_sd": 0.7529,
+        "ball_frac": 0.7802,
+        "invalid": 0.2569
+      }
+    },
+    {
+      "copy": "MET1|2521|ext_players",
+      "regime": "good",
+      "path": "v2.3",
+      "v2_4": [
+        0.6368,
+        0.8239
+      ],
+      "v2_5": [
+        0.6581,
+        0.8244
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.4111,
+      "accepted_fraction": 0.6092,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        0.5087,
+        0.5601
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.0587,
+        "b_sd": 0.2004,
+        "p_sd": 0.0593,
+        "ball_frac": 0.707,
+        "invalid": 0.264
+      }
+    },
+    {
+      "copy": "MET1|2521|ext_players",
+      "regime": "medium",
+      "path": "v2.3",
+      "v2_4": [
+        0.6368,
+        0.8239
+      ],
+      "v2_5": [
+        0.6368,
+        0.8239
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.6523,
+      "accepted_fraction": 0.5787,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.2874,
+        "b_sd": 0.3744,
+        "p_sd": 0.44,
+        "ball_frac": 0.773,
+        "invalid": 0.2976
+      }
+    },
+    {
+      "copy": "MET1|2521|ext_players",
+      "regime": "bad",
+      "path": "v2.3",
+      "v2_4": [
+        0.6368,
+        0.8239
+      ],
+      "v2_5": [
+        0.6368,
+        0.8239
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.1613,
+      "accepted_fraction": 0.5109,
+      "alignment_precision": 0.9761,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.8362,
+        "b_sd": 0.6083,
+        "p_sd": 0.7624,
+        "ball_frac": 0.6159,
+        "invalid": 0.2293
+      }
+    },
+    {
+      "copy": "MET2|2530|ext_players",
+      "regime": "good",
+      "path": "v2.3",
+      "v2_4": [
+        0.632,
+        0.7911
+      ],
+      "v2_5": [
+        0.6767,
+        0.809
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.3876,
+      "accepted_fraction": 0.6557,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        0.3794,
+        0.4694
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.124,
+        "b_sd": 0.2107,
+        "p_sd": 0.2204,
+        "ball_frac": 0.5503,
+        "invalid": 0.1765
+      }
+    },
+    {
+      "copy": "MET2|2530|ext_players",
+      "regime": "medium",
+      "path": "v2.3",
+      "v2_4": [
+        0.632,
+        0.7911
+      ],
+      "v2_5": [
+        0.632,
+        0.7911
+      ],
+      "gate_used": false,
+      "median_distance_m": 0.6546,
+      "accepted_fraction": 0.609,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.3053,
+        "b_sd": 0.3901,
+        "p_sd": 0.4752,
+        "ball_frac": 0.589,
+        "invalid": 0.2738
+      }
+    },
+    {
+      "copy": "MET2|2530|ext_players",
+      "regime": "bad",
+      "path": "v2.3",
+      "v2_4": [
+        0.632,
+        0.7911
+      ],
+      "v2_5": [
+        0.632,
+        0.7911
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.4423,
+      "accepted_fraction": 0.4578,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.8492,
+        "b_sd": 0.9484,
+        "p_sd": 0.9648,
+        "ball_frac": 0.7161,
+        "invalid": 0.2717
+      }
+    },
+    {
+      "copy": "MET2|2531|ext_players",
+      "regime": "good",
+      "path": "v2.3",
+      "v2_4": [
+        0.603,
+        0.7956
+      ],
+      "v2_5": [
+        0.6823,
+        0.8156
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.3249,
+      "accepted_fraction": 0.6774,
+      "alignment_precision": 1.0,
+      "ball_visible_graded": [
+        0.351,
+        0.4631
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.0744,
+        "b_sd": 0.1964,
+        "p_sd": 0.1838,
+        "ball_frac": 0.5754,
+        "invalid": 0.1831
+      }
+    },
+    {
+      "copy": "MET2|2531|ext_players",
+      "regime": "medium",
+      "path": "v2.3",
+      "v2_4": [
+        0.603,
+        0.7956
+      ],
+      "v2_5": [
+        0.673,
+        0.8168
+      ],
+      "gate_used": true,
+      "median_distance_m": 0.4927,
+      "accepted_fraction": 0.6968,
+      "alignment_precision": 0.9969,
+      "ball_visible_graded": [
+        0.351,
+        0.5011
+      ],
+      "broadcast_quality": {
+        "bias_sd": 0.2679,
+        "b_sd": 0.2508,
+        "p_sd": 0.4578,
+        "ball_frac": 0.7731,
+        "invalid": 0.1598
+      }
+    },
+    {
+      "copy": "MET2|2531|ext_players",
+      "regime": "bad",
+      "path": "v2.3",
+      "v2_4": [
+        0.603,
+        0.7956
+      ],
+      "v2_5": [
+        0.603,
+        0.7956
+      ],
+      "gate_used": false,
+      "median_distance_m": 1.3795,
+      "accepted_fraction": 0.396,
+      "alignment_precision": 0.9673,
+      "ball_visible_graded": [
+        null,
+        null
+      ],
+      "broadcast_quality": {
+        "bias_sd": 1.2452,
+        "b_sd": 0.7896,
+        "p_sd": 0.6408,
+        "ball_frac": 0.5824,
+        "invalid": 0.2686
+      }
+    }
+  ],
+  "decision": "v2.5 selected under its registered rule (good +0.024, medium +0.004, bad 0.000); released as part of possession-v2.5b (same fill, clock-anchored alignment when clock files are given), see possession-v25-release.json"
+}

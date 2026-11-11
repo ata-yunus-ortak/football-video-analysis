@@ -1,0 +1,1158 @@
+{
+ "version": "possession-v2.10-results",
+ "written_at": "2026-11-11T14:36:04+03:00",
+ "plan": "possession-v210-plan.json",
+ "plan_sha256": "b96f604bc1a0cdf3721c0f020f0b6ef19865105a9b131243135d9203dc56f4eb",
+ "plan_registered_at": "2026-11-11T13:54:46+03:00",
+ "registered_files_unchanged": {
+  "possession/keeper.py": true,
+  "exp_v210.py": true,
+  "possession/epts_export.py": true
+ },
+ "reference_mean_v2_9_condition_none": 0.6655,
+ "copies": [
+  "J03WN1|10100",
+  "J03WN1|10101",
+  "J03WR9|10110",
+  "J03WR9|10111",
+  "MET1|10120",
+  "MET1|10121",
+  "MET2|10130",
+  "MET2|10131"
+ ],
+ "summary": {
+  "none": {
+   "spell_f1": {
+    "v2_9": 0.6655,
+    "v2_10": 0.6655
+   },
+   "macro_f1": {
+    "v2_9": 0.8724,
+    "v2_10": 0.8724
+   },
+   "spell_f1_difference_per_copy": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "copies_better_same_worse": [
+    0,
+    8,
+    0
+   ],
+   "goalkeeper_positions_with_wrong_id_before_after": [
+    0.0,
+    0.0
+   ],
+   "moved_pieces_per_copy": [
+    2,
+    6,
+    2,
+    10,
+    19,
+    14,
+    18,
+    9
+   ],
+   "model_paths": [
+    "v2.1"
+   ]
+  },
+  "gk_one": {
+   "spell_f1": {
+    "v2_9": 0.627,
+    "v2_10": 0.6644
+   },
+   "macro_f1": {
+    "v2_9": 0.8588,
+    "v2_10": 0.8718
+   },
+   "spell_f1_difference_per_copy": [
+    0.0332,
+    0.039,
+    0.0472,
+    0.0481,
+    0.0571,
+    0.0422,
+    0.0144,
+    0.0182
+   ],
+   "copies_better_same_worse": [
+    8,
+    0,
+    0
+   ],
+   "goalkeeper_positions_with_wrong_id_before_after": [
+    0.5007,
+    0.01
+   ],
+   "moved_pieces_per_copy": [
+    48,
+    167,
+    67,
+    99,
+    112,
+    77,
+    100,
+    32
+   ],
+   "model_paths": [
+    "v2.1"
+   ]
+  },
+  "gk_both": {
+   "spell_f1": {
+    "v2_9": 0.3271,
+    "v2_10": 0.6634
+   },
+   "macro_f1": {
+    "v2_9": 0.7413,
+    "v2_10": 0.8714
+   },
+   "spell_f1_difference_per_copy": [
+    0.3529,
+    0.3413,
+    0.3959,
+    0.4006,
+    0.2946,
+    0.2942,
+    0.3243,
+    0.2873
+   ],
+   "copies_better_same_worse": [
+    8,
+    0,
+    0
+   ],
+   "goalkeeper_positions_with_wrong_id_before_after": [
+    1.0,
+    0.0168
+   ],
+   "moved_pieces_per_copy": [
+    100,
+    321,
+    141,
+    191,
+    208,
+    140,
+    173,
+    61
+   ],
+   "model_paths": [
+    "v2.1"
+   ]
+  },
+  "gk_part": {
+   "spell_f1": {
+    "v2_9": 0.6444,
+    "v2_10": 0.6644
+   },
+   "macro_f1": {
+    "v2_9": 0.8657,
+    "v2_10": 0.872
+   },
+   "spell_f1_difference_per_copy": [
+    0.0218,
+    0.0128,
+    0.0378,
+    0.02,
+    0.0269,
+    0.0331,
+    -0.0011,
+    0.0086
+   ],
+   "copies_better_same_worse": [
+    7,
+    0,
+    1
+   ],
+   "goalkeeper_positions_with_wrong_id_before_after": [
+    0.314,
+    0.006
+   ],
+   "moved_pieces_per_copy": [
+    53,
+    128,
+    64,
+    81,
+    98,
+    74,
+    87,
+    37
+   ],
+   "model_paths": [
+    "v2.1"
+   ]
+  }
+ },
+ "gates": {
+  "G1 neutral with correct ids": {
+   "mean_difference": 0.0,
+   "worst_copy_difference": 0.0,
+   "pass": true
+  },
+  "G2 both goalkeepers": {
+   "mean_v2_10": 0.6634,
+   "needed": 0.6505,
+   "pass": true
+  },
+  "G3 one goalkeeper": {
+   "mean_v2_10": 0.6644,
+   "needed": 0.6555,
+   "mean_difference": 0.0374,
+   "needed_difference": 0.008,
+   "pass": true
+  },
+  "G4 part of the time": {
+   "mean_v2_10": 0.6644,
+   "needed": 0.6555,
+   "mean_difference": 0.02,
+   "needed_difference": 0.0,
+   "pass": true
+  }
+ },
+ "decision": "all four gates pass: possession-v2.10 becomes the release; possession-v2.9 is the next step of the technical ladder",
+ "selected": "possession-v2.10",
+ "rows": [
+  {
+   "copy": "J03WN1|10100",
+   "condition": "none",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6731,
+    0.9264
+   ],
+   "v2_10": [
+    0.6731,
+    0.9264
+   ],
+   "moved_pieces": 2,
+   "moved_frames": 224,
+   "goalkeeper_positions_with_wrong_id": [
+    0.0,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     20
+    ],
+    "1": [
+     0
+    ]
+   },
+   "seconds": 73
+  },
+  {
+   "copy": "J03WN1|10100",
+   "condition": "gk_one",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6399,
+    0.8983
+   ],
+   "v2_10": [
+    0.6731,
+    0.9264
+   ],
+   "moved_pieces": 48,
+   "moved_frames": 137608,
+   "goalkeeper_positions_with_wrong_id": [
+    0.5014,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     20
+    ],
+    "1": [
+     0
+    ]
+   },
+   "seconds": 72
+  },
+  {
+   "copy": "J03WN1|10100",
+   "condition": "gk_both",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.3172,
+    0.7434
+   ],
+   "v2_10": [
+    0.6701,
+    0.9234
+   ],
+   "moved_pieces": 100,
+   "moved_frames": 272005,
+   "goalkeeper_positions_with_wrong_id": [
+    1.0,
+    0.0082
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     20
+    ],
+    "1": [
+     0
+    ]
+   },
+   "seconds": 92
+  },
+  {
+   "copy": "J03WN1|10100",
+   "condition": "gk_part",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6483,
+    0.9129
+   ],
+   "v2_10": [
+    0.6701,
+    0.9235
+   ],
+   "moved_pieces": 53,
+   "moved_frames": 85197,
+   "goalkeeper_positions_with_wrong_id": [
+    0.3117,
+    0.0016
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     20
+    ],
+    "1": [
+     0
+    ]
+   },
+   "seconds": 67
+  },
+  {
+   "copy": "J03WN1|10101",
+   "condition": "none",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6656,
+    0.9224
+   ],
+   "v2_10": [
+    0.6656,
+    0.9224
+   ],
+   "moved_pieces": 6,
+   "moved_frames": 391,
+   "goalkeeper_positions_with_wrong_id": [
+    0.0,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     20
+    ],
+    "1": [
+     0
+    ]
+   },
+   "seconds": 76
+  },
+  {
+   "copy": "J03WN1|10101",
+   "condition": "gk_one",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6196,
+    0.8966
+   ],
+   "v2_10": [
+    0.6586,
+    0.9181
+   ],
+   "moved_pieces": 167,
+   "moved_frames": 124864,
+   "goalkeeper_positions_with_wrong_id": [
+    0.4986,
+    0.0288
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     20
+    ],
+    "1": [
+     0
+    ]
+   },
+   "seconds": 60
+  },
+  {
+   "copy": "J03WN1|10101",
+   "condition": "gk_both",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.3157,
+    0.7493
+   ],
+   "v2_10": [
+    0.657,
+    0.918
+   ],
+   "moved_pieces": 321,
+   "moved_frames": 254065,
+   "goalkeeper_positions_with_wrong_id": [
+    1.0,
+    0.0428
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     20
+    ],
+    "1": [
+     0
+    ]
+   },
+   "seconds": 68
+  },
+  {
+   "copy": "J03WN1|10101",
+   "condition": "gk_part",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6493,
+    0.9143
+   ],
+   "v2_10": [
+    0.6621,
+    0.9221
+   ],
+   "moved_pieces": 128,
+   "moved_frames": 79579,
+   "goalkeeper_positions_with_wrong_id": [
+    0.3126,
+    0.0138
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     20
+    ],
+    "1": [
+     0
+    ]
+   },
+   "seconds": 65
+  },
+  {
+   "copy": "J03WR9|10110",
+   "condition": "none",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6866,
+    0.9364
+   ],
+   "v2_10": [
+    0.6866,
+    0.9364
+   ],
+   "moved_pieces": 2,
+   "moved_frames": 3542,
+   "goalkeeper_positions_with_wrong_id": [
+    0.0,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     30
+    ],
+    "1": [
+     1
+    ]
+   },
+   "seconds": 64
+  },
+  {
+   "copy": "J03WR9|10110",
+   "condition": "gk_one",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6394,
+    0.9277
+   ],
+   "v2_10": [
+    0.6866,
+    0.9364
+   ],
+   "moved_pieces": 67,
+   "moved_frames": 136305,
+   "goalkeeper_positions_with_wrong_id": [
+    0.5025,
+    0.0127
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     30
+    ],
+    "1": [
+     1
+    ]
+   },
+   "seconds": 63
+  },
+  {
+   "copy": "J03WR9|10110",
+   "condition": "gk_both",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.2907,
+    0.7668
+   ],
+   "v2_10": [
+    0.6866,
+    0.9364
+   ],
+   "moved_pieces": 141,
+   "moved_frames": 271121,
+   "goalkeeper_positions_with_wrong_id": [
+    1.0,
+    0.0127
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     30
+    ],
+    "1": [
+     1
+    ]
+   },
+   "seconds": 80
+  },
+  {
+   "copy": "J03WR9|10110",
+   "condition": "gk_part",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6488,
+    0.9289
+   ],
+   "v2_10": [
+    0.6866,
+    0.9364
+   ],
+   "moved_pieces": 64,
+   "moved_frames": 87249,
+   "goalkeeper_positions_with_wrong_id": [
+    0.3215,
+    0.0127
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     30
+    ],
+    "1": [
+     1
+    ]
+   },
+   "seconds": 92
+  },
+  {
+   "copy": "J03WR9|10111",
+   "condition": "none",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6613,
+    0.9282
+   ],
+   "v2_10": [
+    0.6613,
+    0.9282
+   ],
+   "moved_pieces": 10,
+   "moved_frames": 2117,
+   "goalkeeper_positions_with_wrong_id": [
+    0.0,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     30
+    ],
+    "1": [
+     1
+    ]
+   },
+   "seconds": 93
+  },
+  {
+   "copy": "J03WR9|10111",
+   "condition": "gk_one",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6108,
+    0.9154
+   ],
+   "v2_10": [
+    0.6589,
+    0.9279
+   ],
+   "moved_pieces": 99,
+   "moved_frames": 131270,
+   "goalkeeper_positions_with_wrong_id": [
+    0.5044,
+    0.0161
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     30
+    ],
+    "1": [
+     1
+    ]
+   },
+   "seconds": 123
+  },
+  {
+   "copy": "J03WR9|10111",
+   "condition": "gk_both",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.2564,
+    0.7561
+   ],
+   "v2_10": [
+    0.657,
+    0.9278
+   ],
+   "moved_pieces": 191,
+   "moved_frames": 260773,
+   "goalkeeper_positions_with_wrong_id": [
+    1.0,
+    0.022
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     30
+    ],
+    "1": [
+     1
+    ]
+   },
+   "seconds": 121
+  },
+  {
+   "copy": "J03WR9|10111",
+   "condition": "gk_part",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6393,
+    0.9189
+   ],
+   "v2_10": [
+    0.6593,
+    0.928
+   ],
+   "moved_pieces": 81,
+   "moved_frames": 82486,
+   "goalkeeper_positions_with_wrong_id": [
+    0.3148,
+    0.0109
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     30
+    ],
+    "1": [
+     1
+    ]
+   },
+   "seconds": 103
+  },
+  {
+   "copy": "MET1|10120",
+   "condition": "none",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.669,
+    0.8329
+   ],
+   "v2_10": [
+    0.669,
+    0.833
+   ],
+   "moved_pieces": 19,
+   "moved_frames": 1847,
+   "goalkeeper_positions_with_wrong_id": [
+    0.0,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 89
+  },
+  {
+   "copy": "MET1|10120",
+   "condition": "gk_one",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6119,
+    0.8145
+   ],
+   "v2_10": [
+    0.669,
+    0.833
+   ],
+   "moved_pieces": 112,
+   "moved_frames": 134175,
+   "goalkeeper_positions_with_wrong_id": [
+    0.5007,
+    0.0026
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 67
+  },
+  {
+   "copy": "MET1|10120",
+   "condition": "gk_both",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.3732,
+    0.7386
+   ],
+   "v2_10": [
+    0.6678,
+    0.833
+   ],
+   "moved_pieces": 208,
+   "moved_frames": 262873,
+   "goalkeeper_positions_with_wrong_id": [
+    1.0,
+    0.0176
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 72
+  },
+  {
+   "copy": "MET1|10120",
+   "condition": "gk_part",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6421,
+    0.8222
+   ],
+   "v2_10": [
+    0.669,
+    0.833
+   ],
+   "moved_pieces": 98,
+   "moved_frames": 82807,
+   "goalkeeper_positions_with_wrong_id": [
+    0.3081,
+    0.0033
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 70
+  },
+  {
+   "copy": "MET1|10121",
+   "condition": "none",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6422,
+    0.8205
+   ],
+   "v2_10": [
+    0.6422,
+    0.8205
+   ],
+   "moved_pieces": 14,
+   "moved_frames": 1279,
+   "goalkeeper_positions_with_wrong_id": [
+    0.0,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 68
+  },
+  {
+   "copy": "MET1|10121",
+   "condition": "gk_one",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6,
+    0.8079
+   ],
+   "v2_10": [
+    0.6422,
+    0.8204
+   ],
+   "moved_pieces": 77,
+   "moved_frames": 135943,
+   "goalkeeper_positions_with_wrong_id": [
+    0.5006,
+    0.0004
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 67
+  },
+  {
+   "copy": "MET1|10121",
+   "condition": "gk_both",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.348,
+    0.7236
+   ],
+   "v2_10": [
+    0.6422,
+    0.8204
+   ],
+   "moved_pieces": 140,
+   "moved_frames": 270311,
+   "goalkeeper_positions_with_wrong_id": [
+    1.0,
+    0.0007
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 60
+  },
+  {
+   "copy": "MET1|10121",
+   "condition": "gk_part",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6091,
+    0.8179
+   ],
+   "v2_10": [
+    0.6422,
+    0.8205
+   ],
+   "moved_pieces": 74,
+   "moved_frames": 89084,
+   "goalkeeper_positions_with_wrong_id": [
+    0.3262,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 66
+  },
+  {
+   "copy": "MET2|10130",
+   "condition": "none",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6787,
+    0.8072
+   ],
+   "v2_10": [
+    0.6787,
+    0.8073
+   ],
+   "moved_pieces": 18,
+   "moved_frames": 1648,
+   "goalkeeper_positions_with_wrong_id": [
+    0.0,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 61
+  },
+  {
+   "copy": "MET2|10130",
+   "condition": "gk_one",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.665,
+    0.8082
+   ],
+   "v2_10": [
+    0.6794,
+    0.8072
+   ],
+   "moved_pieces": 100,
+   "moved_frames": 127092,
+   "goalkeeper_positions_with_wrong_id": [
+    0.4968,
+    0.0197
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 66
+  },
+  {
+   "copy": "MET2|10130",
+   "condition": "gk_both",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.3551,
+    0.7242
+   ],
+   "v2_10": [
+    0.6794,
+    0.8072
+   ],
+   "moved_pieces": 173,
+   "moved_frames": 256543,
+   "goalkeeper_positions_with_wrong_id": [
+    1.0,
+    0.0304
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 61
+  },
+  {
+   "copy": "MET2|10130",
+   "condition": "gk_part",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6798,
+    0.807
+   ],
+   "v2_10": [
+    0.6787,
+    0.8072
+   ],
+   "moved_pieces": 87,
+   "moved_frames": 79843,
+   "goalkeeper_positions_with_wrong_id": [
+    0.3035,
+    0.0061
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 64
+  },
+  {
+   "copy": "MET2|10131",
+   "condition": "none",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6475,
+    0.8051
+   ],
+   "v2_10": [
+    0.6475,
+    0.805
+   ],
+   "moved_pieces": 9,
+   "moved_frames": 829,
+   "goalkeeper_positions_with_wrong_id": [
+    0.0,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 69
+  },
+  {
+   "copy": "MET2|10131",
+   "condition": "gk_one",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6293,
+    0.8015
+   ],
+   "v2_10": [
+    0.6475,
+    0.805
+   ],
+   "moved_pieces": 32,
+   "moved_frames": 138555,
+   "goalkeeper_positions_with_wrong_id": [
+    0.5008,
+    0.0001
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 67
+  },
+  {
+   "copy": "MET2|10131",
+   "condition": "gk_both",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.3602,
+    0.7281
+   ],
+   "v2_10": [
+    0.6475,
+    0.805
+   ],
+   "moved_pieces": 61,
+   "moved_frames": 275885,
+   "goalkeeper_positions_with_wrong_id": [
+    1.0,
+    0.0001
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 68
+  },
+  {
+   "copy": "MET2|10131",
+   "condition": "gk_part",
+   "layout": "sticky",
+   "path": "v2.1",
+   "v2_9": [
+    0.6389,
+    0.8035
+   ],
+   "v2_10": [
+    0.6475,
+    0.805
+   ],
+   "moved_pieces": 37,
+   "moved_frames": 87004,
+   "goalkeeper_positions_with_wrong_id": [
+    0.3133,
+    0.0
+   ],
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 66
+  }
+ ],
+ "limits": [
+  "The errors are simulated by us; the provided tracking may have none of them or a different kind. The candidate is a safeguard, not a measured improvement on the provided match.",
+  "The correction is validated with the tactical camera only; the broadcast path is unchanged by construction.",
+  "A goalkeeper who is not tracked at all cannot be corrected.",
+  "Fixtures accessed before; the validation matches have been used for every earlier selection."
+ ],
+ "provided_fixture_used": false
+}

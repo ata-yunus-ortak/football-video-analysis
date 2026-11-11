@@ -1,0 +1,400 @@
+{
+ "rows": [
+  {
+   "match": "MET1",
+   "seed": 8101,
+   "variant": "base",
+   "path": "v2.1",
+   "spell_f1": 0.6583,
+   "macro_f1": 0.7467,
+   "f1_H": 0.7836,
+   "f1_A": 0.7875,
+   "f1_D": 0.669,
+   "team_acc_both_alive": 0.9353,
+   "pred_spells": 320,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 88
+  },
+  {
+   "match": "MET1",
+   "seed": 8101,
+   "variant": "gk_one",
+   "path": "v2.1",
+   "spell_f1": 0.6232,
+   "macro_f1": 0.7324,
+   "f1_H": 0.7591,
+   "f1_A": 0.7716,
+   "f1_D": 0.6665,
+   "team_acc_both_alive": 0.9126,
+   "pred_spells": 337,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 103
+  },
+  {
+   "match": "MET1",
+   "seed": 8101,
+   "variant": "gk_both",
+   "path": "v2.1",
+   "spell_f1": 0.3256,
+   "macro_f1": 0.6637,
+   "f1_H": 0.6596,
+   "f1_A": 0.6619,
+   "f1_D": 0.6697,
+   "team_acc_both_alive": 0.786,
+   "pred_spells": 394,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 104
+  },
+  {
+   "match": "MET1",
+   "seed": 8101,
+   "variant": "gk_part",
+   "path": "v2.1",
+   "spell_f1": 0.6517,
+   "macro_f1": 0.7401,
+   "f1_H": 0.7739,
+   "f1_A": 0.7782,
+   "f1_D": 0.6681,
+   "team_acc_both_alive": 0.9241,
+   "pred_spells": 319,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 83
+  },
+  {
+   "match": "MET1",
+   "seed": 8101,
+   "variant": "ref_home",
+   "path": "v2.1",
+   "spell_f1": 0.6508,
+   "macro_f1": 0.7454,
+   "f1_H": 0.7836,
+   "f1_A": 0.7853,
+   "f1_D": 0.6672,
+   "team_acc_both_alive": 0.9332,
+   "pred_spells": 320,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 82
+  },
+  {
+   "match": "MET1",
+   "seed": 8101,
+   "variant": "ref_mixed",
+   "path": "v2.1",
+   "spell_f1": 0.6544,
+   "macro_f1": 0.7474,
+   "f1_H": 0.7871,
+   "f1_A": 0.7838,
+   "f1_D": 0.6712,
+   "team_acc_both_alive": 0.9313,
+   "pred_spells": 315,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 86
+  },
+  {
+   "match": "MET2",
+   "seed": 8102,
+   "variant": "base",
+   "path": "v2.1",
+   "spell_f1": 0.5846,
+   "macro_f1": 0.6972,
+   "f1_H": 0.7603,
+   "f1_A": 0.7615,
+   "f1_D": 0.5699,
+   "team_acc_both_alive": 0.935,
+   "pred_spells": 292,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 92
+  },
+  {
+   "match": "MET2",
+   "seed": 8102,
+   "variant": "gk_one",
+   "path": "v2.1",
+   "spell_f1": 0.5719,
+   "macro_f1": 0.6956,
+   "f1_H": 0.7549,
+   "f1_A": 0.7595,
+   "f1_D": 0.5724,
+   "team_acc_both_alive": 0.928,
+   "pred_spells": 298,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 85
+  },
+  {
+   "match": "MET2",
+   "seed": 8102,
+   "variant": "gk_both",
+   "path": "v2.1",
+   "spell_f1": 0.3046,
+   "macro_f1": 0.6222,
+   "f1_H": 0.657,
+   "f1_A": 0.6384,
+   "f1_D": 0.5711,
+   "team_acc_both_alive": 0.796,
+   "pred_spells": 378,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 91
+  },
+  {
+   "match": "MET2",
+   "seed": 8102,
+   "variant": "gk_part",
+   "path": "v2.1",
+   "spell_f1": 0.5729,
+   "macro_f1": 0.6924,
+   "f1_H": 0.7589,
+   "f1_A": 0.75,
+   "f1_D": 0.5683,
+   "team_acc_both_alive": 0.9288,
+   "pred_spells": 294,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 100
+  },
+  {
+   "match": "MET2",
+   "seed": 8102,
+   "variant": "ref_home",
+   "path": "v2.1",
+   "spell_f1": 0.5704,
+   "macro_f1": 0.7009,
+   "f1_H": 0.7601,
+   "f1_A": 0.7656,
+   "f1_D": 0.577,
+   "team_acc_both_alive": 0.9297,
+   "pred_spells": 292,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 87
+  },
+  {
+   "match": "MET2",
+   "seed": 8102,
+   "variant": "ref_mixed",
+   "path": "v2.1",
+   "spell_f1": 0.5882,
+   "macro_f1": 0.7,
+   "f1_H": 0.7614,
+   "f1_A": 0.7654,
+   "f1_D": 0.5731,
+   "team_acc_both_alive": 0.9341,
+   "pred_spells": 288,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     14
+    ]
+   },
+   "seconds": 94
+  },
+  {
+   "match": "MET3",
+   "seed": 8103,
+   "variant": "base",
+   "path": "v2.1",
+   "spell_f1": 0.6652,
+   "macro_f1": 0.7177,
+   "f1_H": 0.8261,
+   "f1_A": 0.8166,
+   "f1_D": 0.5105,
+   "team_acc_both_alive": 0.9479,
+   "pred_spells": 345,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     17
+    ]
+   },
+   "seconds": 99
+  },
+  {
+   "match": "MET3",
+   "seed": 8103,
+   "variant": "gk_one",
+   "path": "v2.1",
+   "spell_f1": 0.6491,
+   "macro_f1": 0.7138,
+   "f1_H": 0.8168,
+   "f1_A": 0.8135,
+   "f1_D": 0.5111,
+   "team_acc_both_alive": 0.9379,
+   "pred_spells": 356,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     17
+    ]
+   },
+   "seconds": 97
+  },
+  {
+   "match": "MET3",
+   "seed": 8103,
+   "variant": "gk_both",
+   "path": "v2.1",
+   "spell_f1": 0.3737,
+   "macro_f1": 0.6411,
+   "f1_H": 0.7145,
+   "f1_A": 0.6929,
+   "f1_D": 0.5159,
+   "team_acc_both_alive": 0.8091,
+   "pred_spells": 455,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     17
+    ]
+   },
+   "seconds": 106
+  },
+  {
+   "match": "MET3",
+   "seed": 8103,
+   "variant": "gk_part",
+   "path": "v2.1",
+   "spell_f1": 0.6503,
+   "macro_f1": 0.7155,
+   "f1_H": 0.8205,
+   "f1_A": 0.8148,
+   "f1_D": 0.511,
+   "team_acc_both_alive": 0.9412,
+   "pred_spells": 359,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     17
+    ]
+   },
+   "seconds": 89
+  },
+  {
+   "match": "MET3",
+   "seed": 8103,
+   "variant": "ref_home",
+   "path": "v2.1",
+   "spell_f1": 0.6789,
+   "macro_f1": 0.7184,
+   "f1_H": 0.8268,
+   "f1_A": 0.8198,
+   "f1_D": 0.5086,
+   "team_acc_both_alive": 0.9486,
+   "pred_spells": 343,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     17
+    ]
+   },
+   "seconds": 93
+  },
+  {
+   "match": "MET3",
+   "seed": 8103,
+   "variant": "ref_mixed",
+   "path": "v2.1",
+   "spell_f1": 0.6645,
+   "macro_f1": 0.7154,
+   "f1_H": 0.8247,
+   "f1_A": 0.815,
+   "f1_D": 0.5066,
+   "team_acc_both_alive": 0.9461,
+   "pred_spells": 344,
+   "goalkeeper_columns": {
+    "0": [
+     0
+    ],
+    "1": [
+     17
+    ]
+   },
+   "seconds": 98
+  }
+ ]
+}

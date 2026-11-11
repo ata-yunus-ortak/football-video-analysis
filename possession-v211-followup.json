@@ -1,0 +1,2127 @@
+{
+ "version": "possession-v2.11-followup",
+ "written_at": "2026-11-11T17:08:43+03:00",
+ "note": "Reported alongside the v2.11 decision (possession-v211-plan.json): not gates, nothing was selected or changed because of these numbers.",
+ "results_sha256": "e45c2243f0cb1733d51a7bca8c6da51b6106b372e1228e431ef20ebef8b2f06e",
+ "reserved_metrica_game_3": {
+  "note": "one new corrupted copy (seed 31103), the seven conditions, run once after the decision",
+  "rows": [
+   {
+    "copy": "MET3|31103",
+    "condition": "none",
+    "path": "v2.1",
+    "v2_9": [
+     0.6962,
+     0.8594
+    ],
+    "goalkeeper_columns": {
+     "0": [
+      0
+     ],
+     "1": [
+      17
+     ]
+    },
+    "mean_tracked_in_play": 19.51,
+    "v2_11": [
+     0.6962,
+     0.8594
+    ],
+    "v2_11_moved": {
+     "pieces": 2,
+     "frames": 158,
+     "goalkeeper_positions_with_wrong_id_before_after": [
+      0.0,
+      0.0
+     ],
+     "outfield_positions_moved_to_the_wrong_team": 0
+    },
+    "seconds": 131
+   },
+   {
+    "copy": "MET3|31103",
+    "condition": "gk_one",
+    "path": "v2.1",
+    "v2_9": [
+     0.6856,
+     0.8545
+    ],
+    "goalkeeper_columns": {
+     "0": [
+      0
+     ],
+     "1": [
+      17
+     ]
+    },
+    "mean_tracked_in_play": 19.51,
+    "v2_11": [
+     0.6962,
+     0.8594
+    ],
+    "v2_11_moved": {
+     "pieces": 139,
+     "frames": 128247,
+     "goalkeeper_positions_with_wrong_id_before_after": [
+      0.499,
+      0.0038
+     ],
+     "outfield_positions_moved_to_the_wrong_team": 0
+    },
+    "seconds": 121
+   },
+   {
+    "copy": "MET3|31103",
+    "condition": "gk_both",
+    "path": "v2.1",
+    "v2_9": [
+     0.4024,
+     0.7732
+    ],
+    "goalkeeper_columns": {
+     "0": [
+      0
+     ],
+     "1": [
+      17
+     ]
+    },
+    "mean_tracked_in_play": 19.51,
+    "v2_11": [
+     0.6962,
+     0.8594
+    ],
+    "v2_11_moved": {
+     "pieces": 278,
+     "frames": 257004,
+     "goalkeeper_positions_with_wrong_id_before_after": [
+      1.0,
+      0.0071
+     ],
+     "outfield_positions_moved_to_the_wrong_team": 0
+    },
+    "seconds": 121
+   },
+   {
+    "copy": "MET3|31103",
+    "condition": "gk_part",
+    "path": "v2.1",
+    "v2_9": [
+     0.6962,
+     0.8585
+    ],
+    "goalkeeper_columns": {
+     "0": [
+      0
+     ],
+     "1": [
+      17
+     ]
+    },
+    "mean_tracked_in_play": 19.51,
+    "v2_11": [
+     0.7003,
+     0.8593
+    ],
+    "v2_11_moved": {
+     "pieces": 109,
+     "frames": 75092,
+     "goalkeeper_positions_with_wrong_id_before_after": [
+      0.3084,
+      0.0187
+     ],
+     "outfield_positions_moved_to_the_wrong_team": 0
+    },
+    "seconds": 132
+   },
+   {
+    "copy": "MET3|31103",
+    "condition": "view42_none",
+    "path": "v2.1",
+    "v2_9": [
+     0.708,
+     0.8619
+    ],
+    "goalkeeper_columns": {
+     "0": [
+      0
+     ],
+     "1": [
+      17
+     ]
+    },
+    "mean_tracked_in_play": 18.6,
+    "goalkeeper_in_view_share": 0.493,
+    "v2_11": [
+     0.708,
+     0.8619
+    ],
+    "v2_11_moved": {
+     "pieces": 1,
+     "frames": 131,
+     "goalkeeper_positions_with_wrong_id_before_after": [
+      0.0,
+      0.0
+     ],
+     "outfield_positions_moved_to_the_wrong_team": 0
+    },
+    "v2_10": [
+     0.7075,
+     0.8618
+    ],
+    "v2_10_moved": {
+     "pieces": 6,
+     "frames": 5754,
+     "goalkeeper_positions_with_wrong_id_before_after": [
+      0.0,
+      0.0
+     ],
+     "outfield_positions_moved_to_the_wrong_team": 5623
+    },
+    "seconds": 172
+   },
+   {
+    "copy": "MET3|31103",
+    "condition": "view35_none",
+    "path": "v2.1",
+    "v2_9": [
+     0.698,
+     0.8601
+    ],
+    "goalkeeper_columns": {
+     "0": [
+      0
+     ],
+     "1": [
+      17
+     ]
+    },
+    "mean_tracked_in_play": 18.26,
+    "goalkeeper_in_view_share": 0.317,
+    "v2_11": [
+     0.698,
+     0.8601
+    ],
+    "v2_11_moved": {
+     "pieces": 0,
+     "frames": 0,
+     "goalkeeper_positions_with_wrong_id_before_after": [
+      0.0,
+      0.0
+     ],
+     "outfield_positions_moved_to_the_wrong_team": 0
+    },
+    "v2_10": [
+     0.698,
+     0.8601
+    ],
+    "v2_10_moved": {
+     "pieces": 6,
+     "frames": 7321,
+     "goalkeeper_positions_with_wrong_id_before_after": [
+      0.0,
+      0.0
+     ],
+     "outfield_positions_moved_to_the_wrong_team": 7321
+    },
+    "seconds": 131
+   },
+   {
+    "copy": "MET3|31103",
+    "condition": "view42_gk_both",
+    "path": "v2.1",
+    "v2_9": [
+     0.666,
+     0.8479
+    ],
+    "goalkeeper_columns": {
+     "0": [
+      0
+     ],
+     "1": [
+      17
+     ]
+    },
+    "mean_tracked_in_play": 18.6,
+    "goalkeeper_in_view_share": 0.493,
+    "v2_11": [
+     0.6797,
+     0.8512
+    ],
+    "v2_11_moved": {
+     "pieces": 79,
+     "frames": 41550,
+     "goalkeeper_positions_with_wrong_id_before_after": [
+      1.0,
+      0.6766
+     ],
+     "outfield_positions_moved_to_the_wrong_team": 0
+    },
+    "seconds": 139
+   }
+  ]
+ },
+ "what_v2_10_moved_with_correct_ids": {
+  "script": "experiments/possession_v2/gk_none.py, gk_none_detail.py (validation copies of possession-v210-plan.json, condition none; after its decision)",
+  "copies": [
+   {
+    "copy": "J03WN1|10100",
+    "moved_pieces_and_frames": {
+     "goalkeeper under the wrong id (flipped by the corruption), moved to his team": [
+      2,
+      224
+     ],
+     "outfield player under the wrong id (flipped by the corruption), moved to his team": [
+      0,
+      0
+     ],
+     "goalkeeper with the right id, moved to the other team": [
+      0,
+      0
+     ],
+     "outfield player with the right id, moved to the other team": [
+      0,
+      0
+     ]
+    },
+    "goalkeeper_frames": 283122
+   },
+   {
+    "copy": "J03WN1|10101",
+    "moved_pieces_and_frames": {
+     "goalkeeper under the wrong id (flipped by the corruption), moved to his team": [
+      6,
+      391
+     ],
+     "outfield player under the wrong id (flipped by the corruption), moved to his team": [
+      0,
+      0
+     ],
+     "goalkeeper with the right id, moved to the other team": [
+      0,
+      0
+     ],
+     "outfield player with the right id, moved to the other team": [
+      0,
+      0
+     ]
+    },
+    "goalkeeper_frames": 283122
+   },
+   {
+    "copy": "J03WR9|10110",
+    "moved_pieces_and_frames": {
+     "goalkeeper under the wrong id (flipped by the corruption), moved to his team": [
+      1,
+      46
+     ],
+     "outfield player under the wrong id (flipped by the corruption), moved to his team": [
+      0,
+      0
+     ],
+     "goalkeeper with the right id, moved to the other team": [
+      0,
+      0
+     ],
+     "outfield player with the right id, moved to the other team": [
+      1,
+      3496
+     ]
+    },
+    "goalkeeper_frames": 293620
+   },
+   {
+    "copy": "J03WR9|10111",
+    "moved_pieces_and_frames": {
+     "goalkeeper under the wrong id (flipped by the corruption), moved to his team": [
+      9,
+      546
+     ],
+     "outfield player under the wrong id (flipped by the corruption), moved to his team": [
+      0,
+      0
+     ],
+     "goalkeeper with the right id, moved to the other team": [
+      1,
+      1571
+     ],
+     "outfield player with the right id, moved to the other team": [
+      0,
+      0
+     ]
+    },
+    "goalkeeper_frames": 293620
+   },
+   {
+    "copy": "MET1|10120",
+    "moved_pieces_and_frames": {
+     "goalkeeper under the wrong id (flipped by the corruption), moved to his team": [
+      18,
+      1481
+     ],
+     "outfield player under the wrong id (flipped by the corruption), moved to his team": [
+      0,
+      0
+     ],
+     "goalkeeper with the right id, moved to the other team": [
+      0,
+      0
+     ],
+     "outfield player with the right id, moved to the other team": [
+      1,
+      366
+     ]
+    },
+    "goalkeeper_frames": 290012
+   },
+   {
+    "copy": "MET1|10121",
+    "moved_pieces_and_frames": {
+     "goalkeeper under the wrong id (flipped by the corruption), moved to his team": [
+      14,
+      1279
+     ],
+     "outfield player under the wrong id (flipped by the corruption), moved to his team": [
+      0,
+      0
+     ],
+     "goalkeeper with the right id, moved to the other team": [
+      0,
+      0
+     ],
+     "outfield player with the right id, moved to the other team": [
+      0,
+      0
+     ]
+    },
+    "goalkeeper_frames": 290012
+   },
+   {
+    "copy": "MET2|10130",
+    "moved_pieces_and_frames": {
+     "goalkeeper under the wrong id (flipped by the corruption), moved to his team": [
+      18,
+      1648
+     ],
+     "outfield player under the wrong id (flipped by the corruption), moved to his team": [
+      0,
+      0
+     ],
+     "goalkeeper with the right id, moved to the other team": [
+      0,
+      0
+     ],
+     "outfield player with the right id, moved to the other team": [
+      0,
+      0
+     ]
+    },
+    "goalkeeper_frames": 282312
+   },
+   {
+    "copy": "MET2|10131",
+    "moved_pieces_and_frames": {
+     "goalkeeper under the wrong id (flipped by the corruption), moved to his team": [
+      9,
+      829
+     ],
+     "outfield player under the wrong id (flipped by the corruption), moved to his team": [
+      0,
+      0
+     ],
+     "goalkeeper with the right id, moved to the other team": [
+      0,
+      0
+     ],
+     "outfield player with the right id, moved to the other team": [
+      0,
+      0
+     ]
+    },
+    "goalkeeper_frames": 282312
+   }
+  ],
+  "note": "gk_none.py calls a piece a goalkeeper when it is within 2.5 m of a goalkeeper; the piece of copy J03WR9|10111 listed as \"goalkeeper with the right id\" is the same outfield player as in J03WR9|10110 (gk_none_detail.py).",
+  "outfield_pieces_moved_to_the_wrong_team": [
+   {
+    "copy": "J03WR9|10110",
+    "frames": [
+     142924,
+     146810
+    ],
+    "tracked_frames": 3496,
+    "distance_to_goal_m_10_50_90": [
+     12.8,
+     13.4,
+     20.9
+    ],
+    "far_frames": 418,
+    "nearest_in_far_frames": 336,
+    "goalkeeper_of_that_goal_tracked_share": 0.883
+   },
+   {
+    "copy": "J03WR9|10111",
+    "frames": [
+     145117,
+     146810
+    ],
+    "tracked_frames": 1571,
+    "distance_to_goal_m_10_50_90": [
+     12.9,
+     13.1,
+     13.3
+    ],
+    "far_frames": 451,
+    "nearest_in_far_frames": 346,
+    "goalkeeper_of_that_goal_tracked_share": 0.797
+   },
+   {
+    "copy": "MET1|10120",
+    "frames": [
+     49689,
+     50055
+    ],
+    "tracked_frames": 366,
+    "distance_to_goal_m_10_50_90": [
+     25.4,
+     26.6,
+     26.9
+    ],
+    "far_frames": 120,
+    "nearest_in_far_frames": 120,
+    "goalkeeper_of_that_goal_tracked_share": 0.773
+   }
+  ]
+ },
+ "development_on_training_matches": {
+  "script": "experiments/possession_v2/gk_far_dev.py (no model; one corrupted copy per training match, 46-slot layout; camera window = camera_view.py)",
+  "keeper2 (v2.11)": [
+   {
+    "match": "J03WOH",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.86,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 8,
+    "moved_frames": 616,
+    "seconds": 3.8
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.86,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.4978,
+    "gk_wrong_after": 0.0281,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 91,
+    "moved_frames": 123859,
+    "seconds": 3.8
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.86,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.046,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 172,
+    "moved_frames": 250915,
+    "seconds": 4.1
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.86,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3103,
+    "gk_wrong_after": 0.0423,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 68,
+    "moved_frames": 70922,
+    "seconds": 4.4
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.809,
+    "mean_tracked": 20.5,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 7,
+    "moved_frames": 581,
+    "seconds": 4.3
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.809,
+    "mean_tracked": 20.5,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5168,
+    "gk_wrong_after": 0.0616,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 102,
+    "moved_frames": 97360,
+    "seconds": 4.3
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.809,
+    "mean_tracked": 20.5,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0845,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 214,
+    "moved_frames": 195227,
+    "seconds": 3.9
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.809,
+    "mean_tracked": 20.5,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3303,
+    "gk_wrong_after": 0.1193,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 62,
+    "moved_frames": 45414,
+    "seconds": 4.3
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.621,
+    "mean_tracked": 20.13,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 4,
+    "moved_frames": 360,
+    "seconds": 4.0
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.621,
+    "mean_tracked": 20.13,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5305,
+    "gk_wrong_after": 0.1236,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 94,
+    "moved_frames": 66631,
+    "seconds": 3.9
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.621,
+    "mean_tracked": 20.13,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.2589,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 174,
+    "moved_frames": 121207,
+    "seconds": 4.0
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.621,
+    "mean_tracked": 20.13,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.35,
+    "gk_wrong_after": 0.2811,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 26,
+    "moved_frames": 11583,
+    "seconds": 4.1
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.402,
+    "mean_tracked": 19.65,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 0,
+    "moved_frames": 0,
+    "seconds": 3.8
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.402,
+    "mean_tracked": 19.65,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5123,
+    "gk_wrong_after": 0.5123,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 0,
+    "moved_frames": 0,
+    "seconds": 3.7
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.402,
+    "mean_tracked": 19.65,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 1.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 0,
+    "moved_frames": 0,
+    "seconds": 4.0
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.402,
+    "mean_tracked": 19.65,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.395,
+    "gk_wrong_after": 0.3621,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 9,
+    "moved_frames": 3464,
+    "seconds": 4.2
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.34,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 2,
+    "moved_frames": 182,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.34,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5049,
+    "gk_wrong_after": 0.0138,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 112,
+    "moved_frames": 124173,
+    "seconds": 3.0
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.34,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0212,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 237,
+    "moved_frames": 247335,
+    "seconds": 3.6
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.34,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3242,
+    "gk_wrong_after": 0.0435,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 78,
+    "moved_frames": 71064,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.867,
+    "mean_tracked": 19.1,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 2,
+    "moved_frames": 182,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.867,
+    "mean_tracked": 19.1,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5051,
+    "gk_wrong_after": 0.016,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 130,
+    "moved_frames": 107045,
+    "seconds": 2.9
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.867,
+    "mean_tracked": 19.1,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.031,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 272,
+    "moved_frames": 211906,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.867,
+    "mean_tracked": 19.1,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3251,
+    "gk_wrong_after": 0.0822,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 77,
+    "moved_frames": 53249,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.651,
+    "mean_tracked": 18.71,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 0,
+    "moved_frames": 0,
+    "seconds": 2.8
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.651,
+    "mean_tracked": 18.71,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.508,
+    "gk_wrong_after": 0.0788,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 104,
+    "moved_frames": 70281,
+    "seconds": 2.9
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.651,
+    "mean_tracked": 18.71,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.1952,
+    "outfield_positions_moved_to_wrong_team": 1450,
+    "moved_pieces": 203,
+    "moved_frames": 133227,
+    "seconds": 2.9
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.651,
+    "mean_tracked": 18.71,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.316,
+    "gk_wrong_after": 0.207,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 32,
+    "moved_frames": 17854,
+    "seconds": 3.3
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.406,
+    "mean_tracked": 18.23,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 0,
+    "moved_frames": 0,
+    "seconds": 2.8
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.406,
+    "mean_tracked": 18.23,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5259,
+    "gk_wrong_after": 0.4647,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 18,
+    "moved_frames": 6312,
+    "seconds": 2.9
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.406,
+    "mean_tracked": 18.23,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.9388,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 18,
+    "moved_frames": 6312,
+    "seconds": 2.8
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.406,
+    "mean_tracked": 18.23,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3181,
+    "gk_wrong_after": 0.3067,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 2,
+    "moved_frames": 1169,
+    "seconds": 2.8
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.31,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 1,
+    "moved_frames": 78,
+    "seconds": 3.2
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.31,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5011,
+    "gk_wrong_after": 0.0255,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 141,
+    "moved_frames": 122079,
+    "seconds": 3.3
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.31,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0676,
+    "outfield_positions_moved_to_wrong_team": 73,
+    "moved_pieces": 289,
+    "moved_frames": 239370,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.31,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3082,
+    "gk_wrong_after": 0.0346,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 97,
+    "moved_frames": 70281,
+    "seconds": 3.0
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.899,
+    "mean_tracked": 19.13,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 1,
+    "moved_frames": 78,
+    "seconds": 2.9
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.899,
+    "mean_tracked": 19.13,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5308,
+    "gk_wrong_after": 0.0291,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 154,
+    "moved_frames": 116133,
+    "seconds": 2.6
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.899,
+    "mean_tracked": 19.13,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0905,
+    "outfield_positions_moved_to_wrong_team": 73,
+    "moved_pieces": 305,
+    "moved_frames": 210557,
+    "seconds": 2.8
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.899,
+    "mean_tracked": 19.13,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.319,
+    "gk_wrong_after": 0.0689,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 84,
+    "moved_frames": 57935,
+    "seconds": 2.8
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.712,
+    "mean_tracked": 18.8,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 1,
+    "moved_frames": 78,
+    "seconds": 2.9
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.712,
+    "mean_tracked": 18.8,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5042,
+    "gk_wrong_after": 0.0465,
+    "outfield_positions_moved_to_wrong_team": 122,
+    "moved_pieces": 157,
+    "moved_frames": 84093,
+    "seconds": 2.7
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.712,
+    "mean_tracked": 18.8,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.2212,
+    "outfield_positions_moved_to_wrong_team": 122,
+    "moved_pieces": 262,
+    "moved_frames": 142961,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.712,
+    "mean_tracked": 18.8,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3307,
+    "gk_wrong_after": 0.1647,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 48,
+    "moved_frames": 30515,
+    "seconds": 2.8
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.465,
+    "mean_tracked": 18.34,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 1,
+    "moved_frames": 78,
+    "seconds": 3.0
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.465,
+    "mean_tracked": 18.34,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.4506,
+    "gk_wrong_after": 0.2297,
+    "outfield_positions_moved_to_wrong_team": 52,
+    "moved_pieces": 69,
+    "moved_frames": 26680,
+    "seconds": 2.7
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.465,
+    "mean_tracked": 18.34,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.7791,
+    "outfield_positions_moved_to_wrong_team": 52,
+    "moved_pieces": 69,
+    "moved_frames": 26680,
+    "seconds": 3.0
+   },
+   {
+    "match": "J03WPY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.465,
+    "mean_tracked": 18.34,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3416,
+    "gk_wrong_after": 0.3106,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 10,
+    "moved_frames": 3809,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.63,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 10,
+    "moved_frames": 893,
+    "seconds": 3.7
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.63,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.4972,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 57,
+    "moved_frames": 137150,
+    "seconds": 4.1
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.63,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 86,
+    "moved_frames": 274943,
+    "seconds": 3.5
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.63,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.312,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 53,
+    "moved_frames": 86387,
+    "seconds": 3.6
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.848,
+    "mean_tracked": 20.33,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 10,
+    "moved_frames": 893,
+    "seconds": 4.1
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.848,
+    "mean_tracked": 20.33,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5223,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 87,
+    "moved_frames": 121984,
+    "seconds": 3.7
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.848,
+    "mean_tracked": 20.33,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0085,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 156,
+    "moved_frames": 230785,
+    "seconds": 3.5
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.848,
+    "mean_tracked": 20.33,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3194,
+    "gk_wrong_after": 0.0912,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 57,
+    "moved_frames": 53789,
+    "seconds": 4.3
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.672,
+    "mean_tracked": 19.99,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 388,
+    "moved_pieces": 8,
+    "moved_frames": 865,
+    "seconds": 4.0
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.672,
+    "mean_tracked": 19.99,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5374,
+    "gk_wrong_after": 0.0383,
+    "outfield_positions_moved_to_wrong_team": 388,
+    "moved_pieces": 83,
+    "moved_frames": 92550,
+    "seconds": 3.9
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.672,
+    "mean_tracked": 19.99,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0653,
+    "outfield_positions_moved_to_wrong_team": 388,
+    "moved_pieces": 160,
+    "moved_frames": 172581,
+    "seconds": 3.9
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.672,
+    "mean_tracked": 19.99,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3031,
+    "gk_wrong_after": 0.1221,
+    "outfield_positions_moved_to_wrong_team": 388,
+    "moved_pieces": 44,
+    "moved_frames": 33890,
+    "seconds": 3.2
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.451,
+    "mean_tracked": 19.51,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 3,
+    "moved_frames": 200,
+    "seconds": 3.9
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.451,
+    "mean_tracked": 19.51,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5658,
+    "gk_wrong_after": 0.3574,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 36,
+    "moved_frames": 25829,
+    "seconds": 3.4
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.451,
+    "mean_tracked": 19.51,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.7916,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 35,
+    "moved_frames": 25749,
+    "seconds": 3.5
+   },
+   {
+    "match": "J03WQQ",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.451,
+    "mean_tracked": 19.51,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.2906,
+    "gk_wrong_after": 0.2717,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 4,
+    "moved_frames": 2442,
+    "seconds": 3.6
+   }
+  ],
+  "keeper (v2.10)": [
+   {
+    "match": "J03WOH",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.86,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 8,
+    "moved_frames": 616,
+    "seconds": 4.4
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.86,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.4978,
+    "gk_wrong_after": 0.0271,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 92,
+    "moved_frames": 124117,
+    "seconds": 3.4
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.86,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0403,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 174,
+    "moved_frames": 252416,
+    "seconds": 3.4
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 20.86,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3103,
+    "gk_wrong_after": 0.018,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 71,
+    "moved_frames": 77296,
+    "seconds": 3.5
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.809,
+    "mean_tracked": 20.5,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 7,
+    "moved_frames": 581,
+    "seconds": 3.4
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.809,
+    "mean_tracked": 20.5,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5168,
+    "gk_wrong_after": 0.0336,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 105,
+    "moved_frames": 103294,
+    "seconds": 3.8
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.809,
+    "mean_tracked": 20.5,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0499,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 219,
+    "moved_frames": 202581,
+    "seconds": 3.5
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.809,
+    "mean_tracked": 20.5,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3303,
+    "gk_wrong_after": 0.0222,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 85,
+    "moved_frames": 66087,
+    "seconds": 3.5
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.621,
+    "mean_tracked": 20.13,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 1671,
+    "moved_pieces": 9,
+    "moved_frames": 2315,
+    "seconds": 3.8
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.621,
+    "mean_tracked": 20.13,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5305,
+    "gk_wrong_after": 0.1258,
+    "outfield_positions_moved_to_wrong_team": 1671,
+    "moved_pieces": 99,
+    "moved_frames": 68228,
+    "seconds": 3.7
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.621,
+    "mean_tracked": 20.13,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.2587,
+    "outfield_positions_moved_to_wrong_team": 1671,
+    "moved_pieces": 177,
+    "moved_frames": 123079,
+    "seconds": 3.3
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.621,
+    "mean_tracked": 20.13,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.35,
+    "gk_wrong_after": 0.1422,
+    "outfield_positions_moved_to_wrong_team": 1671,
+    "moved_pieces": 59,
+    "moved_frames": 36163,
+    "seconds": 3.4
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.402,
+    "mean_tracked": 19.65,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 4973,
+    "moved_pieces": 10,
+    "moved_frames": 5323,
+    "seconds": 3.4
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.402,
+    "mean_tracked": 19.65,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5123,
+    "gk_wrong_after": 0.3305,
+    "outfield_positions_moved_to_wrong_team": 4973,
+    "moved_pieces": 48,
+    "moved_frames": 24478,
+    "seconds": 3.3
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.402,
+    "mean_tracked": 19.65,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.763,
+    "outfield_positions_moved_to_wrong_team": 4973,
+    "moved_pieces": 59,
+    "moved_frames": 30304,
+    "seconds": 3.3
+   },
+   {
+    "match": "J03WOH",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.402,
+    "mean_tracked": 19.65,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.395,
+    "gk_wrong_after": 0.2939,
+    "outfield_positions_moved_to_wrong_team": 4973,
+    "moved_pieces": 32,
+    "moved_frames": 15975,
+    "seconds": 3.8
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.34,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 2,
+    "moved_frames": 182,
+    "seconds": 2.8
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.34,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5049,
+    "gk_wrong_after": 0.011,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 111,
+    "moved_frames": 124900,
+    "seconds": 2.6
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.34,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0183,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 236,
+    "moved_frames": 248062,
+    "seconds": 2.6
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": null,
+    "goalkeeper_in_view": 1.0,
+    "mean_tracked": 19.34,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3242,
+    "gk_wrong_after": 0.0143,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 86,
+    "moved_frames": 78459,
+    "seconds": 3.3
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.867,
+    "mean_tracked": 19.1,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 2,
+    "moved_frames": 182,
+    "seconds": 2.9
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.867,
+    "mean_tracked": 19.1,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5051,
+    "gk_wrong_after": 0.0127,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 129,
+    "moved_frames": 107772,
+    "seconds": 3.2
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.867,
+    "mean_tracked": 19.1,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.0277,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 271,
+    "moved_frames": 212633,
+    "seconds": 3.0
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 50.0,
+    "goalkeeper_in_view": 0.867,
+    "mean_tracked": 19.1,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3251,
+    "gk_wrong_after": 0.0236,
+    "outfield_positions_moved_to_wrong_team": 0,
+    "moved_pieces": 91,
+    "moved_frames": 66044,
+    "seconds": 3.0
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.651,
+    "mean_tracked": 18.71,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 4303,
+    "moved_pieces": 7,
+    "moved_frames": 4349,
+    "seconds": 3.0
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.651,
+    "mean_tracked": 18.71,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.508,
+    "gk_wrong_after": 0.1021,
+    "outfield_positions_moved_to_wrong_team": 4303,
+    "moved_pieces": 104,
+    "moved_frames": 70812,
+    "seconds": 2.9
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.651,
+    "mean_tracked": 18.71,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.2167,
+    "outfield_positions_moved_to_wrong_team": 4303,
+    "moved_pieces": 200,
+    "moved_frames": 132610,
+    "seconds": 3.2
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 42.0,
+    "goalkeeper_in_view": 0.651,
+    "mean_tracked": 18.71,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.316,
+    "gk_wrong_after": 0.0599,
+    "outfield_positions_moved_to_wrong_team": 4303,
+    "moved_pieces": 76,
+    "moved_frames": 46287,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.406,
+    "mean_tracked": 18.23,
+    "condition": "none",
+    "gk_wrong_before": 0.0,
+    "gk_wrong_after": 0.0,
+    "outfield_positions_moved_to_wrong_team": 8373,
+    "moved_pieces": 13,
+    "moved_frames": 8419,
+    "seconds": 2.8
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.406,
+    "mean_tracked": 18.23,
+    "condition": "gk_one",
+    "gk_wrong_before": 0.5259,
+    "gk_wrong_after": 0.4098,
+    "outfield_positions_moved_to_wrong_team": 8373,
+    "moved_pieces": 43,
+    "moved_frames": 20394,
+    "seconds": 3.1
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.406,
+    "mean_tracked": 18.23,
+    "condition": "gk_both",
+    "gk_wrong_before": 1.0,
+    "gk_wrong_after": 0.7756,
+    "outfield_positions_moved_to_wrong_team": 8373,
+    "moved_pieces": 67,
+    "moved_frames": 31566,
+    "seconds": 2.7
+   },
+   {
+    "match": "J03WOY",
+    "view_half_width": 35.0,
+    "goalkeeper_in_view": 0.406,
+    "mean_tracked": 18.23,
+    "condition": "gk_part",
+    "gk_wrong_before": 0.3181,
+    "gk_wrong_after": 0.2778,
+    "outfield_positions_moved_to_wrong_team": 8373,
+    "moved_pieces": 25,
+    "moved_frames": 12577,
+    "seconds": 3.1
+   }
+  ]
+ },
+ "full_size_rehearsal": {
+  "note": "synthetic provided-like bundles (K003, experiments/possession_v2/prova_build.py); G1 and G2 are bundle A with the tracks of the four goalkeepers (Metrica game 3 and game 2 parts) under the other team's id, in the tactical tracking only (G1) or in both trackings (G2) (prova_gk.py). Wiring, size, time and memory; not accuracy on the provided match.",
+  "labels": "Metrica proxy labels in file order (K005); bundle A was re-scored, its first scores are in possession-rehearsal-results.json",
+  "bundle_A_v2_9_chain_of_K003": {
+   "spell_f1": 0.7631,
+   "macro_f1": 0.8728,
+   "as_first_recorded_against_the_degraded_labels": {
+    "spell_f1": 0.7151,
+    "macro_f1": 0.737
+   }
+  },
+  "bundle_A_v2_11": {
+   "spell_f1": 0.7641,
+   "macro_f1": 0.8728,
+   "f1_H": 0.877,
+   "f1_A": 0.9147,
+   "f1_D": 0.8268,
+   "model_path": "v2.1",
+   "broadcast_fill_used": true,
+   "exit": 0,
+   "seconds": 270,
+   "peak_memory_gb": 1.53,
+   "goalkeeper_correction": {
+    "moved_pieces": 4,
+    "moved_frames": 375,
+    "new_columns": 2,
+    "evidence_frames_per_half_and_goal": [
+     {
+      "defending_id": 39658,
+      "other_id": 0,
+      "other_id_dominant": false
+     },
+     {
+      "defending_id": 40999,
+      "other_id": 231,
+      "other_id_dominant": false
+     },
+     {
+      "defending_id": 47054,
+      "other_id": 0,
+      "other_id_dominant": false
+     },
+     {
+      "defending_id": 29541,
+      "other_id": 0,
+      "other_id_dominant": false
+     }
+    ]
+   }
+  },
+  "bundle_A_chain_v2_11": {
+   "steps": {
+    "ORTAM": "OK (Linux-6.18.44-fc-v378-x86_64-with-glibc2.39, Python 3.10.20, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)",
+    "DEPO": "ATLANDI (git bilgisi okunamadi)",
+    "SURUM": "OK (possession-v2.11)",
+    "TESTLER": "OK",
+    "PLATFORM": "AYNI",
+    "VERI": "OK (taktik VAR, yayin VAR, videolar YOK)",
+    "GIRDI OKUMA": "OK",
+    "URETIM": "OK (possession-v2.11, saatli)",
+    "BICIM": "OK",
+    "MAKULLUK": "OK",
+    "TESLIM": "OK (possession-v2.11, saatli)",
+    "SAAT": "VAR (onceki okuma kullanildi)",
+    "SAATSIZ KARSILASTIRMA": "AYNI",
+    "TEKRAR URETIM": "AYNI",
+    "TEMIZ KLON": "ATLANDI",
+    "ORGANIZATOR DOGRULAYICI": "OK",
+    "ACIK PENCERE": "ATLANDI",
+    "BELGE": "OK (Prova.md = teknik belge + calisma kaydi)"
+   },
+   "result_line": "TESLIM HAZIR",
+   "exit": 0,
+   "seconds": 962,
+   "peak_memory_gb": 1.54,
+   "spell_f1": 0.7641,
+   "macro_f1": 0.8728,
+   "lead_in_labels": {
+    "H": 0,
+    "A": 0,
+    "D": 2934,
+    "X": 0
+   }
+  },
+  "bundle_G1_v2_11": {
+   "spell_f1": 0.7664,
+   "macro_f1": 0.8727,
+   "f1_H": 0.876,
+   "f1_A": 0.9143,
+   "f1_D": 0.8278,
+   "model_path": "v2.1",
+   "broadcast_fill_used": true,
+   "exit": 0,
+   "seconds": 233,
+   "peak_memory_gb": 1.53,
+   "goalkeeper_correction": {
+    "moved_pieces": 292,
+    "moved_frames": 289702,
+    "new_columns": 2,
+    "evidence_frames_per_half_and_goal": [
+     {
+      "defending_id": 0,
+      "other_id": 39658,
+      "other_id_dominant": true
+     },
+     {
+      "defending_id": 0,
+      "other_id": 41230,
+      "other_id_dominant": true
+     },
+     {
+      "defending_id": 0,
+      "other_id": 47054,
+      "other_id_dominant": true
+     },
+     {
+      "defending_id": 0,
+      "other_id": 29541,
+      "other_id_dominant": true
+     }
+    ]
+   }
+  },
+  "bundle_G1_v2_9": {
+   "spell_f1": 0.4314,
+   "macro_f1": 0.7879,
+   "f1_H": 0.7636,
+   "f1_A": 0.7732,
+   "f1_D": 0.8268,
+   "model_path": "v2.1",
+   "broadcast_fill_used": true,
+   "exit": 0,
+   "seconds": 212,
+   "peak_memory_gb": 1.53
+  },
+  "bundle_G2_v2_11": {
+   "spell_f1": 0.7669,
+   "macro_f1": 0.8727,
+   "f1_H": 0.876,
+   "f1_A": 0.9143,
+   "f1_D": 0.8278,
+   "model_path": "v2.1",
+   "broadcast_fill_used": true,
+   "exit": 0,
+   "seconds": 225,
+   "peak_memory_gb": 1.53,
+   "goalkeeper_correction": {
+    "moved_pieces": 292,
+    "moved_frames": 289702,
+    "new_columns": 2,
+    "evidence_frames_per_half_and_goal": [
+     {
+      "defending_id": 0,
+      "other_id": 39658,
+      "other_id_dominant": true
+     },
+     {
+      "defending_id": 0,
+      "other_id": 41230,
+      "other_id_dominant": true
+     },
+     {
+      "defending_id": 0,
+      "other_id": 47054,
+      "other_id_dominant": true
+     },
+     {
+      "defending_id": 0,
+      "other_id": 29541,
+      "other_id_dominant": true
+     }
+    ]
+   }
+  },
+  "bundle_G1_chain_v2_11": {
+   "steps": {
+    "ORTAM": "OK (Linux-6.18.44-fc-v378-x86_64-with-glibc2.39, Python 3.10.20, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)",
+    "DEPO": "ATLANDI (git bilgisi okunamadi)",
+    "SURUM": "OK (possession-v2.11)",
+    "VERI": "OK (taktik VAR, yayin VAR, videolar YOK)",
+    "GIRDI OKUMA": "OK",
+    "URETIM": "OK (possession-v2.11, saatli)",
+    "BICIM": "OK",
+    "MAKULLUK": "OK",
+    "TESLIM": "OK (possession-v2.11, saatli)",
+    "SAAT": "VAR (onceki okuma kullanildi)",
+    "TEMIZ KLON": "ATLANDI",
+    "ORGANIZATOR DOGRULAYICI": "OK",
+    "ACIK PENCERE": "ATLANDI",
+    "BELGE": "OK (Prova.md = teknik belge + calisma kaydi)"
+   },
+   "result_line": "TESLIM HAZIR",
+   "exit": 0,
+   "seconds": 239,
+   "peak_memory_gb": 1.54,
+   "spell_f1": 0.7664,
+   "macro_f1": 0.8727,
+   "lead_in_labels": {
+    "H": 0,
+    "A": 0,
+    "D": 2934,
+    "X": 0
+   }
+  },
+  "bundle_A_chain_reserve_v2_11g": {
+   "steps": {
+    "ORTAM": "OK (Linux-6.18.44-fc-v378-x86_64-with-glibc2.39, Python 3.10.20, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)",
+    "DEPO": "ATLANDI (git bilgisi okunamadi)",
+    "SURUM": "OK (possession-v2.11g)",
+    "VERI": "OK (taktik VAR, yayin VAR, videolar YOK)",
+    "GIRDI OKUMA": "OK",
+    "URETIM": "OK (possession-v2.11g, saatli)",
+    "BICIM": "OK",
+    "MAKULLUK": "OK",
+    "TESLIM": "OK (possession-v2.11g, saatli)",
+    "SAAT": "VAR (onceki okuma kullanildi)",
+    "TEMIZ KLON": "ATLANDI",
+    "ORGANIZATOR DOGRULAYICI": "OK",
+    "ACIK PENCERE": "ATLANDI",
+    "BELGE": "OK (Prova.md = teknik belge + calisma kaydi)"
+   },
+   "result_line": "TESLIM HAZIR",
+   "exit": 0,
+   "seconds": 244,
+   "peak_memory_gb": 1.54,
+   "spell_f1": 0.7594,
+   "macro_f1": 0.8706,
+   "lead_in_labels": {
+    "H": 135,
+    "A": 174,
+    "D": 2625,
+    "X": 0
+   }
+  },
+  "builds": {
+   "G1": {
+    "tracklets": 21142,
+    "duplicated_tracks": 230,
+    "peak_simultaneous_per_team": [
+     13,
+     13
+    ],
+    "mean_tracked_on_graded": 20.5,
+    "ball": {
+     "graded_before": 101582,
+     "other_before": 26257,
+     "graded": 94214,
+     "total": 113488
+    },
+    "tracked_trim": {
+     "before": 21.333,
+     "after": 20.5
+    },
+    "goalkeeper_columns": [
+     0,
+     17,
+     35,
+     49
+    ],
+    "goalkeeper_positions_under_the_other_id": 329107,
+    "share_of_all_player_positions": 0.0914,
+    "goalkeepers": {
+     "game 3 first half, team 0": {
+      "column": 0,
+      "mean_x_m": 96.3,
+      "team_mean_x_m": 58.7
+     },
+     "game 3 first half, team 1": {
+      "column": 17,
+      "mean_x_m": 6.7,
+      "team_mean_x_m": 44.5
+     },
+     "game 2 first half (start), appended, team 0": {
+      "column": 35,
+      "mean_x_m": 89.0,
+      "team_mean_x_m": 52.3
+     },
+     "game 2 first half (start), appended, team 1": {
+      "column": 49,
+      "mean_x_m": 8.5,
+      "team_mean_x_m": 38.3
+     },
+     "game 3 second half, team 0": {
+      "column": 0,
+      "mean_x_m": 12.6,
+      "team_mean_x_m": 49.9
+     },
+     "game 3 second half, team 1": {
+      "column": 17,
+      "mean_x_m": 98.9,
+      "team_mean_x_m": 64.3
+     },
+     "game 2 second half (start), appended, team 0": {
+      "column": 35,
+      "mean_x_m": 10.3,
+      "team_mean_x_m": 41.6
+     },
+     "game 2 second half (start), appended, team 1": {
+      "column": 49,
+      "mean_x_m": 94.5,
+      "team_mean_x_m": 57.7
+     }
+    }
+   },
+   "G2": {
+    "tracklets": 21142,
+    "duplicated_tracks": 230,
+    "peak_simultaneous_per_team": [
+     13,
+     13
+    ],
+    "mean_tracked_on_graded": 20.5,
+    "ball": {
+     "graded_before": 101582,
+     "other_before": 26257,
+     "graded": 94214,
+     "total": 113488
+    },
+    "tracked_trim": {
+     "before": 21.333,
+     "after": 20.5
+    },
+    "goalkeeper_columns": [
+     0,
+     17,
+     35,
+     49
+    ],
+    "goalkeeper_positions_under_the_other_id": 329107,
+    "share_of_all_player_positions": 0.0914,
+    "goalkeepers": {
+     "game 3 first half, team 0": {
+      "column": 0,
+      "mean_x_m": 96.3,
+      "team_mean_x_m": 58.7
+     },
+     "game 3 first half, team 1": {
+      "column": 17,
+      "mean_x_m": 6.7,
+      "team_mean_x_m": 44.5
+     },
+     "game 2 first half (start), appended, team 0": {
+      "column": 35,
+      "mean_x_m": 89.0,
+      "team_mean_x_m": 52.3
+     },
+     "game 2 first half (start), appended, team 1": {
+      "column": 49,
+      "mean_x_m": 8.5,
+      "team_mean_x_m": 38.3
+     },
+     "game 3 second half, team 0": {
+      "column": 0,
+      "mean_x_m": 12.6,
+      "team_mean_x_m": 49.9
+     },
+     "game 3 second half, team 1": {
+      "column": 17,
+      "mean_x_m": 98.9,
+      "team_mean_x_m": 64.3
+     },
+     "game 2 second half (start), appended, team 0": {
+      "column": 35,
+      "mean_x_m": 10.3,
+      "team_mean_x_m": 41.6
+     },
+     "game 2 second half (start), appended, team 1": {
+      "column": 49,
+      "mean_x_m": 94.5,
+      "team_mean_x_m": 57.7
+     }
+    }
+   }
+  }
+ },
+ "provided_fixture_used": false
+}

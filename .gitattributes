@@ -5,3 +5,6 @@ tools/player_dead_ball_selection.py -text
 player-dead-ball-selection-plan.json -text
 *.md text eol=lf
 *.cmd text eol=crlf
+possession/*.py -text
+models/possession-v2.npz binary
+models/possession-v23.npz binary

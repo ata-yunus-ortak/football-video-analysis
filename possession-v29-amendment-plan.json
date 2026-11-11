@@ -1,0 +1,97 @@
+{
+ "plan": "possession-v2.9 validation amendment: replacement of the 8 tactical copies that were not new",
+ "amends": "possession-v29-plan.json (left unchanged; sha256 below)",
+ "registered": "2026-11-11T07:37:45+03:00",
+ "registered_before_any_result_on_the_replacement_copies": true,
+ "reason": [
+  "possession-v29-plan.json registered '16 copies never used before'. That was wrong for 8 of them: the copies with degrade seeds 4100-4131 (v2.1 corruption) are the fresh-confirmation copies of possession v2.6 (possession-v26-plan.json; the v2.4 scores of these copies are identical in possession-v26-results.json and possession-v29-results.json). The error was made by the coding agent when it chose the seeds without checking the earlier plans; it was found in a records audit on 2026-11-11.",
+  "The 8 copies with degrade seeds 4500-4531 (player noise 0.3-0.6 m) had not been used before and stay in the evaluation set."
+ ],
+ "seen_before_this_amendment": {
+  "all_16_as_run": {
+   "good": {
+    "v2_5b": 0.6832,
+    "v2_9": 0.6812
+   },
+   "medium": {
+    "v2_5b": 0.6474,
+    "v2_9": 0.6784
+   },
+   "bad": {
+    "v2_4": 0.6474,
+    "v2_9": 0.6474
+   },
+   "mean_regime_gain": 0.0097,
+   "gates": "all four passed"
+  },
+  "seeds_4500_series_only": {
+   "good": {
+    "v2_5b": 0.6811,
+    "v2_9": 0.6796
+   },
+   "medium": {
+    "v2_5b": 0.6429,
+    "v2_9": 0.677
+   },
+   "bad": {
+    "v2_4": 0.6429,
+    "v2_9": 0.6429
+   }
+  },
+  "seeds_4100_series_only_(reused)": {
+   "good": {
+    "v2_5b": 0.6852,
+    "v2_9": 0.6827
+   },
+   "medium": {
+    "v2_5b": 0.6518,
+    "v2_9": 0.6798
+   },
+   "bad": {
+    "v2_4": 0.6518,
+    "v2_9": 0.6518
+   }
+  },
+  "note": "The agent has seen every row of possession-v29-results.json, including that 13 of 16 good-regime copies were lower with v2.9. Nothing has been computed on the replacement copies."
+ },
+ "replacement": {
+  "tactical_copies": "validation matches J03WN1, J03WR9, MET1, MET2 with the v2.1 corruption (possession.degrade.RANGES), degrade seeds 7100+10*i+j, j=0/1 (8 copies)",
+  "status_of_these_seeds": "Input features of these copies were cached on 2026-11-10 for stage B of the v2.7 and v2.8 plans; stage B was not run for either candidate. The scratch cache holds feature files only for them, and no result or log file mentions them (checked 2026-11-11). No possession output of any system has been scored on them. The four matches themselves are previously accessed validation matches; only the corruption and the streams are new.",
+  "broadcast_streams": "work/synth_broadcast3.simulate_warp with the regime definitions and quality sampling of possession-v29-plan.json; stream seed 59000+100*regime+c, simulated clock seed 69000+100*regime+c, c=2*i+j (seed bases not used before)",
+  "script": "work/exp_v29k.py = work/exp_v29.py with only the seed bases and the output file changed",
+  "models": "the same 4-match validation models (work/cache/models_v2.pkl, stack_v2.pkl)"
+ },
+ "evaluation_set": "per regime: the 8 replacement copies plus the 8 copies with degrade seeds 4500-4531 already in possession-v29-results.json (unchanged) = 16 copies never used before their v2.9 evaluation",
+ "selection_rule": {
+  "gates_unchanged_from_possession-v29-plan.json": [
+   "medium regime: v2.9 >= v2.5b + 0.010",
+   "good regime: v2.9 >= v2.5b - 0.003",
+   "bad regime: v2.9 >= v2.4 - 0.003",
+   "mean over the three regimes: v2.9 >= v2.5b + 0.005"
+  ],
+  "if_all_pass": "possession-v2.9 stays the selected release",
+  "if_any_fails": "possession-v2.9 is withdrawn; the submission system is possession-v2.5c (python -m possession.run25c, possession-v25c-release.json)",
+  "no_relaxation": true,
+  "run_once": true,
+  "no_further_replacement": true
+ },
+ "reported_alongside": [
+  "the original 16-copy result (kept unchanged in possession-v29-results.json)",
+  "the 8 replacement copies alone"
+ ],
+ "limits": "Simulated broadcast streams designed by the same team; previously accessed matches; the amendment was written after the original v2.9 results were known, so it can only confirm or withdraw the selection. Not a competition score.",
+ "sha256": {
+  "possession-v29-plan.json": "ef72cd8fb177edab1ea789eb5978ff2e4fbb06021053a2eb7e52437ed848c7ff",
+  "possession-v29-results.json_before_amendment": "841765881de12a91ee6cef20f55624087991cf54ad8768adc99feff53177188f",
+  "possession/register.py": "2601c559070dea1dfb14cc6ec9cf7e78aed7978d0605de6a5c884082656a72a4",
+  "possession/fusion.py": "4c093ff7e884d66391858fec73cc6ea6fdf8ac941f96aa3a5bbe83c4714d6355",
+  "work/exp_v29k.py": "c7d694142db9f140ed521cec4befdec186ae51ac3e0c253367069b2bf520e93b",
+  "work/exp_v29.py": "e189a1d4ac5dde1af3ccf4b4c108a97e2b7c11763a632471ad679bcad02de59e",
+  "work/synth_broadcast3.py": "c4aa872aacb6f7274167055fe1a4bc4f5984094dad8b61c8439ab9ffabe0836c",
+  "work/synth_clock.py": "d58859906fd10bda6cda0a9f549c46e439f75989d923f7c99cc4ac7e54a349a5",
+  "work/exp_v25.py": "f986bf80b4653709ac3497be1be479043552573dfa2f1b0a7aba28fedb2c9aa8",
+  "work/cache/models_v2.pkl": "414028ac4e2f901cdd80e206ba297d8ecb532ef62881dbc858535d9bb5c97173",
+  "work/cache/stack_v2.pkl": "b87360597c89e2b6a339096184974ee403b80f2f4a3c3bbcd216659c08a722c8"
+ },
+ "provided_fixture_used": false
+}

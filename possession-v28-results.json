@@ -1,0 +1,152 @@
+{
+ "version": "possession-v2.8-results",
+ "written_at": "2026-11-11T01:00:19+03:00",
+ "provided_fixture_used": false,
+ "plan_sha256": "20424b58b0e37fc144412a3a9b3c7af9bb34712c84f73ce833bb932260ca0834",
+ "stage_A_development": {
+  "copies": "old validation copies (seeds 101/102)",
+  "decoder": "switch 3, out/in 60, dead bias -0.3 (v2.1, fixed)",
+  "held_out_metrica_mean_v2_8": 0.6172,
+  "held_out_metrica_mean_baseline": 0.6158,
+  "difference": 0.0014,
+  "dfl_mean": {
+   "variant_A": 0.6325,
+   "variant_B": 0.6357,
+   "baseline": 0.6466
+  },
+  "per_copy": {
+   "variant_A_(4 DFL + Metrica 1)": {
+    "MET2:101": {
+     "spell": 0.5726844583987442,
+     "macro": 0.7878675714077176,
+     "n_pred": 273,
+     "n_gt": 364
+    },
+    "MET2:102": {
+     "spell": 0.640247678018576,
+     "macro": 0.8312504232083097,
+     "n_pred": 282,
+     "n_gt": 364
+    },
+    "J03WN1:101": {
+     "spell": 0.5419203747072598,
+     "macro": 0.8665658737230331,
+     "n_pred": 354,
+     "n_gt": 500
+    },
+    "J03WN1:102": {
+     "spell": 0.6507394766780432,
+     "macro": 0.9101023892021339,
+     "n_pred": 379,
+     "n_gt": 500
+    },
+    "J03WR9:101": {
+     "spell": 0.6537313432835822,
+     "macro": 0.9202439974017427,
+     "n_pred": 300,
+     "n_gt": 370
+    },
+    "J03WR9:102": {
+     "spell": 0.6836041358936484,
+     "macro": 0.9272989941595077,
+     "n_pred": 307,
+     "n_gt": 370
+    }
+   },
+   "variant_B_(4 DFL + Metrica 2)": {
+    "MET1:101": {
+     "spell": 0.5867469879518072,
+     "macro": 0.8287018119020052,
+     "n_pred": 285,
+     "n_gt": 379
+    },
+    "MET1:102": {
+     "spell": 0.6690582959641256,
+     "macro": 0.8561083908937829,
+     "n_pred": 290,
+     "n_gt": 379
+    },
+    "J03WN1:101": {
+     "spell": 0.5491606714628298,
+     "macro": 0.8697631815927386,
+     "n_pred": 334,
+     "n_gt": 500
+    },
+    "J03WN1:102": {
+     "spell": 0.643857634902411,
+     "macro": 0.9095812921950719,
+     "n_pred": 371,
+     "n_gt": 500
+    },
+    "J03WR9:101": {
+     "spell": 0.6629969418960244,
+     "macro": 0.9120232104912919,
+     "n_pred": 284,
+     "n_gt": 370
+    },
+    "J03WR9:102": {
+     "spell": 0.6868924889543446,
+     "macro": 0.9328926786197725,
+     "n_pred": 309,
+     "n_gt": 370
+    }
+   },
+   "baseline_v2_1_validation_models": {
+    "MET2:101": {
+     "spell": 0.5901116427432218,
+     "macro": 0.7802640520282766,
+     "n_pred": 263,
+     "n_gt": 364
+    },
+    "MET2:102": {
+     "spell": 0.6128325508607199,
+     "macro": 0.8101017587036727,
+     "n_pred": 275,
+     "n_gt": 364
+    },
+    "MET1:101": {
+     "spell": 0.6045662100456621,
+     "macro": 0.8135452709309412,
+     "n_pred": 278,
+     "n_gt": 379
+    },
+    "MET1:102": {
+     "spell": 0.6555223880597014,
+     "macro": 0.8343675149046249,
+     "n_pred": 291,
+     "n_gt": 379
+    },
+    "J03WN1:101": {
+     "spell": 0.5749707602339181,
+     "macro": 0.8833022060134298,
+     "n_pred": 355,
+     "n_gt": 500
+    },
+    "J03WN1:102": {
+     "spell": 0.6475972540045766,
+     "macro": 0.9120316253304718,
+     "n_pred": 374,
+     "n_gt": 500
+    },
+    "J03WR9:101": {
+     "spell": 0.6696696696696697,
+     "macro": 0.9183110727782496,
+     "n_pred": 296,
+     "n_gt": 370
+    },
+    "J03WR9:102": {
+     "spell": 0.6943620178041543,
+     "macro": 0.9340521580216804,
+     "n_pred": 304,
+     "n_gt": 370
+    }
+   }
+  },
+  "gate": "held-out Metrica mean >= baseline + 0.005",
+  "passed": false
+ },
+ "stages_B_C": "not run (stage A gate failed); fresh copies 7100-7131 and 7330-7531 were not scored with v2.8 models",
+ "decision": "NOT_SELECTED",
+ "interpretation": "Adding one Metrica-labelled match to four DFL matches did not transfer to the other Metrica match (+0.001) and lowered agreement with DFL labels by 0.011-0.014. The two Metrica games' proxy labels are not closer to each other, through this model, than DFL labels are to them; one extra match is also little data. Not a competition score.",
+ "release_unchanged": "possession-v2.5b models; no Metrica-trained trees are published"
+}

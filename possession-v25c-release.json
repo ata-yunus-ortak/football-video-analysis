@@ -1,0 +1,12 @@
+{
+  "version": "possession-v2.5c",
+  "frozen_at": "2026-11-11T00:13:53+03:00",
+  "entry_point": "python -m possession.run25c",
+  "change": "second-half play block starts at the kick-off frame 113742 published in the organisers' FAQ.md (frames 110808-113741 are graded and stated to be all D); otherwise identical to possession-v2.5b",
+  "evidence": "organiser statement only; not measurable on external matches (their tracking starts at the kick-off); not derived from the provided video, ground truth or public window",
+  "base_release": "possession-v25-release.json",
+  "base_release_sha256": "bd26be1485ee185aa3cc06cee154e167b218a7ae1355d944441eeac0def057d7",
+  "source_sha256": {
+    "run25c.py": "c3ac6d4eb8aee8c3037b2519a17a607be43a607745cba7e31b597d38207df3c9"
+  }
+}

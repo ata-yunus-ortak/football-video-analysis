@@ -6,6 +6,7 @@ __pycache__/
 .venv/
 .venv-vision/
 .venv-sync/
+.venv-possession/
 venv/
 viewer-local.cmd
 viewer-local.json
@@ -38,3 +39,8 @@ prepared/
 *.key
 *.jpg
 *.png
+
+# Possession model bundles (v2.1, and the v2.3 path of v2.4): trees trained on EXTERNAL data only (DFL/Sportec CC-BY 4.0), no match data
+!models/
+!models/possession-v2.npz
+!models/possession-v23.npz

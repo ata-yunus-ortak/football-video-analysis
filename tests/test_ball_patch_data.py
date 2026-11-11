@@ -2,11 +2,15 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from PIL import Image
+try:
+    from PIL import Image
+except ImportError:  # Pillow is part of the optional vision extras (requirements-vision*.txt), not of CI
+    Image = None
 from tools.ball_patch_data import run
 from tools.metrica_data import sha256
 
 
+@unittest.skipIf(Image is None, 'Pillow (optional vision extras) not installed')
 class PatchDataTests(unittest.TestCase):
     def test_grid_is_reference_independent_and_recheck_not_exported(self):
         with tempfile.TemporaryDirectory() as tmp:

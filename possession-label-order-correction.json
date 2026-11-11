@@ -1,0 +1,1399 @@
+{
+ "record": "K005: order of simultaneous events in the Metrica proxy labels (records correction; no selection affected)",
+ "written_at": "2026-11-11T17:31:43+03:00",
+ "finding": "Three reporting-only records were scored against Metrica proxy labels that had lost about half of their dead-ball intervals: the full-size rehearsal of K003 (bundles A and B), the slot / duplicate diagnostic of K003 and the goalkeeper diagnostic that motivated K004. They had been run in the Python 3.10 environment of the release (pandas 2.1.4, numpy 1.26.4); every selection, gate, validation and reserved test ran in the experiment environment (Python 3.13, pandas 3.0.5, numpy 2.5.3), where the labels are as intended.",
+ "how_it_was_found": "In the full-size rehearsal of possession-v2.11 (K004) the bundle with exchanged goalkeeper ids, built in the experiment environment, scored higher than bundle A of K003, although both have the same content. Their label files differed in 17,448 frames, all of them H or A in bundle A and D in the new bundle.",
+ "cause": "experiments/possession_v2/metrica_labels.labels_from_events sorted the events by 'Start Frame' with the default sort, which is not stable. In the provider's files a SET PIECE and the PASS that takes it share a start frame, and the dead-ball interval before a restart is recorded only if the SET PIECE row stays first, as in the file. Under pandas 3.0.5 / numpy 2.5.3 the default sort keeps the file order of these ties (identical to a stable sort on all three games); under pandas 2.1.4 / numpy 1.26.4 it does not.",
+ "label_facts": {
+  "python_3_10_release_environment": {
+   "environment": {
+    "python": "3.10.20",
+    "pandas": "2.1.4",
+    "numpy": "1.26.4"
+   },
+   "games": {
+    "MET1": {
+     "events": 1745,
+     "events_that_share_a_start_frame": 622,
+     "quicksort": {
+      "counts": {
+       "H": 58015,
+       "A": 53680,
+       "D": 33311,
+       "X": 0
+      },
+      "sha256": "57dd4447cc658598cebacf581d5554dd3168cf10a6e0c8fc110ace5be0add165",
+      "possessions_on_play_blocks": 369
+     },
+     "stable": {
+      "counts": {
+       "H": 50608,
+       "A": 46793,
+       "D": 47605,
+       "X": 0
+      },
+      "sha256": "eb454fdc2ba9a5e9d3bad02940e19d357c0aeb8b225a3373671a9052611dab68",
+      "possessions_on_play_blocks": 379
+     },
+     "frames_that_differ": 14294
+    },
+    "MET2": {
+     "events": 1935,
+     "events_that_share_a_start_frame": 701,
+     "quicksort": {
+      "counts": {
+       "H": 59820,
+       "A": 55619,
+       "D": 25667,
+       "X": 50
+      },
+      "sha256": "2701b7ddfcebfb51c5858f4e147c5d0c30f23b0f5e9e12ae314e89a48a7dceab",
+      "possessions_on_play_blocks": 356
+     },
+     "stable": {
+      "counts": {
+       "H": 52020,
+       "A": 49155,
+       "D": 39931,
+       "X": 50
+      },
+      "sha256": "64b0d1013aa630e81e0d63654f7d53750c4a64d9d3c15d79f0a067ed1ea8dc84",
+      "possessions_on_play_blocks": 364
+     },
+     "frames_that_differ": 14264
+    },
+    "MET3": {
+     "events": 3620,
+     "events_that_share_a_start_frame": 1894,
+     "quicksort": {
+      "counts": {
+       "H": 63872,
+       "A": 62220,
+       "D": 17309,
+       "X": 360
+      },
+      "sha256": "1b34f5d0bd2e1668aded78a22c87bb431c8ba4b08c17a3912550729d4cdf2628",
+      "possessions_on_play_blocks": 397
+     },
+     "stable": {
+      "counts": {
+       "H": 57773,
+       "A": 51538,
+       "D": 34090,
+       "X": 360
+      },
+      "sha256": "ebef857ef609975654a87160dcde5e92b4907674ad21e8a5a291b476815357f4",
+      "possessions_on_play_blocks": 404
+     },
+     "frames_that_differ": 16781
+    }
+   }
+  },
+  "python_3_13_experiment_environment": {
+   "environment": {
+    "python": "3.13.18",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3"
+   },
+   "games": {
+    "MET1": {
+     "events": 1745,
+     "events_that_share_a_start_frame": 622,
+     "quicksort": {
+      "counts": {
+       "H": 50608,
+       "A": 46793,
+       "D": 47605,
+       "X": 0
+      },
+      "sha256": "eb454fdc2ba9a5e9d3bad02940e19d357c0aeb8b225a3373671a9052611dab68",
+      "possessions_on_play_blocks": 379
+     },
+     "stable": {
+      "counts": {
+       "H": 50608,
+       "A": 46793,
+       "D": 47605,
+       "X": 0
+      },
+      "sha256": "eb454fdc2ba9a5e9d3bad02940e19d357c0aeb8b225a3373671a9052611dab68",
+      "possessions_on_play_blocks": 379
+     },
+     "frames_that_differ": 0
+    },
+    "MET2": {
+     "events": 1935,
+     "events_that_share_a_start_frame": 701,
+     "quicksort": {
+      "counts": {
+       "H": 52020,
+       "A": 49155,
+       "D": 39931,
+       "X": 50
+      },
+      "sha256": "64b0d1013aa630e81e0d63654f7d53750c4a64d9d3c15d79f0a067ed1ea8dc84",
+      "possessions_on_play_blocks": 364
+     },
+     "stable": {
+      "counts": {
+       "H": 52020,
+       "A": 49155,
+       "D": 39931,
+       "X": 50
+      },
+      "sha256": "64b0d1013aa630e81e0d63654f7d53750c4a64d9d3c15d79f0a067ed1ea8dc84",
+      "possessions_on_play_blocks": 364
+     },
+     "frames_that_differ": 0
+    },
+    "MET3": {
+     "events": 3620,
+     "events_that_share_a_start_frame": 1894,
+     "quicksort": {
+      "counts": {
+       "H": 57773,
+       "A": 51538,
+       "D": 34090,
+       "X": 360
+      },
+      "sha256": "ebef857ef609975654a87160dcde5e92b4907674ad21e8a5a291b476815357f4",
+      "possessions_on_play_blocks": 404
+     },
+     "stable": {
+      "counts": {
+       "H": 57773,
+       "A": 51538,
+       "D": 34090,
+       "X": 360
+      },
+      "sha256": "ebef857ef609975654a87160dcde5e92b4907674ad21e8a5a291b476815357f4",
+      "possessions_on_play_blocks": 404
+     },
+     "frames_that_differ": 0
+    }
+   }
+  }
+ },
+ "not_affected": {
+  "statement": "possession-v2.1 to possession-v2.11: every plan, gate, validation row and reserved test. No model was trained on Metrica labels.",
+  "evidence": [
+   {
+    "what": "the possession counts stored with the first validation and reserved test (possession-v2-results.json) are those of the file-order labels",
+    "stored": {
+     "validation mean over the four validation matches": 403.25,
+     "reserved Metrica game 3": 404
+    },
+    "file_order_labels": {
+     "MET1": 379,
+     "MET2": 364,
+     "MET3": 404,
+     "J03WN1": 500,
+     "J03WR9": 370,
+     "mean of the four validation matches": 403.25
+    },
+    "labels_of_the_python_3_10_environment": {
+     "MET1": 369,
+     "MET2": 356,
+     "MET3": 397,
+     "mean of the four validation matches": 398.75
+    }
+   },
+   {
+    "what": "the validation models (work/cache/models_v2*.pkl, stack_v2*.pkl) are scikit-learn objects; scikit-learn is installed only in the experiment environment, so no validation since possession-v2.2 can have run in the Python 3.10 environment"
+   },
+   {
+    "what": "macroF1 of the Metrica rows in every results file with such rows (v2.1, v2.5, v2.5b, v2.6, v2.9 and its amendment, v2.10, v2.11) is 0.78-0.85 where the system is not deliberately broken; against the degraded labels the same system gets about 0.70-0.75 (rows of the slot diagnostic in possession-rehearsal-results.json)"
+   },
+   {
+    "what": "the two validations of 11 November (exp_v210.py, exp_v211.py) were started with /usr/bin/python3 (Python 3.13); the reserved Metrica game 3 test of possession-v2.4 repeats the stored v2.1 numbers of the same copies to four decimals"
+   }
+  ]
+ },
+ "affected_records": [
+  "possession-rehearsal-results.json: rehearsal scores of bundles A and B against the external labels, organisers' scorer cross-check, negative controls, slot / duplicate diagnostic",
+  "possession-v210-plan.json: field diagnostic_spell_f1 (the goalkeeper diagnostic quoted as motivation; not a gate)",
+  "documents that quoted those numbers before this correction (technical documents, team guide, CLAUDE.md, log entry K003)"
+ ],
+ "corrected": {
+  "full_size_rehearsal_of_K003": {
+   "labels": {
+    "file_order_sha256": "37a2c958f13b5e6ad6d306b8c1140c992432bcc3d20a3ade5af9e42824ac8a1c",
+    "file_order_counts_on_graded_frames": {
+     "H": 63974,
+     "A": 56015,
+     "D": 38458,
+     "X": 410
+    }
+   },
+   "bundle A": {
+    "labels_used_in_K003": {
+     "counts_on_graded_frames": {
+      "H": 70509,
+      "A": 66928,
+      "D": 21010,
+      "X": 410
+     },
+     "frames_that_differ_from_file_order": 17448
+    },
+    "delivered file of the K003 chain (possession-v2.9)": {
+     "as_recorded_in_K003": {
+      "spell_f1_mean": 0.7151,
+      "macro_f1": 0.737,
+      "f1_D": 0.5438,
+      "gt_spells": 428,
+      "pred_spells": 378
+     },
+     "against_file_order_labels": {
+      "spell_f1_mean": 0.7631,
+      "macro_f1": 0.8728,
+      "f1_H": 0.8777,
+      "f1_A": 0.9139,
+      "f1_D": 0.8268,
+      "gt_spells": 435,
+      "pred_spells": 378
+     }
+    },
+    "in-memory reference (r1)": {
+     "as_recorded_in_K003": {
+      "spell_f1_mean": 0.6955,
+      "macro_f1": 0.7338,
+      "f1_D": 0.5433,
+      "gt_spells": 428,
+      "pred_spells": 368
+     },
+     "against_file_order_labels": {
+      "spell_f1_mean": 0.7442,
+      "macro_f1": 0.8694,
+      "f1_H": 0.8731,
+      "f1_A": 0.9093,
+      "f1_D": 0.8259,
+      "gt_spells": 435,
+      "pred_spells": 368
+     }
+    },
+    "tactical camera only (r3, possession.run25c)": {
+     "as_recorded_in_K003": {
+      "spell_f1_mean": 0.6953,
+      "macro_f1": 0.7343,
+      "f1_D": 0.544,
+      "gt_spells": 428,
+      "pred_spells": 367
+     },
+     "against_file_order_labels": {
+      "spell_f1_mean": 0.7441,
+      "macro_f1": 0.87,
+      "f1_H": 0.8729,
+      "f1_A": 0.9103,
+      "f1_D": 0.8268,
+      "gt_spells": 435,
+      "pred_spells": 367
+     }
+    },
+    "reserve chain of K003 (possession-v2.9g)": {
+     "as_recorded_in_K003": {
+      "spell_f1_mean": 0.7107,
+      "macro_f1": 0.7341,
+      "f1_D": 0.5373,
+      "gt_spells": 428,
+      "pred_spells": 383
+     },
+     "against_file_order_labels": {
+      "spell_f1_mean": 0.7584,
+      "macro_f1": 0.8706,
+      "f1_H": 0.8767,
+      "f1_A": 0.9124,
+      "f1_D": 0.8226,
+      "gt_spells": 435,
+      "pred_spells": 383
+     }
+    },
+    "organisers_scorer_against_file_order_labels": {
+     "spell_f1_mean": 0.7630996309963101,
+     "macro_f1": 0.8727788337881058,
+     "n_graded": 158447,
+     "n_gt_spells": 435,
+     "n_pred_spells": 378
+    },
+    "organisers_scoreboard_line": [
+     "1",
+     "Prova",
+     "scored",
+     "",
+     "0.872779",
+     "0.763100"
+    ]
+   },
+   "bundle B": {
+    "labels_used_in_K003": {
+     "counts_on_graded_frames": {
+      "H": 70509,
+      "A": 66928,
+      "D": 21010,
+      "X": 410
+     },
+     "frames_that_differ_from_file_order": 17448
+    },
+    "delivered file of the K003 chain (possession-v2.9)": {
+     "as_recorded_in_K003": {
+      "spell_f1_mean": 0.6861,
+      "macro_f1": 0.7278,
+      "f1_D": 0.538,
+      "gt_spells": 428,
+      "pred_spells": 362
+     },
+     "against_file_order_labels": {
+      "spell_f1_mean": 0.7322,
+      "macro_f1": 0.8623,
+      "f1_H": 0.867,
+      "f1_A": 0.9001,
+      "f1_D": 0.8198,
+      "gt_spells": 435,
+      "pred_spells": 362
+     }
+    },
+    "in-memory reference (r1)": {
+     "as_recorded_in_K003": {
+      "spell_f1_mean": 0.6634,
+      "macro_f1": 0.7262,
+      "f1_D": 0.5417,
+      "gt_spells": 428,
+      "pred_spells": 354
+     },
+     "against_file_order_labels": {
+      "spell_f1_mean": 0.7093,
+      "macro_f1": 0.8585,
+      "f1_H": 0.8611,
+      "f1_A": 0.8974,
+      "f1_D": 0.8169,
+      "gt_spells": 435,
+      "pred_spells": 354
+     }
+    },
+    "tactical camera only (r3, possession.run25c)": {
+     "as_recorded_in_K003": {
+      "spell_f1_mean": 0.6641,
+      "macro_f1": 0.7262,
+      "f1_D": 0.5418,
+      "gt_spells": 428,
+      "pred_spells": 352
+     },
+     "against_file_order_labels": {
+      "spell_f1_mean": 0.71,
+      "macro_f1": 0.8583,
+      "f1_H": 0.861,
+      "f1_A": 0.8972,
+      "f1_D": 0.8167,
+      "gt_spells": 435,
+      "pred_spells": 352
+     }
+    },
+    "organisers_scorer_against_file_order_labels": {
+     "spell_f1_mean": 0.7322459222082812,
+     "macro_f1": 0.8623260091731169,
+     "n_graded": 158447,
+     "n_gt_spells": 435,
+     "n_pred_spells": 362
+    },
+    "organisers_scoreboard_line": [
+     "1",
+     "Prova",
+     "scored",
+     "",
+     "0.862326",
+     "0.732246"
+    ]
+   },
+   "negative_controls_bundle_A_against_file_order_labels": {
+    "as delivered": {
+     "spell_f1": 0.7631,
+     "macro_f1": 0.8728
+    },
+    "teams exchanged": {
+     "spell_f1": 0.0074,
+     "macro_f1": 0.3021
+    },
+    "rows shifted by +1 frames": {
+     "spell_f1": 0.7606,
+     "macro_f1": 0.8715
+    },
+    "rows shifted by +25 frames": {
+     "spell_f1": 0.5707,
+     "macro_f1": 0.8243
+    },
+    "rows shifted by +125 frames": {
+     "spell_f1": 0.2458,
+     "macro_f1": 0.6601
+    },
+    "rows shifted by -25 frames": {
+     "spell_f1": 0.5732,
+     "macro_f1": 0.8276
+    },
+    "rows shifted by -125 frames": {
+     "spell_f1": 0.2381,
+     "macro_f1": 0.6519
+    }
+   }
+  },
+  "slot_and_duplicate_diagnostic": {
+   "first_run_python_3_10": {
+    "spell_f1": {
+     "base": {
+      "MET1": 0.6583,
+      "MET2": 0.5846,
+      "MET3": 0.6652
+     },
+     "sticky": {
+      "MET1": 0.6583,
+      "MET2": 0.5846,
+      "MET3": 0.6652
+     },
+     "lru": {
+      "MET1": 0.6531,
+      "MET2": 0.5846,
+      "MET3": 0.6636
+     },
+     "swap": {
+      "MET1": 0.6578,
+      "MET2": 0.5834,
+      "MET3": 0.6659
+     },
+     "dup1": {
+      "MET1": 0.6554,
+      "MET2": 0.5846,
+      "MET3": 0.6681
+     },
+     "dup5": {
+      "MET1": 0.6515,
+      "MET2": 0.581,
+      "MET3": 0.6683
+     }
+    },
+    "mean_spell_f1": {
+     "base": 0.636,
+     "sticky": 0.636,
+     "lru": 0.6338,
+     "swap": 0.6357,
+     "dup1": 0.636,
+     "dup5": 0.6336
+    },
+    "difference_to_base": {
+     "sticky": 0.0,
+     "lru": -0.0022,
+     "swap": -0.0003,
+     "dup1": 0.0,
+     "dup5": -0.0024
+    }
+   },
+   "rerun_python_3_13_file_order_labels": {
+    "spell_f1": {
+     "base": {
+      "MET1": 0.7096,
+      "MET2": 0.6272,
+      "MET3": 0.7167
+     },
+     "sticky": {
+      "MET1": 0.7096,
+      "MET2": 0.6272,
+      "MET3": 0.7167
+     },
+     "lru": {
+      "MET1": 0.705,
+      "MET2": 0.6271,
+      "MET3": 0.7151
+     },
+     "swap": {
+      "MET1": 0.7096,
+      "MET2": 0.6259,
+      "MET3": 0.7175
+     },
+     "dup1": {
+      "MET1": 0.7073,
+      "MET2": 0.6272,
+      "MET3": 0.7197
+     },
+     "dup5": {
+      "MET1": 0.7036,
+      "MET2": 0.6252,
+      "MET3": 0.7185
+     }
+    },
+    "mean_spell_f1": {
+     "base": 0.6845,
+     "sticky": 0.6845,
+     "lru": 0.6824,
+     "swap": 0.6843,
+     "dup1": 0.6847,
+     "dup5": 0.6824
+    },
+    "difference_to_base": {
+     "sticky": 0.0,
+     "lru": -0.0021,
+     "swap": -0.0002,
+     "dup1": 0.0002,
+     "dup5": -0.0021
+    },
+    "difference_to_base_per_match": {
+     "sticky": {
+      "MET1": 0.0,
+      "MET2": 0.0,
+      "MET3": 0.0
+     },
+     "lru": {
+      "MET1": -0.0046,
+      "MET2": -0.0001,
+      "MET3": -0.0016
+     },
+     "swap": {
+      "MET1": 0.0,
+      "MET2": -0.0013,
+      "MET3": 0.0008
+     },
+     "dup1": {
+      "MET1": -0.0023,
+      "MET2": 0.0,
+      "MET3": 0.003
+     },
+     "dup5": {
+      "MET1": -0.006,
+      "MET2": -0.002,
+      "MET3": 0.0018
+     }
+    },
+    "macro_f1_base": {
+     "MET1": 0.8352,
+     "MET2": 0.8014,
+     "MET3": 0.8623
+    }
+   },
+   "rows": [
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "base",
+     "path": "v2.1",
+     "spell_f1": 0.7096,
+     "macro_f1": 0.8352,
+     "slots": 119,
+     "tracklets": 20408,
+     "seconds": 93
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "sticky",
+     "path": "v2.1",
+     "spell_f1": 0.7096,
+     "macro_f1": 0.8352,
+     "slots": 46,
+     "tracklets": 20408,
+     "seconds": 79,
+     "peak_simultaneous_per_team": [
+      12,
+      12
+     ]
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "lru",
+     "path": "v2.1",
+     "spell_f1": 0.705,
+     "macro_f1": 0.835,
+     "slots": 46,
+     "tracklets": 20408,
+     "seconds": 63,
+     "peak_simultaneous_per_team": [
+      12,
+      12
+     ]
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "swap",
+     "path": "v2.1",
+     "spell_f1": 0.7096,
+     "macro_f1": 0.8351,
+     "slots": 46,
+     "tracklets": 20408,
+     "seconds": 62,
+     "peak_simultaneous_per_team": [
+      12,
+      12
+     ]
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "dup1",
+     "path": "v2.1",
+     "spell_f1": 0.7073,
+     "macro_f1": 0.8353,
+     "slots": 60,
+     "tracklets": 20408,
+     "seconds": 76,
+     "duplicated_tracks": 186,
+     "duplicated_share_of_tracked_positions": 0.0066
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "dup5",
+     "path": "v2.1",
+     "spell_f1": 0.7036,
+     "macro_f1": 0.8348,
+     "slots": 60,
+     "tracklets": 20408,
+     "seconds": 72,
+     "duplicated_tracks": 860,
+     "duplicated_share_of_tracked_positions": 0.0301
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "base",
+     "path": "v2.1",
+     "spell_f1": 0.6272,
+     "macro_f1": 0.8014,
+     "slots": 128,
+     "tracklets": 27011,
+     "seconds": 92
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "sticky",
+     "path": "v2.1",
+     "spell_f1": 0.6272,
+     "macro_f1": 0.8014,
+     "slots": 46,
+     "tracklets": 27011,
+     "seconds": 70,
+     "peak_simultaneous_per_team": [
+      13,
+      12
+     ]
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "lru",
+     "path": "v2.1",
+     "spell_f1": 0.6271,
+     "macro_f1": 0.8016,
+     "slots": 46,
+     "tracklets": 27011,
+     "seconds": 70,
+     "peak_simultaneous_per_team": [
+      13,
+      12
+     ]
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "swap",
+     "path": "v2.1",
+     "spell_f1": 0.6259,
+     "macro_f1": 0.8011,
+     "slots": 46,
+     "tracklets": 27011,
+     "seconds": 70,
+     "peak_simultaneous_per_team": [
+      13,
+      12
+     ]
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "dup1",
+     "path": "v2.1",
+     "spell_f1": 0.6272,
+     "macro_f1": 0.8014,
+     "slots": 60,
+     "tracklets": 27011,
+     "seconds": 71,
+     "duplicated_tracks": 186,
+     "duplicated_share_of_tracked_positions": 0.0061
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "dup5",
+     "path": "v2.1",
+     "spell_f1": 0.6252,
+     "macro_f1": 0.8008,
+     "slots": 60,
+     "tracklets": 27011,
+     "seconds": 75,
+     "duplicated_tracks": 819,
+     "duplicated_share_of_tracked_positions": 0.0271
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "base",
+     "path": "v2.1",
+     "spell_f1": 0.7167,
+     "macro_f1": 0.8623,
+     "slots": 151,
+     "tracklets": 17085,
+     "seconds": 93
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "sticky",
+     "path": "v2.1",
+     "spell_f1": 0.7167,
+     "macro_f1": 0.8623,
+     "slots": 46,
+     "tracklets": 17085,
+     "seconds": 65,
+     "peak_simultaneous_per_team": [
+      12,
+      12
+     ]
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "lru",
+     "path": "v2.1",
+     "spell_f1": 0.7151,
+     "macro_f1": 0.8615,
+     "slots": 46,
+     "tracklets": 17085,
+     "seconds": 64,
+     "peak_simultaneous_per_team": [
+      12,
+      12
+     ]
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "swap",
+     "path": "v2.1",
+     "spell_f1": 0.7175,
+     "macro_f1": 0.8616,
+     "slots": 46,
+     "tracklets": 17085,
+     "seconds": 78,
+     "peak_simultaneous_per_team": [
+      12,
+      12
+     ]
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "dup1",
+     "path": "v2.1",
+     "spell_f1": 0.7197,
+     "macro_f1": 0.8625,
+     "slots": 60,
+     "tracklets": 17085,
+     "seconds": 72,
+     "duplicated_tracks": 166,
+     "duplicated_share_of_tracked_positions": 0.0057
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "dup5",
+     "path": "v2.1",
+     "spell_f1": 0.7185,
+     "macro_f1": 0.8621,
+     "slots": 60,
+     "tracklets": 17085,
+     "seconds": 71,
+     "duplicated_tracks": 860,
+     "duplicated_share_of_tracked_positions": 0.0292
+    }
+   ]
+  },
+  "goalkeeper_diagnostic": {
+   "first_run_python_3_10": {
+    "spell_f1": {
+     "base": {
+      "MET1": 0.6583,
+      "MET2": 0.5846,
+      "MET3": 0.6652
+     },
+     "gk_one": {
+      "MET1": 0.6232,
+      "MET2": 0.5719,
+      "MET3": 0.6491
+     },
+     "gk_both": {
+      "MET1": 0.3256,
+      "MET2": 0.3046,
+      "MET3": 0.3737
+     },
+     "gk_part": {
+      "MET1": 0.6517,
+      "MET2": 0.5729,
+      "MET3": 0.6503
+     },
+     "ref_home": {
+      "MET1": 0.6508,
+      "MET2": 0.5704,
+      "MET3": 0.6789
+     },
+     "ref_mixed": {
+      "MET1": 0.6544,
+      "MET2": 0.5882,
+      "MET3": 0.6645
+     }
+    },
+    "mean_spell_f1": {
+     "base": 0.636,
+     "gk_one": 0.6147,
+     "gk_both": 0.3346,
+     "gk_part": 0.625,
+     "ref_home": 0.6334,
+     "ref_mixed": 0.6357
+    },
+    "difference_to_base": {
+     "gk_one": -0.0213,
+     "gk_both": -0.3014,
+     "gk_part": -0.011,
+     "ref_home": -0.0026,
+     "ref_mixed": -0.0003
+    },
+    "difference_to_base_per_match": {
+     "gk_one": {
+      "MET1": -0.0351,
+      "MET2": -0.0127,
+      "MET3": -0.0161
+     },
+     "gk_both": {
+      "MET1": -0.3327,
+      "MET2": -0.28,
+      "MET3": -0.2915
+     },
+     "gk_part": {
+      "MET1": -0.0066,
+      "MET2": -0.0117,
+      "MET3": -0.0149
+     },
+     "ref_home": {
+      "MET1": -0.0075,
+      "MET2": -0.0142,
+      "MET3": 0.0137
+     },
+     "ref_mixed": {
+      "MET1": -0.0039,
+      "MET2": 0.0036,
+      "MET3": -0.0007
+     }
+    },
+    "macro_f1_base": {
+     "MET1": 0.7467,
+     "MET2": 0.6972,
+     "MET3": 0.7177
+    }
+   },
+   "rerun_python_3_13_file_order_labels": {
+    "spell_f1": {
+     "base": {
+      "MET1": 0.7096,
+      "MET2": 0.6272,
+      "MET3": 0.7167
+     },
+     "gk_one": {
+      "MET1": 0.6765,
+      "MET2": 0.6048,
+      "MET3": 0.7032
+     },
+     "gk_both": {
+      "MET1": 0.3555,
+      "MET2": 0.3245,
+      "MET3": 0.4214
+     },
+     "gk_part": {
+      "MET1": 0.7026,
+      "MET2": 0.61,
+      "MET3": 0.6999
+     },
+     "ref_home": {
+      "MET1": 0.7027,
+      "MET2": 0.6091,
+      "MET3": 0.7293
+     },
+     "ref_mixed": {
+      "MET1": 0.7056,
+      "MET2": 0.6282,
+      "MET3": 0.7144
+     }
+    },
+    "mean_spell_f1": {
+     "base": 0.6845,
+     "gk_one": 0.6615,
+     "gk_both": 0.3671,
+     "gk_part": 0.6708,
+     "ref_home": 0.6804,
+     "ref_mixed": 0.6827
+    },
+    "difference_to_base": {
+     "gk_one": -0.023,
+     "gk_both": -0.3174,
+     "gk_part": -0.0137,
+     "ref_home": -0.0041,
+     "ref_mixed": -0.0018
+    },
+    "difference_to_base_per_match": {
+     "gk_one": {
+      "MET1": -0.0331,
+      "MET2": -0.0224,
+      "MET3": -0.0135
+     },
+     "gk_both": {
+      "MET1": -0.3541,
+      "MET2": -0.3027,
+      "MET3": -0.2953
+     },
+     "gk_part": {
+      "MET1": -0.007,
+      "MET2": -0.0172,
+      "MET3": -0.0168
+     },
+     "ref_home": {
+      "MET1": -0.0069,
+      "MET2": -0.0181,
+      "MET3": 0.0126
+     },
+     "ref_mixed": {
+      "MET1": -0.004,
+      "MET2": 0.001,
+      "MET3": -0.0023
+     }
+    },
+    "macro_f1_base": {
+     "MET1": 0.8352,
+     "MET2": 0.8014,
+     "MET3": 0.8623
+    }
+   },
+   "rows": [
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "base",
+     "path": "v2.1",
+     "spell_f1": 0.7096,
+     "macro_f1": 0.8352,
+     "f1_H": 0.8361,
+     "f1_A": 0.847,
+     "f1_D": 0.8225,
+     "team_acc_both_alive": 0.9419,
+     "pred_spells": 320,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 100
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "gk_one",
+     "path": "v2.1",
+     "spell_f1": 0.6765,
+     "macro_f1": 0.8212,
+     "f1_H": 0.8114,
+     "f1_A": 0.8303,
+     "f1_D": 0.822,
+     "team_acc_both_alive": 0.9191,
+     "pred_spells": 337,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 110
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "gk_both",
+     "path": "v2.1",
+     "spell_f1": 0.3555,
+     "macro_f1": 0.7428,
+     "f1_H": 0.6944,
+     "f1_A": 0.7108,
+     "f1_D": 0.8232,
+     "team_acc_both_alive": 0.7857,
+     "pred_spells": 394,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 101
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "gk_part",
+     "path": "v2.1",
+     "spell_f1": 0.7026,
+     "macro_f1": 0.8282,
+     "f1_H": 0.826,
+     "f1_A": 0.8368,
+     "f1_D": 0.8219,
+     "team_acc_both_alive": 0.9307,
+     "pred_spells": 319,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 99
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "ref_home",
+     "path": "v2.1",
+     "spell_f1": 0.7027,
+     "macro_f1": 0.8344,
+     "f1_H": 0.8345,
+     "f1_A": 0.8463,
+     "f1_D": 0.8225,
+     "team_acc_both_alive": 0.9394,
+     "pred_spells": 320,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 109
+    },
+    {
+     "match": "MET1",
+     "seed": 8101,
+     "variant": "ref_mixed",
+     "path": "v2.1",
+     "spell_f1": 0.7056,
+     "macro_f1": 0.8375,
+     "f1_H": 0.8386,
+     "f1_A": 0.8457,
+     "f1_D": 0.8281,
+     "team_acc_both_alive": 0.9379,
+     "pred_spells": 316,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 106
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "base",
+     "path": "v2.1",
+     "spell_f1": 0.6272,
+     "macro_f1": 0.8014,
+     "f1_H": 0.8213,
+     "f1_A": 0.8146,
+     "f1_D": 0.7684,
+     "team_acc_both_alive": 0.936,
+     "pred_spells": 291,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 111
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "gk_one",
+     "path": "v2.1",
+     "spell_f1": 0.6048,
+     "macro_f1": 0.7977,
+     "f1_H": 0.8142,
+     "f1_A": 0.8107,
+     "f1_D": 0.7683,
+     "team_acc_both_alive": 0.9292,
+     "pred_spells": 298,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 104
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "gk_both",
+     "path": "v2.1",
+     "spell_f1": 0.3245,
+     "macro_f1": 0.7195,
+     "f1_H": 0.7081,
+     "f1_A": 0.6835,
+     "f1_D": 0.767,
+     "team_acc_both_alive": 0.7975,
+     "pred_spells": 378,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 107
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "gk_part",
+     "path": "v2.1",
+     "spell_f1": 0.61,
+     "macro_f1": 0.7951,
+     "f1_H": 0.8179,
+     "f1_A": 0.8028,
+     "f1_D": 0.7644,
+     "team_acc_both_alive": 0.9302,
+     "pred_spells": 293,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 98
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "ref_home",
+     "path": "v2.1",
+     "spell_f1": 0.6091,
+     "macro_f1": 0.8036,
+     "f1_H": 0.8205,
+     "f1_A": 0.8171,
+     "f1_D": 0.7731,
+     "team_acc_both_alive": 0.9319,
+     "pred_spells": 292,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 95
+    },
+    {
+     "match": "MET2",
+     "seed": 8102,
+     "variant": "ref_mixed",
+     "path": "v2.1",
+     "spell_f1": 0.6282,
+     "macro_f1": 0.8034,
+     "f1_H": 0.8219,
+     "f1_A": 0.8173,
+     "f1_D": 0.771,
+     "team_acc_both_alive": 0.9351,
+     "pred_spells": 288,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       14
+      ]
+     },
+     "seconds": 94
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "base",
+     "path": "v2.1",
+     "spell_f1": 0.7167,
+     "macro_f1": 0.8623,
+     "f1_H": 0.8694,
+     "f1_A": 0.9022,
+     "f1_D": 0.8152,
+     "team_acc_both_alive": 0.9509,
+     "pred_spells": 345,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       17
+      ]
+     },
+     "seconds": 97
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "gk_one",
+     "path": "v2.1",
+     "spell_f1": 0.7032,
+     "macro_f1": 0.8584,
+     "f1_H": 0.8598,
+     "f1_A": 0.897,
+     "f1_D": 0.8183,
+     "team_acc_both_alive": 0.9408,
+     "pred_spells": 356,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       17
+      ]
+     },
+     "seconds": 90
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "gk_both",
+     "path": "v2.1",
+     "spell_f1": 0.4214,
+     "macro_f1": 0.7773,
+     "f1_H": 0.7509,
+     "f1_A": 0.7639,
+     "f1_D": 0.8171,
+     "team_acc_both_alive": 0.8119,
+     "pred_spells": 455,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       17
+      ]
+     },
+     "seconds": 85
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "gk_part",
+     "path": "v2.1",
+     "spell_f1": 0.6999,
+     "macro_f1": 0.8603,
+     "f1_H": 0.8632,
+     "f1_A": 0.8996,
+     "f1_D": 0.818,
+     "team_acc_both_alive": 0.9441,
+     "pred_spells": 359,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       17
+      ]
+     },
+     "seconds": 87
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "ref_home",
+     "path": "v2.1",
+     "spell_f1": 0.7293,
+     "macro_f1": 0.8626,
+     "f1_H": 0.8699,
+     "f1_A": 0.9031,
+     "f1_D": 0.8147,
+     "team_acc_both_alive": 0.951,
+     "pred_spells": 343,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       17
+      ]
+     },
+     "seconds": 94
+    },
+    {
+     "match": "MET3",
+     "seed": 8103,
+     "variant": "ref_mixed",
+     "path": "v2.1",
+     "spell_f1": 0.7144,
+     "macro_f1": 0.8593,
+     "f1_H": 0.8677,
+     "f1_A": 0.8981,
+     "f1_D": 0.8121,
+     "team_acc_both_alive": 0.9485,
+     "pred_spells": 344,
+     "goalkeeper_columns": {
+      "0": [
+       0
+      ],
+      "1": [
+       17
+      ]
+     },
+     "seconds": 93
+    }
+   ]
+  }
+ },
+ "what_the_correction_changes": "Absolute levels (spellF1 about +0.05, macroF1 about +0.13 against the file-order labels) and small differences; no conclusion that was drawn from these records (see the two tables) and no decision.",
+ "fix": {
+  "file": "experiments/possession_v2/metrica_labels.py",
+  "change": "sort_values(['Start Frame'], kind='stable')",
+  "sha256_after": "34ec351258515eb78a1f2f4b42fbb77d349ec25218893ee4171d0e9f36fc6e65",
+  "check": "with the stable sort both environments give the same labels as the experiment environment gave before (sha256 per game in label_facts)"
+ },
+ "kept_unchanged": [
+  "possession-rehearsal-results.json and possession-v210-plan.json keep the first numbers; this file and log entry K005 hold the corrections",
+  "the synthetic rehearsal bundles themselves (their tracking does not depend on the labels; the broadcast replays of bundles A and B were placed with the degraded labels)"
+ ],
+ "scripts": {
+  "label_order.py": "a9d6710392dddbddf7434cb2c34409157f76eeec2e49080de96c6b7acc600f30",
+  "rescore_k003.py": "ad4b2a5d162a02b9d248c1d1f22cfda90efc2063ab78d421df1ab993eedaddf7",
+  "gt_spells.py": "5d1fa756eecdf83ba1599eb80991d5195b8a28b73fda84e9e984e5ff17480ca0",
+  "stress_slots.py": "5f864bbfbb00fee3e096a40487b1365685b609ebd7b5d183316900d86300fd5b",
+  "stress_roles.py": "a04b08754d4bca4ed676306d2815fccb5cb3a4e148c1aa90ccf4d99945b47e8c"
+ },
+ "provided_fixture_used": false
+}

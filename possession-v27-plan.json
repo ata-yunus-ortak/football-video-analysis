@@ -1,0 +1,43 @@
+{
+ "version": "possession-v2.7-plan",
+ "registered_at": "2026-11-10T19:59:22+03:00",
+ "provided_fixture_used": false,
+ "note": "Written before any v2.7 result exists. Motivation: reporting-only diagnostics (P009: clean 0.748 / corrupted 0.610 / no missing ball 0.700; R001: most lost spells are short). Only external data is used.",
+ "hypothesis": "Features that bridge the ball across gaps (linear bridge <= 6 s, team geometry against the bridged position, following the player nearest at the last-seen frame to the next-seen frame and the reverse) recover part of the loss caused by missing ball samples.",
+ "change": {
+  "module": "possession/features3.py (v2 columns unchanged + 48 new columns)",
+  "sha256": "1dcd22475bdbf3ae3447bb5ce2ea20c34f295089066de4dff91ef5001b438bb6",
+  "unchanged": "stage-1/stage-2 hyper-parameters, training seeds 1-3, step 6, stack.py, decoders (v2.1 path 3/60/60/-0.3, v2.3 path 5/60/60/-0.3), noise gate 0.30 m"
+ },
+ "stage_A_development": {
+  "train": [
+   "J03WOH",
+   "J03WOY",
+   "J03WPY",
+   "J03WQQ"
+  ],
+  "copies": "8 old validation copies (J03WN1, J03WR9, MET1, MET2; seeds 101/102), already used many times",
+  "baseline": "v2.1 with the same decoder on the same copies (0.6312)",
+  "proceed_if": "mean spellF1 >= baseline + 0.005; otherwise stop and record NOT selected"
+ },
+ "stage_B_confirmation_low_noise": {
+  "copies": "8 fresh copies, profile v2, seeds 7100 + 10*i + j (i = match index in [J03WN1, J03WR9, MET1, MET2], j = 0/1)",
+  "baseline": "v2.1 models (4 training matches) on the same copies",
+  "gates": [
+   "mean spellF1 >= baseline + 0.010",
+   "at least 5 of 8 copies not worse than baseline"
+  ]
+ },
+ "stage_C_confirmation_noisy_path": {
+  "model": "feature version 3 on smoothed inputs, training profile v2.3 (as possession-v2.3)",
+  "copies": "16 fresh copies: val-ext-ball seeds 7300 + 10*i + j and val-ext-players seeds 7500 + 10*i + j",
+  "baseline": "v2.3 path models (4 training matches) on the same copies",
+  "gates": [
+   "mean spellF1 >= baseline + 0.010",
+   "at least 10 of 16 copies not worse"
+  ],
+  "if_failed": "keep possession-v2.3 for the noisy path; stage B decides the low-noise path independently"
+ },
+ "release_rule": "A path that passes its gates is retrained on the 6 DFL matches and released as possession-v2.7 with a new source/bundle manifest; broadcast fill and clock alignment stay as in v2.5b. Reserved Metrica game 3 is reported once after the decision (not used for selection). J03WMX stays the final fresh test.",
+ "limits": "Provider labels, simulated corruption; not competition scores. Gates are not relaxed after results."
+}

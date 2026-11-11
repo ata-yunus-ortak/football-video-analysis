@@ -1,0 +1,41 @@
+{
+  "version": "possession-v2.5b",
+  "frozen_at": "2026-11-10T18:05:35+03:00",
+  "entry_point": "python -m possession.run25",
+  "components": {
+    "core": "possession-v2.1 (models/possession-v2.npz)",
+    "noise_gate_and_v2_3_path": "possession-v2.4 (possession/noise.py, smooth.py, models/possession-v23.npz)",
+    "broadcast_fill": "possession-v2.5 (possession/fusion.py, broadcast.py; accuracy gate median <= 0.50 m)",
+    "clock_anchor": "possession-v2.5b (possession/clocksync.py)"
+  },
+  "source_sha256": {
+    "data.py": "547725e5079e0186a22fe571d135463bb91fdf21bf3ee8d9eb74308300c549f0",
+    "features.py": "ea98076cea10a7e029412c9fa3f887e39a53d4ba4ab62bbca86d40cf3d9986c1",
+    "trees.py": "adb83b7e6c0c809e858266cf68cac90fcd2d7c46b5802d17f432c7b948db2d5e",
+    "decode.py": "4e3644af48f617fc97b9c630ec8d79063e979148fb84848c285b532da1494ec3",
+    "pipeline.py": "890aacee20a3c6a96352242049858b9fa4389f26210a38ac0913ce06ef19b068",
+    "bundle.py": "4d589ace7e5aaa6bbbf4da659562e40546223ce8d07896fa675469d08ce13c6a",
+    "run.py": "95bc9f380bb6b406403a1981d653e1f577922968e6960b1b54c917be9978e8bb",
+    "stack.py": "60339f2bc88b5785c369e665faaca509b98541f31342b4ea68d18668dde56077",
+    "tags.py": "b500dc318d39dd12b44e62d1e9322835ddaa8bf0c77cd798c0ed7619363774c7",
+    "smooth.py": "a685aae0247771f8f2c341a9fa4b5cdea920d3a3e5f91e59238674ec041319e8",
+    "noise.py": "301b83f2928c9011cfaf577211facaae415abf8fe708b5bd789dbf9accd6dd95",
+    "run24.py": "f3830ddf3621fd6a87084c51a145d57a8065771c850f332ca164b9767092386e",
+    "broadcast.py": "4e23d826934e9bb2c2c546f03011823808f742d1fbce4b3f7ca7456aa3579a90",
+    "fusion.py": "4c093ff7e884d66391858fec73cc6ea6fdf8ac941f96aa3a5bbe83c4714d6355",
+    "clocksync.py": "db9f3d66db3789b476cca89f39a8d8fa265efab401b392740ccc5f3a3a950d02",
+    "run25.py": "a154480cb972a8e5145c57daaf72efeb838dde4d3d18325906a7fb01c9bd05b6"
+  },
+  "bundle_sha256": {
+    "v2.1": "1cd59ba5c21a5abc2be24f8294b3af3d61d84997b61edfc08c028384a9d550d1",
+    "v2.3": "e89db80134b8569833df75f9bcbb1bfb56a6a2a391bab6c2bd2fefa9233a2365"
+  },
+  "plans": [
+    "possession-v2-plan.json",
+    "possession-v23-plan.json",
+    "possession-v24-plan.json",
+    "possession-v25-plan.json",
+    "possession-v25b-plan.json"
+  ],
+  "provided_fixture_used": false
+}

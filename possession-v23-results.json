@@ -1,0 +1,254 @@
+{
+  "version": "possession-v2.3 experiment (position-noise robustness: input smoothing + wider training noise)",
+  "provided_fixture_used": false,
+  "note": "Agreement with other providers' labels on corrupted copies of external matches; not a competition score. Validation models trained on DFL J03WOH/J03WOY/J03WPY/J03WQQ.",
+  "written_at": "2026-11-10T09:54:57+03:00",
+  "plan_sha256": "4ac3395110fe1ca6624d294b2b0953dc597be446562f06468f56e5bee0db338e",
+  "code_sha256": {
+    "smooth.py": "a685aae0247771f8f2c341a9fa4b5cdea920d3a3e5f91e59238674ec041319e8",
+    "degrade.py": "48f1cd2e691ca5b3b3f8a6b7ddf6e3004300a911f968fa928989d4bc69a12a6a",
+    "train.py": "c7b8cbdc273fd75ed3ec0235674c072c6c83a5a8808aebb88c09861db1ec6cd6"
+  },
+  "validation": {
+    "copies": {
+      "orig": "seeds 101/102, v2.1 corruption",
+      "ext_ball": "seeds 301/302, + ball noise 0.3-0.6 m and bias 0.2-0.6 m",
+      "ext_players": "seeds 501/502, + player noise 0.3-0.6 m"
+    },
+    "matches": "DFL J03WN1, J03WR9; Metrica sample games 1-2 (event-derived proxy labels)",
+    "v2_1": {
+      "decoder": {
+        "switch": 3,
+        "out_cost": 60,
+        "in_cost": 60,
+        "bias_dead": -0.3
+      },
+      "all24": 0.6064,
+      "orig": 0.6312,
+      "ext_ball": 0.6041,
+      "ext_players": 0.584
+    },
+    "v2_3": {
+      "decoder": {
+        "switch": 5,
+        "out_cost": 60,
+        "in_cost": 60,
+        "bias_dead": -0.3
+      },
+      "all24": 0.6207,
+      "orig": 0.6169,
+      "ext_ball": 0.6178,
+      "ext_players": 0.6276
+    },
+    "gates": {
+      "all24 >= v2.1 + 0.010": true,
+      "orig >= 0.6312 - 0.010": false
+    },
+    "decoder_grid_top5": [
+      {
+        "spell_f1": 0.6207,
+        "macro_f1": 0.853,
+        "decoder": {
+          "switch": 5,
+          "out_cost": 60,
+          "in_cost": 60,
+          "bias_dead": -0.3
+        }
+      },
+      {
+        "spell_f1": 0.6198,
+        "macro_f1": 0.8522,
+        "decoder": {
+          "switch": 5,
+          "out_cost": 120,
+          "in_cost": 120,
+          "bias_dead": -0.3
+        }
+      },
+      {
+        "spell_f1": 0.6198,
+        "macro_f1": 0.8529,
+        "decoder": {
+          "switch": 4,
+          "out_cost": 60,
+          "in_cost": 60,
+          "bias_dead": -0.3
+        }
+      },
+      {
+        "spell_f1": 0.6194,
+        "macro_f1": 0.8526,
+        "decoder": {
+          "switch": 5,
+          "out_cost": 30,
+          "in_cost": 30,
+          "bias_dead": -0.3
+        }
+      },
+      {
+        "spell_f1": 0.619,
+        "macro_f1": 0.8522,
+        "decoder": {
+          "switch": 4,
+          "out_cost": 120,
+          "in_cost": 120,
+          "bias_dead": -0.3
+        }
+      }
+    ],
+    "per_copy_spell_f1": {
+      "J03WN1|101|orig": {
+        "v2_1": 0.575,
+        "v2_3": 0.5575
+      },
+      "J03WN1|102|orig": {
+        "v2_1": 0.6476,
+        "v2_3": 0.6299
+      },
+      "J03WR9|101|orig": {
+        "v2_1": 0.6697,
+        "v2_3": 0.6473
+      },
+      "J03WR9|102|orig": {
+        "v2_1": 0.6944,
+        "v2_3": 0.6759
+      },
+      "MET1|101|orig": {
+        "v2_1": 0.6046,
+        "v2_3": 0.5787
+      },
+      "MET1|102|orig": {
+        "v2_1": 0.6555,
+        "v2_3": 0.6482
+      },
+      "MET2|101|orig": {
+        "v2_1": 0.5901,
+        "v2_3": 0.5727
+      },
+      "MET2|102|orig": {
+        "v2_1": 0.6128,
+        "v2_3": 0.625
+      },
+      "J03WN1|301|ext_ball": {
+        "v2_1": 0.6161,
+        "v2_3": 0.6133
+      },
+      "J03WN1|302|ext_ball": {
+        "v2_1": 0.5246,
+        "v2_3": 0.5736
+      },
+      "J03WR9|301|ext_ball": {
+        "v2_1": 0.6844,
+        "v2_3": 0.6872
+      },
+      "J03WR9|302|ext_ball": {
+        "v2_1": 0.5545,
+        "v2_3": 0.6182
+      },
+      "MET1|301|ext_ball": {
+        "v2_1": 0.6515,
+        "v2_3": 0.6466
+      },
+      "MET1|302|ext_ball": {
+        "v2_1": 0.6195,
+        "v2_3": 0.6027
+      },
+      "MET2|301|ext_ball": {
+        "v2_1": 0.6297,
+        "v2_3": 0.6436
+      },
+      "MET2|302|ext_ball": {
+        "v2_1": 0.5526,
+        "v2_3": 0.5568
+      },
+      "J03WN1|501|ext_players": {
+        "v2_1": 0.5626,
+        "v2_3": 0.5654
+      },
+      "J03WN1|502|ext_players": {
+        "v2_1": 0.6151,
+        "v2_3": 0.6071
+      },
+      "J03WR9|501|ext_players": {
+        "v2_1": 0.6092,
+        "v2_3": 0.6636
+      },
+      "J03WR9|502|ext_players": {
+        "v2_1": 0.6392,
+        "v2_3": 0.6665
+      },
+      "MET1|501|ext_players": {
+        "v2_1": 0.5197,
+        "v2_3": 0.6046
+      },
+      "MET1|502|ext_players": {
+        "v2_1": 0.6355,
+        "v2_3": 0.6781
+      },
+      "MET2|501|ext_players": {
+        "v2_1": 0.4976,
+        "v2_3": 0.5809
+      },
+      "MET2|502|ext_players": {
+        "v2_1": 0.5931,
+        "v2_3": 0.6546
+      }
+    }
+  },
+  "selected": false,
+  "reporting_only": {
+    "v2_1_with_its_best_decoder_on_the_24_copies": {
+      "decoder": {
+        "switch": 4,
+        "out_cost": 60,
+        "in_cost": 60,
+        "bias_dead": 0.3
+      },
+      "all24": 0.6101,
+      "orig": 0.6236,
+      "ext_ball": 0.606,
+      "ext_players": 0.6008
+    },
+    "note": "v2.3 had its decoder re-selected on the 24 copies, v2.1 kept its registered decoder; re-decoding v2.1 the same way shows that about 0.004 of the 0.014 difference on all 24 copies comes from the decoder.",
+    "noise_configuration_per_seed": "degrade parameters depend only on the seed, so the 4 matches of one seed share them",
+    "per_seed_noise": {
+      "orig|101": {
+        "ball_sigma_m": 0.2673,
+        "ball_bias_sd_m": 0.0,
+        "player_sigma_m": 0.2475,
+        "mean_v2_3_minus_v2_1": -0.0208
+      },
+      "orig|102": {
+        "ball_sigma_m": 0.2728,
+        "ball_bias_sd_m": 0.0,
+        "player_sigma_m": 0.0595,
+        "mean_v2_3_minus_v2_1": -0.0078
+      },
+      "ext_ball|301": {
+        "ball_sigma_m": 0.3295,
+        "ball_bias_sd_m": 0.595,
+        "player_sigma_m": 0.1103,
+        "mean_v2_3_minus_v2_1": 0.0022
+      },
+      "ext_ball|302": {
+        "ball_sigma_m": 0.5116,
+        "ball_bias_sd_m": 0.3244,
+        "player_sigma_m": 0.0601,
+        "mean_v2_3_minus_v2_1": 0.025
+      },
+      "ext_players|501": {
+        "ball_sigma_m": 0.0683,
+        "ball_bias_sd_m": 0.0,
+        "player_sigma_m": 0.4379,
+        "mean_v2_3_minus_v2_1": 0.0563
+      },
+      "ext_players|502": {
+        "ball_sigma_m": 0.2323,
+        "ball_bias_sd_m": 0.0,
+        "player_sigma_m": 0.3793,
+        "mean_v2_3_minus_v2_1": 0.0308
+      }
+    }
+  },
+  "decision": "v2.3 NOT selected: at least one registered gate failed; v2.1 remains the submission system"
+}

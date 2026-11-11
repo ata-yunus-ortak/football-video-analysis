@@ -1,0 +1,14 @@
+{
+ "version": "possession-v2.11g",
+ "frozen_at": "2026-11-11T16:09:01+03:00",
+ "entry_point": "python -m possession.run211g",
+ "status": "reserve: used only if the organisers answer that the kick-off frame published in their FAQ.md may not be hard-coded (question sent on 2026-11-11); possession-v2.11 stays the submission system until then",
+ "change": "play blocks are the graded windows of games.half_video_blocks('BAR-ATH') only: the models and the decoder run on the whole graded second half from frame 110808; frame 113742 is not used. Otherwise identical to possession-v2.11",
+ "evidence": "made of components selected on external matches (possession-v2.5b; registration of possession-v2.9; goalkeeper team correction of possession-v2.11, plan possession-v211-plan.json). What the models predict on a period before a kick-off is not measurable on external matches (their tracking starts at the kick-off)",
+ "base_release": "possession-v211-release.json",
+ "base_release_sha256": "f81aa39ab8d9d44ad738b3e5850d588b5904c69fd7311459f57f68169e61faab",
+ "source_sha256": {
+  "run211g.py": "c52d6beaaf83569693277c109f3f483e7352797d17f4f2dbfb58bf0e842052be"
+ },
+ "provided_fixture_used": false
+}

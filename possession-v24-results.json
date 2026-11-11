@@ -1,0 +1,502 @@
+{
+  "version": "possession-v2.4 (noise-gated choice between the frozen v2.1 system and the v2.3 recipe)",
+  "provided_fixture_used": false,
+  "note": "Agreement with other providers' labels on corrupted copies of external matches; not a competition score. Validation models of both paths trained on DFL J03WOH/J03WOY/J03WPY/J03WQQ.",
+  "written_at": "2026-11-10T12:29:50+03:00",
+  "plan_sha256": "5613d67010ce0e388f38a094630bd19d0e7c1b03cd3a8c535d96304e823fc9e1",
+  "code_sha256": {
+    "noise.py": "301b83f2928c9011cfaf577211facaae415abf8fe708b5bd789dbf9accd6dd95",
+    "smooth.py": "a685aae0247771f8f2c341a9fa4b5cdea920d3a3e5f91e59238674ec041319e8",
+    "run24.py": "f3830ddf3621fd6a87084c51a145d57a8065771c850f332ca164b9767092386e"
+  },
+  "validation_fresh_copies": {
+    "copies": "24 fresh copies of DFL J03WN1, J03WR9 and Metrica sample games 1-2, one degrade seed per copy (bases 1100 v2.1 corruption, 1300 + extended ball error, 1500 + extended player error)",
+    "v2_1": {
+      "all24": 0.6032,
+      "orig": 0.6542,
+      "ext_ball": 0.5831,
+      "ext_players": 0.5723
+    },
+    "v2_4": {
+      "all24": 0.6422,
+      "orig": 0.6542,
+      "ext_ball": 0.6279,
+      "ext_players": 0.6445
+    },
+    "v2_3_on_every_copy_reporting_only": {
+      "all24": 0.6381,
+      "orig": 0.6419,
+      "ext_ball": 0.6279,
+      "ext_players": 0.6445
+    },
+    "paths_chosen_by_the_gate": {
+      "orig": {
+        "v2.1": 8,
+        "v2.3": 0
+      },
+      "ext_ball": {
+        "v2.1": 0,
+        "v2.3": 8
+      },
+      "ext_players": {
+        "v2.1": 0,
+        "v2.3": 8
+      }
+    },
+    "gates": {
+      "all24 >= v2.1 + 0.010": true,
+      "orig >= v2.1 orig - 0.005": true
+    },
+    "per_copy": [
+      {
+        "copy": "J03WN1|1100|orig",
+        "path": "v2.1",
+        "measured_players_m": 0.1648,
+        "measured_ball_m": 0.1271,
+        "true_player_sigma_m": 0.1646,
+        "true_ball_sigma_m": 0.1236,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6765,
+        "spell_f1_v2_3_path": 0.6545,
+        "spell_f1_v2_4": 0.6765
+      },
+      {
+        "copy": "J03WN1|1101|orig",
+        "path": "v2.1",
+        "measured_players_m": 0.2098,
+        "measured_ball_m": 0.2342,
+        "true_player_sigma_m": 0.21,
+        "true_ball_sigma_m": 0.2255,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.5953,
+        "spell_f1_v2_3_path": 0.5598,
+        "spell_f1_v2_4": 0.5953
+      },
+      {
+        "copy": "J03WR9|1110|orig",
+        "path": "v2.1",
+        "measured_players_m": 0.0453,
+        "measured_ball_m": 0.094,
+        "true_player_sigma_m": 0.0451,
+        "true_ball_sigma_m": 0.0903,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6697,
+        "spell_f1_v2_3_path": 0.6488,
+        "spell_f1_v2_4": 0.6697
+      },
+      {
+        "copy": "J03WR9|1111|orig",
+        "path": "v2.1",
+        "measured_players_m": 0.234,
+        "measured_ball_m": 0.1893,
+        "true_player_sigma_m": 0.2341,
+        "true_ball_sigma_m": 0.1893,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6642,
+        "spell_f1_v2_3_path": 0.6552,
+        "spell_f1_v2_4": 0.6642
+      },
+      {
+        "copy": "MET1|1120|orig",
+        "path": "v2.1",
+        "measured_players_m": 0.2496,
+        "measured_ball_m": 0.0781,
+        "true_player_sigma_m": 0.2494,
+        "true_ball_sigma_m": 0.0729,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6814,
+        "spell_f1_v2_3_path": 0.6798,
+        "spell_f1_v2_4": 0.6814
+      },
+      {
+        "copy": "MET1|1121|orig",
+        "path": "v2.1",
+        "measured_players_m": 0.2889,
+        "measured_ball_m": 0.1142,
+        "true_player_sigma_m": 0.2889,
+        "true_ball_sigma_m": 0.1121,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6676,
+        "spell_f1_v2_3_path": 0.6693,
+        "spell_f1_v2_4": 0.6676
+      },
+      {
+        "copy": "MET2|1130|orig",
+        "path": "v2.1",
+        "measured_players_m": 0.1931,
+        "measured_ball_m": 0.2831,
+        "true_player_sigma_m": 0.1931,
+        "true_ball_sigma_m": 0.2819,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6547,
+        "spell_f1_v2_3_path": 0.6511,
+        "spell_f1_v2_4": 0.6547
+      },
+      {
+        "copy": "MET2|1131|orig",
+        "path": "v2.1",
+        "measured_players_m": 0.1267,
+        "measured_ball_m": 0.2651,
+        "true_player_sigma_m": 0.1267,
+        "true_ball_sigma_m": 0.2596,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6245,
+        "spell_f1_v2_3_path": 0.6171,
+        "spell_f1_v2_4": 0.6245
+      },
+      {
+        "copy": "J03WN1|1300|ext_ball",
+        "path": "v2.3",
+        "measured_players_m": 0.0404,
+        "measured_ball_m": 0.5962,
+        "true_player_sigma_m": 0.0402,
+        "true_ball_sigma_m": 0.5976,
+        "true_ball_bias_sd_m": 0.3731,
+        "spell_f1_v2_1": 0.4552,
+        "spell_f1_v2_3_path": 0.5549,
+        "spell_f1_v2_4": 0.5549
+      },
+      {
+        "copy": "J03WN1|1301|ext_ball",
+        "path": "v2.3",
+        "measured_players_m": 0.1117,
+        "measured_ball_m": 0.5515,
+        "true_player_sigma_m": 0.1116,
+        "true_ball_sigma_m": 0.5513,
+        "true_ball_bias_sd_m": 0.4961,
+        "spell_f1_v2_1": 0.5527,
+        "spell_f1_v2_3_path": 0.6381,
+        "spell_f1_v2_4": 0.6381
+      },
+      {
+        "copy": "J03WR9|1310|ext_ball",
+        "path": "v2.3",
+        "measured_players_m": 0.2779,
+        "measured_ball_m": 0.3422,
+        "true_player_sigma_m": 0.2781,
+        "true_ball_sigma_m": 0.3431,
+        "true_ball_bias_sd_m": 0.208,
+        "spell_f1_v2_1": 0.6808,
+        "spell_f1_v2_3_path": 0.7093,
+        "spell_f1_v2_4": 0.7093
+      },
+      {
+        "copy": "J03WR9|1311|ext_ball",
+        "path": "v2.3",
+        "measured_players_m": 0.1181,
+        "measured_ball_m": 0.5092,
+        "true_player_sigma_m": 0.1179,
+        "true_ball_sigma_m": 0.5074,
+        "true_ball_bias_sd_m": 0.2344,
+        "spell_f1_v2_1": 0.5649,
+        "spell_f1_v2_3_path": 0.6591,
+        "spell_f1_v2_4": 0.6591
+      },
+      {
+        "copy": "MET1|1320|ext_ball",
+        "path": "v2.3",
+        "measured_players_m": 0.1289,
+        "measured_ball_m": 0.5692,
+        "true_player_sigma_m": 0.1289,
+        "true_ball_sigma_m": 0.5735,
+        "true_ball_bias_sd_m": 0.5188,
+        "spell_f1_v2_1": 0.6529,
+        "spell_f1_v2_3_path": 0.659,
+        "spell_f1_v2_4": 0.659
+      },
+      {
+        "copy": "MET1|1321|ext_ball",
+        "path": "v2.3",
+        "measured_players_m": 0.1686,
+        "measured_ball_m": 0.3545,
+        "true_player_sigma_m": 0.1685,
+        "true_ball_sigma_m": 0.3502,
+        "true_ball_bias_sd_m": 0.487,
+        "spell_f1_v2_1": 0.6006,
+        "spell_f1_v2_3_path": 0.5831,
+        "spell_f1_v2_4": 0.5831
+      },
+      {
+        "copy": "MET2|1330|ext_ball",
+        "path": "v2.3",
+        "measured_players_m": 0.1837,
+        "measured_ball_m": 0.5922,
+        "true_player_sigma_m": 0.1836,
+        "true_ball_sigma_m": 0.5982,
+        "true_ball_bias_sd_m": 0.2488,
+        "spell_f1_v2_1": 0.5862,
+        "spell_f1_v2_3_path": 0.6489,
+        "spell_f1_v2_4": 0.6489
+      },
+      {
+        "copy": "MET2|1331|ext_ball",
+        "path": "v2.3",
+        "measured_players_m": 0.0713,
+        "measured_ball_m": 0.5562,
+        "true_player_sigma_m": 0.0713,
+        "true_ball_sigma_m": 0.5595,
+        "true_ball_bias_sd_m": 0.5843,
+        "spell_f1_v2_1": 0.5716,
+        "spell_f1_v2_3_path": 0.5712,
+        "spell_f1_v2_4": 0.5712
+      },
+      {
+        "copy": "J03WN1|1500|ext_players",
+        "path": "v2.3",
+        "measured_players_m": 0.4559,
+        "measured_ball_m": 0.2213,
+        "true_player_sigma_m": 0.4554,
+        "true_ball_sigma_m": 0.2189,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6503,
+        "spell_f1_v2_3_path": 0.6471,
+        "spell_f1_v2_4": 0.6471
+      },
+      {
+        "copy": "J03WN1|1501|ext_players",
+        "path": "v2.3",
+        "measured_players_m": 0.5167,
+        "measured_ball_m": 0.3007,
+        "true_player_sigma_m": 0.5164,
+        "true_ball_sigma_m": 0.2927,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.533,
+        "spell_f1_v2_3_path": 0.6324,
+        "spell_f1_v2_4": 0.6324
+      },
+      {
+        "copy": "J03WR9|1510|ext_players",
+        "path": "v2.3",
+        "measured_players_m": 0.3911,
+        "measured_ball_m": 0.0665,
+        "true_player_sigma_m": 0.3912,
+        "true_ball_sigma_m": 0.0631,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6331,
+        "spell_f1_v2_3_path": 0.6585,
+        "spell_f1_v2_4": 0.6585
+      },
+      {
+        "copy": "J03WR9|1511|ext_players",
+        "path": "v2.3",
+        "measured_players_m": 0.5137,
+        "measured_ball_m": 0.2937,
+        "true_player_sigma_m": 0.5143,
+        "true_ball_sigma_m": 0.2921,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6379,
+        "spell_f1_v2_3_path": 0.7038,
+        "spell_f1_v2_4": 0.7038
+      },
+      {
+        "copy": "MET1|1520|ext_players",
+        "path": "v2.3",
+        "measured_players_m": 0.5656,
+        "measured_ball_m": 0.0936,
+        "true_player_sigma_m": 0.5657,
+        "true_ball_sigma_m": 0.0916,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.5341,
+        "spell_f1_v2_3_path": 0.6538,
+        "spell_f1_v2_4": 0.6538
+      },
+      {
+        "copy": "MET1|1521|ext_players",
+        "path": "v2.3",
+        "measured_players_m": 0.4194,
+        "measured_ball_m": 0.0549,
+        "true_player_sigma_m": 0.4195,
+        "true_ball_sigma_m": 0.0503,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.6025,
+        "spell_f1_v2_3_path": 0.663,
+        "spell_f1_v2_4": 0.663
+      },
+      {
+        "copy": "MET2|1530|ext_players",
+        "path": "v2.3",
+        "measured_players_m": 0.4461,
+        "measured_ball_m": 0.2741,
+        "true_player_sigma_m": 0.4458,
+        "true_ball_sigma_m": 0.2707,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.5252,
+        "spell_f1_v2_3_path": 0.6238,
+        "spell_f1_v2_4": 0.6238
+      },
+      {
+        "copy": "MET2|1531|ext_players",
+        "path": "v2.3",
+        "measured_players_m": 0.5973,
+        "measured_ball_m": 0.225,
+        "true_player_sigma_m": 0.597,
+        "true_ball_sigma_m": 0.2227,
+        "true_ball_bias_sd_m": 0.0,
+        "spell_f1_v2_1": 0.4619,
+        "spell_f1_v2_3_path": 0.5733,
+        "spell_f1_v2_4": 0.5733
+      }
+    ]
+  },
+  "limits": [
+    "The three copy sets have disjoint noise ranges (<= 0.29 m vs >= 0.34 m), so the gate routed every copy as intended; its behaviour for noise close to 0.30 m was not tested.",
+    "The fresh copies come from the same four validation matches; only the corruption is new.",
+    "v2.4 was designed after the v2.3 results (disclosed in the plan)."
+  ],
+  "selected": true,
+  "reserved_test": {
+    "fixture": "Metrica Sample_Game_3 (reserved; first use since v2.1)",
+    "run_at": "2026-11-10T12:04:48+03:00",
+    "bundles_sha256": {
+      "v2.1": "1cd59ba5c21a5abc2be24f8294b3af3d61d84997b61edfc08c028384a9d550d1",
+      "v2.3": "e89db80134b8569833df75f9bcbb1bfb56a6a2a391bab6c2bd2fefa9233a2365"
+    },
+    "mean_spell_f1": {
+      "v2.1": {
+        "v2": 0.6637,
+        "ext_ball": 0.6447,
+        "ext_players": 0.6019,
+        "all": 0.6367
+      },
+      "v2.4": {
+        "v2": 0.6637,
+        "ext_ball": 0.66,
+        "ext_players": 0.6702,
+        "all": 0.6646
+      }
+    },
+    "cases": {
+      "v2|201": {
+        "path": "v2.1",
+        "measured_players_m": 0.1669,
+        "measured_ball_m": 0.0918,
+        "v2_1": {
+          "spell_f1": 0.6253,
+          "macro_f1": 0.8191
+        },
+        "v2_4": {
+          "spell_f1": 0.6253,
+          "macro_f1": 0.8191
+        }
+      },
+      "v2|202": {
+        "path": "v2.1",
+        "measured_players_m": 0.1153,
+        "measured_ball_m": 0.1978,
+        "v2_1": {
+          "spell_f1": 0.7021,
+          "macro_f1": 0.8526
+        },
+        "v2_4": {
+          "spell_f1": 0.7021,
+          "macro_f1": 0.8526
+        }
+      },
+      "ext_ball|401": {
+        "path": "v2.3",
+        "measured_players_m": 0.2588,
+        "measured_ball_m": 0.5465,
+        "v2_1": {
+          "spell_f1": 0.6062,
+          "macro_f1": 0.84
+        },
+        "v2_4": {
+          "spell_f1": 0.6334,
+          "macro_f1": 0.847
+        }
+      },
+      "ext_ball|402": {
+        "path": "v2.3",
+        "measured_players_m": 0.2596,
+        "measured_ball_m": 0.3512,
+        "v2_1": {
+          "spell_f1": 0.6832,
+          "macro_f1": 0.8554
+        },
+        "v2_4": {
+          "spell_f1": 0.6866,
+          "macro_f1": 0.8589
+        }
+      },
+      "ext_players|601": {
+        "path": "v2.3",
+        "measured_players_m": 0.4453,
+        "measured_ball_m": 0.2042,
+        "v2_1": {
+          "spell_f1": 0.596,
+          "macro_f1": 0.7748
+        },
+        "v2_4": {
+          "spell_f1": 0.6565,
+          "macro_f1": 0.8361
+        }
+      },
+      "ext_players|602": {
+        "path": "v2.3",
+        "measured_players_m": 0.444,
+        "measured_ball_m": 0.289,
+        "v2_1": {
+          "spell_f1": 0.6077,
+          "macro_f1": 0.8026
+        },
+        "v2_4": {
+          "spell_f1": 0.6838,
+          "macro_f1": 0.8495
+        }
+      }
+    },
+    "v2_1_reproduces_registered_reserved_values": true
+  },
+  "release": {
+    "v2_3_config_sha256": "5ea7a430aeae6e5aa52b2c18e791b2558b37ba58640af1885b464c0401006712",
+    "v2_1_bundle_sha256": "1cd59ba5c21a5abc2be24f8294b3af3d61d84997b61edfc08c028384a9d550d1",
+    "v2_3_bundle_sha256": "e89db80134b8569833df75f9bcbb1bfb56a6a2a391bab6c2bd2fefa9233a2365"
+  },
+  "reproducibility_checks": {
+    "interpreters": [
+      "python 3.13.18 / numpy 2.5.3",
+      "python 3.10.20 / numpy 1.26.4"
+    ],
+    "identical_output": {
+      "synthetic_quiet": true,
+      "synthetic_noisy": true,
+      "met3_full_size": true,
+      "met3_with_0p5m_player_noise_v23_path": true
+    },
+    "synthetic_atd": {
+      "quiet_path": "v2.1",
+      "quiet_sha256": "e60abb0b9be58d3db3b11cc5e39f8b6db715e85a7ad75b12908694e7db4e6845",
+      "noisy_0p5m_path": "v2.3",
+      "noisy_sha256": "50c7dc552c63793386d7e51a55bf40f883315d02b9ee63c2f9bb19b198d41be4"
+    },
+    "external_epts_full_size": {
+      "file": "Metrica Sample_Game_3 tracking (143761 frames, 35 slots; labels not read)",
+      "gate_path": "v2.1",
+      "measured_noise": {
+        "ball_m": 0.0004121418052915482,
+        "players_m": 0.0008242836105830964,
+        "player_slots_used": 35
+      },
+      "submission_sha256": "2e6a1283591c2ce68f7770bdf54dd70d1d5f0715ebe37808850bf72ad5a0b096",
+      "equals_v2_1_possession_run_sha256": true,
+      "seconds": [
+        61.1,
+        65.8
+      ]
+    },
+    "external_epts_with_0p5m_player_noise_v2_3_path": {
+      "gate_path": "v2.3",
+      "labels_sha256": "022993b2074039b9ada8320818ce4e926be0dc2ab975ae363b12194204e0f59f",
+      "seconds": [
+        58.6,
+        64.0
+      ]
+    },
+    "peak_rss_gb": [
+      1.28,
+      1.0
+    ],
+    "note": "same Linux x86-64 CPU; the noise for the second full-size case was generated once and loaded from disk by both interpreters"
+  },
+  "decision": "v2.4 selected under the registered rule; the submission is generated with python -m possession.run24"
+}

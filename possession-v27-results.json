@@ -1,0 +1,70 @@
+{
+ "version": "possession-v2.7-results",
+ "written_at": "2026-11-10T20:58:49+03:00",
+ "provided_fixture_used": false,
+ "plan_sha256": "97a77c724ed99d5689045c1656a9a1097402190adaf64a0a1a0bd7014226a143",
+ "features3_sha256": "1dcd22475bdbf3ae3447bb5ce2ea20c34f295089066de4dff91ef5001b438bb6",
+ "stage_A_development": {
+  "copies": "8 old validation copies (seeds 101/102)",
+  "baseline_v2_1": 0.6312,
+  "v2_7_spell_f1": 0.6332,
+  "v2_7_macro_f1": 0.8606,
+  "baseline_macro_f1": 0.8607,
+  "per_copy": {
+   "J03WN1:101": {
+    "spell": 0.5852,
+    "macro": 0.8808,
+    "n_pred": 351,
+    "n_gt": 500
+   },
+   "J03WN1:102": {
+    "spell": 0.6525,
+    "macro": 0.9125,
+    "n_pred": 365,
+    "n_gt": 500
+   },
+   "J03WR9:101": {
+    "spell": 0.6771,
+    "macro": 0.9185,
+    "n_pred": 294,
+    "n_gt": 370
+   },
+   "J03WR9:102": {
+    "spell": 0.6941,
+    "macro": 0.9345,
+    "n_pred": 306,
+    "n_gt": 370
+   },
+   "MET1:101": {
+    "spell": 0.5982,
+    "macro": 0.8116,
+    "n_pred": 279,
+    "n_gt": 379
+   },
+   "MET1:102": {
+    "spell": 0.6559,
+    "macro": 0.8363,
+    "n_pred": 290,
+    "n_gt": 379
+   },
+   "MET2:101": {
+    "spell": 0.587,
+    "macro": 0.7824,
+    "n_pred": 250,
+    "n_gt": 364
+   },
+   "MET2:102": {
+    "spell": 0.6154,
+    "macro": 0.8085,
+    "n_pred": 271,
+    "n_gt": 364
+   }
+  },
+  "gate": "mean spellF1 >= baseline + 0.005",
+  "passed": false
+ },
+ "stages_B_C": "not run (stage A gate failed; fresh copies 7100+ were generated but never scored with v2.7)",
+ "decision": "NOT_SELECTED",
+ "reading": "Gap-bridging ball features add +0.002 on the development copies: the v2 features (last-seen/next-seen ball context) already carry most of what tracking alone can say about a missing ball.",
+ "limits": "Provider labels, simulated corruption; not competition scores."
+}

@@ -1,0 +1,32 @@
+{
+  "plan": "possession-v2.6 (frame-dependent team-switch cost from a learned switch hazard, v2.1 path)",
+  "registered": "2026-11-10T14:09:37+03:00",
+  "registered_before_any_v2_6_result": true,
+  "motivation": "Reporting-only oracle check on the 8 v2.1 validation copies (oracle_parts.json): replacing P(dead) by the provider labels raises spellF1 only 0.631 -> 0.647, replacing P(home|alive) raises it to 0.912. Team decisions during play, especially quick changes (51% of changes found within 1 s), are the main error. The decoder uses one constant switch cost (3); a learned probability that a change happens near frame t can make switches cheap where the evidence for a change is local and expensive elsewhere.",
+  "candidate": {
+    "hazard_target": "1 if a direct H<->A change of the provider labels lies within +-12 frames (0.5 s), alive frames only",
+    "hazard_features": "the 227 stage-1 features + the 48 stage-2 (stack) features from out-of-fold stage-1 probabilities (cache/oof_f2.pkl for the 4 training matches); team-symmetric by averaging both team views",
+    "hazard_model": "HistGradientBoostingClassifier with the stage-1 hyper-parameters (300 iterations, lr 0.06, 31 leaves, min leaf 200, l2 1.0), training matches DFL J03WOH/J03WOY/J03WPY/J03WQQ, seeds 1-3, every 3rd alive frame, both team views",
+    "decoder": "possession/decode2.py: switch_t = max(0, s0 - beta * logit(h_t)); out/in cost 60, dead bias -0.3 unchanged",
+    "scope": "only the v2.1 path of v2.4 (the v2.3 path keeps its decoder); models, features, noise gate and fusion unchanged"
+  },
+  "selection": {
+    "grid": "s0 in {2,3,4,5,6,8} x beta in {0,0.5,1,1.5,2} (beta 0, s0 3 is the v2.1 decoder)",
+    "selected_on": "the 8 original v2.1 validation copies (DFL J03WN1, J03WR9, Metrica 1-2; seeds 101/102), mean spellF1, macroF1 tie-break",
+    "confirmation": "8 FRESH copies (seeds 4100 + 10*i + j, v2.1 corruption, never used before); the selected decoder vs the v2.1 decoder on the same stage-2 probabilities"
+  },
+  "selection_rule": {
+    "select_v2_6_only_if_all": [
+      "fresh copies: mean spellF1 >= v2.4 + 0.010",
+      "fresh copies: not worse than v2.4 on at least 5 of the 8 copies"
+    ],
+    "otherwise": "keep the decoder of v2.4",
+    "no_relaxation": true,
+    "then": "final hazard model on the 6 DFL matches with out-of-fold stage-1 probabilities (as possession.train builds stage 2), stored in its own file next to the frozen bundles; joint check with the broadcast fill (if selected) reported on fresh copies; final fresh test on DFL J03WMX after freezing"
+  },
+  "limits_stated_in_advance": [
+    "Selection and confirmation copies come from the same four validation matches (only the corruption is new for the confirmation).",
+    "Provider label semantics (DFL BallPossession changes on short touches) shape the hazard target; the organisers' definition of a controlled possession may differ.",
+    "The v2.3 path is not changed by this candidate."
+  ]
+}

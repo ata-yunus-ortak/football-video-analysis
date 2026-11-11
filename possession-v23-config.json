@@ -1,0 +1,91 @@
+{
+  "version": "possession-v2.3",
+  "feature_version": 2,
+  "train_fixtures": [
+    "J03WOH",
+    "J03WOY",
+    "J03WPY",
+    "J03WQQ",
+    "J03WN1",
+    "J03WR9"
+  ],
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "step": 6,
+  "hyperparameters": {
+    "max_iter": 300,
+    "learning_rate": 0.06,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 200,
+    "l2_regularization": 1.0
+  },
+  "decoder": {
+    "switch": 5.0,
+    "out_cost": 60.0,
+    "in_cost": 60.0,
+    "bias_dead": -0.3
+  },
+  "selection_summary": {
+    "role": "v2.3 path of the noise-gated possession-v2.4 release (used only when the measured input noise exceeds 0.30 m)",
+    "plans": [
+      "possession-v23-plan.json",
+      "possession-v24-plan.json"
+    ],
+    "v2_3_decoder_selected_on": "24 v2.3 validation copies (possession-v23-results.json)",
+    "v2_4_fresh_copies_spell_f1": {
+      "v2.1": 0.6032,
+      "v2.4": 0.6422
+    },
+    "v2_4_fresh_orig_spell_f1": {
+      "v2.1": 0.6542,
+      "v2.4": 0.6542
+    },
+    "gates": {
+      "all24 >= v2.1 + 0.010": true,
+      "orig >= v2.1 orig - 0.005": true
+    },
+    "models_for_validation_trained_on": [
+      "J03WOH",
+      "J03WOY",
+      "J03WPY",
+      "J03WQQ"
+    ],
+    "final_bundle_trained_on": [
+      "J03WOH",
+      "J03WOY",
+      "J03WPY",
+      "J03WQQ",
+      "J03WN1",
+      "J03WR9"
+    ]
+  },
+  "stack": {
+    "step": 3,
+    "hyperparameters": {
+      "max_iter": 200,
+      "learning_rate": 0.05,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 400,
+      "l2_regularization": 1.0
+    }
+  },
+  "degrade_profile": "v2.3",
+  "smooth_half": 2,
+  "sources": [
+    "data.py",
+    "features.py",
+    "trees.py",
+    "decode.py",
+    "pipeline.py",
+    "bundle.py",
+    "run.py",
+    "stack.py",
+    "tags.py",
+    "smooth.py",
+    "noise.py",
+    "run24.py"
+  ]
+}

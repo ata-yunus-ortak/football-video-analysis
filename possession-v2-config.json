@@ -1,0 +1,67 @@
+{
+  "version": "possession-v2.1",
+  "feature_version": 2,
+  "train_fixtures": [
+    "J03WOH",
+    "J03WOY",
+    "J03WPY",
+    "J03WQQ",
+    "J03WN1",
+    "J03WR9"
+  ],
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "step": 6,
+  "hyperparameters": {
+    "max_iter": 300,
+    "learning_rate": 0.06,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 200,
+    "l2_regularization": 1.0
+  },
+  "decoder": {
+    "switch": 3.0,
+    "out_cost": 60.0,
+    "in_cost": 60.0,
+    "bias_dead": -0.3
+  },
+  "selection_summary": {
+    "candidate": "stack_v2_f2",
+    "validation_mean_spell_f1": 0.6312,
+    "validation_dfl_spell_f1": 0.6466,
+    "validation_metrica_spell_f1": 0.6158,
+    "validation_macro_f1": 0.8607,
+    "selected_by": "highest mean official spell_f1_mean over 8 validation copies (DFL J03WN1/J03WR9, Metrica 1-2; seeds 101/102), macro_f1 tie-break; candidates and grids in possession-v2-results.json",
+    "models_for_validation_trained_on": [
+      "J03WOH",
+      "J03WOY",
+      "J03WPY",
+      "J03WQQ"
+    ],
+    "final_bundle_trained_on": [
+      "J03WOH",
+      "J03WOY",
+      "J03WPY",
+      "J03WQQ",
+      "J03WN1",
+      "J03WR9"
+    ],
+    "comparators_same_copies": {
+      "organizer_baseline_smooth50": 0.196,
+      "team_S001": 0.1964
+    }
+  },
+  "stack": {
+    "step": 3,
+    "hyperparameters": {
+      "max_iter": 200,
+      "learning_rate": 0.05,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 400,
+      "l2_regularization": 1.0
+    }
+  }
+}

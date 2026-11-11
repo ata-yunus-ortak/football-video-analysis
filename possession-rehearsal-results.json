@@ -1,0 +1,928 @@
+{
+ "record": "K003 full-size rehearsal of the delivery chain and slot / duplicate diagnostic",
+ "written_at": "2026-11-11T11:17:08+03:00",
+ "purpose": "Pipeline correctness at the real size and robustness to two documented properties of the provided tracking. Reporting only: nothing was selected, tuned or gated with these numbers.",
+ "provided_fixture_used": false,
+ "not_a_competition_score": true,
+ "data": "Metrica sample games 1-3 (external, public). The rehearsal bundles carry the file names, record counts and slot counts of the provided match and are trimmed to the aggregate facts published in DATA.md; their content is game 3 with pieces of game 2 appended, everything outside play is synthetic.",
+ "release_manifest_sha256": {
+  "possession-v29-release.json": "63b3b60a9fa7f9fc63edbdd49a34fb126c2cf3f68b87391d6409dfbcc8b85deb",
+  "possession-v25c-release.json": "8f058fbb2332da413fdf188ab68f09ead79043b8d7b7e7b75e39e25ad05bcac3",
+  "possession-v25-release.json": "bd26be1485ee185aa3cc06cee154e167b218a7ae1355d944441eeac0def057d7",
+  "possession-v29g-release.json": "d9922e45f3ae4d6108ae4ad50cf6a3aa3894a69e123569632f06c2fc2c63901e"
+ },
+ "organisers_repository_commit": "f8f2629",
+ "scripts_sha256": {
+  "prova_build.py": "ca4666f16afa1c225fefdc3c5a6c0d27d32174c30b6694f096daaad7bb410c44",
+  "score_prova.py": "80be9842d0fc55e8a13c73bea653dd6dfa9b8691a6e066777e136dc78cbdf415",
+  "r1.py": "32af8efc95b903c68e4ed3a36502321be391e150519bfb72c7cf4624e7243b5c",
+  "rss_run.py": "2aae42941bf71005baf6d8ca04fb73af48a80fe444a72f86065abd273be1e293",
+  "after_A.sh": "ec6b95adbd216288db25d84757eb8db8cb335ed77f6e6215f434cb19da2be52c",
+  "after_B.sh": "bc78c8341e4ed0cd0a8918a3fe778ac0a5e006ed9d8ff82d95b1c73f4b6bbdd9",
+  "controls.py": "c27da5e2cb2ae72acf924c6384802af91dadcc0b3c5b9ad3ce42a28bb8aa5417",
+  "stress_slots.py": "5f864bbfbb00fee3e096a40487b1365685b609ebd7b5d183316900d86300fd5b",
+  "assemble_rehearsal.py": "ad2d04c78a38af6de460ca04a869a273961feaa007ef3b4c2783393f44afa311"
+ },
+ "rehearsal": {
+  "A (corruption inside the training range, accurate broadcast)": {
+   "seed": 20261111,
+   "tactical_corruption": {
+    "ball_miss_alive": 0.06,
+    "ball_miss_dead_extra": 0.0,
+    "ball_miss_tau_s": 1.0,
+    "ball_out_miss": 0.5,
+    "ball_crowd_logit": 0.3,
+    "ball_fast_logit": 0.3,
+    "ball_sigma_m": 0.15,
+    "ball_fp_rate": 0.002,
+    "player_miss": 0.03,
+    "player_miss_tau_s": 2.0,
+    "player_sigma_m": 0.12,
+    "team_flip_rate": 0.001
+   },
+   "broadcast_quality": {
+    "bias_sd": 0.12,
+    "b_sd": 0.15,
+    "p_sd": 0.15,
+    "ball_frac": 0.97,
+    "hx": 26.0,
+    "hy": 17.0
+   },
+   "content": {
+    "game 3 first half": {
+     "to": [
+      11185,
+      80846
+     ],
+     "from": [
+      0,
+      69661
+     ]
+    },
+    "game 2 first half (start), appended": {
+     "to": [
+      80846,
+      90652
+     ],
+     "from": [
+      0,
+      9806
+     ]
+    },
+    "game 3 second half": {
+     "to": [
+      113742,
+      187842
+     ],
+     "from": [
+      69661,
+      143761
+     ]
+    },
+    "game 2 second half (start), appended": {
+     "to": [
+      187842,
+      190198
+     ],
+     "from": [
+      67941,
+      70297
+     ]
+    }
+   },
+   "tactical_file": {
+    "records": 199319,
+    "slots": 46,
+    "tracklets": 21142,
+    "duplicated_tracks": 230,
+    "mean_tracked_on_graded": 20.5,
+    "share_of_graded_frames_above_22": 0.027,
+    "ball_frames_graded": 94214,
+    "ball_frames_total": 113488
+   },
+   "broadcast_file": {
+    "frames": 164488,
+    "valid_share": 0.658,
+    "ball_share": 0.505,
+    "invalid_stretches": 188,
+    "published_invalid_stretches": 122,
+    "longest_invalid_s": 89.0,
+    "replays": 26,
+    "studio_gap_frames": 1199,
+    "slots": 51
+   },
+   "external_labels_on_graded_frames": {
+    "H": 70509,
+    "A": 66928,
+    "D": 21010,
+    "X": 40872
+   },
+   "chain": {
+    "status_lines": [
+     "ORTAM: OK (Linux, Python 3.10.20, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)",
+     "DEPO: ATLANDI (git bilgisi okunamadi)",
+     "SURUM: OK (possession-v2.9)",
+     "TESTLER: OK",
+     "PLATFORM: AYNI",
+     "VERI: OK (taktik VAR, yayin VAR, videolar YOK)",
+     "GIRDI OKUMA: OK",
+     "URETIM: OK (possession-v2.9, saatli)",
+     "BICIM: OK",
+     "MAKULLUK: OK",
+     "TESLIM: OK (possession-v2.9, saatli)",
+     "SAAT: VAR (onceki okuma kullanildi)",
+     "SAATSIZ KARSILASTIRMA: AYNI",
+     "TEKRAR URETIM: AYNI",
+     "TEMIZ KLON: ATLANDI",
+     "ORGANIZATOR DOGRULAYICI: OK",
+     "ACIK PENCERE: ATLANDI",
+     "BELGE: OK (Prova.md = teknik belge + calisma kaydi)"
+    ],
+    "result_line": "SONUC: TESLIM HAZIR",
+    "exit_code": 0,
+    "seconds": 695,
+    "peak_memory_gb": 1.54
+   },
+   "delivered_run": {
+    "system": "possession-v2.9 (v2.5b + published second-half kick-off + player-registered broadcast ball)",
+    "model_path": "v2.1",
+    "measured_noise_m": {
+     "ball_m": 0.154,
+     "players_m": 0.12
+    },
+    "play_blocks": "organiser graded windows; second-half play starts at the kick-off frame published in FAQ.md",
+    "broadcast_fill_used": true,
+    "alignment_mode": "clock",
+    "alignment_lags_frames": [
+     [
+      8251,
+      8252
+     ],
+     [
+      26459,
+      26460
+     ]
+    ],
+    "registration": {
+     "accepted_ball_frames": 78491,
+     "registered_ball_frames": 78469,
+     "median_offset_m": 0.137,
+     "p90_offset_m": 0.2471
+    },
+    "accuracy_gate": {
+     "median_distance_m": 0.2223,
+     "threshold_median_m": 0.5,
+     "used": true,
+     "filled": 10074,
+     "ball_visible_graded_before": 0.5959,
+     "ball_visible_graded_after": 0.6605
+    },
+    "runs": 3,
+    "all_runs_same_bytes": true
+   },
+   "scores_external_labels": {
+    "delivered file (release, both cameras)": {
+     "spell_f1": 0.7151,
+     "macro_f1": 0.737,
+     "f1_H": 0.8346,
+     "f1_A": 0.8326,
+     "f1_D": 0.5438,
+     "label_possessions": 428,
+     "predicted_possessions": 378,
+     "play_only_spell_f1": 0.7151,
+     "labels_written_before_the_second_half_kick_off": {
+      "H": 0,
+      "A": 0,
+      "D": 2934,
+      "X": 0
+     }
+    },
+    "tactical camera only, entry point possession.run25c on the same files": {
+     "spell_f1": 0.6953,
+     "macro_f1": 0.7343,
+     "f1_H": 0.8298,
+     "f1_A": 0.8291,
+     "f1_D": 0.544,
+     "label_possessions": 428,
+     "predicted_possessions": 367,
+     "play_only_spell_f1": 0.6953,
+     "labels_written_before_the_second_half_kick_off": {
+      "H": 0,
+      "A": 0,
+      "D": 2934,
+      "X": 0
+     }
+    },
+    "same corrupted content before duplicated tracks and slot packing, in memory, tactical only": {
+     "spell_f1": 0.6955,
+     "macro_f1": 0.7338,
+     "f1_H": 0.83,
+     "f1_A": 0.8281,
+     "f1_D": 0.5433,
+     "label_possessions": 428,
+     "predicted_possessions": 368,
+     "play_only_spell_f1": 0.6955,
+     "labels_written_before_the_second_half_kick_off": {
+      "H": 0,
+      "A": 0,
+      "D": 2934,
+      "X": 0
+     }
+    }
+   },
+   "reserve_configuration": {
+    "chain": {
+     "status_lines": [
+      "ORTAM: OK (Linux, Python 3.10.20, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)",
+      "DEPO: ATLANDI (git bilgisi okunamadi)",
+      "SURUM: OK (possession-v2.9g)",
+      "VERI: OK (taktik VAR, yayin VAR, videolar YOK)",
+      "GIRDI OKUMA: OK",
+      "URETIM: OK (possession-v2.9g, saatli)",
+      "BICIM: OK",
+      "MAKULLUK: OK",
+      "TESLIM: OK (possession-v2.9g, saatli)",
+      "SAAT: VAR (onceki okuma kullanildi)",
+      "TEMIZ KLON: ATLANDI",
+      "ORGANIZATOR DOGRULAYICI: OK",
+      "ACIK PENCERE: ATLANDI",
+      "BELGE: OK (Prova.md = teknik belge + calisma kaydi)"
+     ],
+     "result_line": "SONUC: TESLIM HAZIR",
+     "exit_code": 0,
+     "seconds": 209,
+     "peak_memory_gb": 1.54
+    },
+    "delivered_run": {
+     "system": "possession-v2.9g (v2.9 without the published second-half kick-off frame; play blocks = graded windows)",
+     "model_path": "v2.1",
+     "measured_noise_m": {
+      "ball_m": 0.153,
+      "players_m": 0.12
+     },
+     "play_blocks": "organiser graded windows (games.half_video_blocks); the models run on the whole graded second half",
+     "broadcast_fill_used": true,
+     "alignment_mode": "clock",
+     "alignment_lags_frames": [
+      [
+       8251,
+       8252
+      ],
+      [
+       26459,
+       26460
+      ]
+     ],
+     "registration": {
+      "accepted_ball_frames": 79709,
+      "registered_ball_frames": 79687,
+      "median_offset_m": 0.1367,
+      "p90_offset_m": 0.247
+     },
+     "accuracy_gate": {
+      "median_distance_m": 0.2221,
+      "threshold_median_m": 0.5,
+      "used": true,
+      "filled": 10178,
+      "ball_visible_graded_before": 0.5931,
+      "ball_visible_graded_after": 0.6571
+     },
+     "runs": 1,
+     "all_runs_same_bytes": true
+    },
+    "scores_external_labels": {
+     "spell_f1": 0.7107,
+     "macro_f1": 0.7341,
+     "f1_H": 0.8337,
+     "f1_A": 0.8314,
+     "f1_D": 0.5373,
+     "label_possessions": 428,
+     "predicted_possessions": 383,
+     "play_only_spell_f1": 0.7151,
+     "labels_written_before_the_second_half_kick_off": {
+      "H": 135,
+      "A": 174,
+      "D": 2625,
+      "X": 0
+     }
+    }
+   }
+  },
+  "B (player noise above the gate threshold, broadcast with a larger calibration error)": {
+   "seed": 20261112,
+   "tactical_corruption": {
+    "ball_miss_alive": 0.06,
+    "ball_miss_dead_extra": 0.0,
+    "ball_miss_tau_s": 1.5,
+    "ball_out_miss": 0.5,
+    "ball_crowd_logit": 0.3,
+    "ball_fast_logit": 0.3,
+    "ball_sigma_m": 0.28,
+    "ball_fp_rate": 0.003,
+    "player_miss": 0.03,
+    "player_miss_tau_s": 3.0,
+    "player_sigma_m": 0.45,
+    "team_flip_rate": 0.0015
+   },
+   "broadcast_quality": {
+    "bias_sd": 0.45,
+    "b_sd": 0.35,
+    "p_sd": 0.35,
+    "ball_frac": 0.97,
+    "hx": 26.0,
+    "hy": 17.0
+   },
+   "content": {
+    "game 3 first half": {
+     "to": [
+      11185,
+      80846
+     ],
+     "from": [
+      0,
+      69661
+     ]
+    },
+    "game 2 first half (start), appended": {
+     "to": [
+      80846,
+      90652
+     ],
+     "from": [
+      0,
+      9806
+     ]
+    },
+    "game 3 second half": {
+     "to": [
+      113742,
+      187842
+     ],
+     "from": [
+      69661,
+      143761
+     ]
+    },
+    "game 2 second half (start), appended": {
+     "to": [
+      187842,
+      190198
+     ],
+     "from": [
+      67941,
+      70297
+     ]
+    }
+   },
+   "tactical_file": {
+    "records": 199319,
+    "slots": 46,
+    "tracklets": 20646,
+    "duplicated_tracks": 202,
+    "mean_tracked_on_graded": 20.5,
+    "share_of_graded_frames_above_22": 0.0261,
+    "ball_frames_graded": 94214,
+    "ball_frames_total": 113488
+   },
+   "broadcast_file": {
+    "frames": 164488,
+    "valid_share": 0.658,
+    "ball_share": 0.505,
+    "invalid_stretches": 173,
+    "published_invalid_stretches": 122,
+    "longest_invalid_s": 89.0,
+    "replays": 28,
+    "studio_gap_frames": 1199,
+    "slots": 51
+   },
+   "external_labels_on_graded_frames": {
+    "H": 70509,
+    "A": 66928,
+    "D": 21010,
+    "X": 40872
+   },
+   "chain": {
+    "status_lines": [
+     "ORTAM: OK (Linux, Python 3.10.20, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)",
+     "DEPO: ATLANDI (git bilgisi okunamadi)",
+     "SURUM: OK (possession-v2.9)",
+     "VERI: OK (taktik VAR, yayin VAR, videolar YOK)",
+     "GIRDI OKUMA: OK",
+     "URETIM: OK (possession-v2.9, saatli)",
+     "BICIM: OK",
+     "MAKULLUK: OK",
+     "TESLIM: OK (possession-v2.9, saatli)",
+     "SAAT: VAR (onceki okuma kullanildi)",
+     "SAATSIZ KARSILASTIRMA: AYNI",
+     "TEKRAR URETIM: AYNI",
+     "TEMIZ KLON: ATLANDI",
+     "ORGANIZATOR DOGRULAYICI: OK",
+     "ACIK PENCERE: ATLANDI",
+     "BELGE: OK (Prova.md = teknik belge + calisma kaydi)"
+    ],
+    "result_line": "SONUC: TESLIM HAZIR",
+    "exit_code": 0,
+    "seconds": 666,
+    "peak_memory_gb": 1.55
+   },
+   "delivered_run": {
+    "system": "possession-v2.9 (v2.5b + published second-half kick-off + player-registered broadcast ball)",
+    "model_path": "v2.3",
+    "measured_noise_m": {
+     "ball_m": 0.286,
+     "players_m": 0.45
+    },
+    "play_blocks": "organiser graded windows; second-half play starts at the kick-off frame published in FAQ.md",
+    "broadcast_fill_used": true,
+    "alignment_mode": "clock",
+    "alignment_lags_frames": [
+     [
+      8251,
+      8252
+     ],
+     [
+      26459,
+      26460
+     ]
+    ],
+    "registration": {
+     "accepted_ball_frames": 78031,
+     "registered_ball_frames": 78019,
+     "median_offset_m": 0.6019,
+     "p90_offset_m": 1.0618
+    },
+    "accuracy_gate": {
+     "median_distance_m": 0.4848,
+     "threshold_median_m": 0.5,
+     "used": true,
+     "filled": 10439,
+     "ball_visible_graded_before": 0.5964,
+     "ball_visible_graded_after": 0.6633
+    },
+    "runs": 3,
+    "all_runs_same_bytes": true
+   },
+   "scores_external_labels": {
+    "delivered file (release, both cameras)": {
+     "spell_f1": 0.6861,
+     "macro_f1": 0.7278,
+     "f1_H": 0.8257,
+     "f1_A": 0.8197,
+     "f1_D": 0.538,
+     "label_possessions": 428,
+     "predicted_possessions": 362,
+     "play_only_spell_f1": 0.6861,
+     "labels_written_before_the_second_half_kick_off": {
+      "H": 0,
+      "A": 0,
+      "D": 2934,
+      "X": 0
+     }
+    },
+    "tactical camera only, entry point possession.run25c on the same files": {
+     "spell_f1": 0.6641,
+     "macro_f1": 0.7262,
+     "f1_H": 0.8198,
+     "f1_A": 0.817,
+     "f1_D": 0.5418,
+     "label_possessions": 428,
+     "predicted_possessions": 352,
+     "play_only_spell_f1": 0.6641,
+     "labels_written_before_the_second_half_kick_off": {
+      "H": 0,
+      "A": 0,
+      "D": 2934,
+      "X": 0
+     }
+    },
+    "same corrupted content before duplicated tracks and slot packing, in memory, tactical only": {
+     "spell_f1": 0.6634,
+     "macro_f1": 0.7262,
+     "f1_H": 0.8196,
+     "f1_A": 0.8173,
+     "f1_D": 0.5417,
+     "label_possessions": 428,
+     "predicted_possessions": 354,
+     "play_only_spell_f1": 0.6634,
+     "labels_written_before_the_second_half_kick_off": {
+      "H": 0,
+      "A": 0,
+      "D": 2934,
+      "X": 0
+     }
+    }
+   }
+  }
+ },
+ "organisers_scorer_cross_check": {
+  "tool": "evaluation/run_evaluation.py of the organisers' repository (commit f8f2629) with --gt pointing at the synthetic full-size label file of a rehearsal bundle (X outside the graded windows)",
+  "bundle A": {
+   "organisers_scorer": {
+    "spell_f1_mean": 0.715136,
+    "macro_f1": 0.736991,
+    "graded_frames": 158447,
+    "label_possessions": 428,
+    "predicted_possessions": 378
+   },
+   "possession.evaluate": {
+    "spell_f1_mean": 0.7151,
+    "macro_f1": 0.737,
+    "label_possessions": 428,
+    "predicted_possessions": 378
+   },
+   "agree_to_four_decimals": true
+  },
+  "bundle B": {
+   "organisers_scorer": {
+    "spell_f1_mean": 0.686076,
+    "macro_f1": 0.727793,
+    "graded_frames": 158447,
+    "label_possessions": 428,
+    "predicted_possessions": 362
+   },
+   "possession.evaluate": {
+    "spell_f1_mean": 0.6861,
+    "macro_f1": 0.7278,
+    "label_possessions": 428,
+    "predicted_possessions": 362
+   },
+   "agree_to_four_decimals": true
+  }
+ },
+ "negative_controls_bundle_A": {
+  "as delivered": {
+   "spell_f1": 0.7151,
+   "macro_f1": 0.737
+  },
+  "teams exchanged": {
+   "spell_f1": 0.0045,
+   "macro_f1": 0.2068
+  },
+  "rows shifted by +1 frames": {
+   "spell_f1": 0.7132,
+   "macro_f1": 0.7361
+  },
+  "rows shifted by +25 frames": {
+   "spell_f1": 0.5444,
+   "macro_f1": 0.7005
+  },
+  "rows shifted by +125 frames": {
+   "spell_f1": 0.238,
+   "macro_f1": 0.5783
+  },
+  "rows shifted by -25 frames": {
+   "spell_f1": 0.5404,
+   "macro_f1": 0.6991
+  },
+  "rows shifted by -125 frames": {
+   "spell_f1": 0.2223,
+   "macro_f1": 0.5602
+  }
+ },
+ "slot_and_duplicate_diagnostic": {
+  "design": [
+   "Reporting-only diagnostic: two documented properties of the provided ATD that the validation never simulated.",
+   "",
+   "DATA.md: \"Slots appear, vanish and swap identity as the tracker loses and re-acquires people\" and the number",
+   "of tracked objects \"occasionally exceeds 22 when the tracker duplicates someone\". The corruption used for",
+   "training and validation (possession.degrade) keeps one column per player and adds no duplicated tracks.",
+   "",
+   "Design, fixed before the first result (no selection, no gate, nothing is changed by the outcome of this",
+   "script alone): Metrica sample games 1, 2 and 3 (not in the training set of the release bundles), one corrupted",
+   "copy each (v2 profile, seeds 8101-8103, new), the frozen release logic in memory (noise gate, then the v2.1 or",
+   "v2.3 bundle), scored with the organisers' metric on the external labels. Variants of the same corrupted copy:",
+   "  base      the layout used in every validation so far (one column per player, extra columns for wrong-team tracklets)",
+   "  sticky    tracklets packed into 46 anonymous slots (23 per team); a track lost for <= 1 s returns to its slot",
+   "  lru       packed; a track never returns to its slot (identity never kept)",
+   "  swap      packed; a new track takes the slot that was freed last (another person follows directly in a slot)",
+   "  dup1      base plus duplicated tracks at the rate of the rehearsal bundle (about 0.6% of tracked positions)",
+   "  dup5      base plus five times as many duplicated tracks"
+  ],
+  "copies": [
+   {
+    "match": "MET1",
+    "seed": 8101,
+    "model_path": "v2.1"
+   },
+   {
+    "match": "MET2",
+    "seed": 8102,
+    "model_path": "v2.1"
+   },
+   {
+    "match": "MET3",
+    "seed": 8103,
+    "model_path": "v2.1"
+   }
+  ],
+  "spell_f1": {
+   "base": {
+    "MET1": 0.6583,
+    "MET2": 0.5846,
+    "MET3": 0.6652
+   },
+   "sticky": {
+    "MET1": 0.6583,
+    "MET2": 0.5846,
+    "MET3": 0.6652
+   },
+   "lru": {
+    "MET1": 0.6531,
+    "MET2": 0.5846,
+    "MET3": 0.6636
+   },
+   "swap": {
+    "MET1": 0.6578,
+    "MET2": 0.5834,
+    "MET3": 0.6659
+   },
+   "dup1": {
+    "MET1": 0.6554,
+    "MET2": 0.5846,
+    "MET3": 0.6681
+   },
+   "dup5": {
+    "MET1": 0.6515,
+    "MET2": 0.581,
+    "MET3": 0.6683
+   }
+  },
+  "mean_spell_f1": {
+   "base": 0.636,
+   "sticky": 0.636,
+   "lru": 0.6338,
+   "swap": 0.6357,
+   "dup1": 0.636,
+   "dup5": 0.6336
+  },
+  "difference_to_base": {
+   "sticky": 0.0,
+   "lru": -0.0022,
+   "swap": -0.0003,
+   "dup1": 0.0,
+   "dup5": -0.0024
+  },
+  "model_path_changed_by_a_variant": false,
+  "duplicated_share_of_tracked_positions": {
+   "dup1": 0.0061,
+   "dup5": 0.0288
+  },
+  "rows": [
+   {
+    "match": "MET1",
+    "seed": 8101,
+    "variant": "base",
+    "path": "v2.1",
+    "spell_f1": 0.6583,
+    "macro_f1": 0.7467,
+    "slots": 119,
+    "tracklets": 20408,
+    "seconds": 87
+   },
+   {
+    "match": "MET1",
+    "seed": 8101,
+    "variant": "sticky",
+    "path": "v2.1",
+    "spell_f1": 0.6583,
+    "macro_f1": 0.7467,
+    "slots": 46,
+    "tracklets": 20408,
+    "seconds": 71,
+    "peak_simultaneous_per_team": [
+     12,
+     12
+    ]
+   },
+   {
+    "match": "MET1",
+    "seed": 8101,
+    "variant": "lru",
+    "path": "v2.1",
+    "spell_f1": 0.6531,
+    "macro_f1": 0.7466,
+    "slots": 46,
+    "tracklets": 20408,
+    "seconds": 70,
+    "peak_simultaneous_per_team": [
+     12,
+     12
+    ]
+   },
+   {
+    "match": "MET1",
+    "seed": 8101,
+    "variant": "swap",
+    "path": "v2.1",
+    "spell_f1": 0.6578,
+    "macro_f1": 0.7466,
+    "slots": 46,
+    "tracklets": 20408,
+    "seconds": 75,
+    "peak_simultaneous_per_team": [
+     12,
+     12
+    ]
+   },
+   {
+    "match": "MET1",
+    "seed": 8101,
+    "variant": "dup1",
+    "path": "v2.1",
+    "spell_f1": 0.6554,
+    "macro_f1": 0.7467,
+    "slots": 60,
+    "tracklets": 20408,
+    "seconds": 77,
+    "duplicated_tracks": 186,
+    "duplicated_share_of_tracked_positions": 0.0066
+   },
+   {
+    "match": "MET1",
+    "seed": 8101,
+    "variant": "dup5",
+    "path": "v2.1",
+    "spell_f1": 0.6515,
+    "macro_f1": 0.7462,
+    "slots": 60,
+    "tracklets": 20408,
+    "seconds": 78,
+    "duplicated_tracks": 860,
+    "duplicated_share_of_tracked_positions": 0.0301
+   },
+   {
+    "match": "MET2",
+    "seed": 8102,
+    "variant": "base",
+    "path": "v2.1",
+    "spell_f1": 0.5846,
+    "macro_f1": 0.6972,
+    "slots": 128,
+    "tracklets": 27011,
+    "seconds": 94
+   },
+   {
+    "match": "MET2",
+    "seed": 8102,
+    "variant": "sticky",
+    "path": "v2.1",
+    "spell_f1": 0.5846,
+    "macro_f1": 0.6972,
+    "slots": 46,
+    "tracklets": 27011,
+    "seconds": 71,
+    "peak_simultaneous_per_team": [
+     13,
+     12
+    ]
+   },
+   {
+    "match": "MET2",
+    "seed": 8102,
+    "variant": "lru",
+    "path": "v2.1",
+    "spell_f1": 0.5846,
+    "macro_f1": 0.6974,
+    "slots": 46,
+    "tracklets": 27011,
+    "seconds": 75,
+    "peak_simultaneous_per_team": [
+     13,
+     12
+    ]
+   },
+   {
+    "match": "MET2",
+    "seed": 8102,
+    "variant": "swap",
+    "path": "v2.1",
+    "spell_f1": 0.5834,
+    "macro_f1": 0.6969,
+    "slots": 46,
+    "tracklets": 27011,
+    "seconds": 79,
+    "peak_simultaneous_per_team": [
+     13,
+     12
+    ]
+   },
+   {
+    "match": "MET2",
+    "seed": 8102,
+    "variant": "dup1",
+    "path": "v2.1",
+    "spell_f1": 0.5846,
+    "macro_f1": 0.6971,
+    "slots": 60,
+    "tracklets": 27011,
+    "seconds": 88,
+    "duplicated_tracks": 186,
+    "duplicated_share_of_tracked_positions": 0.0061
+   },
+   {
+    "match": "MET2",
+    "seed": 8102,
+    "variant": "dup5",
+    "path": "v2.1",
+    "spell_f1": 0.581,
+    "macro_f1": 0.6967,
+    "slots": 60,
+    "tracklets": 27011,
+    "seconds": 84,
+    "duplicated_tracks": 819,
+    "duplicated_share_of_tracked_positions": 0.0271
+   },
+   {
+    "match": "MET3",
+    "seed": 8103,
+    "variant": "base",
+    "path": "v2.1",
+    "spell_f1": 0.6652,
+    "macro_f1": 0.7177,
+    "slots": 151,
+    "tracklets": 17085,
+    "seconds": 111
+   },
+   {
+    "match": "MET3",
+    "seed": 8103,
+    "variant": "sticky",
+    "path": "v2.1",
+    "spell_f1": 0.6652,
+    "macro_f1": 0.7177,
+    "slots": 46,
+    "tracklets": 17085,
+    "seconds": 85,
+    "peak_simultaneous_per_team": [
+     12,
+     12
+    ]
+   },
+   {
+    "match": "MET3",
+    "seed": 8103,
+    "variant": "lru",
+    "path": "v2.1",
+    "spell_f1": 0.6636,
+    "macro_f1": 0.7169,
+    "slots": 46,
+    "tracklets": 17085,
+    "seconds": 94,
+    "peak_simultaneous_per_team": [
+     12,
+     12
+    ]
+   },
+   {
+    "match": "MET3",
+    "seed": 8103,
+    "variant": "swap",
+    "path": "v2.1",
+    "spell_f1": 0.6659,
+    "macro_f1": 0.7171,
+    "slots": 46,
+    "tracklets": 17085,
+    "seconds": 88,
+    "peak_simultaneous_per_team": [
+     12,
+     12
+    ]
+   },
+   {
+    "match": "MET3",
+    "seed": 8103,
+    "variant": "dup1",
+    "path": "v2.1",
+    "spell_f1": 0.6681,
+    "macro_f1": 0.7179,
+    "slots": 60,
+    "tracklets": 17085,
+    "seconds": 98,
+    "duplicated_tracks": 166,
+    "duplicated_share_of_tracked_positions": 0.0057
+   },
+   {
+    "match": "MET3",
+    "seed": 8103,
+    "variant": "dup5",
+    "path": "v2.1",
+    "spell_f1": 0.6683,
+    "macro_f1": 0.718,
+    "slots": 60,
+    "tracklets": 17085,
+    "seconds": 92,
+    "duplicated_tracks": 860,
+    "duplicated_share_of_tracked_positions": 0.0292
+   }
+  ]
+ },
+ "notes": [
+  "Chain A and the reserve chain ran with the first version of possession/inputs_check.py (16 checks). The check was then extended to 26 (syntax facts read without the release reader, reader error class); bundle A passes all 26 (24 s, 1.55 GB) and chain B ran with that version.",
+  "Timings are from a 2-CPU cloud container; they include the synthetic tests in chain A only; no OCR and no fresh clone."
+ ],
+ "limits": [
+  "Simulated streams and synthetic periods outside play; previously accessed fixtures; one copy per match.",
+  "The rehearsal bundles follow the published aggregates, not the unknown details of the provided files (for example 188 unusable broadcast stretches in bundle A where DATA.md reports 122).",
+  "What the models do before a kick-off was exercised on an invented segment only."
+ ]
+}

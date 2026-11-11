@@ -1,0 +1,253 @@
+{
+ "version": "possession-v3 experiments (Smart Tagging evidence)",
+ "provided_fixture_used": false,
+ "note": "Agreement with other providers' labels on corrupted external copies with SIMULATED Smart Tagging; not a competition score. The provided Smart Tagging was never read.",
+ "plan_sha256": "754dab35251542accf764becaf5baf07373d7c9ba6455bd13c28fa4902a91fac",
+ "v3_0": {
+  "stage2_training_rows": 1704914,
+  "stage2_features": 71,
+  "decoder": {
+   "switch": 5,
+   "out_cost": 120,
+   "in_cost": 120,
+   "bias_dead": 0.0
+  },
+  "validation_copies": "DFL J03WN1/J03WR9 + Metrica 1-2, degrade seeds 101/102, tag seeds 7001-7008",
+  "v2_1_reference": 0.6312,
+  "regimes": {
+   "default": {
+    "spell_f1_all": 0.6422,
+    "dfl": 0.65,
+    "metrica": 0.6345,
+    "macro_f1": 0.8664
+   },
+   "none": {
+    "spell_f1_all": 0.6231,
+    "dfl": 0.639,
+    "metrica": 0.6072,
+    "macro_f1": 0.8566
+   },
+   "clean": {
+    "spell_f1_all": 0.6573,
+    "dfl": 0.676,
+    "metrica": 0.6386,
+    "macro_f1": 0.8705
+   },
+   "noisy": {
+    "spell_f1_all": 0.6253,
+    "dfl": 0.6443,
+    "metrica": 0.6062,
+    "macro_f1": 0.8602
+   },
+   "bad_team": {
+    "spell_f1_all": 0.6342,
+    "dfl": 0.65,
+    "metrica": 0.6183,
+    "macro_f1": 0.862
+   },
+   "inverted_defending": {
+    "spell_f1_all": 0.6433,
+    "dfl": 0.6543,
+    "metrica": 0.6323,
+    "macro_f1": 0.8669
+   },
+   "default_nogate": {
+    "spell_f1_all": 0.642,
+    "dfl": 0.6495,
+    "metrica": 0.6345,
+    "macro_f1": 0.8664
+   },
+   "bad_team_nogate": {
+    "spell_f1_all": 0.6354,
+    "dfl": 0.6487,
+    "metrica": 0.6221,
+    "macro_f1": 0.8634
+   },
+   "inverted_defending_nogate": {
+    "spell_f1_all": 0.6368,
+    "dfl": 0.6512,
+    "metrica": 0.6225,
+    "macro_f1": 0.8643
+   }
+  },
+  "gates": {
+   "default >= v2.1+0.010": true,
+   "none >= v2.1-0.005": false,
+   "noisy >= v2.1-0.005": false,
+   "bad_team >= v2.1-0.010": true,
+   "inverted_defending >= v2.1-0.010": true
+  },
+  "selected": false,
+  "gate_agreement_ranges_by_regime": {
+   "default": {
+    "setpiece": [
+     0.713,
+     0.998
+    ],
+    "attack": [
+     0.782,
+     0.828
+    ],
+    "defend": [
+     0.684,
+     0.834
+    ]
+   },
+   "clean": {
+    "attack": [
+     0.892,
+     0.939
+    ],
+    "defend": [
+     0.871,
+     0.943
+    ],
+    "setpiece": [
+     0.888,
+     1.0
+    ]
+   },
+   "noisy": {
+    "attack": [
+     0.632,
+     0.798
+    ],
+    "defend": [
+     0.489,
+     0.788
+    ],
+    "setpiece": [
+     0.488,
+     0.998
+    ]
+   },
+   "bad_team": {
+    "attack": [
+     0.559,
+     0.689
+    ],
+    "defend": [
+     0.525,
+     0.698
+    ],
+    "setpiece": [
+     0.713,
+     0.998
+    ]
+   },
+   "inverted_defending": {
+    "attack": [
+     0.648,
+     0.828
+    ],
+    "defend": [
+     0.141,
+     0.342
+    ],
+    "setpiece": [
+     0.713,
+     0.998
+    ]
+   }
+  }
+ },
+ "v3_1": {
+  "definition": "gate + fallback to v2.1 + agreement-weighted blend w=clip((A-0.6)/0.4,0,1) of v3.0 and v2.1 stage-2 probabilities",
+  "designed_after_v3_0_results": true,
+  "blend_decoder": {
+   "switch": 4,
+   "out_cost": 120,
+   "in_cost": 120,
+   "bias_dead": -0.3
+  },
+  "confirmation_copies": "same 4 validation matches, FRESH degrade seeds 103/104, tag seeds 7101-7108",
+  "v2_1_reference_on_fresh_copies": 0.6562,
+  "regimes": {
+   "default": 0.6577,
+   "none": 0.6562,
+   "clean": 0.6751,
+   "noisy": 0.6525,
+   "bad_team": 0.6539,
+   "inverted_defending": 0.6588
+  },
+  "difference_to_reference": {
+   "default": 0.0015,
+   "none": 0.0,
+   "clean": 0.0189,
+   "noisy": -0.0037,
+   "bad_team": -0.0023,
+   "inverted_defending": 0.0026
+  },
+  "blend_weights_per_copy": {
+   "default": [
+    0.506,
+    0.314,
+    0.519,
+    0.384,
+    0.451,
+    0.354,
+    0.502,
+    0.601
+   ],
+   "none": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "clean": [
+    0.728,
+    0.71,
+    0.848,
+    0.795,
+    0.75,
+    0.801,
+    0.909,
+    0.869
+   ],
+   "noisy": [
+    0.231,
+    0.178,
+    0.186,
+    0.179,
+    0.088,
+    0.391,
+    0.334,
+    0.279
+   ],
+   "bad_team": [
+    0.136,
+    0.081,
+    0.262,
+    0.065,
+    0.108,
+    0.142,
+    0.153,
+    0.153
+   ],
+   "inverted_defending": [
+    0.49,
+    0.297,
+    0.5,
+    0.299,
+    0.494,
+    0.354,
+    0.395,
+    0.542
+   ]
+  },
+  "gates": {
+   "default >= ref+0.010": false,
+   "none >= ref-0.005": true,
+   "noisy >= ref-0.005": true,
+   "bad_team >= ref-0.010": true,
+   "inverted_defending >= ref-0.010": true
+  },
+  "selected": false
+ },
+ "decision": "Neither v3.0 nor v3.1 met all pre-registered gates; v2.1 remains the submission system. With simulated tags whose counts match the provided file, the gain is +0.002 (v3.1) to +0.011 (v3.0) in the default regime and +0.019 to +0.026 when tags are accurate, with small losses when tags are noisy."
+}

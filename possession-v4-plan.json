@@ -1,0 +1,49 @@
+{
+  "plan": "possession-v4 (broadcast tracking as a second ball source)",
+  "registered": "2026-11-10T06:48:00+03:00",
+  "registered_before_any_v4_result": true,
+  "context": "v2.1 is the submission system; Smart Tagging (v3.0/v3.1) was not selected. The tactical ball is missing on 41% of graded frames (DATA.md); the broadcast ATD has its own ball track (50.5% of its frames) on a different, unsynchronised timeline. An oracle check (perfectly aligned fill of 30% of frames, 1 m noise) is running for reporting only.",
+  "candidate": {
+    "base": "v2.1 unchanged (same frozen bundle, stage 1, stage 2 and decoder; no retraining)",
+    "change": "before inference, fill missing tactical ball positions from the aligned broadcast ball (possession/broadcast.py)",
+    "alignment": "orientation/team mapping by global ball NCC and player matching; per half: coarse lag from masked normalised cross-correlation of ball x/y (FFT, >= 120 s overlap); 60 s windows (step 30 s) refine the lag within +-12 frames by matching visible broadcast players to tactical players of the same team; a broadcast frame is accepted only if >= 3 of its players match at median distance <= 2.0 m at the mapped tactical frame (replays and close-ups fail)",
+    "fusion": "fill only frames where the tactical ball is missing; reject a fill farther than 35 m/s x dt + 2 m from the nearest tactical ball within 0.5 s; global gate: at least 5% of broadcast frames accepted, >= 120 s of frames where both cameras see the ball, and >= 70% of those within 2.0 m, otherwise no fusion",
+    "constants": "fixed a priori in possession/broadcast.py before any v4 result; not tuned"
+  },
+  "validation": {
+    "copies": "the 8 v2.1 validation copies (DFL J03WN1, J03WR9, Metrica 1-2; degrade seeds 101/102)",
+    "synthetic_broadcast": "generated from the CLEAN external match: per-half offset with slow drift (+-3e-5), broadcast start/end margins, 30-120 s studio gap between halves, replays at dead-ball moments (4-12 s, content 6-15 s in the past, half of them slow motion, 30% with valid homography), close-ups (invalid fraction 0.15-0.30, mean run 3 s), camera window around the ball (half-size 18-30 m x 12-20 m), per-shot calibration bias (sd 0-1.5 m, shots of 3-10 s), player noise 0.2-1.0 m, ball available on 55-85% of valid live frames (mean run 2 s) with noise 0.2-1.0 m and 1% outliers, one player slot with a wrong team",
+    "regimes": {
+      "default": "parameters drawn per copy, seeds 8001-8008",
+      "bad": "calibration bias sd 3-5 m and ball noise 3-5 m",
+      "none": "no broadcast (identical to v2.1 by construction)"
+    },
+    "alignment_metrics": "lag error on accepted frames, precision of accepted frames (truly live and within 2 frames), recall over valid live frames"
+  },
+  "selection_rule": {
+    "select_v4_only_if_all": [
+      "default regime mean spellF1 >= v2.1 on the same copies (0.6312) + 0.010",
+      "bad regime >= 0.6312 - 0.005",
+      "accepted-frame precision >= 0.98 and median absolute lag error <= 2 frames in the default regime"
+    ],
+    "otherwise": "keep v2.1",
+    "no_relaxation": true
+  },
+  "limits_stated_in_advance": [
+    "The broadcast stream is synthetic; real replay/cut structure, calibration error and the overlap of the two cameras' ball gaps are unknown and decide the real gain.",
+    "On the provided match the alignment is automatic; its outcome is reported only in the local run.json and is not used for any choice.",
+    "If selected, the final check is the Metrica game 3 reserved test with a synthetic broadcast, once."
+  ],
+  "timestamp_correction": {
+    "corrected_on": "2026-11-10",
+    "note": "The clock times first written in this file were estimates typed by the coding agent without reading the system clock; they were 1-60 minutes later than the real write times. They were replaced on 2026-11-10 by times taken from the file system of the agent working copy (creation / last modification of this file and of the experiment logs). The original values are kept below. The order of plan, amendments and results is unchanged and is what the evidence supports; exact times inside a range cannot be recovered.",
+    "original_values": {
+      "registered": "2026-11-10T06:55+03:00"
+    },
+    "file_system_evidence": {
+      "plan_file_created_and_last_written": "06:48:00",
+      "first_v4_result_log": "exp_v4_default.log 07:08:17"
+    },
+    "disclosure": "The oracle upside check named in \"context\" (upside_fill.log) was last written at 06:44:36, before this plan, and was stopped by the memory limit; its partial output (J03WN1 copy 101: 0.575 without fill, 0.595 with 30% oracle fill, 0.592 with 50%) may have been seen before registration."
+  }
+}

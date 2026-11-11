@@ -1,0 +1,145 @@
+{
+  "plan": "possession-v3 (Smart Tagging as evidence)",
+  "registered": "2026-11-10T06:19:34+03:00",
+  "registered_before_any_v3_result": true,
+  "baseline_kept_frozen": "possession-v2.1 (models/possession-v2.npz, SHA-256 1cd59ba5c21a5abc2be24f8294b3af3d61d84997b61edfc08c028384a9d550d1); no v2.1 source file is edited",
+  "motivation": "Smart Tagging is automatic (Metrica, no manual review) and organisers encourage its use (FAQ). v2.1 ignores it. Set-piece tags mark restart windows (~5 s around the restart) with the taking team (N/A for throw-ins); phase tags carry the team in possession (attacking codes) or the defending team (defending codes).",
+  "change": {
+    "stage_1": "unchanged v2.1 stage 1 (tracking only)",
+    "stage_2": "v2.1 stacking features + Smart Tagging features (signed possession evidence from attacking/defending phase codes, transition codes, set-piece windows with type and team, distances to tag starts/ends and to changes of tag evidence)",
+    "consistency_gate": "at run time, per tag group (attacking codes, defending codes, set-piece teams): agreement between the tag team and the stage-1 team probability on frames inside the group's tags where stage 1 is confident (|p_home-0.5|>0.2, p_dead<0.3). A group with fewer than 625 such frames or agreement < 0.60 is dropped (its features are set to 'no tag'). tau=0.60 fixed a priori, not tuned.",
+    "decoder": "same 3-state Viterbi; costs re-selected for v3 on the validation copies from the v2.1 grid (switch 2-8, out/in 30-120, dead bias -0.3/0/0.3)"
+  },
+  "smart_tagging_semantics_assumed": {
+    "team_in_possession": [
+      "build up",
+      "progression",
+      "creating chances",
+      "attacking transition",
+      "ball in final third",
+      "ball in the box",
+      "players in the box",
+      "long ball"
+    ],
+    "team_defending": [
+      "defending in attacking third",
+      "defending in middle third",
+      "defending in defensive third",
+      "defensive transition"
+    ],
+    "set_pieces": "team taking the restart; N/A for throw-ins",
+    "ignored": [
+      "goals"
+    ],
+    "basis": "code names, DATA.md/FAQ wording and the matching counts of paired codes in DATA.md (e.g. progression 66 / defending in middle third 66); not checked against the provided match. The consistency gate guards against a wrong assumption."
+  },
+  "tag_simulation_on_external_matches": {
+    "why": "no external match has Metrica Smart Tagging, so tags are generated from the external labels and clean positions and then corrupted with randomised errors",
+    "phases": "possession spells split by ball zone along the attack direction: own third -> build up, middle -> progression, final third -> creating chances (+ ball in final third); mirrored defending tag for the other team with probability p_mirror; ball in the box / players in the box from penalty-area occupancy; long ball at ball displacements > 30 m in 1.5 s; attacking/defensive transition for 3-8 s after an open-play change of team",
+    "set_pieces": "window around each dead->alive restart (start 0.5-4 s before, end 1-5 s after); type from the restart position; team = team in possession after the restart, N/A for throw-ins",
+    "randomised_per_copy": {
+      "count_scale_per_code_and_set_piece_type": [
+        0.5,
+        1.5
+      ],
+      "p_merge_consecutive_zone_runs": [
+        0.0,
+        0.8
+      ],
+      "systematic_lag_s": [
+        -1.5,
+        1.5
+      ],
+      "boundary_jitter_sd_s": [
+        0.3,
+        3.0
+      ],
+      "team_error_rate": [
+        0.0,
+        0.15
+      ],
+      "na_team_rate": [
+        0.0,
+        0.05
+      ],
+      "false_tags_per_true_tag": [
+        0.0,
+        0.15
+      ],
+      "p_mirror": [
+        0.5,
+        1.0
+      ],
+      "p_no_tags_at_all": 0.1,
+      "p_drop_each_group": 0.1
+    },
+    "count_calibration": "each code keeps a random subset of its candidates so that its expected count per graded minute equals the per-code count published in DATA.md for the provided file (e.g. progression 66, set pieces 59 by type) divided by 105.9 minutes, times the random scale"
+  },
+  "data": {
+    "training_for_validation": "OOF stage-1 probabilities of DFL J03WOH, J03WOY, J03WPY, J03WQQ (seeds 1-3, from the v2.1 stacking experiment) + 2 independent tag draws per copy",
+    "validation": "same 8 copies as v2.1 (DFL J03WN1, J03WR9, Metrica 1-2; seeds 101, 102); stage-1 probabilities from the 4-match stage-1 models",
+    "final_bundle": "if selected: stage 1 identical to v2.1, stage 2 retrained on leave-one-match-out probabilities of all 6 DFL matches",
+    "reserved_test": "Metrica sample game 3, once, after freezing (simulated tags, default regime, seeds 201/202)"
+  },
+  "validation_regimes": {
+    "default": "randomised parameters as in training, fixed seeds 7001-7008",
+    "none": "no tags at all",
+    "clean": "published counts (scale 1), lag 0, jitter 0.3 s, no team errors, no false tags, all mirrors",
+    "noisy": "half the published counts (scale 0.5), lag +1.5 s, jitter 3 s, team errors 0.15, false tags 0.15",
+    "bad_team": "default parameters with team error rate 0.30",
+    "inverted_defending": "default parameters, defending codes carry the team in possession (wrong semantics)"
+  },
+  "selection_rule": {
+    "score": "mean official spell_f1_mean over the 8 validation copies; v2.1 with its own selected decoder (0.6312), v3 with the decoder selected on its default regime and used unchanged in every other regime",
+    "select_v3_only_if_all": [
+      "default regime >= v2.1 validation (0.6312) + 0.010",
+      "none regime >= 0.6312 - 0.005",
+      "noisy regime >= 0.6312 - 0.005",
+      "bad_team regime (with gate) >= 0.6312 - 0.010",
+      "inverted_defending regime (with gate) >= 0.6312 - 0.010"
+    ],
+    "otherwise": "keep v2.1 as the submission system; v3 stays experimental",
+    "no_relaxation": true
+  },
+  "limits_stated_in_advance": [
+    "The real Smart Tagging error profile is unknown; validation shows the gain only if real tags fall inside the simulated ranges.",
+    "Nothing of the provided match (tracking, tags, video, ground truth, public window) is used for any v3 choice; the provided tags are read only by the local automatic run.",
+    "Broadcast tracking and video remain unused in v3."
+  ],
+  "amendments": [
+    {
+      "recorded": "between 2026-11-10T06:19:34 and 06:31:38+03:00 (exact time not recoverable)",
+      "before_any_v3_result": true,
+      "text": "Simulator calibration changed before any training or validation result: the first version emitted about 3.7 times more tags than the provided file has (checked only against the public DATA.md per-code counts, not against the file). Recall ranges per code were replaced by count calibration to the published rates with a random scale 0.5-1.5, and consecutive zone runs of a possession may merge (p_merge 0-0.8) so tag durations vary. The clean/noisy regimes were redefined accordingly."
+    },
+    {
+      "recorded": "between 2026-11-10T06:28:41 and 06:31:38+03:00 (after the first v3.0 validation log)",
+      "after_v3_0_results": true,
+      "v3_0_outcome": "v3.0 NOT selected: default 0.6422 (+0.011, gate passed), none 0.6231 (gate needs >= 0.6262, failed), noisy 0.6253 (failed), bad_team 0.6342 (passed), inverted_defending 0.6433 (passed). v2.1 stays.",
+      "new_candidate": "v3.1 (designed after seeing the v3.0 validation results; disclosed as such)",
+      "v3_1_definition": "Same v3.0 stage-2 model and gate (tau 0.60, >= 625 frames per group). If no tag group passes the gate, the output is exactly v2.1 (its stage 2 and its decoder 3/60/60/-0.3). Otherwise the frame probabilities are p = w * p_v3 + (1 - w) * p_v2.1 for both P(dead) and P(home), with w = clip((A - 0.60) / (1 - 0.60), 0, 1), A = agreement over all confident frames of the used groups (frame-weighted). Decoder for this path: best of the same 54-point grid on the ORIGINAL default-regime copies (seeds 101/102).",
+      "v3_1_confirmation": "Fresh corrupted copies of the 4 validation matches (degrade seeds 103/104) with fresh tag draws (seeds 7101-7108), all six regimes; v2.1 recomputed on the same fresh copies as the reference; the same five gates relative to that reference. Selected only if all five pass; then frozen and checked once on the reserved test.",
+      "limit": "The fresh copies come from the same four validation matches, so selection bias is reduced, not removed. The reserved Metrica game 3 test is the only untouched check."
+    }
+  ],
+  "timestamp_correction": {
+    "corrected_on": "2026-11-10",
+    "note": "The clock times first written in this file were estimates typed by the coding agent without reading the system clock; they were 1-60 minutes later than the real write times. They were replaced on 2026-11-10 by times taken from the file system of the agent working copy (creation / last modification of this file and of the experiment logs). The original values are kept below. The order of plan, amendments and results is unchanged and is what the evidence supports; exact times inside a range cannot be recovered.",
+    "original_values": {
+      "registered": "2026-11-10T06:35+03:00",
+      "amendments[0].recorded": "2026-11-10T07:05+03:00",
+      "amendments[1].recorded": "2026-11-10T07:40+03:00"
+    },
+    "file_system_evidence": {
+      "plan_file_created": "06:19:34",
+      "plan_file_last_written": "06:31:38",
+      "simulator_check_script": "sim_check.py 06:21:56",
+      "calibration_code_change": "possession/smarttags.py last written 06:23:18",
+      "first_v3_training_log": "exp_v3.log 06:25:38",
+      "first_v3_validation_log": "eval_v3tags.log 06:28:41",
+      "v3_0_selection_summary": "sel_v3.json 06:30:07",
+      "v3_1_confirmation_log": "v31.log 06:41:42"
+    },
+    "disclosure": "Amendment 0: the calibration code change is older than the first v3 training and validation logs; whether the amendment text itself was written before 06:25:38 cannot be shown from file times."
+  }
+}

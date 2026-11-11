@@ -1,0 +1,7 @@
+# Possession v2 training from external data only (python -m possession.train).
+# Not needed to generate the submission. Environment used to build models/possession-v2.npz:
+# Python 3.13
+numpy==2.5.3
+scipy==1.18.1
+pandas==3.0.5
+scikit-learn==1.9.1

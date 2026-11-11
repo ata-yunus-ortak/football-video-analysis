@@ -1,0 +1,226 @@
+{
+  "version": "possession-v2.6 experiment (learned switch hazard -> frame-dependent switch cost, v2.1 path)",
+  "provided_fixture_used": false,
+  "note": "Agreement with other providers' labels on corrupted copies of external matches; not a competition score.",
+  "written_at": "2026-11-10T15:41:24+03:00",
+  "plan_sha256": "bf949b42099593bb373f48c6fa085931fac0a04ef4691faa63ec6c7afb88afd4",
+  "code_sha256": {
+    "decode2.py": "72cba0e5a48cbe6a3b5ad4d0dd1dba3654537cfb326a2ff52dc9c7d5a259c9ad",
+    "hazard.py": "4ff53c68f5083bffe071dddad0b3d083fbd14e745d9cce0b0b41aceafe338608"
+  },
+  "motivating_reporting_only_checks": {
+    "oracle_parts (8 v2.1 validation copies)": {
+      "model": {
+        "spell_f1": 0.6312,
+        "macro_f1": 0.8607
+      },
+      "oracle_dead": {
+        "spell_f1": 0.6468,
+        "macro_f1": 0.9066
+      },
+      "oracle_team": {
+        "spell_f1": 0.9117,
+        "macro_f1": 0.9154
+      },
+      "oracle_both": {
+        "spell_f1": 0.991,
+        "macro_f1": 0.9999
+      }
+    },
+    "decomposition (4 validation matches, seed 101)": {
+      "clean": {
+        "spell_f1": 0.7481,
+        "macro_f1": 0.8969
+      },
+      "v2.1 corruption": {
+        "spell_f1": 0.6098,
+        "macro_f1": 0.8489
+      },
+      "no ball missing": {
+        "spell_f1": 0.7,
+        "macro_f1": 0.8859
+      },
+      "no position noise": {
+        "spell_f1": 0.59,
+        "macro_f1": 0.8351
+      },
+      "ball missing only": {
+        "spell_f1": 0.6202,
+        "macro_f1": 0.8441
+      }
+    }
+  },
+  "hazard_model": {
+    "training_rows": 628086,
+    "features": 275,
+    "positive_rate": 0.0971
+  },
+  "selection": {
+    "grid_top8": [
+      {
+        "spell_f1": 0.6351,
+        "macro_f1": 0.8613,
+        "s0": 2,
+        "beta": 1.0
+      },
+      {
+        "spell_f1": 0.6346,
+        "macro_f1": 0.8616,
+        "s0": 3,
+        "beta": 2.0
+      },
+      {
+        "spell_f1": 0.6343,
+        "macro_f1": 0.8614,
+        "s0": 3,
+        "beta": 1.5
+      },
+      {
+        "spell_f1": 0.6331,
+        "macro_f1": 0.861,
+        "s0": 2,
+        "beta": 0.5
+      },
+      {
+        "spell_f1": 0.633,
+        "macro_f1": 0.8612,
+        "s0": 3,
+        "beta": 1.0
+      },
+      {
+        "spell_f1": 0.6325,
+        "macro_f1": 0.861,
+        "s0": 3,
+        "beta": 0.5
+      },
+      {
+        "spell_f1": 0.6324,
+        "macro_f1": 0.8613,
+        "s0": 2,
+        "beta": 1.5
+      },
+      {
+        "spell_f1": 0.632,
+        "macro_f1": 0.8614,
+        "s0": 4,
+        "beta": 2.0
+      }
+    ],
+    "selected_decoder": {
+      "switch_s0": 2,
+      "switch_beta": 1.0,
+      "out_cost": 60,
+      "in_cost": 60,
+      "bias_dead": -0.3
+    },
+    "selection_copies": {
+      "v2_4": 0.6312,
+      "v2_6": 0.6351
+    }
+  },
+  "fresh_confirmation": {
+    "per_copy": [
+      {
+        "copy": "J03WN1|4100",
+        "v2_4": [
+          0.6432,
+          0.9123
+        ],
+        "v2_6": [
+          0.6487,
+          0.9132
+        ]
+      },
+      {
+        "copy": "J03WN1|4101",
+        "v2_4": [
+          0.636,
+          0.9113
+        ],
+        "v2_6": [
+          0.651,
+          0.9124
+        ]
+      },
+      {
+        "copy": "J03WR9|4110",
+        "v2_4": [
+          0.6447,
+          0.9121
+        ],
+        "v2_6": [
+          0.6505,
+          0.9124
+        ]
+      },
+      {
+        "copy": "J03WR9|4111",
+        "v2_4": [
+          0.6731,
+          0.9319
+        ],
+        "v2_6": [
+          0.6691,
+          0.932
+        ]
+      },
+      {
+        "copy": "MET1|4120",
+        "v2_4": [
+          0.6441,
+          0.8253
+        ],
+        "v2_6": [
+          0.6374,
+          0.8241
+        ]
+      },
+      {
+        "copy": "MET1|4121",
+        "v2_4": [
+          0.659,
+          0.8339
+        ],
+        "v2_6": [
+          0.6569,
+          0.8336
+        ]
+      },
+      {
+        "copy": "MET2|4130",
+        "v2_4": [
+          0.6582,
+          0.8075
+        ],
+        "v2_6": [
+          0.6605,
+          0.8071
+        ]
+      },
+      {
+        "copy": "MET2|4131",
+        "v2_4": [
+          0.656,
+          0.813
+        ],
+        "v2_6": [
+          0.6559,
+          0.8133
+        ]
+      }
+    ],
+    "summary": {
+      "v2_4": 0.6517875,
+      "v2_6": 0.65375,
+      "v2_4_macro": 0.8684125,
+      "v2_6_macro": 0.8685125,
+      "copies_not_worse": 4
+    }
+  },
+  "gates": {
+    "fresh mean >= v2.4 + 0.010": false,
+    "not worse on >= 5 of 8 fresh copies": false
+  },
+  "selected": false,
+  "decision": "v2.6 NOT selected (+0.002 on fresh copies, not worse on 4 of 8; gates +0.010 and 5 of 8); the v2.4 decoder stays"
+}

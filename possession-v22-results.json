@@ -1,0 +1,78 @@
+{
+ "version": "possession-v2.2 experiment (robustness to ball position error)",
+ "provided_fixture_used": false,
+ "note": "external validation copies only; not a competition score",
+ "plan_sha256": "660335ca4a39da3002042193a718525e2cf4cb3323e7751ce893f7f8362c9c3f",
+ "sensitivity_of_v2_1_recipe_reporting_only": {
+  "copies": "J03WN1, J03WR9, Metrica 1, Metrica 2 (degrade seed 101), 4-match validation models",
+  "mean_spell_f1": {
+   "base": 0.6098,
+   "iid_0.5": 0.5367,
+   "iid_1.0": 0.4915,
+   "bias_1.0": 0.5193,
+   "aerial": 0.6107
+  },
+  "per_copy": {
+   "base": [
+    0.575,
+    0.6697,
+    0.6046,
+    0.5901
+   ],
+   "iid_0.5": [
+    0.4536,
+    0.5461,
+    0.5886,
+    0.5583
+   ],
+   "iid_1.0": [
+    0.3932,
+    0.4623,
+    0.5584,
+    0.552
+   ],
+   "bias_1.0": [
+    0.4676,
+    0.5625,
+    0.5368,
+    0.5101
+   ],
+   "aerial": [
+    0.5745,
+    0.6639,
+    0.6067,
+    0.5978
+   ]
+  },
+  "variants": {
+   "iid_0.5": "extra i.i.d. ball noise sd 0.5 m",
+   "iid_1.0": "extra i.i.d. ball noise sd 1.0 m",
+   "bias_1.0": "slowly varying ball bias sd 1.0 m (tau 5 s)",
+   "aerial": "ground-projection error of fast balls (height 1-4 m)"
+  }
+ },
+ "validation": {
+  "v21": {
+   "all16": 0.6176607709937467,
+   "orig": 0.631204061677703,
+   "ext": 0.6041174803097904
+  },
+  "v22": {
+   "all16": 0.6228937586649769,
+   "orig": 0.62621584592395,
+   "ext": 0.6195716714060038,
+   "decoder": {
+    "switch": 5,
+    "out_cost": 60,
+    "in_cost": 60,
+    "bias_dead": -0.3
+   }
+  }
+ },
+ "gates": {
+  "all16 >= v2.1 + 0.010": false,
+  "orig >= 0.6312 - 0.010": true
+ },
+ "selected": false,
+ "decision": "Not selected: v2.2 (training ball noise 0.05-0.6 m plus 0-0.6 m slowly varying bias) gained +0.016 on the copies with extended ball error but lost 0.005 on the original copies; the 16-copy gain (+0.005) missed the registered +0.010. v2.1 remains."
+}
