@@ -1,5 +1,27 @@
 # Deney kaydı
 
+## D003 — IDSSE BallStatus ile öğrenilmiş oyuncu-hareketi D maskesi, 11 Kasım 2026
+
+Hedef: DFL pozisyon akışındaki kare bazında `BallStatus` (7 IDSSE maçı,
+CC BY 4.0). Split indirmeden önce maç bazında kaydedildi
+(`learned-dead-ball-plan.json`): 5 eğitim, 1 doğrulama, 1 ayrılmış.
+Ham dosyalar SHA-256 ile doğrulanır.
+
+Bulgu: DFL top koordinatı ölü karelerin %100'ünde sabit. Top özelliği
+kullanılmadı; yalnız oyuncu hareketi/şekli. Hakem kayıtları atıldı.
+Bozulma eğitimi olmadan model küçük takip gürültüsünde çöktü (D F1 0.93 → 0.30);
+1 s/3 s hız ve rastgele bozulma eğitimiyle düzeldi.
+
+Seçim: yalnız yumuşatma, doğrulama maçında (temiz/hafif/ağır ortalama D F1).
+Sonuç: ayrılmış maçta D F1 0.924 (temiz) / 0.891 (ağır bozulma). Metrica
+örnek maç 3'te kısmi olay vekilleriyle duruş kare duyarlılığı 0.913, canlı
+vekilde yanlış D 0.046. Bunlar yarışma skoru değildir; spellF1 etkisi ölçülmedi.
+
+Yarışma maçı, görüntüleri, etiketleri ve public skoru kullanılmadı. Temel
+`clean_model/` kaynakları değişmedi. `predict` yeni isteğe bağlı
+`learned_dead_mask` argümanı aldı. 84 test geçti.
+Ayrıntılar: `docs/OGRENILMIS_DURAN_TOP_TR.md`.
+
 ## L001 — LONG BALL aralığında hareket ve yakınlık engeli, 4 Kasım 2026
 
 Kullanıcı isteğiyle otomatik LONG BALL aralıklarında kesintisiz hızlı ve

@@ -32,7 +32,8 @@ class MotionConfig:
 
 
 def predict(inputs, baseline_labels, config, dribble_config=None, transition_config=None,
-            *, dead_ball_config=None, automatic_tags=None, long_ball_config=None):
+            *, dead_ball_config=None, automatic_tags=None, long_ball_config=None,
+            learned_dead_mask=None):
     needs_tags = dead_ball_config is not None or long_ball_config is not None
     if needs_tags != (automatic_tags is not None):
         raise ValueError('Tag configuration and automatic tags must be supplied together')
@@ -90,6 +91,12 @@ def predict(inputs, baseline_labels, config, dribble_config=None, transition_con
         dead_ball = apply_dead_ball(inputs, labels, automatic_tags['events'], dead_ball_config)
         dead_mask = dead_ball['dead_ball_mask']
         dead_ball.pop('labels')
+    tag_dead_mask = dead_mask.copy()
+    if learned_dead_mask is not None:
+        learned_dead_mask = np.asarray(learned_dead_mask)
+        if learned_dead_mask.shape != (n,) or learned_dead_mask.dtype.kind != 'b':
+            raise ValueError('Aligned boolean learned dead-ball mask required')
+        dead_mask = dead_mask | learned_dead_mask
     width = max(1, int(np.ceil(config.window_s * fps)))
     refractory = max(1, int(np.ceil(config.refractory_s * fps)))
     delta = np.full(n, np.nan)
@@ -173,9 +180,10 @@ def predict(inputs, baseline_labels, config, dribble_config=None, transition_con
                 frame = event['after_evidence_frame']
                 if labels[frame] == ('H' if event['to_team'] == 0 else 'A'):
                     reasons[frame] = 'team_change_with_ball_evidence'
-    if dead_ball_config is not None:
+    if dead_ball_config is not None or learned_dead_mask is not None:
         labels[dead_mask] = 'D'
-        reasons[dead_mask] = 'tag_supported_measured_dead_ball'
+        reasons[dead_mask & ~tag_dead_mask] = 'learned_player_motion_dead_ball'
+        reasons[tag_dead_mask] = 'tag_supported_measured_dead_ball'
         if 'dribble_slot' in player_motion:
             player_motion['dribble_slot'][dead_mask] = -1
     long_ball = {}

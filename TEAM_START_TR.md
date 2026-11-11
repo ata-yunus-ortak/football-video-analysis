@@ -54,6 +54,7 @@ elle doğruluk etiketi/düzeltme toplamaz ve veriyi harici servise yüklemez.
 | `development/player_motion.py` | Oyuncu/top birlikte hareketi ve takım hızları |
 | `development/team_transitions.py` | Takım hareketi değişimi bağlamı |
 | `development/set_piece_dead_ball.py` | SET PIECES ve ölçülmüş bekleme/başlangıç |
+| `development/learned_dead_ball.py` | IDSSE BallStatus ile eğitilmiş oyuncu-hareketi D maskesi |
 | `development/long_ball.py` | LONG BALL aralığında uzun/hızlı hareket ve yakınlık engeli |
 | `tools/tracking_viewer.py`, `viewer/` | Yerel tracking/video/Smart Tagging arayüzü |
 | `tools/motion_experiment.py` | Kayıtlı dış verilerde deney çalıştırıcısı |
