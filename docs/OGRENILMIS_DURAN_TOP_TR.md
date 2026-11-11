@@ -57,10 +57,30 @@ Durma vekili karelerinin %91.3'ü D, 64 duruşun 56'sı yakalandı;
 canlı vekil karelerinin %4.6'sı yanlış D. Metrica takibi IDSSE kadar
 pürüzsüzdür (medyan sapma 0.07 m), bu yüzden gürültü dayanıklılığını test etmez.
 
+## Organizatör puanlayıcısıyla etki (IDSSE)
+
+`tools/idsse_spell_eval.py`, dondurulmuş H/A/X temel modelini D maskesiyle ve
+maskesiz, organizatörün `possession_metrics.py` puanlayıcısıyla (commit
+`f8f2629`) puanlar. Gerçek etiket: DFL `BallStatus` + `BallPossession`.
+Ham DFL topu ile; duruşta topu silinmiş akışta sonuçlar ±0.01 içinde aynı.
+
+| Maç | Sürüm | spellF1 | macroF1 |
+| --- | --- | --- | --- |
+| Doğrulama | temel | 0.232 | 0.407 |
+| Doğrulama | temel + öğrenilmiş D | 0.265 | 0.781 |
+| Doğrulama | temel + gerçek D (üst sınır) | 0.313 | 0.831 |
+| Ayrılmış | temel | 0.264 | 0.420 |
+| Ayrılmış | temel + öğrenilmiş D | 0.321 | 0.788 |
+| Ayrılmış | temel + gerçek D (üst sınır) | 0.384 | 0.848 |
+
+D maskesi macroF1'i ikiye katlar; spellF1'e +0.03/+0.06 ekler, mümkün
+kazancın yarısı kadar. Gerçek D ile bile spellF1 ~0.31–0.38'de kalıyor:
+asıl darboğaz H/A sahiplik sınırları. Bunlar yarışma skoru değildir.
+
 ## Sınırlar
 
 - D tanımı DFL'nindir. Yarışmanın D başlangıç/bitişiyle aynı olduğu
-  doğrulanmadı. Sınır hatası medyanı ~1–2 s'dir; spellF1 etkisi ölçülmedi.
+  doğrulanmadı. Sınır hatası medyanı ~1–2 s'dir.
 - Yarışma takibi muhtemelen daha gürültülü. Gürültü düzeyi yarışma verisine
   bakılarak seçilmedi; geniş bir aralıkta eğitildi.
 - ATD girdisinde devre bilgisi yok (`period` hep 1). Pencereler devre arasını

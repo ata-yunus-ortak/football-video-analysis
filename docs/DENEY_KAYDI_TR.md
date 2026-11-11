@@ -15,7 +15,9 @@ Bozulma eğitimi olmadan model küçük takip gürültüsünde çöktü (D F1 0.
 Seçim: yalnız yumuşatma, doğrulama maçında (temiz/hafif/ağır ortalama D F1).
 Sonuç: ayrılmış maçta D F1 0.924 (temiz) / 0.891 (ağır bozulma). Metrica
 örnek maç 3'te kısmi olay vekilleriyle duruş kare duyarlılığı 0.913, canlı
-vekilde yanlış D 0.046. Bunlar yarışma skoru değildir; spellF1 etkisi ölçülmedi.
+vekilde yanlış D 0.046. Organizatör puanlayıcısıyla IDSSE'de temel modele D eklemek
+spellF1'i 0.232→0.265 (doğrulama), 0.264→0.321 (ayrılmış) yaptı; gerçek D üst
+sınırı 0.313/0.384. Bunlar yarışma skoru değildir.
 
 Yarışma maçı, görüntüleri, etiketleri ve public skoru kullanılmadı. Temel
 `clean_model/` kaynakları değişmedi. `predict` yeni isteğe bağlı
