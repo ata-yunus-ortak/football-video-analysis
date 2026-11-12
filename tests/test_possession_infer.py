@@ -2,7 +2,7 @@ import unittest
 
 try:
     import numpy as np
-    from possession import decode, infer
+    from possession import decode, fuse, infer
 except ImportError:  # the offline suite runs without site-packages
     np = None
 
@@ -46,6 +46,13 @@ class InferTest(unittest.TestCase):
         dead, home = infer.dead_and_home(prob, 20)
         self.assertEqual(len(dead), 20)
         self.assertAlmostEqual(home[0], 0.75)
+
+    def test_fuse_three_classes_and_mean(self):
+        self.assertTrue(np.allclose(fuse.three_class([0.2], [0.75]), [[0.6, 0.2, 0.2]]))
+        tcn = np.tile([0.1, 0.8, 0.1], (10, 1))           # 12.5 Hz, says away
+        dead, home = np.full(20, 0.1), np.full(20, 0.6)   # 25 fps, says home, less sure
+        self.assertTrue((fuse.fuse(tcn, dead, home) == 1).all())
+        self.assertTrue((fuse.fuse(tcn, dead, home, weight=0.0) == 0).all())
 
 
 if __name__ == "__main__":

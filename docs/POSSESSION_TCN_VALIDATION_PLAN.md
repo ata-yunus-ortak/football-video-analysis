@@ -25,3 +25,17 @@ the fusion is documented as future work.
 
 J03WMX: not in `tcn_dfl6.npz`, but earlier TCN cross-validation scores on it were seen. Not to
 be touched for this fusion without a team decision.
+
+## Update 12 Nov 2026 (evening), still before any score
+
+The team's registered plan (`possession-v213-plan.json` on the v2.x branch, with seeds, file
+hashes and the v2.12 gates) replaces the outline above where they differ. Agreed changes:
+
+- Gate data: J03WN1, J03WR9, Metrica 1-2, new seeds. Metrica 3 is reported, not a gate.
+- v2.x validation models are trained on J03WOH, J03WOY, J03WPY, J03WQQ. The TCN side on the
+  two DFL gate matches uses `tcn_dfl5_without_J03WN1.npz` and `tcn_dfl5_without_J03WR9.npz`
+  (same recipe, one seed each, the gate match left out). They are trained on five matches, the
+  v2.x validation models on four. On Metrica the TCN side is `tcn_dfl6.npz` (three seeds).
+- Fusion rule: `possession/fuse.py`, weight 0.5, switch cost 6 at 25 fps. The v2.x decoder is
+  not used in the fused system.
+- J03WMX is not used for the fusion.

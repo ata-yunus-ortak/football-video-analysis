@@ -101,12 +101,13 @@ def dead_and_home(prob, n):
 
 
 def export(model_dir, out_path):
-    """torch state dicts (model_seed*.pt) -> one compressed npz, float32 as trained."""
+    """torch state dicts (a folder of model_seed*.pt, or one .pt file) -> one compressed npz, float32."""
     import torch
     from .train import make_model
     dilations = [b.conv.dilation[0] for b in make_model().blocks]
     arrays = {}
-    for i, path in enumerate(sorted(glob.glob(os.path.join(model_dir, "model_seed*.pt")))):
+    paths = [model_dir] if os.path.isfile(model_dir) else sorted(glob.glob(os.path.join(model_dir, "model_seed*.pt")))
+    for i, path in enumerate(paths):
         state = torch.load(path, map_location="cpu")
         for key, value in state.items():
             arrays["m%d/%s" % (i, key)] = value.numpy().astype(np.float32)
