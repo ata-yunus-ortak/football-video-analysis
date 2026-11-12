@@ -1,5 +1,13 @@
 # Deney kaydı
 
+## P002 — çözümleme teşhisi ve teslim aracı, 12 Kasım 2026
+
+Doğrulamada 2 s'den kısa 191 gerçek spell'in yalnız %9'u yakalanıyor. Geniş
+çözümleme ızgarası +0.009 verdi (gürültü altında); v1 korundu, ayrılmış maça
+yeniden bakılmadı. `tools/predict_submission.py` eklendi; IDSSE doğrulama
+maçının ATD provasında aynı hash ile iki kez çalıştı, biçim kontrolü geçti,
+spellF1 0.494. Yarışma maçı bu oturumda çalıştırılmadı.
+
 ## P001 — IDSSE BallPossession ile öğrenilmiş H/A sahiplik, 12 Kasım 2026
 
 Canlı karelerde DFL `BallPossession` hedefiyle top + oyuncu şekli özellikleri,

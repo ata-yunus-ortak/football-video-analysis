@@ -59,3 +59,33 @@ class DecodeTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SubmissionTests(unittest.TestCase):
+    def test_predict_labels_combines_dead_and_possession(self):
+        from tools.predict_submission import predict_labels
+
+        class Dead:
+            def predict_proba(self, x):
+                p = np.zeros(len(x)); p[150:] = 1
+                return np.column_stack([1 - p, p])
+
+        class Home:
+            def predict_proba(self, x):
+                p = np.r_[np.ones(100), np.zeros(len(x) - 100)]
+                return np.column_stack([1 - p, p])
+
+        p, ball = scene(200, 10.0)
+        x = {"players": p, "ball": ball, "teams": TEAMS, "period": np.ones(200, int),
+             "fps": np.array(10.0), "pitch": np.array(PITCH)}
+        dmeta = {"smoothing": {"window_s": 0.1, "threshold": 0.5, "min_run_s": 0.1}}
+        pmeta = {"decoding": {"window_s": 0.1, "margin": 0.0, "min_spell_s": 0.1}}
+        labels, dead = predict_labels(x, Dead(), dmeta, Home(), pmeta)
+        self.assertTrue(np.all(labels[:100] == "H"))
+        self.assertTrue(np.all(labels[100:150] == "A"))
+        self.assertTrue(np.all(labels[150:] == "D"))
+
+    def test_atd_normalisation_round_trip(self):
+        from tools.idsse_to_atd import normalised
+        p = np.array([[-52.5, 34.0], [0.0, 0.0], [52.5, -34.0]])
+        np.testing.assert_allclose(normalised(p), [[0, 0], [0.5, 0.5], [1, 1]])
