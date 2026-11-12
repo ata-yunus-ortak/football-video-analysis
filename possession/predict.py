@@ -1,21 +1,22 @@
 """Competition match in, submission CSV out.
 
-    python -m possession.predict --data DATA_DIR --models MODEL_DIR --out TEAM.csv
+    python -m possession.predict --data DATA_DIR --out TEAM.csv --switch-cost 6
 
 Reads only the automatic assets of the tactical recording: the ATD (tracking) and the Smart
 Tagging. It never opens a ground-truth file. All learned weights and the decoder's switch cost
 come from external matches (see possession.train / possession.evaluate).
 """
 import argparse
-import glob
 import os
 import xml.etree.ElementTree as ET
 
 import numpy as np
 
-from . import data, features
+from . import data, infer
 from .decode import decode
-from .train import STRIDE, make_model, predict_symmetric
+from .infer import STRIDE
+
+WEIGHTS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "weights", "tcn_dfl6.npz")
 
 # Published by the organisers in DATA.md ("Which frames are graded"): the two halves as video
 # frames, inclusive. Everything else is never scored and is written as X.
@@ -37,25 +38,7 @@ def kickoff_tag_starts(tagging_path):
     return sorted(starts)
 
 
-def load_models(model_dir):
-    import torch
-    models = []
-    for path in sorted(glob.glob(os.path.join(model_dir, "model_seed*.pt"))):
-        model = make_model()
-        model.load_state_dict(torch.load(path, map_location="cpu"))
-        models.append(model.eval())
-    if not models:
-        raise IOError("no model_seed*.pt in %s -- run possession.train final first" % model_dir)
-    return models
-
-
-def half_probabilities(models, ball, team0, team1):
-    feats, _ = features.build(ball, team0, team1)
-    swapped, _ = features.build(ball, team1, team0)
-    return predict_symmetric(models, feats, swapped)
-
-
-def run(data_dir, model_dir, out_path, switch_cost):
+def run(data_dir, weights, out_path, switch_cost, kickoff="tag", probs_out=None):
     tactical = os.path.join(data_dir, "tactical")
     meta = os.path.join(tactical, "BAR-ATH_tactical_atd.xml")
     raw = os.path.join(tactical, "BAR-ATH_tactical_atd.txt")
@@ -66,14 +49,17 @@ def run(data_dir, model_dir, out_path, switch_cost):
     row_of = np.full(N_VIDEO_FRAMES, -1, np.int64)
     row_of[video_frame] = np.arange(len(video_frame))
 
-    models = load_models(model_dir)
-    kickoffs = kickoff_tag_starts(tagging) if os.path.isfile(tagging) else []
+    members = infer.load_weights(weights)
+    kickoffs = kickoff_tag_starts(tagging) if kickoff == "tag" and os.path.isfile(tagging) else []
+    p_dead = np.full(N_VIDEO_FRAMES, np.nan)
+    p_home = np.full(N_VIDEO_FRAMES, np.nan)
     labels = np.full(N_VIDEO_FRAMES, "X", dtype="<U1")
     for first, last in GRADED_BLOCKS:
         rows = row_of[first:last + 1]
         if (rows < 0).any():
             raise ValueError("tracking does not cover video frames %d..%d" % (first, last))
-        prob = half_probabilities(models, ball[rows], team0[rows], team1[rows])
+        prob = infer.probabilities(members, ball[rows], team0[rows], team1[rows])
+        p_dead[first:last + 1], p_home[first:last + 1] = infer.dead_and_home(prob, len(rows))
         path = decode(prob, switch_cost, STRIDE, len(rows))
         block = LETTERS[path]
         # The ball cannot be in play before the half has kicked off. The automatic tagging marks
@@ -88,16 +74,22 @@ def run(data_dir, model_dir, out_path, switch_cost):
     with open(out_path, "w") as handle:
         handle.write("frame,label\n")
         handle.writelines("%d,%s\n" % (i, label) for i, label in enumerate(labels))
+    if probs_out:
+        # Intermediate file for fusion with the team's other models; never committed.
+        np.savez_compressed(probs_out, p_dead=p_dead, p_home_given_alive=p_home)
     return labels
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--data", default=os.environ.get("MTAH_DATA_DIR", "data"))
-    parser.add_argument("--models", default="models")
+    parser.add_argument("--weights", default=WEIGHTS)
+    parser.add_argument("--kickoff", choices=("tag", "none"), default="tag",
+                        help="tag: dead before the Smart Tagging kick-off of each block; none: model only")
+    parser.add_argument("--probs-out", help="optional npz with per-frame P(dead), P(home | alive)")
     parser.add_argument("--out", required=True)
     parser.add_argument("--switch-cost", type=float, required=True,
                         help="decoder switch cost chosen on external matches")
     args = parser.parse_args()
-    run(args.data, args.models, args.out, args.switch_cost)
+    run(args.data, args.weights, args.out, args.switch_cost, args.kickoff, args.probs_out)
     print("wrote", args.out)

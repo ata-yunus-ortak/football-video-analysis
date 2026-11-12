@@ -183,10 +183,14 @@ def run_cv(cache_dir, out_dir, epochs, folds):
                 np.savez(os.path.join(out_dir, "oof_" + name + ".npz"), p=predict(model, x), y=y)
 
 
-def run_final(cache_dir, out_dir, epochs, seeds):
+def run_final(cache_dir, out_dir, epochs, seeds, exclude=()):
+    """Train the shipped models on every cached match whose name has none of the `exclude` prefixes."""
     torch = _torch()
     os.makedirs(out_dir, exist_ok=True)
-    items = list(load_cache(cache_dir, "train").values())
+    train = load_cache(cache_dir, "train")
+    used = sorted({match_of(name) for name in train if not match_of(name).startswith(tuple(exclude))})
+    print("training matches: %s" % used, flush=True)
+    items = [value for name, value in train.items() if match_of(name) in used]
     for seed in range(seeds):
         print("final model seed %d" % seed, flush=True)
         model = fit(items, epochs, seed=100 + seed)
@@ -203,10 +207,11 @@ if __name__ == "__main__":
     parser.add_argument("--epochs", type=int, default=12)
     parser.add_argument("--folds", type=int, default=5)
     parser.add_argument("--seeds", type=int, default=3)
+    parser.add_argument("--exclude", nargs="*", default=[], help="match-name prefixes left out of `final`")
     args = parser.parse_args()
     if args.command == "cache":
         build_cache(args.dfl, args.metrica, args.cache)
     elif args.command == "cv":
         run_cv(args.cache, args.out, args.epochs, args.folds)
     else:
-        run_final(args.cache, args.out, args.epochs, args.seeds)
+        run_final(args.cache, args.out, args.epochs, args.seeds, args.exclude)

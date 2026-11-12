@@ -1,0 +1,4 @@
+# Inference (regenerating the submission): NumPy only.
+numpy==2.5.4
+# Training only (possession.train, possession.infer export). Python 3.12.13.
+torch==2.15.0
