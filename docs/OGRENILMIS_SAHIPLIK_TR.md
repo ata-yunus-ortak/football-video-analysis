@@ -59,7 +59,7 @@ tanımı farklıysa bunlara göre ayarlamak aşırı uyum olur.
 `tools/predict_submission.py` ATD üst veri + takip dosyasından `submission.csv`
 (`frame,label`, her takip karesi bir satır) ve `inference.json` (girdi/model
 hash'leri) üretir. Video, tag, public referans veya elle not okumaz; model
-dosyalarını dondurma hash'leriyle doğrular. MacBook Air M5'te ~40 s, ~1.3 GB.
+dosyalarını dondurma hash'leriyle doğrular. CPU dizüstünde ~40 s, ~1.3 GB.
 
 Prova: `tools/idsse_to_atd.py` doğrulama maçını ATD biçiminde yazar (top duruşta
 eksik). Teslim aracı iki kez çalıştı, aynı SHA-256; organizatör biçim kontrolü
@@ -85,4 +85,4 @@ python -m tools.train_learned_possession --plan learned-dead-ball-plan.json \
     --scorer /private/organizer-eval --out /private/learned-possession-v1
 ```
 
-MacBook Air M5'te ~4 dakika, tepe bellek ~3.3 GB (4 iş parçacığı).
+CPU dizüstünde ~4 dakika, tepe bellek ~3.3 GB (4 iş parçacığı).
