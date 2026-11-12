@@ -1,5 +1,14 @@
 # Deney kaydı
 
+## P001 — IDSSE BallPossession ile öğrenilmiş H/A sahiplik, 12 Kasım 2026
+
+Canlı karelerde DFL `BallPossession` hedefiyle top + oyuncu şekli özellikleri,
+bozulma eğitimi. D, dondurulmuş öğrenilmiş D maskesinden. Çözümleme ayarları
+yalnız doğrulamada spellF1 ile seçildi. Organizatör puanlayıcısıyla spellF1:
+doğrulama 0.267 → 0.495 (ağır bozulmada 0.166 → 0.417); ayrılmış 0.328 → 0.599
+(ağır 0.235 → 0.492). Model az spell üretiyor (321/511). Yarışma maçı
+kullanılmadı; yarışma skoru değildir. Ayrıntılar: `docs/OGRENILMIS_SAHIPLIK_TR.md`.
+
 ## D003 — IDSSE BallStatus ile öğrenilmiş oyuncu-hareketi D maskesi, 11 Kasım 2026
 
 Hedef: DFL pozisyon akışındaki kare bazında `BallStatus` (7 IDSSE maçı,
