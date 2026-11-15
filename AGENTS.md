@@ -38,16 +38,23 @@
 - Do not claim all organizer/remediation conditions are complete; provider-side
   conversation/upload cleanup remains unverified in the handoff.
 
-- Possession (`possession/`): the submission system is `possession-v2.11`, entry point
-  `python -m possession.run211`, release manifest `possession-v211-release.json`; the release and its
-  technical fall-backs (the next one is `possession-v2.9`, `possession.run29`) are named in
-  `possession-release.json`. v2.11 = frozen v2.1 core + noise gate with the v2.3 path (v2.4) + gated
-  broadcast ball fill with clock-anchored alignment (v2.5b) + second-half kick-off frame published in
-  the organisers' FAQ (v2.5c) + broadcast ball registered through players seen by both cameras
-  (`register.py`, v2.9) + goalkeeper team check before the features (`keeper2.py`). It follows the
+- Possession (`possession/`): the submission system is `possession-v2.15`, entry point
+  `python -m possession.run215`, release manifest `possession-v215-release.json`; the release and its
+  technical fall-backs (the next one is `possession-v2.11k`, `possession.run211k`) are named in
+  `possession-release.json`. v2.15 = v2.11k + a second model family on the core path: the second-stage
+  probabilities are averaged with those of a temporal convolution network (`possession/tcn/`, byte
+  copies of a team member's modules; `models/possession-tcn-v215.npz`, three members trained by us on
+  the six DFL matches with both corruption simulators; `possession/pooling.py`) before the unchanged
+  decoder (weight 0.2 for the network); nothing is averaged on the v2.3 path (log entries
+  K012, K013). v2.11k = frozen v2.1 core + noise gate with the v2.3 path (v2.4) + gated
+  broadcast ball fill with clock-anchored alignment (v2.5b) + broadcast ball registered through
+  players seen by both cameras (`register.py`, v2.9) + goalkeeper team check before the features
+  (`keeper2.py`, v2.11), run on the organisers' graded windows (v2.11g: the kick-off frame published
+  in the FAQ is not used) + dead ball before the Smart Tagging kick-off tag (`kickoff.py`). It follows the
   rules above: external-only
-  training/selection (`possession-v2-plan.json` ... `possession-v211-plan.json`), frozen
-  bundles with source hashes (`models/possession-v2.npz`, `models/possession-v23.npz`), local-only
+  training/selection (`possession-v2-plan.json` ... `possession-v215-plan.json`), frozen
+  bundles with source hashes (`models/possession-v2.npz`, `models/possession-v23.npz`,
+  `models/possession-tcn-v215.npz`), local-only
   inference on the provided match, no output/video comparison. Changes to frozen `possession/*.py`
   files invalidate the release checks; any new version needs a new plan, a new entry point or
   retraining, and a new version string.
@@ -66,7 +73,9 @@
 - The final test on the reserved DFL match J03WMX (`possession-final-test-plan.json`,
   `tools/possession_final_test.py`) is run once, by the team. Its result is reported as measured and
   never used to change, retrain or re-select the release. Do not download or read that match for
-  any other purpose.
+  any other purpose. The plan is registered for `possession-v2.11k`, the release without the second
+  model, and was not re-registered for v2.15: the network's designer had used that match, so a run
+  of v2.15 on it would not be a fresh test. Report its result as a result of v2.11k (steps 1-8).
 - `possession/keeper.py` is the first version of the goalkeeper check (v2.10). It passed its
   registered gates and was not released (it moved outfield players when the far goalkeeper was not
   tracked; log entry K004). Keep the file, its plan and its results as they are; do not use it.
@@ -76,9 +85,33 @@
   sort that file now uses (log entry K005: with the default sort the labels depended on the pandas /
   numpy build, and three reporting-only records had to be recomputed). Any record that scores against
   external labels states the Python, pandas and numpy versions it ran under.
-- `possession.run211g` (`possession-release-graded-windows.json`) is a reserve entry point without
-  the published kick-off frame. It becomes the release only if the organisers answer that the
-  constant may not be hard-coded (question sent on 11 Nov 2026); do not switch for any other reason.
+- `possession.run211` (second half started at the kick-off frame published in the FAQ) stays frozen and
+  is not used: the organisers' answer of 12 Nov 2026 to our question did not allow the constant
+  explicitly. `possession-release-graded-windows.json` is the reserve ladder without the Smart
+  Tagging kick-off rule and without the second model (`possession.run211g` first). Do not switch
+  between them because of an output.
+- The Smart Tagging file is read only for its "Kick Off (Start)" tags (`possession/kickoff.py`, frozen
+  with `possession-v211k-release.json` and `possession-v215-release.json`). The delivery chain's `VERI`
+  line says whether the file is in the bundle (without it the rule is not applied and the models'
+  labels stand), and `GIRDI OKUMA` compares the
+  number of those tags with DATA.md. Where the tags lie in the provided file is not to be asked for
+  or reported; Appendix R on the team's computer records only whether a tag was used. Rule written
+  before the chain ran on the provided files with v2.11k (log entry K011): if `tagging_reader_runs` or
+  `tagging_kickoff_start_tags` fails there, the reserve ladder without the rule is delivered.
+- Three candidates failed their registered gates and are not part of any release: touch / control-change
+  columns (`possession/touch.py`, v2.12, log entry K008) and two ways of averaging the release's
+  probabilities with a team member's temporal convolution network: his committed weights with his
+  single-cost decoder (v2.13, log entry K010; scripts and byte copies of his modules under
+  `experiments/possession_v2/v213/`), and weights re-trained by us with the v2 decoder and equal
+  weights (v2.14, log entry K012: better on 15 of 16 new copies, but the gate on single copies
+  failed). Keep the files and records. v2.15 (log entry K013), the release, is the third and last
+  attempt; it changes none of the earlier records, and its plan says that no further candidate with
+  the second model is registered before the deadline.
+- The network weights of v2.15 were trained in an agent session on external data
+  (`experiments/possession_v2/v214/tcn_jax.py`). A re-run is not bit-identical: never replace
+  `models/possession-tcn-v215.npz`; a new training is a new version with a new plan. The files
+  under `possession/tcn/` are byte copies of commit `167dc7b` of branch `mtah-possession` and are
+  frozen with the release.
 - Before stating that copies, fixtures or seeds are "new" or "unused", check every earlier plan and
   results file for them (log entry K002). Quote the organisers' pages from a local clone with line
   numbers, not from a web summary.

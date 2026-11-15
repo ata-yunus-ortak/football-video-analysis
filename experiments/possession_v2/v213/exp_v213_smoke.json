@@ -1,0 +1,256 @@
+{
+ "rows": [
+  {
+   "copy": "J03WOH|1",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": "tcn_dfl6.npz",
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.282,
+     "A": 0.241,
+     "D": 0.477
+    },
+    "fused": {
+     "H": 0.286,
+     "A": 0.241,
+     "D": 0.473
+    },
+    "tcn_alone": {
+     "H": 0.296,
+     "A": 0.255,
+     "D": 0.449
+    }
+   },
+   "frames_changed": 3188,
+   "noise_m": {
+    "ball_m": 0.2598,
+    "players_m": 0.2335
+   },
+   "keeper2_moved_pieces": 6,
+   "ball_visible_in_play": 0.521,
+   "seconds_v2": 31,
+   "seconds_tcn": 84
+  },
+  {
+   "copy": "J03WOH|1",
+   "condition": "fill_good",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": "tcn_dfl6.npz",
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.286,
+     "A": 0.244,
+     "D": 0.469
+    },
+    "fused": {
+     "H": 0.288,
+     "A": 0.244,
+     "D": 0.468
+    },
+    "tcn_alone": {
+     "H": 0.29,
+     "A": 0.253,
+     "D": 0.458
+    }
+   },
+   "frames_changed": 3210,
+   "noise_m": {
+    "ball_m": 0.2598,
+    "players_m": 0.2335
+   },
+   "keeper2_moved_pieces": 6,
+   "ball_visible_in_play": 0.521,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.3647,
+    "filled": 23422,
+    "ball_visible_graded_before": 0.5212,
+    "ball_visible_graded_after": 0.6919
+   },
+   "simulation_seconds": 68,
+   "broadcast_quality": {
+    "bias_sd": 0.1617,
+    "b_sd": 0.2401,
+    "p_sd": 0.0638,
+    "ball_frac": 0.5934,
+    "invalid": 0.2017
+   },
+   "seconds_v2": 48,
+   "seconds_tcn": 83
+  },
+  {
+   "copy": "J03WOH|1",
+   "condition": "view42",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": "tcn_dfl6.npz",
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.282,
+     "A": 0.242,
+     "D": 0.475
+    },
+    "fused": {
+     "H": 0.286,
+     "A": 0.242,
+     "D": 0.472
+    },
+    "tcn_alone": {
+     "H": 0.295,
+     "A": 0.259,
+     "D": 0.446
+    }
+   },
+   "frames_changed": 3824,
+   "keeper2_moved_pieces": 3,
+   "seconds_v2": 27,
+   "seconds_tcn": 75
+  },
+  {
+   "copy": "J03WOH|99",
+   "condition": "tactical_sim2",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": "tcn_dfl6.npz",
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.279,
+     "A": 0.239,
+     "D": 0.482
+    },
+    "fused": {
+     "H": 0.283,
+     "A": 0.238,
+     "D": 0.48
+    },
+    "tcn_alone": {
+     "H": 0.284,
+     "A": 0.239,
+     "D": 0.477
+    }
+   },
+   "frames_changed": 3271,
+   "noise_m": {
+    "ball_m": 0.0169,
+    "players_m": 0.027
+   },
+   "keeper2_moved_pieces": 0,
+   "ball_visible_in_play": 0.669,
+   "seconds_v2": 22,
+   "seconds_tcn": 71
+  },
+  {
+   "copy": "J03WOH|1|forced validation models v2.3",
+   "condition": "tactical",
+   "path": "v2.3",
+   "v2_side": "validation models",
+   "tcn_weights": "tcn_dfl6.npz",
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.278,
+     "A": 0.238,
+     "D": 0.484
+    },
+    "fused": {
+     "H": 0.285,
+     "A": 0.24,
+     "D": 0.476
+    },
+    "tcn_alone": {
+     "H": 0.296,
+     "A": 0.255,
+     "D": 0.449
+    }
+   },
+   "frames_changed": 4425,
+   "seconds_v2": 28,
+   "seconds_tcn": 77
+  },
+  {
+   "copy": "J03WOH|1|forced released bundles v2.1",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": "tcn_dfl6.npz",
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.285,
+     "A": 0.24,
+     "D": 0.475
+    },
+    "fused": {
+     "H": 0.286,
+     "A": 0.241,
+     "D": 0.473
+    },
+    "tcn_alone": {
+     "H": 0.296,
+     "A": 0.255,
+     "D": 0.449
+    }
+   },
+   "frames_changed": 3869,
+   "seconds_v2": 57,
+   "seconds_tcn": 79
+  },
+  {
+   "copy": "J03WOH|1|forced released bundles v2.3",
+   "condition": "tactical",
+   "path": "v2.3",
+   "v2_side": "released bundles",
+   "tcn_weights": "tcn_dfl6.npz",
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.278,
+     "A": 0.241,
+     "D": 0.481
+    },
+    "fused": {
+     "H": 0.285,
+     "A": 0.239,
+     "D": 0.476
+    },
+    "tcn_alone": {
+     "H": 0.296,
+     "A": 0.255,
+     "D": 0.449
+    }
+   },
+   "frames_changed": 4547,
+   "seconds_v2": 64,
+   "seconds_tcn": 84
+  }
+ ],
+ "environment": {
+  "python": "3.13.18",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "scikit_learn": "1.9.1"
+ },
+ "fusion": {
+  "weight": 0.5,
+  "switch_cost": 6.0,
+  "stride": 2,
+  "prob_decimals": 4
+ },
+ "sha256": {
+  "weights": {
+   "tcn_dfl5_without_J03WN1.npz": "14a83c7bc5b47b5c9066fca6e64e1aeefcea55479ea566769aed4f168e39029b",
+   "tcn_dfl5_without_J03WR9.npz": "df3385d2621a4e12f0d278dcb43d5bf619980e3a6bff5c01216f73cdad264491",
+   "tcn_dfl6.npz": "808da468de32684ef01ab1905d7a3d8ffada1ab88cb1a4986905374a8f77b631"
+  },
+  "tcn_modules": {
+   "infer.py": "cea6b164d697f77616ab2a38de6632aee23d1f134e485dbcd3b527f492e70922",
+   "features.py": "c33bde1208bc7b1c90058193681e51b631443c548aa281d46d2fa439ee16ee29",
+   "decode.py": "457e12b1ce3cecc6fc659fafcaf4dc6d6129efdc8d6c4fb59b9f2ccd754bfd91",
+   "fuse.py": "abc87d446ea769ec5a68f6c11157603c7e088fb6da9e8833734a37152b992dfe",
+   "degrade.py": "0292d7f73e9886888eff9b4ae9930dd88d228a8f8857191a3eeb2b997b12399d"
+  },
+  "exp_v213.py": "65a0852191c414d7b393f05000a17cd0c7f8fbd0d885775731085e538b087028"
+ }
+}

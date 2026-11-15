@@ -8,6 +8,7 @@ import numpy as np
 try:
     from possession import inputs_check as ic
     from tests.test_possession_reader_reference import write_like_provided
+    from tests.test_possession_kickoff import tagging, kick
     HAVE_DEPS = True
 except ImportError:
     HAVE_DEPS = False
@@ -27,6 +28,9 @@ def bundle(root, n=900, valid='1', invalid='0', missing='NaN,NaN,NaN'):
              else f'{i},NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,{invalid}' for i in range(n - 100)]
     (root / 'broadcast' / 'SYN_broadcast_homography.csv').write_text('\n'.join(rows) + '\n')
     windows = ((100, 399), (500, 849))
+    (root / 'tactical' / 'SYN_tactical_smart_tagging.xml').write_text(
+        tagging([kick(4.0), kick(21.0), kick(9.0, text='Kick Off (After Goal)'), kick(12.0, text='Throw-in'),
+                 (14.0, 16.0, 'BUILD UP', [('Team', 'Barcelona')])]), encoding='utf-8')
     graded = np.zeros(n, bool)
     for a, e in windows:
         graded[a:e + 1] = True
@@ -36,7 +40,8 @@ def bundle(root, n=900, valid='1', invalid='0', missing='NaN,NaN,NaN'):
            'mean_tracked_on_graded': round(float(np.isfinite(t['xy']).all(2).sum(1)[graded].mean()), 1),
            'broadcast_records': n - 100, 'broadcast_slots': 51,
            'broadcast_ball_share': round(float(np.isfinite(b['ball']).all(1).mean()), 3),
-           'broadcast_homography_valid_share': round(float(ok.mean()), 3), 'home_name_contains': 'barcelona'}
+           'broadcast_homography_valid_share': round(float(ok.mean()), 3), 'home_name_contains': 'barcelona',
+           'tagging_kickoff_start_tags': 2}
     return root, pub
 
 
@@ -68,6 +73,24 @@ class InputsCheckTests(unittest.TestCase):
             res = ic.check(root, game='SYN', pub=pub)
             self.assertTrue(all(res[k] is None for k in ic.CHECKS if k.startswith('broadcast')))
             self.assertTrue(all(res[k] for k in ic.CHECKS if not k.startswith('broadcast')))
+
+    def test_smart_tagging_is_read_with_the_kickoff_reader_and_only_its_tag_count_is_compared(self):
+        with tempfile.TemporaryDirectory() as d:
+            root, pub = bundle(d)
+            tag = root / 'tactical' / 'SYN_tactical_smart_tagging.xml'
+            res = ic.check(root, game='SYN', pub=dict(pub, tagging_kickoff_start_tags=3))
+            self.assertEqual([k for k, v in res.items() if v is False], ['tagging_kickoff_start_tags'])
+            tag.write_text('<file><instance>', encoding='utf-8')                 # not XML: the reader's error class, nothing else
+            details = {}
+            res = ic.check(root, game='SYN', pub=pub, details=details)
+            self.assertEqual([k for k, v in res.items() if v is False], ['tagging_reader_runs'])
+            self.assertIsNone(res['tagging_kickoff_start_tags'])
+            self.assertEqual(details, {'tagging_reader_runs': 'ParseError'})
+            tag.unlink()                                                         # no file: skipped
+            res = ic.check(root, game='SYN', pub=pub)
+            self.assertIsNone(res['tagging_reader_runs'])
+            self.assertIsNone(res['tagging_kickoff_start_tags'])
+            self.assertTrue(all(v for k, v in res.items() if not k.startswith('tagging')))
 
     def test_a_file_whose_groups_do_not_follow_the_player_list_is_reported(self):
         """The release's reader follows the DataFormatSpecification (as kloppy does); the organisers' starter code takes

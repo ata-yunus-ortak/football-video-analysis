@@ -1,8 +1,12 @@
 @echo off
-rem Possession v2.11 (submission system): generate the file locally from the provided bundle (never upload the data).
+rem Possession v2.11, an EARLIER release with the published second-half kick-off frame. NOT the submission system since
+rem 13 Nov 2026: the release is possession-v2.11k and is produced by TESLIM-HAZIRLA.cmd. Runs locally (never upload the data).
 rem v2.9 + goalkeeper team correction; uses the clock readings of SAAT-OKU.cmd when present (see run.json).
 chcp 65001 >nul
 cd /d "%~dp0"
+echo NOT: Bu baslatici sabit baslama kareli eski surumu calistirir, v2.11. Teslim surumu bu degildir.
+echo      Teslim dosyasi icin TESLIM-HAZIRLA.cmd kullanin. Devam icin bir tusa basin, iptal icin pencereyi kapatin.
+pause >nul
 if exist "%~dp0viewer-local.cmd" call "%~dp0viewer-local.cmd"
 if not defined MTAH_DATA_DIR set "MTAH_DATA_DIR=%USERPROFILE%\FootballPrivate\mtah2027\bundle"
 if not exist "%MTAH_DATA_DIR%\tactical\BAR-ATH_tactical_atd.xml" (

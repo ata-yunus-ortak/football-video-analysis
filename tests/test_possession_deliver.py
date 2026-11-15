@@ -127,6 +127,8 @@ class HelperTests(unittest.TestCase):
         self.assertEqual(pd.release_detail(tb + 'ValueError: the v2.9 release manifest changed\n'), 'the v2.9 release manifest changed')
         self.assertEqual(pd.release_detail(tb + 'ValueError: the v2.11 release manifest changed\n'), 'the v2.11 release manifest changed')
         self.assertEqual(pd.release_detail(tb + 'ValueError: frozen source changed: keeper2.py\n'), 'frozen source changed: keeper2.py')
+        self.assertEqual(pd.release_detail(tb + 'ValueError: the v2.11g release manifest changed\n'), 'the v2.11g release manifest changed')
+        self.assertEqual(pd.release_detail(tb + 'ValueError: frozen source changed: kickoff.py\n'), 'frozen source changed: kickoff.py')
         self.assertEqual(pd.release_detail(tb + "ModuleNotFoundError: No module named 'scipy'\n"), "No module named 'scipy'")
         self.assertEqual(pd.release_detail(tb + f'ValueError: {SECRET} 12.5\n'), '')            # any other message stays private
         self.assertEqual(pd.release_detail(tb + f'ValueError: frozen source changed: data.py {SECRET} ' + 'x' * 80 + '\n'), '')
@@ -150,6 +152,62 @@ class HelperTests(unittest.TestCase):
         for text in (short, whole):
             self.assertIn('moved to the team that defends that goal', text)
             self.assertFalse(any(ch.isdigit() for ch in text))                                   # a category, never a number
+
+    def test_the_run_record_says_whether_the_kickoff_rule_was_applied_without_a_frame_or_a_count(self):
+        facts = dict.fromkeys(('file', 'sha256', 'when', 'command', 'repo', 'platform', 'format', 'plausibility', 'repeat', 'clone',
+                               'noclock', 'platform_check', 'organiser', 'public'), 'x')
+        row = lambda rep: [l for l in pd.run_record(rep, facts).splitlines() if l.startswith('| Kick-off rule')][0]
+        base = {'rows': 5, 'system': 's', 'path': 'v2.1', 'fusion': {'reason': 'none'}}
+        self.assertIn('not part of the entry point', row(base))                                  # v2.11g and lower steps
+        rule = lambda **kw: dict(base, kickoff_rule=dict({'tagging_file_found': True, 'tags_read': 2, 'used_in_block': [False, False],
+                                                          'frames_changed_in_block': [0, 0], 'status': 'x'}, **kw))
+        used = row(rule(used_in_block=[False, True], frames_changed_in_block=[0, 1234], status='applied'))
+        self.assertIn('was used', used)
+        self.assertIn('Smart Tagging file not found', row(rule(tagging_file_found=False, tags_read=None)))
+        self.assertIn('no usable kick-off tag', row(rule(tags_read=0)))
+        self.assertIn('no usable kick-off tag', row(rule(tags_read=None, status='smart tagging unreadable (ParseError): not applied')))
+        for text in (used, row(rule()), row(rule(tagging_file_found=False))):
+            self.assertFalse(any(ch.isdigit() for ch in text))                                   # a category, never a number
+
+    def test_the_run_record_says_whether_the_second_model_was_used_as_a_category(self):
+        facts = dict.fromkeys(('file', 'sha256', 'when', 'command', 'repo', 'platform', 'format', 'plausibility', 'repeat', 'clone',
+                               'noclock', 'platform_check', 'organiser', 'public'), 'x')
+        row = lambda rep: [l for l in pd.run_record(rep, facts).splitlines() if l.startswith('| Second model')][0]
+        base = {'rows': 5, 'system': 's', 'path': 'v2.1', 'fusion': {'reason': 'none'}}
+        self.assertIn('not part of the entry point', row(base))                                  # every lower step of the ladder
+        used = row(dict(base, second_model={'used': True, 'weights_sha256': 'ab12', 'pool': 'arithmetic', 'weight': 0.2}))
+        self.assertIn('used: the probabilities of the tree models were averaged', used)
+        unused = row(dict(base, second_model={'used': False, 'reason': 'the pooling is used on the v2.1 path only'}))
+        self.assertIn('not used: the noise gate chose the path on which nothing is averaged', unused)
+        for text in (used, unused):
+            self.assertFalse(any(ch.isdigit() for ch in text))                                   # a category: no weight, no hash
+
+    def test_the_data_line_says_whether_the_smart_tagging_file_is_there_only_when_the_release_reads_it(self):
+        def data_line(root, data, steps):
+            a = pd.parse(['--data-dir', str(data), '--private', str(root / 'private'), '--release-config', str(config(root, steps))])
+            c = pd.Chain(a)
+            c.steps = c.cfg['steps']
+            with contextlib.redirect_stdout(io.StringIO()) as out:
+                self.assertTrue(c.files())
+            return status(out.getvalue(), 'VERI'), c.warn
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            data, _ = provided_like(root)
+            reads = [dict(RUN29, smart_tagging=True), RUN29]
+            line, warn = data_line(root, data, reads)
+            self.assertEqual(line, 'OK (taktik VAR, yayin VAR, videolar YOK, smart tagging YOK)')
+            self.assertEqual(warn, ['VERI'])
+            (data / 'tactical' / 'BAR-ATH_tactical_smart_tagging.xml').write_text('<file/>', encoding='utf-8')
+            line, warn = data_line(root, data, reads)
+            self.assertEqual(line, 'OK (taktik VAR, yayin VAR, videolar YOK, smart tagging VAR)')
+            self.assertEqual(warn, [])
+            line, warn = data_line(root, data, [RUN29])                       # a release that does not read the file
+            self.assertEqual(line, 'OK (taktik VAR, yayin VAR, videolar YOK)')
+            self.assertEqual(warn, [])
+        default = json.loads((REPO / 'possession-release.json').read_text(encoding='utf-8'))
+        self.assertEqual([bool(s.get('smart_tagging')) for s in default['steps']], [True, True, False, False, False, False])   # v2.15 and v2.11k read it
+        reserve = json.loads((REPO / 'possession-release-graded-windows.json').read_text(encoding='utf-8'))
+        self.assertFalse(any(s.get('smart_tagging') for s in reserve['steps']))
 
     def test_plain_csv_check(self):
         with tempfile.TemporaryDirectory() as d:

@@ -1,6 +1,6 @@
 {
  "plan": "possession-final-test",
- "registered_at": "2026-11-11T16:09:22+03:00",
+ "registered_at": "2026-11-13T12:48:27+03:00",
  "registration_history": [
   {
    "registered_at": "2026-11-11T11:48:54+03:00",
@@ -13,17 +13,25 @@
   {
    "registered_at": "2026-11-11T16:09:22+03:00",
    "release": "possession-v2.11",
-   "note": "the release changed before the match was accessed (goalkeeper team check, possession-v211-plan.json and possession-v211-results.json). Unchanged: design, copies, seeds, simulators, metric, reporting, decision rule and expectations. Changed: the release under test, and the tool (it calls the entry point named in this plan and records what the goalkeeper check moved on each copy)."
+   "note": "the release changed before the match was accessed (goalkeeper team check, possession-v211-plan.json and possession-v211-results.json). Unchanged: design, copies, seeds, simulators, metric, reporting, decision rule and expectations. Changed: the release under test, and the tool (it calls the entry point named in this plan and records what the goalkeeper check moved on each copy).",
+   "manifest_sha256": "f81aa39ab8d9d44ad738b3e5850d588b5904c69fd7311459f57f68169e61faab",
+   "tool_sha256": "f308f9585012b912e0d5f204cc707de5efd5599925a22e46d015c9a5a5155e84",
+   "plan_file_sha256": "6944e187f35624a2197f8a883d62d719b00eeba883b1afb9f6584d1c51ddd61c"
+  },
+  {
+   "registered_at": "2026-11-13T12:48:27+03:00",
+   "release": "possession-v2.11k",
+   "note": "the release changed before the match was accessed by the process that built it: the kick-off frame published in FAQ.md is no longer used, the models run on the whole graded windows (possession-v2.11g) and the Smart Tagging kick-off rule follows (possession/kickoff.py). On this external match neither change can act: its play blocks are its two halves and it has no Smart Tagging file, so the entry point writes what possession-v2.11 would write. Unchanged: design, copies, seeds, simulators, tool, metric, reporting, decision rule and expectations. Changed: the release under test. Also recorded: a team member downloaded this match and used it while developing a separate model (a temporal convolution network, possession-v213-plan.json); that model is not part of the release, and no score or file of this match reached the process that built the release."
   }
  ],
  "registered_before": "any access to the match. DFL J03WMX was set aside on 2026-11-07 (sportec-data-plan.json, split reserved_test). The assistant has never downloaded or read a file of it, and the cloud session that wrote this plan cannot reach the source. The project records (handoff of the external-data stage: reserved_test_not_downloaded) and a listing of the team's external-data folder made on 2026-11-11 show no file of it.",
  "purpose": "One measurement of the frozen release on a match that was never used to train, tune, select or check anything. Reported, not a gate.",
  "release": {
-  "name": "possession-v2.11",
-  "module": "possession.run211",
-  "manifest": "possession-v211-release.json",
-  "manifest_sha256": "f81aa39ab8d9d44ad738b3e5850d588b5904c69fd7311459f57f68169e61faab",
-  "entry_point": "possession.run211.run, in its own process, on tracking files written from each copy (possession/epts_export.py)"
+  "name": "possession-v2.11k",
+  "module": "possession.run211k",
+  "manifest": "possession-v211k-release.json",
+  "manifest_sha256": "e53b7a2931a30ca9fcc9c9d5defdfcb8c28a4187934dd757a85bfd95988aa04d",
+  "entry_point": "possession.run211k.run, in its own process, on tracking files written from each copy (possession/epts_export.py)"
  },
  "fixture": {
   "id": "J03WMX",
@@ -99,7 +107,8 @@
   "broadcast good and medium": "gate open on most copies; mean above tactical only by 0.01 to 0.05",
   "broadcast bad": "gate closed on every copy; identical to tactical only",
   "baseline logic": "between 0.15 and 0.27",
-  "goalkeeper team check": "the provider's team ids are correct, so the check should move only goalkeeper pieces that our corruption put under the other id for 1-6 s; the expectations above (written for possession-v2.9) are kept unchanged, because on the validation copies with ids as corrupted possession-v2.11 scored the same as possession-v2.9"
+  "goalkeeper team check": "the provider's team ids are correct, so the check should move only goalkeeper pieces that our corruption put under the other id for 1-6 s; the expectations above (written for possession-v2.9) are kept unchanged, because on the validation copies with ids as corrupted possession-v2.11 scored the same as possession-v2.9",
+  "kick-off rule": "not applicable to this match (no Smart Tagging file, play blocks = the two halves): the output is that of possession-v2.11 on the same files, so the expectations above are kept unchanged"
  },
  "code_check_before_registration": "the tool was run on the development match J03WN1 (which is part of the training set of the release, so its numbers mean nothing) to check that it works: once with copy 0 and the seeds of this plan (9101, 79000, 89000) before rehearsals were given their own seeds (+100000), then through the unit tests on a synthetic match. The copies of the final test are J03WMX with these seeds; none exists yet.",
  "what_it_cannot_show": [

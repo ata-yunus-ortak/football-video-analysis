@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sahiplik İzleyici</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --ink: #18202a; --muted: #5d6b7a; --line: #dfe4ea;
+  --pitch: #2f6b45; --pitch-line: rgba(255,255,255,.75);
+  --home: #c8102e; --away: #263445; --dead: #b9c3cf; --accent: #0b6bcb;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141a; --panel: #171e26; --ink: #e8edf2; --muted: #9aa8b6; --line: #2a3542;
+    --pitch: #24543a; --pitch-line: rgba(255,255,255,.6);
+    --home: #e5334b; --away: #c9d3de; --dead: #4a5868; --accent: #5aa7f0;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f141a; --panel: #171e26; --ink: #e8edf2; --muted: #9aa8b6; --line: #2a3542;
+  --pitch: #24543a; --pitch-line: rgba(255,255,255,.6);
+  --home: #e5334b; --away: #c9d3de; --dead: #4a5868; --accent: #5aa7f0;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 20px; margin: 0 0 4px; letter-spacing: -.01em; }
+.sub { color: var(--muted); margin: 0 0 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.chip { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; font-size: 13px; }
+.chip b { font-variant-numeric: tabular-nums; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 12px; }
+@media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+canvas { display: block; width: 100%; }
+#pitch { border-radius: 8px; border: 4px solid var(--dead); transition: border-color .15s; }
+.clock { font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.half { color: var(--muted); font-size: 13px; }
+.who { display: flex; align-items: center; gap: 8px; margin: 10px 0 2px; font-weight: 600; }
+.sw { width: 14px; height: 14px; border-radius: 4px; background: var(--dead); flex: none; }
+.lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; margin-top: 12px; }
+.bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; margin-top: 4px; }
+.bar > i { display: block; height: 100%; width: 0; background: var(--accent); }
+.ev { font-size: 13px; color: var(--muted); min-height: 2.9em; margin-top: 4px; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 12px 0; }
+button, select, input { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+button { cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; min-width: 96px; }
+input[type=number] { width: 64px; }
+.tl-label { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin: 10px 0 4px; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; color: var(--muted); font-size: 12px; margin-top: 10px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.note { color: var(--muted); font-size: 12px; margin-top: 14px; }
+kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; font-size: 11px; }
+.facts { margin: 6px 0 10px; padding-left: 18px; font-size: 13px; }
+.facts li { margin: 3px 0; }
+.dis { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.dis button { width: 100%; text-align: left; display: grid; grid-template-columns: 10.5em 4.5em minmax(0, 1fr); gap: 4px 10px; align-items: baseline; }
+.dis button:hover { border-color: var(--accent); }
+.dis .k { font-variant-numeric: tabular-nums; font-weight: 600; }
+.dis .d { font-variant-numeric: tabular-nums; color: var(--muted); }
+.dis .e { grid-column: 1 / -1; color: var(--muted); font-size: 12px; }
+@media (max-width: 560px) { .dis button { grid-template-columns: 1fr auto; } .dis .w { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 id="title"></h1>
+  <p class="sub" id="subtitle"></p>
+  <div class="chips" id="chips"></div>
+  <div class="grid">
+    <div class="card">
+      <canvas id="pitch" aria-label="Saha: oyuncular ve top"></canvas>
+      <div class="controls">
+        <button class="primary" id="play">▶ Oynat</button>
+        <button id="back">−5 sn</button>
+        <button id="fwd">+5 sn</button>
+        <select id="speed" aria-label="Hız"><option value="0.5">0,5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select>
+        <span style="margin-left:auto"></span>
+        <select id="gohalf" aria-label="Yarı"><option value="1">1. yarı</option><option value="2">2. yarı</option></select>
+        <input type="number" id="gomin" min="0" max="120" value="0" aria-label="Dakika">:<input type="number" id="gosec" min="0" max="59" value="0" aria-label="Saniye">
+        <button id="go">Dakikaya git</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="clock" id="clock">00:00</div>
+      <div class="half" id="halflbl"></div>
+      <div class="lbl">Algoritmamız (v2.11)</div>
+      <div class="who"><span class="sw" id="sw-ours"></span><span id="t-ours"></span></div>
+      <div class="lbl">PFF olaylarından kurulan vekil</div>
+      <div class="who"><span class="sw" id="sw-pff"></span><span id="t-pff"></span></div>
+      <div class="lbl">Model olasılıkları (o an)</div>
+      <div style="font-size:12px;margin-top:6px">Top ölü: <b id="pdead"></b></div>
+      <div class="bar"><i id="bdead"></i></div>
+      <div style="font-size:12px;margin-top:6px" id="phome-l"></div>
+      <div class="bar"><i id="bhome"></i></div>
+      <div class="lbl">Son PFF olayı</div>
+      <div class="ev" id="lastev"></div>
+      <div class="lbl">Zaman çizgisi renkleri</div>
+      <div class="legend" style="margin-top:6px">
+        <span><span class="sw" style="background:var(--home)"></span><span id="lg-home"></span></span>
+        <span><span class="sw" style="background:var(--away)"></span><span id="lg-away"></span></span>
+        <span><span class="sw"></span>Ölü top</span>
+      </div>
+      <div class="legend" id="kits"></div>
+      <div class="legend"><span>● top görünür (algoritma görüyor)</span><span>○ top yayında görünmüyor (PFF tahmini; algoritma görmüyor)</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="tl-label"><span>Yakın plan: ±20 saniye · üstte algoritma, altta PFF vekili · çizgi: P(top <span id="zl-home"></span>'da | oyunda) · tıklayarak atlayın</span><span id="zoomclock"></span></div>
+    <canvas id="zoom" height="150"></canvas>
+    <div class="tl-label"><span>Bütün maç · üstte algoritma, altta PFF vekili · tıklayarak atlayın</span><span><kbd>boşluk</kbd> oynat/durdur · <kbd>←</kbd><kbd>→</kbd> 5 sn</span></div>
+    <canvas id="overview" height="58"></canvas>
+  </div>
+  <div class="card" style="margin-top:12px" id="an-card" hidden>
+    <div class="tl-label"><span>Nerede ayrışıyoruz? (PFF vekiline göre, ölçülen)</span></div>
+    <ul class="facts" id="facts"></ul>
+    <div class="tl-label"><span>En uzun uyuşmazlıklar (en az 2 sn) · tıklayınca 3 sn öncesine gider</span></div>
+    <ol class="dis" id="dis"></ol>
+  </div>
+  <p class="note" id="note"></p>
+</div>
+<script>
+const D = /*__DATA__*/null;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const $ = id => document.getElementById(id);
+// ---------- decode
+const bin = atob(D.pos); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+const POS = new Int16Array(u8.buffer);
+const pb = atob(D.probs); const PR = new Uint8Array(pb.length); for (let i = 0; i < pb.length; i++) PR[i] = pb.charCodeAt(i);
+function expand(r) { const a = new Uint8Array(D.nLab); for (const [s, n, l] of r) a.fill(l === 'H' ? 0 : l === 'A' ? 1 : 2, s, s + n); return a; }
+const OURS = expand(D.ours), PFF = expand(D.pff);
+const NP = D.team.length;            // players; then visible ball, then PFF ball estimate
+const EVT = D.events.map(e => e[0]);
+const TYPE = {PA: 'pas', IT: 'top alma', CH: 'mücadele', SH: 'şut', CR: 'orta', CL: 'uzaklaştırma', BC: 'top sürme', RE: 'sekme', TC: 'dokunuş', OUT: 'top oyun dışı', FIRSTKICKOFF: 'başlama vuruşu', SECONDKICKOFF: 'ikinci yarı başlama', OTB: 'topla oynama'};
+const SP = {T: 'taç', C: 'korner', G: 'kale vuruşu', F: 'serbest vuruş', K: 'santra', D: 'hakem atışı', P: 'penaltı'};
+// ---------- header
+$('title').textContent = `${D.home} – ${D.away} · algoritma izleyici`;
+$('subtitle').textContent = `Dünya Kupası 2022, ${D.date}, ${D.stadium}. Veri: PFF FC yayın takibi (oyuncular ve top). Sahiplik: dondurulmuş v2.11, hiçbir ayar bu maça göre yapılmadı.`;
+const S = D.summary, A = S.agreement_with_pff_event_proxy;
+const pct = x => '%' + (100 * x).toLocaleString('tr-TR', {maximumFractionDigits: 1});
+const num = x => x.toLocaleString('tr-TR', {minimumFractionDigits: 3, maximumFractionDigits: 3});
+$('chips').innerHTML = [
+  `PFF vekiliyle uyum: spellF1 <b>${num(A.spell_f1)}</b>`, `macroF1 <b>${num(A.macro_f1)}</b>`,
+  `oyun karelerinde aynı etiket <b>${pct(A.frame_agreement_in_play)}</b>`,
+  `yol: <b>${S.path}</b> (gürültü ${S.noise_m.ball_m} m)`].map(t => `<span class="chip">${t}</span>`).join('');
+$('lg-home').textContent = D.home; $('lg-away').textContent = D.away; $('zl-home').textContent = D.home;
+$('kits').textContent = `Sahada: ${D.home} ${D.homeKitTr}, ${D.away} ${D.awayKitTr} forma; daire içindeki sayı forma numarası.`;
+$('phome-l').innerHTML = `Top ${D.home}'da (oyundaysa): <b id="phome"></b>`;
+$('note').textContent = 'Vekil etiket, PFF\'in olay kayıtlarından bizim kurduğumuz yaklaşık bir zaman çizgisidir (topla oynayan oyuncunun takımı; top dışarı çıkınca yeniden başlamaya kadar ölü top). Gerçek cevap değildir ve yarışma puanı değildir. Veri PFF FC 2022 Dünya Kupası veri setinden; lisansı yayımlanmamıştır, yalnız kendi incelememiz içindir, paylaşmayın. Yayın videosundaki skor tabelası saatini "Dakikaya git" ile eşleyebilirsiniz.';
+// ---------- time helpers
+let t = D.start1, playing = false, speed = 1, last = null;
+const tMin = D.t0, tMax = D.end2;
+function clockOf(tt) {
+  let half, el, base;
+  if (tt >= D.start1 && tt <= D.end1) { half = 1; el = tt - D.start1; base = 0; }
+  else if (tt >= D.start2 && tt <= D.end2) { half = 2; el = tt - D.start2; base = 45 * 60; }
+  else return ['Devre arası', ''];
+  const cap = 45 * 60, extra = Math.max(0, el - cap), main = Math.min(el, cap) + base;
+  const f = s => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  return [extra > 0 ? `${f(base + cap)}+${f(extra)}` : f(main), `${half}. yarı`];
+}
+const labIdx = tt => Math.max(0, Math.min(D.nLab - 1, Math.round((tt - D.t0) * D.fps)));
+const NAMEOF = [D.home, D.away, 'Ölü top'];
+const colorOf = l => l === 0 ? css('--home') : l === 1 ? css('--away') : css('--dead');
+// ---------- pitch
+const pc = $('pitch'); const ctx = pc.getContext('2d');
+function sizeCanvas(c, aspect) { const r = window.devicePixelRatio || 1; const w = c.clientWidth; c.width = w * r; c.height = (aspect ? w * aspect : c.clientHeight || +c.getAttribute('height')) * r; c.style.height = (c.height / r) + 'px'; }
+function drawPitch() {
+  const L = 105, W = 68, m = 3; const s = pc.width / (L + 2 * m);
+  const X = x => (x + m) * s, Y = y => (y + m) * s;
+  ctx.fillStyle = css('--pitch'); ctx.fillRect(0, 0, pc.width, pc.height);
+  ctx.strokeStyle = css('--pitch-line'); ctx.lineWidth = Math.max(1, s * .15);
+  ctx.strokeRect(X(0), Y(0), L * s, W * s);
+  ctx.beginPath(); ctx.moveTo(X(L / 2), Y(0)); ctx.lineTo(X(L / 2), Y(W)); ctx.stroke();
+  ctx.beginPath(); ctx.arc(X(L / 2), Y(W / 2), 9.15 * s, 0, 2 * Math.PI); ctx.stroke();
+  for (const side of [0, 1]) {
+    const x0 = side ? L - 16.5 : 0, x1 = side ? L - 5.5 : 0;
+    ctx.strokeRect(X(x0), Y(W / 2 - 20.16), 16.5 * s, 40.32 * s);
+    ctx.strokeRect(X(x1), Y(W / 2 - 9.16), 5.5 * s, 18.32 * s);
+    ctx.strokeRect(X(side ? L : -2), Y(W / 2 - 3.66), 2 * s, 7.32 * s);
+  }
+  return {s, X, Y};
+}
+function posAt(o, tt) {
+  const f = (tt - D.t0) * D.posFps; const k = Math.floor(f), w = f - k;
+  if (k < 0 || k + 1 >= D.nPos) return null;
+  const i0 = (k * D.nObj + o) * 2, i1 = ((k + 1) * D.nObj + o) * 2;
+  const a = [POS[i0], POS[i0 + 1]], b = [POS[i1], POS[i1 + 1]];
+  const ok0 = a[0] !== -32768, ok1 = b[0] !== -32768;
+  if (ok0 && ok1) return [(a[0] + (b[0] - a[0]) * w) / 10, (a[1] + (b[1] - a[1]) * w) / 10];
+  if (ok0 && w < .5) return [a[0] / 10, a[1] / 10];
+  if (ok1 && w >= .5) return [b[0] / 10, b[1] / 10];
+  return null;
+}
+function render() {
+  const g = drawPitch(); const {s, X, Y} = g;
+  for (let o = 0; o < NP; o++) {
+    const p = posAt(o, t); if (!p) continue;
+    const kit = D.team[o] === 0 ? D.kits.home : D.kits.away;
+    ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1]), 1.25 * s, 0, 2 * Math.PI);
+    ctx.fillStyle = kit.primaryColor; ctx.fill(); ctx.lineWidth = Math.max(1, s * .12); ctx.strokeStyle = 'rgba(0,0,0,.55)'; ctx.stroke();
+    ctx.fillStyle = kit.primaryTextColor; ctx.font = `700 ${Math.round(1.25 * s)}px system-ui`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(D.jersey[o], X(p[0]), Y(p[1]) + .05 * s);
+  }
+  const bv = posAt(NP, t), be = posAt(NP + 1, t);
+  if (bv) { ctx.beginPath(); ctx.arc(X(bv[0]), Y(bv[1]), .75 * s, 0, 2 * Math.PI); ctx.fillStyle = '#fff'; ctx.fill(); ctx.lineWidth = Math.max(1, s * .15); ctx.strokeStyle = '#111'; ctx.stroke(); }
+  else if (be) { ctx.beginPath(); ctx.setLineDash([s * .3, s * .3]); ctx.arc(X(be[0]), Y(be[1]), .75 * s, 0, 2 * Math.PI); ctx.lineWidth = Math.max(1, s * .15); ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.stroke(); ctx.setLineDash([]); }
+  const k = labIdx(t), lo = OURS[k], lp = PFF[k];
+  pc.style.borderColor = colorOf(lo);
+  const [c, h] = clockOf(t); $('clock').textContent = c; $('halflbl').textContent = h;
+  $('sw-ours').style.background = colorOf(lo); $('t-ours').textContent = NAMEOF[lo];
+  $('sw-pff').style.background = colorOf(lp); $('t-pff').textContent = NAMEOF[lp];
+  const kp = Math.max(0, Math.min(D.nPos - 1, Math.round((t - D.t0) * D.posFps)));
+  const pd = PR[kp * 2] / 255, ph = PR[kp * 2 + 1] / 255;
+  $('pdead').textContent = pct(pd); $('bdead').style.width = (100 * pd) + '%';
+  $('phome').textContent = pct(ph); $('bhome').style.width = (100 * ph) + '%'; $('bhome').style.background = css('--home');
+  let j = upper(EVT, t) - 1;
+  if (j >= 0) { const e = D.events[j]; const ago = t - e[0]; const team = e[1] === 0 ? D.home : e[1] === 1 ? D.away : '';
+    $('lastev').textContent = `${TYPE[e[2]] || e[2]}${e[3] && e[3] !== 'O' ? ' (' + (SP[e[3]] || e[3]) + ')' : ''}${team ? ' · ' + team : ''}${e[4] ? ' · ' + e[4] : ''} — ${ago.toFixed(1)} sn önce`; }
+  drawZoom(); drawHead();
+}
+function upper(a, x) { let lo = 0, hi = a.length; while (lo < hi) { const m = (lo + hi) >> 1; if (a[m] <= x) lo = m + 1; else hi = m; } return lo; }
+// ---------- timelines
+const oc = $('overview'), octx = oc.getContext('2d'); let ovImg = null;
+function drawOverview() {
+  sizeCanvas(oc); const w = oc.width, h = oc.height, r = window.devicePixelRatio || 1;
+  octx.clearRect(0, 0, w, h);
+  const rowH = (h - 8 * r) / 2;
+  [[D.ours, 0], [D.pff, 1]].forEach(([runs, row]) => {
+    for (const [s, n, l] of runs) { octx.fillStyle = colorOf(l === 'H' ? 0 : l === 'A' ? 1 : 2); const x0 = s / D.nLab * w, x1 = (s + n) / D.nLab * w; octx.fillRect(x0, row * (rowH + 8 * r), Math.max(x1 - x0, .6), rowH); }
+  });
+  ovImg = octx.getImageData(0, 0, w, h);
+}
+function drawHead() {
+  if (!ovImg) return; octx.putImageData(ovImg, 0, 0);
+  const x = labIdx(t) / D.nLab * oc.width; octx.fillStyle = css('--accent'); octx.fillRect(x - 1.5, 0, 3, oc.height);
+}
+const zc = $('zoom'), zctx = zc.getContext('2d');
+function drawZoom() {
+  const r = window.devicePixelRatio || 1; const w = zc.width, h = zc.height, span = 20;
+  zctx.clearRect(0, 0, w, h);
+  const a = t - span, b = t + span, X = tt => (tt - a) / (b - a) * w;
+  const rowH = 18 * r, y0 = 4 * r, y1 = y0 + rowH + 4 * r, yc = y1 + rowH + 10 * r, ch = h - yc - 26 * r;
+  for (const [arr, y] of [[OURS, y0], [PFF, y1]]) {
+    const k0 = labIdx(a), k1 = labIdx(b);
+    let s = k0;
+    for (let k = k0 + 1; k <= k1 + 1; k++) { if (k > k1 || arr[k] !== arr[s]) { zctx.fillStyle = colorOf(arr[s]); const x0 = X(D.t0 + s / D.fps), x1 = X(D.t0 + k / D.fps); zctx.fillRect(x0, y, x1 - x0 + .5, rowH); s = k; } }
+  }
+  // probability of the home team, when alive
+  zctx.strokeStyle = css('--line'); zctx.lineWidth = r; zctx.strokeRect(0, yc, w, ch);
+  zctx.beginPath(); zctx.setLineDash([3 * r, 3 * r]); zctx.moveTo(0, yc + ch / 2); zctx.lineTo(w, yc + ch / 2); zctx.stroke(); zctx.setLineDash([]);
+  zctx.beginPath(); let first = true;
+  for (let tt = a; tt <= b; tt += 1 / D.posFps) { const kp = Math.round((tt - D.t0) * D.posFps); if (kp < 0 || kp >= D.nPos) continue; const ph = PR[kp * 2 + 1] / 255; const x = X(tt), y = yc + ch * (1 - ph); if (first) { zctx.moveTo(x, y); first = false; } else zctx.lineTo(x, y); }
+  zctx.strokeStyle = css('--home'); zctx.lineWidth = 2 * r; zctx.stroke();
+  zctx.beginPath(); first = true;
+  for (let tt = a; tt <= b; tt += 1 / D.posFps) { const kp = Math.round((tt - D.t0) * D.posFps); if (kp < 0 || kp >= D.nPos) continue; const pd = PR[kp * 2] / 255; const x = X(tt), y = yc + ch * (1 - pd); if (first) { zctx.moveTo(x, y); first = false; } else zctx.lineTo(x, y); }
+  zctx.strokeStyle = css('--muted'); zctx.lineWidth = 1.2 * r; zctx.stroke();
+  // PFF events
+  zctx.font = `${11 * r}px system-ui`; zctx.textAlign = 'center'; zctx.textBaseline = 'top';
+  let lastX = -1e9;
+  for (let j = upper(EVT, a); j < D.events.length && D.events[j][0] <= b; j++) {
+    const e = D.events[j]; const x = X(e[0]);
+    zctx.fillStyle = e[1] === 0 ? css('--home') : e[1] === 1 ? css('--away') : css('--muted');
+    zctx.fillRect(x - 1, yc, 2, ch);
+    const txt = TYPE[e[2]] || e[2]; const tw = zctx.measureText(txt).width;
+    if (x - tw / 2 > lastX + 6 * r) { zctx.fillText(txt, x, yc + ch + 4 * r); lastX = x + tw / 2; }
+  }
+  zctx.fillStyle = css('--accent'); zctx.fillRect(w / 2 - 1.5, 0, 3, h);
+  $('zoomclock').textContent = 'çizgiler: kırmızı P(' + D.home + '), gri P(ölü top)';
+}
+// ---------- interaction
+function seek(tt) { t = Math.max(tMin, Math.min(tMax, tt)); render(); }
+$('play').onclick = () => { playing = !playing; $('play').textContent = playing ? '❚❚ Durdur' : '▶ Oynat'; last = null; };
+$('back').onclick = () => seek(t - 5); $('fwd').onclick = () => seek(t + 5);
+$('speed').onchange = e => { speed = +e.target.value; };
+$('go').onclick = () => { const h = +$('gohalf').value, m = +$('gomin').value || 0, s = +$('gosec').value || 0;
+  seek(h === 1 ? D.start1 + m * 60 + s : D.start2 + Math.max(0, m - 45) * 60 + s); };
+oc.onclick = e => { const rc = oc.getBoundingClientRect(); seek(D.t0 + (e.clientX - rc.left) / rc.width * D.nLab / D.fps); };
+zc.onclick = e => { const rc = zc.getBoundingClientRect(); seek(t + ((e.clientX - rc.left) / rc.width - .5) * 40); };
+document.addEventListener('keydown', e => { if (e.target.tagName === 'INPUT') return;
+  if (e.code === 'Space') { e.preventDefault(); $('play').click(); } else if (e.code === 'ArrowLeft') seek(t - 5); else if (e.code === 'ArrowRight') seek(t + 5); });
+function loop(ts) { if (playing) { if (last !== null) { t += (ts - last) / 1000 * speed; if (t >= tMax) { t = tMax; playing = false; $('play').textContent = '▶ Oynat'; } render(); } last = ts; } requestAnimationFrame(loop); }
+// ---------- disagreement list (from analyse_pff.py)
+if (D.analysis) {
+  const N = D.analysis, f1 = x => '%' + (100 * x).toLocaleString('tr-TR', {maximumFractionDigits: 1});
+  const sec = x => (Math.abs(x) < 0.05 ? 0 : x).toLocaleString('tr-TR', {maximumFractionDigits: 1}) + ' sn';
+  const LBL = {H: D.home, A: D.away, D: 'ölü top'};
+  const dp = N.dead_periods, sp = N.spells;
+  const rMax = Math.min(1, (sp.ours.H.count + sp.ours.A.count) / (sp.pff_proxy.H.count + sp.pff_proxy.A.count)), cap = 2 * rMax / (1 + rMax);
+  const facts = [
+    `Aynı etiket oranı: top görünürken <b>${f1(N.frame_agreement_ball_visible)}</b>, top görünmezken <b>${f1(N.frame_agreement_ball_not_visible)}</b> (top, oyun karelerinin ancak ${f1(N.ball_visible_share_in_play)} kadarında görünür).`,
+    `En büyük ayrışma türü: vekil "oyunda" derken bizim "ölü top" dememiz (oyun karelerinde payı ${f1(N.disagreement_share_in_play.ours_dead_proxy_alive)}). Bu, top görünürken ${f1(N.ours_dead_when_proxy_alive.ball_visible)}, top görünmezken <b>${f1(N.ours_dead_when_proxy_alive.ball_not_visible)}</b> oranında oluyor. Takımı ters söylediğimiz karelerin payı ${f1(N.disagreement_share_in_play.team_swapped_both_alive)}.`,
+    `Ölü top dönemleri (2 saniyeden uzun): vekilde ${dp.proxy_dead_periods_min2s}, bunlardan ${dp.of_which_mostly_dead_in_ours} tanesini biz de buluyoruz. Başlangıç neredeyse aynı an (medyan fark ${sec(dp.start_offset_s_ours_minus_proxy.median)}); oyunun yeniden başladığını ise medyan <b>${sec(dp.end_offset_s_ours_minus_proxy.median)}</b> geç görüyoruz.`,
+    `Takım sahipliği dönemi sayısı: vekilde ${sp.pff_proxy.H.count + sp.pff_proxy.A.count}, bizde ${sp.ours.H.count + sp.ours.A.count}. Kısa sahiplikleri birleştiriyoruz (${D.home} dönemlerinin medyan süresi: bizde ${sec(sp.ours.H.median_s)}, vekilde ${sec(sp.pff_proxy.H.median_s)}). Dönemler bire bir eşleştirildiği için bu fark tek başına spellF1'e yaklaşık <b>${cap.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</b> tavan koyuyor (ölçülen: ${num(S.agreement_with_pff_event_proxy.spell_f1)}).`];
+  $('facts').innerHTML = facts.map(x => `<li>${x}</li>`).join('');
+  const evTxt = e => `${TYPE[e.type] || e.type}${e.setpiece ? ' (' + (SP[e.setpiece] || e.setpiece) + ')' : ''}${e.team ? ' · ' + LBL[e.team] : ''} ${e.dt >= 0 ? '+' : '−'}${Math.abs(e.dt).toLocaleString('tr-TR', {maximumFractionDigits: 1})}`;
+  $('dis').innerHTML = N.longest_disagreements.map((r, i) => {
+    const [pv, ou] = r.proxy_to_ours.split('>');
+    return `<li><button data-t="${r.start_t}"><span class="k">${r.start_clock}</span><span class="d">${sec(r.seconds)}</span>` +
+      `<span class="w">vekil: <b>${LBL[pv]}</b> · algoritma: <b>${LBL[ou]}</b> · top görünür ${f1(r.ball_visible_share)}</span>` +
+      `<span class="e">PFF olayları (sn): ${r.pff_events.map(evTxt).join(', ') || '—'}</span></button></li>`; }).join('');
+  $('dis').onclick = e => { const b = e.target.closest('button'); if (b) { seek(+b.dataset.t - 3); window.scrollTo({top: 0, behavior: 'smooth'}); } };
+  $('an-card').hidden = false;
+}
+function resize() { sizeCanvas(pc, (68 + 6) / (105 + 6)); sizeCanvas(zc); drawOverview(); render(); }
+window.addEventListener('resize', resize);
+resize(); requestAnimationFrame(loop);
+</script>
+</body>
+</html>

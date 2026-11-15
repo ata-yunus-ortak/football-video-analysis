@@ -1,5 +1,697 @@
 # Deney kaydı
 
+## K014 — Hata örüntüleri: puanı nerede kaybediyoruz, ortak nedenler ve bunlara dayalı denemeler (sürüm değişmedi), 15 Kasım 2026
+
+**Neden.** Takım lideri 15 Kasım 03:42'de şunu istedi: sistemin yanlış yaptığı yerleri bul, ortak örüntüyü çıkar, buna göre yeni
+yöntemler geliştir ve bunları başka maçlarda dene. Bu kayıt o çalışmadır. Yalnız geliştirme ve raporlamadır: plan kaydedilmedi,
+doğrulama yapılmadı, hiçbir şey seçilmedi, teslim sistemi **v2.15** olarak kaldı. Sağlanan maç açılmadı. Sayılar:
+`possession-k014-error-patterns.json`; betikler: `experiments/possession_v2/v216/`.
+
+**Veri ve yöntem.** Önceki doğrulamalarda puanlanmış 42 geliştirme kopyası (J03WN1 10, J03WR9 10, Metrica 1 10, Metrica 2 10,
+Metrica 3 2; 9'u ekibin ikinci bozma benzeticisiyle). Bu kopyalardaki olasılıkları üreten modeller o maçları eğitimde görmedi.
+Organizatörün eşleştirmesi birebir yeniden yazıldı (42 kopyada resmî puanla aynı). Bir sahipliğin "kredisi" = beş IoU eşiğinden
+kaçında eşleştiği. spellF1 = 2 × toplam kredi / (gerçek + tahmin edilen sahiplik sayısı) olduğu için, kayıp (1 − spellF1) her
+gerçek ve her tahmin edilen sahipliğin (1 − kredi) payına tam olarak bölünür. Böylece "kaybın yüzde kaçı nereden" sorusu kesin
+yanıtlanır.
+
+**Genel tablo.** 16.938 gerçek, 12.987 tahmin edilen sahiplik; spellF1 0,673. Kaybın %70'i gerçek
+sahiplik tarafında (bulamadıklarımız ve yarım eşleşenler), %30'u tahmin tarafında (fazladan ya da yarım eşleşen tahminler).
+
+| gerçek sahipliğin süresi | gerçeklerin payı | ortalama kredi | kaybın payı | tahminlerin payı | tahminlerin kredisi |
+|---|---|---|---|---|---|
+| 1 sn altı | %13 | 0,10 | %20 | %4 | 0,45 |
+| 1-2 sn | %16 | 0,35 | %18 | %12 | 0,60 |
+| 2-4 sn | %21 | 0,58 | %15 | %21 | 0,73 |
+| 4-8 sn | %19 | 0,74 | %8 | %23 | 0,78 |
+| 8 sn üstü | %31 | 0,84 | %9 | %40 | 0,88 |
+
+| kaybın türü | kaybın payı |
+|---|---|
+| hiç eşleşmeyen gerçek sahiplik (gerçeklerin %32'si) | %56 |
+| — tahmin o sırada öteki takımı gösteriyor | %29 |
+| — tahmin aynı takımı gösteriyor ama parça birleşmiş ya da kaymış | %18 |
+| — tahmin ölü top diyor | %9 |
+| bulunan ama sınırları tutmayan çiftler (iki taraf birlikte) | %29 |
+| hiç eşleşmeyen tahmin (tahminlerin %12'si) | %15 |
+
+**Örüntü 1: kısa sahiplikler.** 2 saniyeden kısa sahiplikler gerçeklerin %29'u, kaybın %38'i. Tipik durum: A takımı
+oynarken B bir-iki saniyeliğine topu alır, sonra yine A. Sistem bunu tek bir A sahipliği olarak yazar; hem B'nin kısa sahipliği
+hem de A'nın iki parçası kaybolur. Bu kısa sahipliklerde iki model ailesinin doğru takıma verdiği ortalama olasılık yalnız
+0,25: yani mesele çözücünün yumuşatması değil, modellerin bunu hiç görmemesi.
+
+**Örüntü 2: zamanlama.** Bulunan sahipliklerde kaybın %29'u sınırların yerinden. İki tarafı da en az 2 sn süren
+top değişimlerinde (3 sn içinde bulunan / 0,5 sn içinde zamanlanan):
+
+| | top görünüyor | top görünmüyor |
+|---|---|---|
+| DFL | %89 / %62 | %74 / %26 |
+| Metrica | %91 / %74 | %74 / %29 |
+
+Örneklere tek tek bakıldığında ortak neden görülüyor: top yeni takıma doğru yoldayken model topun kimde biteceğini (ilerideki
+karelerden) bildiği için olasılığı erkenden çevirir; etiket ise yeni takımın oyuncusu topa değdiği anda değişir. Top görünmüyorken
+zamanlama zaten tahmindir.
+
+**Örüntü 3: etiket kaynağına özgü olanlar.** 8 saniyeden uzun gerçek sahipliğin "ölü top" diye tahmin edilmesi neredeyse yalnız
+Metrica vekil etiketlerinde görülüyor (kopya başına 14; DFL'de 0,4): olaylardan türettiğimiz etiketler bazı duraklamaları
+bilmiyor. Bu bir model hatası değil, etiket kusurudur.
+
+**Örüntüler maçtan maça aynı** (kaybın payları):
+
+| maç | kopya | spellF1 | gerçek / tahmin (kopya başına) | 2 sn altı gerçekler | yarım eşleşen çiftler | eşleşmeyen tahminler |
+|---|---|---|---|---|---|---|
+| J03WN1 | 10 | 0,641 | 500 / 361 | %41 | %30 | %13 |
+| J03WR9 | 10 | 0,697 | 370 / 298 | %37 | %32 | %16 |
+| MET1 | 10 | 0,683 | 379 / 298 | %34 | %26 | %18 |
+| MET2 | 10 | 0,665 | 364 / 274 | %38 | %27 | %15 |
+| MET3 | 2 | 0,729 | 404 / 338 | %36 | %28 | %20 |
+
+**Üst sınırlar (etiketler kopya çekilerek; yöntem değil).** Bulunan her değişimin zamanı kusursuz olsaydı 0,674 → 0,733;
+yalnız topun göründüğü yerlerde kusursuz olsaydı 0,704; ölü top kareleri kusursuz olsaydı 0,700. Kalan büyük kısım
+bulunamayan kısa sahipliklerdir.
+
+**Örüntülere dayalı denemeler (hepsi modellerin eğitimde görmediği maçlarda).**
+1. *Zayıf işaretlerden sahiplik eklemek.* Tahmin edilen bir sahipliğin içinde öteki takımın olasılığının yükseldiği yerler
+   ("tümsekler") aday yapıldı. Bu puan düzeyinde eklenen bir sahipliğin kendini ödemesi için kabaca 10 adaydan 4'ünün gerçek
+   olması gerekir; tepe olasılığı 0,3-0,4 olanlarda oran %17, 0,5'in üstündekilerde bile %35. Kullanılabilir işaret yok.
+2. *Çözücü sabitleri*, topun görünme oranına göre ayrı ayrı: en iyi değişiklik +0,0002. Sabitler zaten en iyi yerde.
+3. *Temas kanıtı.* Top bir takımın oyuncusuna 1-1,5 m yakın ve öteki takım uzaktayken o takıma ek puan (12 ayar): en iyisi
+   +0,0007, en kötüsü −0,0002. Modeller bu bilgiyi zaten kullanıyor.
+4. *Karşılama kuralı.* Top değişimini, yeni takımın oyuncusunun topa ulaştığı ana kaydırmak (24 ayar): en iyisi +0,0007
+   (DFL −0,0009), en kötüsü −0,0030. Gürültülü konumlarda "temas anı" yeterince kesin bulunamıyor.
+5. *En kısa sahiplik süresi.* Organizatörün kuralı "kontrolsüz tek dokunuş sahiplik değiştirmez" der. Bizim dış etiketlerimizde ise
+   saniyenin altında çok sahiplik var. Etiketlerden τ'dan kısa "araya girmeleri" silip aynı kuralı tahmine m ile uyguladık:
+   en iyi m her zaman τ'ya eşit çıkıyor (τ = 1,5 sn ise m = 1,5 sn ile 0,723 → 0,755; etiketler olduğu gibiyse
+   m = 1,5 sn 0,674 → 0,651). Yani bu, yarışma etiketlerinin kısa dokunuşları sayıp saymadığına dair bir bahistir;
+   dış veriyle ölçülemez, yarışma maçının etiketlerine bakarak ayarlamak da yasaktır. Değişiklik yapılmadı.
+6. *İki model ailesinin öğrenilmiş birleşimi* (yalnız keşif): dört maçın kopyalarında eğitilen bir sınıflandırıcı beşinci maçta
+   denendi, beş kez dönerek. v2.15'e göre ortalama +0,0095 (DFL +0,0081, Metrica +0,0107; 32/42 kopyada iyi), ama en kötü kopya
+   −0,0226. Bu, v2.14'ün tablosunun aynısıdır: ortalama kazanç var, tek tek kopyalarda belirgin kayıp var; "hiçbir kopya
+   −0,010'dan kötü olmasın" şartını geçmez. Ayrıca v2.15 planı ikinci modelle başka deneme yapılmayacağını yazmıştı. Aday olarak
+   kaydedilmedi.
+
+**Sonuç.** (1) En büyük kayıp, modellerin izleme verisinde göremediği kısa sahipliklerdir; bunu düzeltmek yeni bilgi ister (topun
+kaybolduğu anlarda görüntüden top bulmak gibi), kural ya da ayar değil. (2) Zamanlama hataları gerçek ama elle yazılan kurallar
+modelden daha iyi zamanlamıyor. (3) Denenen yöntemlerin hiçbiri kayıtlı asgari kazanca (+0,008 ve hiçbir kopyada −0,010'dan
+kötü olmamak) yaklaşmadı. Organizatörün kendi belgesi de tek maçta 0,04'ün altındaki farkların rastlantı payı içinde kaldığını
+söylüyor. Teslim sistemi v2.15 olarak kalır.
+
+**Bağlam notu (seçimde kullanılmadı).** Dış etiketler kendilerine göre 3 / 8 / 25 kare geç kaydırıldığında 0,93-0,96 / 0,84-0,88 /
+0,50-0,62 alıyor; organizatör kendi etiketleri için 0,98 / 0,89 / 0,65 yayımlıyor. Bu, yarışma etiketlerinde çok kısa
+sahipliklerin bizim dış etiketlerimizdekinden daha az olduğunu düşündürür; öyleyse en büyük hata sınıfımız gerçek puanlamada
+buradaki kadar ağır olmayabilir. Bu bir çıkarımdır, ölçüm değildir ve hiçbir ayar buna göre yapılmadı.
+
+**Sınırlar.** Geliştirme kopyalarıdır; aynı maçlar daha önceki bütün seçimlerde kullanıldı. Bozma benzetimi bizimdir. Metrica
+etiketleri olaylardan türettiğimiz vekillerdir. Ortam: Python 3.13.18, numpy 2.5.3, pandas 3.0.5, scikit-learn 1.9.1.
+
+## K013 — v2.15 adayı: aynı birleşik sistem, ikinci modelin ağırlığı 0,5 yerine 0,2; yedi kapı geçti, teslim sistemi v2.15, 15 Kasım 2026
+
+**Neden üçüncü bir deneme.** v2.14 (K012) 16 yeni kopyanın 15'inde daha iyiydi (ortalama +0,0201) ama bir kopyada
+−0,0160 çıktı; "hiçbir kopya −0,010'dan kötü olmasın" kapısı (G4) geçmedi ve aday seçilmedi. O kayıt ve
+kapıları değişmedi. Bir denemenin daha hangi koşulda yapılacağı 14 Kasım 23:39'da, o doğrulamanın yalnız üç satırı
+bilinirken yazıldı (`experiments/possession_v2/v214/NOTES.md`; o üç satırdan biri, G4'ün geçemeyeceğini zaten gösteren
+−0,0160 satırıydı, yani kural v2.14'ün seçilmeyeceği bilinerek yazıldı): yalnız v2.14'ün ortalama kapıları (G1, G2, G3, G5) geçerse; aynı
+ağırlık dosyaları, aynı aritmetik havuz, aynı çözücü; yalnız ağın ağırlığı düşürülür; kapılar aynı; kopyalar yeni; **bundan
+sonra başka deneme yok**. İkinci modeli eklemek için kayıtlı üçüncü denemedir (v2.13, v2.14, v2.15).
+
+**Ağırlığın seçimi (geliştirme).** v2.14 doğrulamasının 16 taktik ve 4 öteki-benzetici kopyası, kararı kaydedildikten sonra
+geliştirme verisi oldu (olasılıkları o andan sonra saklandı); önceki 22 kopyayla birlikte 42 geliştirme kopyası. Kural (23:39):
+0,1 / 0,2 / 0,3 ağırlıklarından, herhangi bir geliştirme kopyasında −0,007'den kötü olan elenir (G4'e 0,003 pay); kalanlardan
+ortalaması en büyük olan alınır; DFL geliştirme kopyalarındaki ortalaması +0,010'dan küçükse deneme yapılmaz. (Notta DFL kopyaları
+için 18 yazılmıştı; doğrusu 20'dir: 16 taktik, 4 öteki benzetici. Koşul 20'sine de, 16 taktik kopyaya da uygulandı.)
+42 kopyada aritmetik havuz, v2.11'e göre (ortalama fark | en kötü kopya | iyi olan kopya):
+
+| ağırlık | hepsi (42) | DFL (20) | Metrica (22) | v2.14 doğrulamasının kopyaları (20) | öteki benzetici (9) |
+|---|---|---|---|---|---|
+| 0,1 | +0,0079 \| −0,0049 \| 37 | +0,0076 \| −0,0013 \| 19 | +0,0082 \| −0,0049 \| 18 | +0,0079 \| −0,0049 \| 16 | +0,0128 \| +0,0024 \| 9 |
+| 0,2 | +0,0138 \| −0,0035 \| 38 | +0,0135 \| −0,0026 \| 19 | +0,0141 \| −0,0035 \| 19 | +0,0155 \| −0,0031 \| 19 | +0,0168 \| +0,0075 \| 9 |
+| 0,3 | +0,0193 \| −0,0118 \| 41 | +0,0179 \| −0,0118 \| 19 | +0,0206 \| +0,0022 \| 22 | +0,0197 \| +0,0022 \| 20 | +0,0255 \| +0,0119 \| 9 |
+| 0,4 | +0,0236 \| −0,0084 \| 41 | +0,0220 \| −0,0084 \| 19 | +0,0250 \| +0,0004 \| 22 | +0,0228 \| +0,0004 \| 20 | +0,0271 \| +0,0087 \| 9 |
+| 0,5 | +0,0242 \| −0,0160 \| 39 | +0,0237 \| −0,0069 \| 19 | +0,0247 \| −0,0160 \| 20 | +0,0220 \| −0,0160 \| 18 | +0,0335 \| −0,0056 \| 8 |
+
+0,3 bir eski DFL kopyasında −0,0118 olduğu için elendi; 0,1 ve 0,2 kaldı, ortalaması büyük olan **0,2** seçildi (DFL'in 20
+kopyasında +0,0135, 16 taktik kopyasında +0,0125). v2.14'ü düşüren kopyada (Metrica 1, 16120) farklar ağırlığa
+göre düzgün değişmiyor: 0,1 −0,0049; 0,2 −0,0031; 0,3 +0,0022; 0,4 +0,0036; 0,5 −0,0160. Yani o −0,016 sistemli bir bozulmadan çok,
+çözücünün birkaç sahipliği farklı bölmesinin sonucu; küçük ağırlık bu oynaklığı da küçültüyor.
+
+**Plan.** `possession-v215-plan.json`, 15 Kasım 01:17:34'te kaydedildi; o anda hiçbir havuzun üçüncü tohum dizisindeki bir kopyada
+puanı yoktu. Her şey v2.14 doğrulamasıyla aynı (aynı altı ağırlık dosyası, SHA-256 değerleri aynı; `exp_v213.py` değiştirilmeden),
+yalnız ağırlık 0,2 ve tohumlar yeni: kopya 19100 + 10·maç + j, yayın 49100 / 49200, saat 59100 / 59200, öteki benzetici 69100 + maç
+(hiçbiri eski bir dosyada geçmiyor). Kapılar G1-G7, değişmeden. Plan şunu da yazar: aynı kapılarla üçüncü deneme olduğu için burada
+bir geçiş, ilk denemede geçmiş olmaktan daha zayıf bir kanıttır; ve bir kapı geçmezse teslimden önce ikinci modelle başka aday
+kaydedilmez.
+
+**Sonuç** (`possession-v215-results.json`, kapılar 02:13'te uygulandı; spellF1, organizatörün ölçütü; yarışma puanı değil):
+
+| koşul | kopya | v2.11 | birleşik | fark | iyi / kötü | en kötü kopya | ağ tek başına | macroF1 farkı |
+|---|---|---|---|---|---|---|---|---|
+| yalnız taktik kamera, hepsi | 16 | 0,6447 | 0,6559 | +0,0112 | 14 / 0 | +0,0000 | 0,6496 | +0,0032 |
+| yalnız taktik kamera, DFL | 8 | 0,6484 | 0,6611 | +0,0126 | 8 / 0 | +0,0034 | 0,6492 | +0,0031 |
+| yalnız taktik kamera, Metrica | 8 | 0,6411 | 0,6508 | +0,0097 | 6 / 0 | +0,0000 | 0,6501 | +0,0034 |
+| iyi yayınla doldurma | 8 | 0,6858 | 0,6964 | +0,0106 | 7 / 0 | +0,0000 | 0,6848 | +0,0020 |
+| orta yayınla doldurma | 8 | 0,6741 | 0,6854 | +0,0114 | 7 / 0 | +0,0000 | 0,6785 | +0,0034 |
+| 42 m kamera penceresi (rapor) | 8 | 0,6412 | 0,6530 | +0,0118 | 7 / 0 | +0,0000 | 0,6418 | +0,0032 |
+| yazarın benzeticisi (G7) | 4 | 0,6670 | 0,6867 | +0,0197 | 4 / 0 | +0,0186 | 0,6805 | +0,0093 |
+
+Yalnız taktik kamerada kopya kopya farklar: J03WN1 +0,0034, +0,0139, +0,0147, +0,0152; J03WR9 +0,0037, +0,0252, +0,0139, +0,0111; Metrica 1 +0,0222, +0,0022, +0,0122, +0,0000;
+Metrica 2 +0,0165, +0,0000, +0,0050, +0,0198.
+
+2 kopya (MET1 19123, MET2 19131) gürültü kapısında v2.3 yoluna düştü; aday o yolda havuzlama yapmadığı için bu kopyalarda çıktı
+v2.11'in çıktısıdır ve fark tam 0'dır (ortalamalara 0 olarak girerler).
+
+| kapı | değer | sonuç |
+|---|---|---|
+| G1 ortalama kazanç ≥ +0,008 | +0,0112 | geçti |
+| G2 DFL'de kazanç ≥ +0,008 | +0,0126 | geçti |
+| G3 Metrica'da ≥ −0,002 | +0,0097 | geçti |
+| G4 en kötü kopya ≥ −0,010 | +0,0000 | geçti |
+| G5 macroF1 ≥ −0,003 | +0,0032 | geçti |
+| G6 doldurma koşulları ≥ 0 | +0,0106 ve +0,0114 | geçti |
+| G7 öteki benzeticinin kopyaları ≥ 0 | +0,0197 | geçti |
+
+**Yanında raporlananlar (yalnız taktik kamera, 16 kopya).** 2 saniyeden kısa sahipliklerin yakalanma oranı: v2.11
+0,275, birleşik 0,277, ağ 0,273; 1 saniyeden kısalar: 0,115 /
+0,111 / 0,083. Geçiş F1 (12 kare): 0,543 / 0,553 / 0,538. Kopya başına
+sahiplik sayısı: etiketlerde 403, v2.11 308, birleşik 304, ağ 313. Birleşik
+sistem kopya başına ortalama 1.282 karenin etiketini değiştirdi. Gürültü kapısı: v2.1 yolu 14, v2.3 yolu
+2 kopya. Doldurma kapısı iyi yayında 8/8, orta yayında 7/8 kopyada açıldı.
+
+**Karar (2026-11-15 02:13).** Yedi kapının yedisi geçti; kayıtlı kurala göre aday seçildi ve possession-v2.15 olarak
+bütünleştirilir. Kapılar bir kez, bütün satırlara uygulandı; başka tohum, ağırlık, havuz ya da çözücü sabiti denenmedi.
+
+**Karardan sonra, bir kez (kapı değil).** Metrica 3, bir yeni kopya (v2.11 → birleşik): yalnız taktik kamera 0,6428 → 0,6650; iyi yayınla doldurma 0,7154 → 0,7316; orta yayınla doldurma 0,6885 → 0,7052; 42 m penceresi 0,6472 → 0,6646; yazarın benzeticisi 0,6972 → 0,7198. PFF maçı (K009; gerçek yayın takibi, top oyun içindeki karelerin 0,41'inde görünüyor; lisansı yayımlanmamış, seçimde kullanılmaz): v2.11 0,6289, birleşik 0,6542, ağ tek başına 0,6391 (macroF1 0,898 / 0,905 / 0,902).
+
+**Yorum (çıkarım, ölçüm değil).**
+- Ağırlık 0,2 ile ağ yalnız bizim modelin kararsız olduğu yerlerde söz sahibi olur: bir sınıfın olasılığını en çok 0,2 kaydırabilir.
+  Kazanç v2.14'ünkinden küçüktür (+0,0112; v2.14: +0,0201), kopyalar arası oynaklık da.
+- Ağ tek başına bu 16 kopyada 0,6496, v2.11 0,6447.
+- Üç denemenin üçü de yeni kopyalarda ölçüldü; ama aynı kapılar üç kez denendi. Tek tek kopyalara bakan G4'ü, daha temkinli
+  ayarla yeniden denenen bir tasarım daha kolay geçer. Bu yüzden sonuç "birleşik sistem dış kopyalarda ortalamada daha iyi ve bu
+  ağırlıkla hiçbir kopyada belirgin kötü değil" diye okunmalı; sağlanan maç için bir ölçüm değildir.
+
+**Sınırlar.** K012'deki sınırların hepsi geçerli (kullanılmış doğrulama maçları; ağırlıkları doğrulayan sürecin eğitmesi; ağın
+yalnız ekibin iki benzeticisini görmesi; benzetilmiş bozma, kamera ve yayın; vekil Metrica etiketleri). Ek olarak: ağırlık, v2.14
+doğrulamasının kopyaları da kullanılarak seçildi; gürültülü yolda (v2.3) havuzlama yapılmaz ve o yol için hiçbir ölçüm yoktur.
+Betikler: `experiments/possession_v2/v215/` (ağırlık dosyaları ve eğitim: `v214/`).
+
+**Bütünleştirme (15 Kasım, karardan sonra).** Kayıtlı karar kuralı, v2.15'in teslimde v2.11k'nın yerini alması için beş
+denetim (16 Kasım 23:59'a kadar) ve bir koşul yazar. Durum:
+- *Kod ve ağırlıklar.* `possession/tcn/` (commit `167dc7b`'nin çıkarım modüllerinin bayt kopyaları), `possession/pooling.py` (doğrulanan
+  dosya), `possession/run215.py` (dondurulmuş `run211.py`'den türetildi: yalnız puanlanan bloklar, havuzlama, başlama vuruşu
+  kuralı), `models/possession-tcn-v215.npz` (üç `dfl6_both` üyesi; SHA-256 değerleri plandakilerle aynı). Manifest
+  `possession-v215-release.json` (02:33): 29 kaynak dosya, iki ağaç paketi ve ağ ağırlıkları. Havuzlama kapatılınca
+  `run215`, `run211k`'nın dosyasını bayt bayt yazar (test eder). Merdiven: v2.15 → v2.11k → v2.11g → v2.9g → v2.5b → v2.5b yalnız
+  taktik kamera. Kuralsız yedek (`possession-release-graded-windows.json`) değişmedi; orada ikinci model de yoktur.
+- *Python 3.10 / numpy 1.26.4.* Ağ bu ortamda çalışıyor. Dokuz sentetik paketin (ikisi ağla) çıktısı 3.10 / 1.26.4 ve 3.13 / 2.5.3
+  altında bayt bayt aynı (`tests/test_possession_crossplatform.py`). Ağın yuvarlanmamış olasılıkları iki ortamda farklı, 4 basamağa
+  yuvarlanmışları aynı; başka bir işlemcide farklı çıkması olası değil ama dışlanamaz, zincirin `PLATFORM` adımı bunu
+  dosyanın üretildiği bilgisayarda denetler.
+- *Testler.* 3.10'da 448 test (15 atlandı), 3.13'te 448 test (4 atlandı); hepsi geçti. `tests/test_possession_final_test.py`
+  güncellendi: son test planının teslim edilen ilk basamak için değil, ikinci modelsiz sürüm (v2.11k, ikinci basamak) için kayıtlı
+  olduğunu denetler.
+- *Tam boy prova* (`possession-v215-rehearsal.json`): K003'ün sentetik paketi ve K011'in uydurma Smart Tagging dosyası, varsayılan
+  zincir, Python 3.10. Bütün adımlar OK; 761 sn (v2.11k zinciri 417 sn; ağla bir üretim bu ortamda yaklaşık beş dakika daha uzun sürdü), en çok 1,53 GB. Teslim dosyası
+  v2.11k zincirinin dosyasından 889 karede farklı (puanlanan karelerin %0,6'sı), hepsi başlama vuruşlarından sonra.
+  O paketin vekil etiketlerine göre spellF1 0,7721 (v2.11k zinciri 0,7641), macroF1 0,8732 (0,8728).
+  Bu bir bağlantı ve boyut denetimidir: paket Metrica 2 ve 3'ün bozuk kopyalarıdır, karardan sonra bir kez çalıştırıldı, hiçbir
+  seçimde kullanılmadı ve doğruluk iddiası değildir.
+- *Belgeler.* `TECHNICAL_DOCUMENT.md` (adım 9, üç deneme, eğitim verisi, sınırlar), `TECHNICAL_DOCUMENT_V2.md` (dördüncü ek),
+  `README.md`, `DATA_SOURCES.md`, `AGENTS.md`, Türkçe rehber ve `CLAUDE.md` güncellendi.
+- *Son test planı yeniden kaydedilmedi.* `possession-final-test-plan.json` v2.11k için kayıtlı kalır. Ağın tasarımcısı J03WMX'i
+  geliştirme sırasında kullandığı için v2.15'in o maçtaki sonucu "taze test" olmazdı; yayımlanan ağırlıklar o maç olmadan eğitildi
+  ve sürümü kuran süreç maçı indirmedi. `SON-TEST.cmd` çalıştırılırsa sonuç v2.11k'nın sonucu olarak yazılır.
+- **Açık koşul.** Karar kuralının son şartı: teslim zincirinin ekibin bilgisayarında OK bitmesi (`URETIM` ve `TESLIM` satırlarında
+  possession-v2.15). Bu kayıt yazılırken zincir orada henüz çalıştırılmadı. Zincir daha alt bir basamağa düşerse teslim edilen o
+  basamaktır ve belgelerin ilk satırları buna göre düzeltilir.
+
+## K012 — v2.14 adayı: ikinci model iki benzeticiyle yeniden eğitildi ve bizim çözücümüzle birleştirildi; kayıtlı kapılardan geçmedi, 14-15 Kasım 2026
+
+**Neden ikinci bir deneme.** v2.13 (K010) üç kapıdan geçmedi ve seçilmedi; o kayıt ve kapıları değişmedi. Takım lideri
+14 Kasım 18:23'te teslimden önce son bir deneme istedi. Yeni bir aday ancak yeni bir planla ve plan sonuçlardan önce
+kaydedilerek ölçülebilir; bu kayıt o denemedir. Sağlanan maçın hiçbir dosyası okunmadı, çalıştırılmadı, puanlanmadı.
+
+**Teşhis (geliştirme; yalnız daha önce puanlanmış kopyalarda).** v2.13 doğrulamasının 20 kopyası (tohum 13100-13133 ve
+63100-63103) ile karardan sonra puanlanan iki Metrica 3 kopyası (33103, 63108) artık geliştirme verisidir; teşhis için bir
+Metrica 3 kopyası daha üretildi (tohum 7772). Bunların hiçbiri doğrulama değildir. Bulunanlar:
+- *Sahte top algılamaları.* Yazarın ağırlıkları (`tcn_dfl6.npz`) tek başına, 7772 kopyasında, bizim benzeticinin bir bileşeni
+  kapatılarak (spellF1): hepsi açık 0,686; yanlış takımlı izler kapalı 0,693; konum gürültüsü düşük
+  0,684; oyuncu kayıpları kapalı 0,707; **sahte top algılamaları kapalı 0,733**; bozulmamış
+  veri 0,742; yazarın kendi benzeticisi 0,727. Onun benzeticisinde sahte algılamalar daha seyrektir ve hep bir
+  oyuncunun üstündedir; bizimkinde dört kata kadar sıktır ve yarısı sahada rastgele bir yerdedir. Ağ bunları eğitimde görmemişti.
+- *Ezber.* Aynı ağırlıklar bir eğitim maçında (J03WOH, bizim bozmamızla) 0,817 aldı. Eğitim maçları bu yüzden teşhiste kullanılmadı.
+- *Çözücü ve ağırlık.* Yazarın ağırlıklarıyla, 22 geliştirme kopyasında, v2.11'e göre ortalama fark: v2.13 kuralı (ağırlık 0,5, her
+  değişime tek maliyet) +0,0108 (DFL'de +0,0007, en kötü kopya −0,0295); aynı
+  olasılıklar ağırlık 0,2 ile ve bizim çözücümüzden geçirilince +0,0137 (DFL'de +0,0135, en kötü kopya
+  −0,0081, 22 kopyanın 21 tanesinde iyi). Tek maliyetli çözücü, bizim çözücünün ölü topa giriş ve çıkış
+  maliyetlerini (60) kullanmıyordu.
+- *Tek tohum.* v2.13'te DFL satırları tek tohumlu ağırlıklarla, Metrica satırları üç tohumla ölçülmüştü.
+
+**Yeniden eğitim.** PyTorch bu ortama kurulamadı; yazarın eğitim betiği JAX ile yeniden yazıldı
+(`experiments/possession_v2/v214/tcn_jax.py`). Mimari, 37 özellik ve NumPy çıkarımı onundur (dal `mtah-possession`, commit
+`167dc7b`); çıkarım modülleri bayt bayt kopyadır. Onun betiğinden farklar: Adam momenti sabit 0,9 (PyTorch'un OneCycleLR'ı onu da
+değiştirir); başlangıç değerleri ve rastgele akışlar JAX / NumPy'nin; her devre için 12 bozuk kopya ve 6 tur (onunki 6 kopya ve
+12 tur; eğitim maçı başına adım sayısı aynı); hazır verimizde top yüksekliği olmadığı için onun benzeticisinin yükseklik terimi
+çalışmaz. JAX ağı ile onun NumPy çıkarımı rastgele girdi ve ağırlıklarda karşılaştırıldı: en büyük olasılık farkı 7,9e-7.
+- *Veri:* yalnız açık DFL maçları (CC BY 4.0), sağlayıcının kare etiketleri. 12 kopyanın 6'sı onun benzeticisiyle
+  (`tcn/degrade.py`), 6'sı bizimkiyle (`possession/degrade.py`, v2 profili) bozuldu; tek numaralı kopyalarda takımlar yer değiştirdi.
+- *Modeller (üçer tohum):* `dfl4_both_s0-2`: J03WOH, J03WOY, J03WPY, J03WQQ (bizim doğrulama modellerimizin dört maçı; DFL
+  doğrulama satırları için). `dfl6_both_s0-2`: altı maç (Metrica satırları için; seçilirse yayımlanacak ağırlıklar). Bir model
+  2 işlemcide 26-40 dakika sürdü.
+- *İlk deneme modeli* (J03WN1'siz beş maç, tek tohum): beş J03WN1 geliştirme kopyasında tek başına v2.11'e göre +0,0016
+  (yazarın beş maçlık ağırlıkları −0,0326); beş kopyanın beşinde, onun kendi benzeticisinin kopyası dahil, yazarın
+  ağırlıklarından iyi.
+- *Üçer üyeli yeni ağırlıklar tek başına*, 22 geliştirme kopyasında: v2.11'e göre +0,0089 (DFL −0,0020,
+  Metrica +0,0180); yazarın ağırlıkları aynı kopyalarda −0,0266. Tek tek kopyalarda hâlâ oynak
+  (en kötü −0,0515).
+
+**Havuzlama kuralının seçimi (geliştirme).** İki modelin üç sınıflı olasılıkları ağırlıklı ortalamayla birleştirilir, sonuç
+yeniden P(ölü) ve P(ev | canlı) yapılır ve **değişmemiş v2 çözücüsünden** geçer (`fuse2.py`). Denenen ayarlar: aritmetik ortalama,
+ağırlık 0,2-0,6; geometrik ortalama, ağırlık 0,3-0,6. Seçim kuralı 14 Kasım 21:23'te, yeni ağırlıkların DFL satırları görüldükten
+sonra ve Metrica satırları henüz yokken yazıldı: (1) herhangi bir geliştirme kopyasında −0,010'dan kötü olan ayar elenir; (2)
+kalanlardan ortalaması en büyük olan alınır; (3) ona 0,001'den yakın olanlar eşit sayılır ve en küçük ağırlık kazanır (aynı
+ağırlıkta iki havuz varsa ortalaması büyük olan). 22 geliştirme kopyasında (ortalama fark | en kötü kopya | iyi olan kopya):
+
+| ayar | hepsi (22) | DFL (10) | Metrica (12) | yazarın benzeticisi (5) |
+|---|---|---|---|---|
+| aritmetik 0,2 | +0,0122 \| −0,0035 \| 19 | +0,0115 \| −0,0026 \| 9 | +0,0128 \| −0,0035 \| 10 | +0,0158 \| +0,0075 \| 5 |
+| aritmetik 0,3 | +0,0190 \| −0,0118 \| 21 | +0,0162 \| −0,0118 \| 9 | +0,0213 \| +0,0033 \| 12 | +0,0240 \| +0,0119 \| 5 |
+| aritmetik 0,4 | +0,0243 \| −0,0084 \| 21 | +0,0204 \| −0,0084 \| 9 | +0,0275 \| +0,0057 \| 12 | +0,0292 \| +0,0089 \| 5 |
+| aritmetik 0,5 | +0,0263 \| −0,0069 \| 21 | +0,0222 \| −0,0069 \| 9 | +0,0298 \| +0,0044 \| 12 | +0,0369 \| +0,0192 \| 5 |
+| aritmetik 0,6 | +0,0242 \| −0,0176 \| 19 | +0,0204 \| −0,0176 \| 8 | +0,0275 \| −0,0014 \| 11 | +0,0406 \| +0,0109 \| 5 |
+| geometrik 0,3 | +0,0203 \| −0,0035 \| 20 | +0,0181 \| −0,0035 \| 9 | +0,0221 \| −0,0019 \| 11 | +0,0266 \| +0,0123 \| 5 |
+| geometrik 0,4 | +0,0253 \| −0,0024 \| 20 | +0,0230 \| −0,0024 \| 8 | +0,0272 \| +0,0042 \| 12 | +0,0339 \| +0,0148 \| 5 |
+| geometrik 0,5 | +0,0263 \| −0,0069 \| 20 | +0,0233 \| −0,0069 \| 8 | +0,0288 \| +0,0030 \| 12 | +0,0380 \| +0,0157 \| 5 |
+| geometrik 0,6 | +0,0248 \| −0,0126 \| 20 | +0,0214 \| −0,0126 \| 8 | +0,0277 \| +0,0035 \| 12 | +0,0399 \| +0,0119 \| 5 |
+
+Kural **aritmetik ortalama, ağırlık 0,5** verdi (ortalama +0,026321; geometrik 0,5 +0,026291 ile aynı
+ağırlıkta ve ortalaması daha küçük; geometrik 0,4 +0,025300 ile 0,001'den uzak). Bu, yazarın kendi karışım oranıdır; v2.13'e göre
+değişen üç şey ağırlık dosyaları, üye sayısı ve çözücüdür. Çözücü sabitleri (takım değişimi 2-5, ölü topa giriş/çıkış 50-70, ölü
+top eğilimi −0,1…−0,5) 10 DFL geliştirme kopyasında denendi: teslim sabitlerinden en çok 0,001 iyi ya da daha kötü; değiştirilmedi.
+Gürültülü yol (v2.3; ölçülen gürültü 0,30 m'nin üstünde) için hiçbir ölçüm yapılmadı; aday o yolda havuzlama yapmaz, çıktı
+v2.11k'nın çıktısıdır.
+
+**Plan.** `possession-v214-plan.json`, 14 Kasım 23:33:40'ta kaydedildi; o anda adayın, yeni ağırlıkların ya da herhangi bir
+havuzun yeni tohumlu bir kopyadaki hiçbir puanı yoktu (kayıttan önce görülenlerin tamamı planın
+`seen_on_external_data_before_registration` bölümünde). Tasarım v2.13'ünkiyle aynıdır (`v213/exp_v213.py` değiştirilmeden içe
+aktarılır), yalnız:
+- yeni tohumlar: kopya 16100 + 10·maç + j, yayın 46100 / 46200, saat 56100 / 56200, yazarın benzeticisi 66100 + maç. Önce
+  düşünülen 141xx dizisi eski dosyalardaki rastlantısal sayılarla (kare sayıları) çakıştığı için kayıttan önce değiştirildi;
+  kaydedilen tohumların hiçbiri depodaki ya da çalışma alanındaki hiçbir dosyada geçmiyor (betik arar).
+- DFL maçlarında ağ tarafı `dfl4_both` (üç üye; bizim doğrulama modelleriyle aynı dört maç), Metrica'da `dfl6_both` (üç üye) ve
+  yayımlanan v2 paketleri.
+- birleşik kol: `fuse2.pool` (aritmetik, 0,5) + `possession.decode` (yol sabitleri). v2.3 yoluna düşen bir kopyada fark tam 0'dır.
+- kapılar: G1-G6, v2.12 ve v2.13'ün kapıları ve eşikleri, değişmeden; G7 eklendi: yazarın benzeticisiyle üretilen 4 kopyada
+  ortalama fark ≥ 0 (v2.13'te yalnız rapor ediliyordu).
+- v2.12 ve v2.13 planları sürüm değişikliği için son anı 14 Kasım 23:59 olarak yazmıştı. Bu plan, takım liderinin isteğiyle, daha
+  geç bir an koyar (16 Kasım 23:59); bedeli, ekibin bilgisayarındaki denetimlere daha az zaman kalmasıdır (planın `limits` bölümü).
+- Doğrulama betiği, kayıttan önce, bir geliştirme kopyasında (J03WN1 13100) saklanan olasılıklardan hesaplanan sayıları aynen
+  verdi; eğitim maçı J03WOH'ta bağlantı denemesi yapıldı (puan hesaplamaz).
+Ortam: Python 3.13.18, numpy 2.5.3, pandas 3.0.5, scikit-learn 1.9.1; eğitim için ayrıca jax 0.12.0.1, optax 0.2.9.
+
+**Sonuç** (`possession-v214-results.json`, kapılar 00:33'te uygulandı; spellF1, organizatörün ölçütü; yarışma puanı değil):
+
+| koşul | kopya | v2.11 | birleşik | fark | iyi / kötü | en kötü kopya | ağ tek başına | macroF1 farkı |
+|---|---|---|---|---|---|---|---|---|
+| yalnız taktik kamera, hepsi | 16 | 0,6475 | 0,6676 | +0,0201 | 15 / 1 | −0,0160 | 0,6518 | +0,0047 |
+| yalnız taktik kamera, DFL | 8 | 0,6413 | 0,6605 | +0,0192 | 8 / 0 | +0,0023 | 0,6417 | +0,0078 |
+| yalnız taktik kamera, Metrica | 8 | 0,6537 | 0,6748 | +0,0211 | 7 / 1 | −0,0160 | 0,6618 | +0,0017 |
+| iyi yayınla doldurma | 8 | 0,6831 | 0,6953 | +0,0122 | 7 / 1 | −0,0109 | 0,6819 | +0,0026 |
+| orta yayınla doldurma | 8 | 0,6903 | 0,7102 | +0,0199 | 8 / 0 | +0,0005 | 0,6924 | +0,0035 |
+| 42 m kamera penceresi (rapor) | 8 | 0,6404 | 0,6590 | +0,0186 | 8 / 0 | +0,0048 | 0,6396 | +0,0045 |
+| yazarın benzeticisi (G7) | 4 | 0,6766 | 0,7058 | +0,0292 | 3 / 1 | −0,0056 | 0,7034 | +0,0168 |
+
+Yalnız taktik kamerada kopya kopya farklar: J03WN1 +0,0102, +0,0262, +0,0288, +0,0300; J03WR9 +0,0158, +0,0023, +0,0264, +0,0139; Metrica 1 −0,0160, +0,0021, +0,0320, +0,0353;
+Metrica 2 +0,0328, +0,0428, +0,0190, +0,0208.
+
+| kapı | değer | sonuç |
+|---|---|---|
+| G1 ortalama kazanç ≥ +0,008 | +0,0201 | geçti |
+| G2 DFL'de kazanç ≥ +0,008 | +0,0192 | geçti |
+| G3 Metrica'da ≥ −0,002 | +0,0211 | geçti |
+| G4 en kötü kopya ≥ −0,010 | −0,0160 | **geçmedi** |
+| G5 macroF1 ≥ −0,003 | +0,0047 | geçti |
+| G6 doldurma koşulları ≥ 0 | +0,0122 ve +0,0199 | geçti |
+| G7 öteki benzeticinin kopyaları ≥ 0 | +0,0292 | geçti |
+
+**Yanında raporlananlar (yalnız taktik kamera, 16 kopya).** 2 saniyeden kısa sahipliklerin yakalanma oranı: v2.11
+0,286, birleşik 0,290, ağ 0,280; 1 saniyeden kısalar: 0,111 /
+0,128 / 0,102. Geçiş F1 (12 kare): 0,530 / 0,552 / 0,525. Kopya başına
+sahiplik sayısı: etiketlerde 403, v2.11 309, birleşik 305, ağ 310. Birleşik
+sistem kopya başına ortalama 4.431 karenin etiketini değiştirdi. Gürültü kapısı: v2.1 yolu 16, v2.3 yolu
+0 kopya. Doldurma kapısı iyi yayında 8/8, orta yayında 8/8 kopyada açıldı.
+
+**Karar (2026-11-15 00:33).** 1 kapı geçmedi (G4); kayıtlı kurala göre aday teslim sistemine
+girmedi, teslim sistemi **v2.11k** olarak kalır. Kapılar bir kez, bütün satırlara uygulandı; başka tohum, ağırlık, havuz ya da çözücü
+sabiti denenmedi. İlk iki satır geldiğinde (14 Kasım 23:37) G4'ün geçemeyeceği belliydi; doğrulama yine de planlandığı gibi
+tamamlandı.
+
+−0,010'dan kötü kopyalar: MET1 16120 (−0,0160; v2.11 0,6671, ağ tek başına 0,6330, oyun içinde topun göründüğü karelerin payı 0,361).
+
+**Karardan sonra, bir kez (kapı değil).** Metrica 3, bir yeni kopya (v2.11 → birleşik): yalnız taktik kamera 0,6569 → 0,6958; iyi yayınla doldurma 0,6770 → 0,7056; orta yayınla doldurma 0,6915 → 0,7067; 42 m penceresi 0,6625 → 0,6987; yazarın benzeticisi 0,6889 → 0,7032. PFF maçı (K009; gerçek yayın takibi, top oyun içindeki karelerin 0,41'inde görünüyor; lisansı yayımlanmamış, seçimde kullanılmaz): v2.11 0,6289, birleşik 0,6713, ağ tek başına 0,6391 (macroF1 0,898 / 0,910 / 0,902).
+
+**Yorum (çıkarım, ölçüm değil).**
+- Ortalama kazanç tutarlı: yalnız taktik kamerada 16 kopyanın 15 tanesi, DFL kopyalarının 8 tanesi iyi; doldurma
+  koşullarında, kamera penceresinde ve yazarın benzeticisinin kopyalarında da artı. v2.13'te DFL'de eksi olan fark (−0,0045) burada
+  +0,0192. Teşhisin gösterdiği üç değişiklik (iki benzeticiyle eğitim, üç üye, bizim çözücü) birlikte işe yaradı;
+  hangisinin ne kadar katkı yaptığı bu doğrulamada ayrı ayrı ölçülmedi.
+- Yeni ağırlıklarla ağ tek başına bu 16 kopyada v2.11 düzeyinde (0,6518 / 0,6475); yazarın ağırlıklarıyla v2.13
+  doğrulamasında 0,6257 / 0,6598 idi. Tek tek kopyalarda hâlâ oynak.
+- Geçmeyen kapı tek kopyadan: MET1, tohum 16120. O kopyada oyun içindeki karelerde topun görünme payı 0,361;
+  ağ tek başına 0,633, v2.11 0,667, birleşik 0,651. Aynı kopya iyi yayınla doldurulunca fark +0,0074.
+  Geliştirme kopyalarında top görünürlüğü benzer (0,36-0,38) üç kopya vardı ve üçünde de birleşik sistem iyiydi; görünürlük tek
+  başına açıklamıyor. Ortalaması +0,02 olan bir farkın 16 kopyadan birinde −0,010'un altına düşmesi şaşırtıcı değil; kapı tam da bunu
+  eliyor ve değiştirilmedi.
+
+**Sınırlar.** Doğrulama maçları daha önceki bütün seçimlerde ve bu adayın geliştirilmesinde kullanıldı; yalnız kopyalar yeniydi.
+Ağırlıkları doğrulamayı yapan süreç eğitti; eğitim betiğini başka kimse denetlemedi ve yeniden çalıştırma aynı bitleri vermez.
+Bozma, slot paketleme, kamera penceresi ve yayın kamerası bizim benzetimimizdir; ağ yalnız ekibin iki benzeticisini gördü. DFL
+etiketleri sağlayıcının kare etiketleri, Metrica etiketleri olaylardan türettiğimiz vekil etiketlerdir. Betikler:
+`experiments/possession_v2/v214/`.
+
+## K011 — Başlama vuruşu: yayımlanan sabit kare bırakıldı, Smart Tagging kuralı eklendi; teslim sistemi v2.11k, 13 Kasım 2026
+
+**Neden.** 11 Kasım'da organizatöre, FAQ.md'de yayımlanan ikinci yarı başlama karesini (113.742) koda sabit
+yazmanın uygun olup olmadığını sorduk; olumsuz yanıt için yedek giriş noktaları hazırdı (v2.9g, v2.11g; K003, K004).
+12 Kasım 14:21'de gelen yanıt "evet" ya da "hayır" demedi: 3 Kasım açıklamasını yineledi ve şunu ekledi:
+"anything that is not explicitly allowed is not permitted". Yayımlanan bir kareyi sabit yazmak açıkça izin
+verilenler arasında değil; Smart Tagging'i girdi olarak kullanmak açıkça izinli. 12 Kasım akşamı kuralı yazan takım
+üyesiyle yazışmada şunda anlaşıldı: sabit kare kullanılmaz; Smart Tagging başlama vuruşu etiketi, sentetik testleri
+donmadan önce hazırsa kullanılır, değilse yalın v2.11g. Takım lideri bu öneriye itiraz etmedi; 13 Kasım raporunda
+kuralsız yedeği (v2.11g) seçme imkânı ayrıca belirtildi.
+
+**Ne.** `possession/kickoff.py` ve giriş noktası `possession.run211k` (manifest `possession-v211k-release.json`,
+13 Kasım 12:33). v2.11g'nin çıktısından sonra tek kural: puanlanan bir blokta, bloğun içinde başlayan ilk
+"Kick Off (Start)" etiketi (kod SET PIECES, grup Type) bloğun ilk karesinden on dakikadan az sonra başlıyorsa, bloğun
+o etiketten önceki kareleri `D` yazılır. Dosya yoksa, okunamıyorsa ya da uygun etiket yoksa çıktı bayt bayt
+v2.11g'nin çıktısıdır. Kural, bir takım üyesinin 12 Kasım 19:00'da kendi dalına koyduğu koddan (dal
+`mtah-possession`, commit 4b32747, `possession/predict.py`) değiştirilmeden alındı;
+`tests/test_possession_kickoff.py` iki uygulamayı 300 rastgele sentetik girdide karşılaştırır. Kodda hiçbir maçın
+kare numarası yoktur (test eder).
+
+**Ölçüm.** Yok ve olamaz: dış maçların takip verisi başlama vuruşuyla başlar, Smart Tagging'leri yoktur. Testler
+sentetiktir (9 + 2 test): etiketlerin okunması, on dakika sınırı, blok dışındaki etiketler, eksik ya da bozuk
+dosya, yeniden yazılan dosyanın biçimi ve `run.json` kaydı; sentetik bir pakette uçtan uca: etiket dosyası yokken
+çıktı v2.11g'nin baytlarıdır, etiket varken yalnız etiketten önceki kareler değişir. İki Python ortamında geçti
+(3.13 / numpy 2.5.3 ve 3.10 / numpy 1.26.4).
+
+**Zincir.** `possession-release.json` artık v2.11k → v2.11g → v2.9g → v2.5b → v2.5b yalnız taktik kamera sırasını
+adlandırır; hiçbir basamak 113.742'yi kullanmaz. `possession-release-graded-windows.json` aynı sıranın kuralsız
+hâlidir. Belge ekine (Ek R) "Kick-off rule" satırı eklendi: kategori yazar, sayı ve kare yazmaz. Platform denetimi
+değişmedi (kural yalnız etiketleri bir tam sayı kareden önce yeniden yazar; kayan noktalı bir parçası yok). Son test
+planı v2.11k için yeniden kaydedildi (13 Kasım 12:48; J03WMX'e sürümü kuran süreçte dokunulmadı; o maçta Smart Tagging
+olmadığı ve oyun blokları iki devre olduğu için çıktı v2.11'in çıktısıdır; bir takım üyesinin o maçı ayrı bir model
+için kullandığı plana yazıldı). `possession.run211` (sabit kareli v2.11) depoda dondurulmuş duruyor, kullanılmıyor.
+
+**Zincire ve girdi denetimine ekler (13 Kasım öğleden sonra).**
+- `tools/possession_deliver.py`: sürümün ilk basamağı Smart Tagging dosyasını okuduğu için (`possession-release.json`
+  içinde `"smart_tagging": true`) `VERI` satırı artık dosyanın pakette olup olmadığını da yazar (`smart tagging VAR` /
+  `YOK`) ve yoksa uyarır. Dosya yokken çıktı v2.11g'nin çıktısıdır; organizatör dosyayı bütün paketten yeniden
+  üreteceği için kural onda uygulanır ve iki dosya farklı çıkabilir. 11 Kasım'daki ilk zincirde satırda
+  `videolar YOK` yazıyordu (K006); bu yüzden aynı klasörde Smart Tagging dosyasının bulunduğu varsayılmadı.
+- `possession/inputs_check.py`: iki yeni denetim (toplam 28). `tagging_reader_runs`: sürümün başlama vuruşu okuyucusu
+  dosyayı okuyabiliyor mu. `tagging_kickoff_start_tags`: bulduğu "Kick Off (Start)" etiketi sayısı DATA.md'nin
+  yazdığı 2 mi. Yalnız sayı karşılaştırılır; dosya yoksa SKIP yazar.
+- **Önceden yazılan kural (zincir sağlanan dosyalarda v2.11k ile çalıştırılmadan önce, 13 Kasım 13:42):** ekibin
+  bilgisayarında bu iki denetimden biri FAIL verirse okuyucu ile DATA.md dosya hakkında anlaşamıyor demektir; o durumda
+  kuralın dayanağı doğrulanmamış sayılır ve kuralsız yedek sıra teslim edilir
+  (`TESLIM-HAZIRLA.cmd --release-config possession-release-graded-windows.json`). İkisi de PASS ise ya da dosya
+  pakete konduktan sonra PASS oluyorsa varsayılan sıra (v2.11k) teslim edilir. Bu seçim bir çıktıya bakılarak yapılmaz.
+
+**Prova (bağlantı ve boyut denetimi; `possession-v211k-rehearsal.json`).** Zincir, yeni varsayılan sürümle, K003'ün
+tam boy sentetik A paketinde iki kez çalıştırıldı (Python 3.10 ortamı). Paketin içeriği bozulmuş Metrica örnek
+maçlarıdır; ikinci yarı başlama vuruşundan önce uydurma bir bölüm vardır.
+- *Uydurma Smart Tagging dosyasıyla* (`experiments/possession_v2/prova_tagging.py`): dosya DATA.md'nin anlattığı
+  yapıdadır (638 kayıt, yayımlanan kod ve tür sayıları). İki "Kick Off (Start)" kaydı, paketin iki başlama anını
+  içeren 5 saniyelik pencerelerdir; organizatörün `starter/load_smart_tagging.py` dosyası teslim edilen dosya için
+  bunu söyler ("The tagging marks a ~5 s window around the restart rather than the instant"; "Both tagged kickoffs
+  contain the real one"). Testler dahil bütün
+  adımlar OK: `URETIM OK (possession-v2.11k, saatli)`, `PLATFORM AYNI`, `GIRDI OKUMA OK`; 417 s, en çok 1,54 GB.
+  Paketin dış etiketlerine göre spellF1 0,7641, macroF1 0,8728. 11 Kasım'daki zincir dosyaları aynı pakette:
+  v2.11 0,7641 / 0,8728, v2.11g 0,7594 / 0,8706. v2.11g dosyasından 309 karede ayrılır; hepsi etiketten önce ve
+  hepsi `D` oldu. Etiketin başı ile başlama anı arasındaki 60 kareyi modeller de `D` etiketledi. v2.11
+  dosyasından tek karede ayrılır.
+- *Smart Tagging dosyası olmadan* (son araçla): `VERI OK (taktik VAR, yayin VAR, videolar YOK, smart tagging YOK)`,
+  sonuç satırında `UYARILAR VAR (VERI)`; üretilen dosya 11 Kasım'daki v2.11g zincirinin dosyasıyla bayt bayt aynı
+  (SHA-256 eşit); Ek R satırı "Smart Tagging file not found: not applied". Bu çalıştırmanın ilk denemesi bulut
+  oturumu yeniden başladığı için yarıda kaldı ve boş klasörden yeniden başlatıldı.
+- Etiket dosyasını biz uydurduk: bu prova sağlanan maçtaki doğruluğu ya da oradaki etiketlerin yerini göstermez.
+
+**Sınırlar.** Etiket otomatiktir. Organizatörün `starter/load_smart_tagging.py` dosyasına göre etiketli her başlama
+vuruşu, gerçek anı içeren yaklaşık 5 saniyelik bir penceredir; öyleyse kural yalnız başlama vuruşundan önceki
+kareleri `D` yazar ve pencerenin içindeki son anları modellere bırakır. Bir etiket gerçek başlama vuruşundan sonra
+başlasaydı oyunun ilk anları `D` olurdu. Uygun etiket yoksa modeller karar verir; başlama öncesindeki davranışları
+dış veride ölçülmedi (tam boy provada uydurma bir başlama öncesi bölümde 2.934 karenin 2.625'i `D` idi; K003).
+Etiketin kullanılıp kullanılmadığı yalnız ekipte kalan belge kopyasının Ek R bölümünde yazar.
+
+## K010 — v2.13 adayı: olasılıkları bir takım üyesinin TCN modeliyle birleştirmek; kayıtlı kapılardan geçmedi, 12-13 Kasım 2026
+
+**Fikir.** Takım üyemiz Hüseyin Umut Işık ayrı bir model geliştirdi (dal `mtah-possession`, commit `167dc7b`): kare başına 37
+takım-simetrik özellik üzerinde 12,5 Hz'de çalışan genişlemeli zamansal evrişim ağı (TCN); çıkarım NumPy ile, üç çıktı (takım 0,
+takım 1, ölü top). Önerisi iki modeli birleştirmekti (`fuse.py`): bizim ikinci aşama olasılıklarımız ile TCN olasılıklarının
+ortalaması alınır (ağırlık 0,5) ve tek bir Viterbi geçişiyle çözülür (her durum değişimi için maliyet 6); bizim çözücümüz
+kullanılmaz. Kendi geliştirme ölçümünde 24 bozuk Metrica kopyasında bizim sistem 0,702, TCN 0,714, birleşim 0,731-0,734 çıkmıştı.
+
+**Bu sayılar neden karar için yetmedi.** Karışım ağırlığı ve geçiş maliyeti puanlanan kopyalarda denenmişti; etiketler
+`metrica_labels.py` ile değil kendi betiğiyle üretilmişti (K005); bizim taraf v2.11 değil v2.4 yoluydu; TCN ağırlıkları sonradan
+yeniden eğitildi; ölçüm yalnız Metrica'daydı. Yazar da aynı görüşteydi ve kendi dalına bir doğrulama taslağı koydu
+(`docs/POSSESSION_TCN_VALIDATION_PLAN.md`): karışım sabit (0,5 / 6), yeni tohumlar, v2.12'nin kapıları; kapılar geçmezse
+birleşim kullanılmaz. Bizim kayıtlı planımız bu taslağı tohumlar, dosya özetleri ve eşiklerle kesinleştirir.
+
+**Plan.** `possession-v213-plan.json`, 13 Kasım 12:12'de kaydedildi. O anda birleşimin ya da depoya konan TCN ağırlıklarının
+hiçbir dış maçtaki puanı bizde yoktu (yazarın bildirdiğine göre onda da yoktu); kayıttan önce görülenler planın
+`seen_on_external_data_before_registration` bölümünde. Tasarım:
+- 16 yeni bozuk kopya (4 doğrulama maçı × 4; tohum 13100 + 10·maç + j; önceki hiçbir planda yok), 46 anonim slota paketlenmiş,
+  gürültü kapısı ve kaleci denetimi teslim sistemindeki gibi.
+- Koşullar: yalnız taktik kamera (16 kopya; G1-G5), benzetilmiş iyi ve orta yayınla top doldurma (8'er kopya; G6), 42 m kamera
+  penceresi (8; yalnız rapor), TCN yazarının benzeticisiyle üretilmiş kopyalar (4; yalnız rapor).
+- DFL maçlarında (J03WN1, J03WR9): bizim taraf her doğrulamadaki dört maçlık doğrulama modelleri, TCN tarafı o maç çıkarılarak
+  beş maçla eğitilmiş ağırlıklar. Metrica 1-2'de: yayımlanacak çift (altı DFL maçlı paketlerimiz + `tcn_dfl6.npz`).
+- TCN'in girdisi bizim modellerin gördüğü takip verisi (paketlenmiş, kaleci düzeltmeli, kapı açıksa doldurulmuş top).
+- Kapılar (yuvarlanmamış değerlerle, bir kez): G1 ortalama fark ≥ +0,008; G2 DFL ≥ +0,008; G3 Metrica ≥ −0,002; G4 hiçbir
+  kopya −0,010'dan kötü değil; G5 macroF1 ≥ −0,003; G6 iki doldurma koşulunda ≥ 0.
+- Betikler ve TCN modüllerinin commit'teki baytlarla kopyaları: `experiments/possession_v2/v213/` (SHA-256 değerleri planda).
+  Ortam: Python 3.13.18, numpy 2.5.3, pandas 3.0.5.
+
+**Sonuç** (`possession-v213-results.json`; spellF1, organizatörün ölçütü; yarışma puanı değil):
+
+| koşul | kopya | v2.11 | birleşim | fark | iyi / kötü | en kötü kopya | TCN tek başına | macroF1 farkı |
+|---|---|---|---|---|---|---|---|---|
+| yalnız taktik kamera, hepsi | 16 | 0,6598 | 0,6661 | +0,0063 | 9 / 7 | −0,0295 | 0,6257 | +0,0013 |
+| yalnız taktik kamera, DFL | 8 | 0,6640 | 0,6594 | −0,0045 | 3 / 5 | −0,0295 | 0,6219 | +0,0007 |
+| yalnız taktik kamera, Metrica | 8 | 0,6556 | 0,6728 | +0,0172 | 6 / 2 | −0,0100 | 0,6295 | +0,0018 |
+| iyi yayınla doldurma | 8 | 0,6959 | 0,7066 | +0,0107 | 6 / 2 | −0,0070 | 0,6680 | +0,0028 |
+| — bunun DFL kopyaları | 4 | 0,6877 | 0,6973 | +0,0096 | 3 / 1 | −0,0070 | 0,6642 | +0,0050 |
+| — bunun Metrica kopyaları | 4 | 0,7040 | 0,7159 | +0,0118 | 3 / 1 | −0,0056 | 0,6719 | +0,0006 |
+| orta yayınla doldurma | 8 | 0,6906 | 0,7050 | +0,0143 | 6 / 2 | −0,0122 | 0,6630 | +0,0031 |
+| — bunun DFL kopyaları | 4 | 0,6835 | 0,7025 | +0,0190 | 3 / 1 | −0,0114 | 0,6643 | +0,0069 |
+| — bunun Metrica kopyaları | 4 | 0,6977 | 0,7074 | +0,0097 | 3 / 1 | −0,0122 | 0,6617 | −0,0007 |
+| 42 m kamera penceresi (rapor) | 8 | 0,6506 | 0,6608 | +0,0101 | 4 / 4 | −0,0143 | 0,6151 | +0,0022 |
+| TCN yazarının benzeticisi (rapor) | 4 | 0,6685 | 0,6962 | +0,0277 | 3 / 1 | −0,0071 | 0,6805 | +0,0077 |
+
+Yalnız taktik kamerada kopya kopya farklar: J03WN1 +0,0284, +0,0267, −0,0295, −0,0181; J03WR9 −0,0113, −0,0119, −0,0279,
++0,0072; Metrica 1 −0,0022, +0,0182, −0,0100, +0,0040; Metrica 2 +0,0263, +0,0317, +0,0254, +0,0441.
+
+| kapı | değer | sonuç |
+|---|---|---|
+| G1 ortalama kazanç ≥ +0,008 | +0,0063 | **geçmedi** |
+| G2 DFL'de kazanç ≥ +0,008 | −0,0045 | **geçmedi** |
+| G3 Metrica'da ≥ −0,002 | +0,0172 | geçti |
+| G4 en kötü kopya ≥ −0,010 | −0,0295 | **geçmedi** |
+| G5 macroF1 ≥ −0,003 | +0,0013 | geçti |
+| G6 doldurma koşulları ≥ 0 | +0,0107 ve +0,0143 | geçti |
+
+**Karar (13 Kasım 13:58).** 3 kapı geçmedi (G1, G2, G4); kayıtlı kurala göre birleşim teslim sistemine girmedi. Kapılar
+bir kez uygulandı; başka tohum, ağırlık, karışım oranı ya da geçiş maliyeti denenmedi. Teslim sistemi bizim modelimizle kalıyor
+(başlama vuruşu kuralı ayrı kayıt: K011).
+
+**Yanında raporlananlar (yalnız taktik kamera, 16 kopya).** 2 saniyeden kısa sahipliklerin yakalanma oranı: v2.11 0,288,
+birleşim 0,281, TCN 0,296; 1 saniyeden kısalar: 0,122 / 0,104 / 0,121. Geçiş F1 (12 kare): 0,562 / 0,561 / 0,518.
+Kopya başına sahiplik sayısı: etiketlerde 403, v2.11 308, birleşim 310, TCN 344. Birleşim kopya başına ortalama 5.096
+karenin etiketini değiştirdi. Bütün kopyalarda gürültü kapısı v2.1 yolunu seçti; doldurma kapısı iyi yayında 8/8, orta
+yayında 8/8 kopyada açıldı.
+
+**Yorum (çıkarım, ölçüm değil).**
+- Birleşim ortalamada biraz iyi (+0,0063), ama kaynağa göre ayrışıyor. Metrica kopyalarında +0,0172: Metrica 2'nin dört
+  kopyasının dördünde kazanç var, Metrica 1'de fark sıfırın iki yanında. DFL kopyalarında −0,0045: sekiz kopyanın beşi
+  kötü, üçü −0,018 ile −0,030 arasında. Kayıtlı kurallar iki kaynakta da kazanç ve hiçbir kopyada belirgin kayıp istiyordu.
+- TCN tek başına bizim 16 kopyamızın hiçbirinde v2.11'i geçmedi (0,6257 / 0,6598). Yazarın benzeticisiyle üretilen 4
+  kopyanın 3'ünde geçti (0,6805 / 0,6685) ve birleşim orada +0,0277 kazandırdı. O kopyalarda ölçülen konum gürültüsü daha
+  düşük (top 0,02-0,10 m, oyuncular 0,05-0,07 m; bizim kopyalarda top 0,07-0,30 m, oyuncular 0,04-0,30 m). TCN, eğitildiği
+  benzeticinin kopyalarında belirgin daha güçlü; v2.11 iki benzeticide de benzer puan alıyor (0,6685 / 0,6598). Hangi
+  benzeticinin sağlanan takip verisine daha çok benzediği bilinmiyor ve buna bakılamaz. Bizim 16 kopyanın içinde farkın
+  ölçülen gürültüyle ilişkisi zayıf (r = +0,31) ve ters yönde; "gürültü azsa birleşim iyidir" sonucu bu veriden çıkmaz.
+- Yayınla doldurma koşullarında ve 42 m pencerede birleşim ortalamada iyi (+0,0107, +0,0143, +0,0101), ama orada da tek
+  kopyada −0,0122 ve −0,0143 var.
+- Birleşim bizim çözücümüzü (ölü top eğilimi, oyuna giriş ve çıkış maliyetleri) tek maliyetli bir çözücüyle değiştiriyor.
+  Kazancın ve kaybın ne kadarının ikinci modelden, ne kadarının çözücü değişikliğinden geldiği ayrıştırılmadı.
+- Tek bir maç teslim edeceğimiz için kopyadan kopyaya ±0,03 oynayan bir değişikliği almamak G4'ün amacıydı. Sonuç "iki
+  model birleştirilemez" demek değildir; başka bir birleştirme kuralı yeni bir kayıtlı planla denenebilir. Bu teslimden
+  önce yapılmayacak: zaman yok ve kapılar sonradan gevşetilmez.
+
+**Karardan sonra, bir kez (kapı değil).**
+- Ayrılmış Metrica maçı 3 (yeni bir kopya, tohum 33103; bu maç TCN ailesi için dokunulmamış değil): yalnız taktik kamera
+  0,7141 → 0,7126 (−0,0015; TCN tek başına 0,6321); iyi yayınla 0,7479 → 0,7325 (−0,0154; TCN 0,6615); orta yayınla
+  0,7297 → 0,7470 (+0,0173; TCN 0,6526); 42 m pencere 0,7016 → 0,6982 (−0,0034; TCN 0,6142); yazarın benzeticisiyle
+  0,7219 → 0,7482 (+0,0262; TCN 0,7166).
+- K009'daki PFF maçı (3839, yayın takibi, bozma eklenmedi; karşılaştırma PFF olaylarından kurduğumuz vekille; lisansı
+  yayımlanmamış veri, seçimde kullanılmaz): v2.11 0,629, birleşim 0,632, TCN tek başına
+  0,619 (macroF1 0,898 / 0,905 / 0,901).
+
+**Kesinti.** Doğrulamanın son parçası (Metrica 2) çalışırken bulut oturumu yeniden başladı; o parçanın hiçbir satırı
+kaydedilmemişti. Aynı betik, aynı tohumlarla, değiştirilmeden yeniden başlatıldı (`exp_v213.py 3`); önceki üç parçanın
+satırları olduğu gibi kullanıldı.
+
+**Sınırlar.**
+- Doğrulama maçları iki model için de taze değil: v2.x'in bütün seçimlerinde ve TCN tarifinin geliştirilmesinde kullanıldılar;
+  yeni olan yalnız kopyalar. Birleşim için dokunulmamış bir test maçı yok (J03WMX TCN'in geliştirilmesinde kullanıldı).
+- DFL satırlarında bizim taraf dört maçla, TCN tarafı beş maçla ve üç yerine tek tohumla eğitilmiş; Metrica satırlarında ikisi
+  de altı maçla. Bu bir eşitsizliktir ve hangi yöne çalıştığı ölçülmedi.
+- Bozma, slot paketleme, kamera penceresi ve yayın akışı bizim benzetimimiz; TCN kendi yazarının benzeticisiyle eğitildi.
+- DFL etiketleri sağlayıcının bayrakları, Metrica etiketleri olaylardan türettiğimiz vekiller.
+- Bu, önerilen tek bir birleştirme kuralının ölçümüdür; "iki model birleştirilemez" demek değildir.
+
+## K009 — Dış maçta izleme: PFF FC Dünya Kupası 2022, İspanya–Almanya (yalnız inceleme), 12 Kasım 2026
+
+**Ne.** Kullanıcının isteğiyle teslim sistemi bir dış maçta izlendi. Yalnız inceleme ve rapor: hiçbir seçim,
+ayar ya da eğitim yapılmadı. possession-v2.11'in karar adımları, ikinci kamera olmadan (`run211`'in yayın
+dosyası yokken izlediği yol), PFF FC'nin 2022 Dünya Kupası açık veri setindeki 3839 numaralı maçta çalıştırıldı
+ve PFF'in olay kayıtlarından bizim kurduğumuz bir vekil etiketle karşılaştırıldı. `check_release()` aynı kopyada
+geçti. Betikler, dosya özetleri ve SHA-256 değerleri: `experiments/possession_v2/pff_viewer/README.md`.
+
+**Veri ve lisans.** PFF FC blogundaki formla (yalnız ad ve e-posta) 12 Kasım 2026'da alındı; form bir Google
+Drive klasörüne yönlendiriyor. Lisans metni yayımlanmamış. Bu yüzden veri, kare düzeyi çıktılar ve izleyici
+HTML'i depoda değil (klasördeki `.gitignore` bu adları dışarıda tutuyor), paylaşılmıyor; model ya da parametre
+seçiminde kullanılmadı, lisans netleşmeden kullanılmayacak. Maç videosu veri setinde yok; izleyici, maçın yayın
+tekrarıyla maç saati üzerinden yan yana izlenmek için yapıldı. Sağlanan maça dokunulmadı.
+
+**Dönüşüm.** 29,97 fps PFF yayın takibi 25 fps'e çevrildi. Oyuncular PFF'in düzeltilmiş konumları (görülen ya da
+ekran dışı tahmin); top yalnız PFF'in "görünür" dediği karelerde. Oyun karelerinde topun görünme payı %41,2,
+ortalama 22,0 oyuncu. Yol v2.1 (top gürültüsü 0,002 m); kaleci denetimi hiçbir parçayı taşımadı.
+
+**Vekil (gerçek cevap değil).** Topla oynama olayından sonra o oyuncunun takımı; OUT/END'den yeniden başlamaya
+kadar ölü top; OUT izlemeyen serbest vuruş ve hakem atışından önce, önceki olaydan 0,5 s sonrasından başlayarak
+ölü; devreler dışında ölü. PFF'in olay zamanları ve tanımları organizatörün etiketleriyle aynı değil.
+
+**Sonuç (organizatörün puan kodu; vekile göre uyum).** spellF1 0,629; macroF1 0,898; oyun karelerinde aynı
+etiket %90,6; canlı/ölü F1 0,943; ikisi de canlıyken takım doğruluğu 0,943; geçiş F1 12 kare içinde 0,419,
+25 kare içinde 0,535 (kesinlik 0,649, yakalama 0,455).
+
+**Döküm (`analyse_pff.py`).**
+- Aynı etiket: top görünürken %96,1, görünmezken %86,7.
+- En büyük ayrışma, vekil "oyunda" derken bizim "ölü" dememiz: oyun karelerinin %5,4'ü. Vekilin "oyunda" dediği
+  karelerde top görünürken %1,1, görünmezken %28,4 oranında "ölü" diyoruz. Takım ters (ikisi de canlı) %3,0;
+  biz canlı, vekil ölü %1,0.
+- 2 s'den uzun ölü top dönemleri: vekilde 97, bunların 92'si bizde de çoğunlukla ölü; bizde 85, bunların 79'u
+  vekilde de. Başlangıç farkı (biz eksi vekil) medyan -0,02 s (çeyrekler -1,05 / +0,12); bitiş farkı medyan
+  +1,82 s (çeyrekler +0,23 / +4,38): oyunun yeniden başladığını geç görüyoruz.
+- Sahiplik sayısı bizde 236, vekilde 360 (ev sahibi dönemlerinin medyan süresi 9,8 s / 5,3 s). Eşleştirme bire
+  bir olduğu için yalnız bu sayı farkı spellF1'i bu vekilde 0,79 civarında sınırlar.
+- 2 s'den uzun 92 uyuşmazlık parçası, uyuşmazlık karelerinin %73,9'unu tutuyor; en uzun 15 parçanın 12'sinde top
+  karelerin en çok %6'sında görünüyor.
+
+**Yorum (çıkarım, ölçüm değil).** Yayın takibinde top, yakın çekim ve tekrar anlarında uzun süre görünmüyor;
+modelimiz uzun top boşluğunu ölü top lehine okuyor gibi görünüyor. Kısa sahipliklerin birleşmesi K007'deki DFL
+teşhisiyle aynı yönde. Yeniden başlamayı geç görme K007'de ayrı bir kalem olarak raporlanmadı; DFL'de ölçülmeden
+bir değişiklik gerekçesi değildir. Yarışma verisi taktik kameradan, başka bir sağlayıcıdan ve başka bir top
+görünürlüğüyle geliyor: bu sayılar yarışmadaki başarıyı göstermez ve DFL/Metrica doğrulama sayılarıyla doğrudan
+karşılaştırılamaz.
+
+**Geriye kalan.** Hiçbir sürüm değişmedi. Betikler depo konumundan `python -I` ile çalıştırıldığında
+`3839_summary.json`, `3839_analysis.json`, iki `.npz` ve izleyici bit bit aynı çıktı. İzleyici kullanıcının
+bilgisayarında (İndirilenler altında); depoda yok. Ortam: Python 3.13.18, numpy 2.5.3.
+
+## K008 — v2.12 adayı: topa dokunma ve kontrol değişimi sütunları; kayıtlı kapılardan geçmedi, 12 Kasım 2026 gecesi
+
+**Ne denendi.** K007'nin bulduğu kayıp (2 saniyeden kısa sahipliklerin çoğu kaçırılıyor) için çekirdek modellere
+36 yeni sütun eklendi (`possession/touch.py`). Her karede, topun görünür olduğu önceki ve sonraki 0,28 saniyeye
+birer doğru oturtuluyor; iki doğrunun hız farkı ölçüm gürültüsüne bölünüyor; fark büyükse "dokunma" sayılıyor ve
+2 m içindeki en yakın oyuncunun takımına yazılıyor. Top 0,6 saniyeye kadar kaybolduğunda dokunma, gelen ve giden
+doğruların buluştuğu yerde çıkarılıyor; hiçbir yere top konumu yazılmıyor. Sütunlar: her takımın son dokunmasından
+beri geçen süre, son dokunmanın kimde olduğu, son 1 saniyedeki dokunmalar, topun en yakın oyuncuyla birlikte
+hareket edip etmediği, o oyuncunun üzerindeki baskı. Yalnız v2.1 yolu (gürültü 0,30 m altı) değişecekti; dokunma
+sütunları yayın kamerası doldurmasından önceki taktik top üzerinden hesaplanacaktı.
+
+**Geliştirme (yalnız 4 DFL eğitim maçı, maç dışarıda bırakmalı).** İkinci aşamayla spellF1 0,669 → 0,690; 20
+kopyanın 19'unda iyileşme, en kötü kopya -0,0011; yeni bozma tohumlarında +0,016; 2 s altı sahiplik yakalama
+0,322 → 0,380. Tasarım ajanı geliştirdi; bunlar geliştirme sayıları, test değil (`possession-v212-development.json`).
+
+**Bağımsız denetim (iki tur, kod yazmamış ayrı bir ajan).** `touch.py`'de etiket sızıntısı, takım değişimi
+simetrisi ya da belirlenimcilik hatası bulunmadı; Python 3.10/numpy 1.26 ile 3.13/numpy 2.5 arasında bit bit aynı.
+Önbellekteki dokunma dizilerinin bir kısmı, dosyanın son düzenlemesinden önce başlayan bir süreçte üretilmişti
+(M1); 40 dizinin ve 4 satır dosyasının hepsi kayıtlı dosyayla yeniden hesaplandı, bit bit aynı çıktı
+(`verify_caches.json`). İkinci tur bir engelleyici buldu (B1): kapı betiği 4 basamağa yuvarlanmış değerlerle karar
+veriyordu (-0,00004 "≥ 0" kapısından geçebilirdi); kayıttan önce düzeltildi, kapılar yuvarlanmamış değerlere
+uygulandı. Plan metnindeki üç abartılı ifade de kayıttan önce düzeltildi (özet planın içinde).
+
+**Ön kayıt.** `possession-v212-plan.json`, 12 Kasım 02:16:05; aynı dakika kullanıcının bilgisayarına kopyalandı
+(dosya saati 02:16:15). Doğrulama: 4 doğrulama maçının 16 yeni bozulmuş kopyası (tohum 12100-12133; 46 anonim
+yuva; gürültü kapısı; kaleci düzeltmesi), 8'inde iki yayın kamerası simülasyonu ve 42 m kamera penceresi. Altı
+kapı, karar kuralı ve tohum taraması planda.
+
+**Sonuç (kapılar bir kez, bütün satırlara uygulandı; `possession-v212-results.json`).**
+
+| koşul | v2.11 → v2.12 spellF1 farkı (ortalama) | DFL (8 / 4 kopya) | Metrica (8 / 4 kopya) |
+|---|---|---|---|
+| taktik kamera, 16 kopya | +0,0024 (10 iyi, 6 kötü) | +0,0125 (8'i de iyi) | -0,0077 (2 iyi, 6 kötü) |
+| yayın simülasyonu, iyi | -0,0025 | +0,0149 | -0,0199 |
+| yayın simülasyonu, orta | -0,0062 | +0,0073 | -0,0197 |
+| 42 m kamera penceresi (rapor) | -0,0005 | +0,0045 | -0,0055 |
+
+Kapılar: G1 kazanç ≥ +0,008 **geçmedi** (+0,0024); G2 DFL kazancı ≥ +0,008 geçti (+0,0125); G3 Metrica zararsızlık
+≥ -0,002 **geçmedi** (-0,0077); G4 hiçbir kopya -0,010 altında değil **geçmedi** (en kötü -0,0191, MET2); G5 macroF1
+geçti (+0,0011); G6 yayın doldurmasıyla zararsızlık **geçmedi** (-0,0025 / -0,0062). **Karar: v2.12 kullanılmıyor,
+possession-v2.11 teslim sistemi olarak kalıyor.** Kapılar gevşetilmedi, başka tohum ya da ayarla yeniden
+çalıştırılmadı.
+
+**Rapor (karar sonrası, kapı değil).** Ayrılmış Metrica maçı 3'ün bir yeni kopyası (tohum 32103): taktik +0,018
+(0,703 → 0,721), yayın iyi -0,002, orta +0,010, 42 m pencere +0,049. 2 s altı sahiplik yakalama: DFL 0,316 →
+0,347; Metrica 1-2'de 0,244 → 0,231, yayın doldurmasıyla 0,268 → 0,199.
+
+**Yorum (çıkarım, ölçüm değil).** Dokunma kanıtı DFL'nin kare başına sahiplik bayrağını her koşulda ve her kopyada
+daha iyi izliyor. Metrica maç 1-2'de (başka izleme sağlayıcısı; etiketleri olaylardan bizim türettiğimiz vekiller;
+bozulmuş kopyalarda top oyun karelerinin %35-50'sinde görünür, DFL'de %61-79) tahminleri vekil etiketlerden
+uzaklaştırdı; maç 3'ün tek kopyasında tersi oldu. Bunun etiket tanımından mı, izleme sağlayıcısından mı, şanstan mı
+geldiği bu verilerle ayrılamıyor. Organizatörün etiketi düzeltilmiş izlemenin sahiplik bayrağından türetildiği için
+DFL sonucu tanım olarak daha yakın görünebilir; ama kapılar sağlam olmayı da ölçmek için önceden yazıldı ve karar
+onlara göre verildi.
+
+**Geriye kalan.** `possession/touch.py` ve `tests/test_possession_touch.py` yayımlanmamış aday kaydı olarak duruyor
+(v2.10'un `keeper.py`'si gibi). Hazırlanan giriş noktası, boru hattı, eğitim betiği ve testleri hiçbir zaman
+çalıştırılmadı ve yayımlanmadı; `experiments/possession_v2/v212/integration_not_released/` altına taşındı. Sağlanan
+maça dokunulmadı. Ortam: Python 3.13.18, numpy 2.5.3, pandas 3.0.5, scikit-learn 1.9.1.
+
+## K007 — Teşhis: takım kararlarındaki kayıp nerede?, 11 Kasım 2026 gecesi
+
+**Ne.** Yalnız rapor amaçlı; hiçbir seçim yapılmadı. Daha önce kullanılmış 8 doğrulama kopyası (J03WN1, J03WR9,
+MET1, MET2 x bozma tohumu 101/102), v2.1 çekirdeğinin önbellekteki olasılıkları (v2.11'in çekirdek modelleri
+aynı) ve dondurulmuş çözücü. Sağlayıcı etiketleri yalnız hataları sınıflamak ve "kâhin" üst sınırlarını ölçmek
+için kullanıldı. Ortam: Python 3.13.18, numpy 2.5.3, pandas 3.0.5 (K005 kuralı; Metrica etiketleri dosya
+sırasıyla). Kayıt: `possession-k007-diagnosis.json`; betikler `experiments/possession_v2/err_spells.py`,
+`err_short.py`.
+
+**Bulgular.**
+- spellF1 0,631. Bütün tahmin geçişlerini 5-25 kare ileri ya da geri kaydırmak puanı her iki yönde düşürüyor:
+  sistematik bir gecikme yok.
+- 3.226 gerçek sahiplikten 1.428'i beş IoU eşiğinin hepsinde, 650'si yalnız bir kısmında eşleşti; 1.148'i hiç
+  eşleşmedi. 2 saniyeden kısa 926 sahipliğin 686'sı (%74) kaçırılıyor; 1 saniyenin altında 410'un 356'sı.
+  Kaçırılan sahipliklerin %60'ı 2 saniyeden kısa.
+- Tahmin edilen 2.436 sahiplikten 358'i hiçbir gerçek sahiplikle eşleşmiyor.
+- Kâhin üst sınırları (etiket kullanır, ulaşılabilir değil, yalnız büyüklük): kaçırılan 2 s altı sahiplikler
+  eklense 0,788; yakalanan sahipliklerin sınırları kusursuz olsa 0,896; 2 s altı fazladan sahiplikler silinse 0,651.
+- Sınır sapmalarının medyanı 0-2 kare, ortalama mutlak sapma 20-42 kare. En uzun kuyruk, rakibe geçişte
+  sahipliğin geç bitmesi (çeyrek üstü +18 kare, ortalama 42 kare). Yanlış takım karelerinin %66'sı gerçek bir
+  değişikliğin 1 saniye yakınında.
+- Olasılıklar da kısa sahiplikleri çoğunlukla görmüyor: kaçırılan 2 s altı sahipliklerin %38'inde ortalama takım
+  olasılığı 0,5'in üstünde; uzun sahipliklerin içindeki eşit uzunluktaki pencerelerde bu oran %7,5. 0,8 eşiğinde
+  %16'ya %3,7.
+- Bozulmuş girdide top, kaçırılan 2 s altı sahipliklerde zamanın %56'sında görünüyor; yakalanan kısa
+  sahipliklerde %83'ünde. Topun kaybolması kaçırmaların bir kısmını açıklıyor, ama kaçırılan kısa sahipliklerin
+  yaklaşık yarısında top zamanın en az yarısında görünür durumda (`err_ballvis.py`).
+
+**Yorum.** Kaybın büyük kısmı kısa sahipliklerden ve rakibe geçişlerin geç yakalanmasından geliyor. Çözücü ayarı
+ya da sonradan sahiplik eklemek tek başına yetmez, çünkü olasılıklardaki sinyal zayıf; bu anları gösteren yeni
+kanıt gerekir (topa dokunma ve kontrol değişimi). Bir sonraki adayın gerekçesi budur; aday ön kayıtla ve taze
+kopyalarla seçilecek.
+
 ## K006 — İlk teslim zinciri ve GitHub testleri, 11 Kasım 2026 akşamı
 
 **Teslim zinciri (kullanıcının bilgisayarı, Windows 10, Python 3.10.11, commit `0810fec`).** Paylaşılan durum

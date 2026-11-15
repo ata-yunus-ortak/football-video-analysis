@@ -44,3 +44,5 @@ prepared/
 !models/
 !models/possession-v2.npz
 !models/possession-v23.npz
+# Second model of possession-v2.15: network weights trained on the same external DFL data only (CC-BY 4.0), no match data
+!models/possession-tcn-v215.npz

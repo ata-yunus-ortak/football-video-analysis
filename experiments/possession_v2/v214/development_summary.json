@@ -1,0 +1,841 @@
+{
+ "chosen": {
+  "pool": "arithmetic",
+  "weight": 0.5,
+  "name": "ari50"
+ },
+ "choice": "Grid looked at on the 22 development copies: arithmetic pool with weight 0.2-0.6, geometric pool with weight 0.3-0.6, all through the unchanged v2 decoder. Rule (written down on 14 Nov at 21:23, after the DFL rows and before the Metrica rows of the re-trained weights existed): drop every setting with a development copy below -0.010; among the rest take the largest mean difference; settings within 0.001 of it count as equal and the smallest weight wins (the same weight in both pools: the larger mean). Settings without a copy below -0.010: ari20, ari40, ari50, geo30, geo40, geo50; largest mean +0.0263; within 0.001: ari50, geo50; chosen: arithmetic pool, weight 0.5. The script compares means rounded to four decimals, as it was written; the unrounded means give the same choice: ari20 +0.012239, ari40 +0.024281, ari50 +0.026321, geo30 +0.020256, geo40 +0.025300, geo50 +0.026291.",
+ "seen": [
+  "Everything in this list was computed on copies that had already been scored: the 20 copies of the v2.13 validation with the tactical camera or the team member's simulator (seeds 13100-13133, 63100-63103), the two Metrica game 3 copies scored after the v2.13 decision (33103, 63108) and one further Metrica game 3 copy (seed 7772). They are development data, not a validation.",
+  "possession-v213-results.json (13 Nov): the v2.13 rule with the committed weights, +0.0063 on 16 copies (DFL -0.0045, Metrica +0.0172), TCN alone 0.6257 against 0.6598; three gates failed.",
+  "Diagnostic, committed weights tcn_dfl6.npz alone on a Metrica game 3 copy (seed 7772) with one component of our simulator switched off (spellF1): ours 0.6863, no_flips 0.6926, no_dead_extra 0.6863, low_noise 0.684, no_player_miss 0.7072, no_fp 0.7328, short_gaps 0.7001, clean_all 0.7279, sim2 0.7274, clean 0.7418, ours+box5 0.6748. The same weights on a training match with our corruption: 0.8165 (in-sample, therefore not used for diagnosis).",
+  "Committed weights, 22 development copies, mean spellF1 difference to v2.11: v2.13 rule +0.0108 (worst copy -0.0295, better on 13 of 22); TCN alone -0.0266 (worst copy -0.1003, better on 3 of 22); arithmetic pool 0.2 through the v2 decoder +0.0137 (worst copy -0.0081, better on 21 of 22); 0.3 +0.0150 (worst copy -0.0102, better on 18 of 22). DFL 10: v2.13 rule +0.0007 (worst copy -0.0295, better on 4 of 10), pool 0.2 +0.0135 (worst copy -0.0081, better on 9 of 10).",
+  "One development model without J03WN1 (five matches, both simulators, one seed; n1_both_s0), five J03WN1 copies: TCN alone +0.0016 against v2.11 (committed five-match weights: -0.0326), better than the committed weights on all five, the copy of his own simulator included.",
+  "Re-trained weights (dfl4 members on DFL copies, dfl6 members on Metrica copies; three members each), 22 development copies: tcn_alone +0.0089 (worst copy -0.0515, better on 13 of 22); v213rule +0.0234 (worst copy -0.0321, better on 19 of 22); ari20 +0.0122 (worst copy -0.0035, better on 19 of 22); ari30 +0.0190 (worst copy -0.0118, better on 21 of 22); ari40 +0.0243 (worst copy -0.0084, better on 21 of 22); ari50 +0.0263 (worst copy -0.0069, better on 21 of 22); ari60 +0.0242 (worst copy -0.0176, better on 19 of 22); geo30 +0.0203 (worst copy -0.0035, better on 20 of 22); geo40 +0.0253 (worst copy -0.0024, better on 20 of 22); geo50 +0.0263 (worst copy -0.0069, better on 20 of 22); geo60 +0.0248 (worst copy -0.0126, better on 20 of 22).",
+  "The same by source. DFL 10: tcn_alone -0.0020 (worst copy -0.0515, better on 4 of 10); ari20 +0.0115 (worst copy -0.0026, better on 9 of 10); ari30 +0.0162 (worst copy -0.0118, better on 9 of 10); ari40 +0.0204 (worst copy -0.0084, better on 9 of 10); ari50 +0.0222 (worst copy -0.0069, better on 9 of 10); ari60 +0.0204 (worst copy -0.0176, better on 8 of 10); geo30 +0.0181 (worst copy -0.0035, better on 9 of 10); geo40 +0.0230 (worst copy -0.0024, better on 8 of 10); geo50 +0.0233 (worst copy -0.0069, better on 8 of 10); geo60 +0.0214 (worst copy -0.0126, better on 8 of 10). Metrica 12: tcn_alone +0.0180 (worst copy -0.0083, better on 9 of 12); ari20 +0.0128 (worst copy -0.0035, better on 10 of 12); ari30 +0.0213 (worst copy +0.0033, better on 12 of 12); ari40 +0.0275 (worst copy +0.0057, better on 12 of 12); ari50 +0.0298 (worst copy +0.0044, better on 12 of 12); ari60 +0.0275 (worst copy -0.0014, better on 11 of 12); geo30 +0.0221 (worst copy -0.0019, better on 11 of 12); geo40 +0.0272 (worst copy +0.0042, better on 12 of 12); geo50 +0.0288 (worst copy +0.0030, better on 12 of 12); geo60 +0.0277 (worst copy +0.0035, better on 12 of 12). Copies of his simulator (5): tcn_alone +0.0303 (worst copy -0.0135, better on 4 of 5); ari20 +0.0158 (worst copy +0.0075, better on 5 of 5); ari30 +0.0240 (worst copy +0.0119, better on 5 of 5); ari40 +0.0292 (worst copy +0.0089, better on 5 of 5); ari50 +0.0369 (worst copy +0.0192, better on 5 of 5); ari60 +0.0406 (worst copy +0.0109, better on 5 of 5); geo30 +0.0266 (worst copy +0.0123, better on 5 of 5); geo40 +0.0339 (worst copy +0.0148, better on 5 of 5); geo50 +0.0380 (worst copy +0.0157, better on 5 of 5); geo60 +0.0399 (worst copy +0.0119, better on 5 of 5).",
+  "Decoder constants around the release values (team change 2-5, entry / exit 50-70, dead bias -0.1 to -0.5) were looked at on the 10 DFL development copies with the geometric pool 0.4: within 0.001 of the release constants or worse. The constants are not changed.",
+  "One and two members instead of three (10 DFL development copies): the pooled result changed by less than 0.002 on average.",
+  "Other mixing variants were looked at with the committed weights on the same copies (explore.py: the dead-ball probability from one model and the team probability from the mix, in four combinations; the single-cost decoder with weight 0.3; the TCN alone through the v2 decoder). None is used.",
+  "check_exp_v214.py: on development copy J03WN1 13100 the arms of the validation script, with the geometric pool 0.4 set by hand, give exactly the numbers computed from stored probabilities (v2.11 0.6256, pooled 0.6674, TCN alone 0.6494). xenv_tcn.py: the 4-decimal network probabilities of one member on one development copy are identical under Python 3.13 / numpy 2.5.3 and Python 3.10 / numpy 1.26.4 (no score involved).",
+  "exp_v214.py smoke run on training match J03WOH (in-sample for every model): wiring only, it computes no score.",
+  "Not seen: any score of the candidate, of the new weights or of any pool on a copy with the new seeds; any score with the broadcast-fill or camera-window conditions for the new weights; PFF game 3839 with the new weights."
+ ],
+ "unrounded_means": {
+  "ari20": 0.012238625446757427,
+  "ari30": 0.018951141418701353,
+  "ari40": 0.02428120138028654,
+  "ari50": 0.026321333496542608,
+  "ari60": 0.02422980576001971,
+  "geo30": 0.02025630489967457,
+  "geo40": 0.025299501804461746,
+  "geo50": 0.026290681109686197,
+  "geo60": 0.024815423609869124
+ },
+ "table_retrained_weights": {
+  "all 22": {
+   "tcn_alone": {
+    "n": 22,
+    "mean": 0.0089,
+    "min": -0.0515,
+    "better": 13,
+    "below_-0.010": 6
+   },
+   "v213rule": {
+    "n": 22,
+    "mean": 0.0234,
+    "min": -0.0321,
+    "better": 19,
+    "below_-0.010": 1
+   },
+   "ari20": {
+    "n": 22,
+    "mean": 0.0122,
+    "min": -0.0035,
+    "better": 19,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 22,
+    "mean": 0.019,
+    "min": -0.0118,
+    "better": 21,
+    "below_-0.010": 1
+   },
+   "ari40": {
+    "n": 22,
+    "mean": 0.0243,
+    "min": -0.0084,
+    "better": 21,
+    "below_-0.010": 0
+   },
+   "ari50": {
+    "n": 22,
+    "mean": 0.0263,
+    "min": -0.0069,
+    "better": 21,
+    "below_-0.010": 0
+   },
+   "ari60": {
+    "n": 22,
+    "mean": 0.0242,
+    "min": -0.0176,
+    "better": 19,
+    "below_-0.010": 2
+   },
+   "geo30": {
+    "n": 22,
+    "mean": 0.0203,
+    "min": -0.0035,
+    "better": 20,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 22,
+    "mean": 0.0253,
+    "min": -0.0024,
+    "better": 20,
+    "below_-0.010": 0
+   },
+   "geo50": {
+    "n": 22,
+    "mean": 0.0263,
+    "min": -0.0069,
+    "better": 20,
+    "below_-0.010": 0
+   },
+   "geo60": {
+    "n": 22,
+    "mean": 0.0248,
+    "min": -0.0126,
+    "better": 20,
+    "below_-0.010": 2
+   }
+  },
+  "DFL 10": {
+   "tcn_alone": {
+    "n": 10,
+    "mean": -0.002,
+    "min": -0.0515,
+    "better": 4,
+    "below_-0.010": 6
+   },
+   "v213rule": {
+    "n": 10,
+    "mean": 0.0131,
+    "min": -0.0321,
+    "better": 7,
+    "below_-0.010": 1
+   },
+   "ari20": {
+    "n": 10,
+    "mean": 0.0115,
+    "min": -0.0026,
+    "better": 9,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 10,
+    "mean": 0.0162,
+    "min": -0.0118,
+    "better": 9,
+    "below_-0.010": 1
+   },
+   "ari40": {
+    "n": 10,
+    "mean": 0.0204,
+    "min": -0.0084,
+    "better": 9,
+    "below_-0.010": 0
+   },
+   "ari50": {
+    "n": 10,
+    "mean": 0.0222,
+    "min": -0.0069,
+    "better": 9,
+    "below_-0.010": 0
+   },
+   "ari60": {
+    "n": 10,
+    "mean": 0.0204,
+    "min": -0.0176,
+    "better": 8,
+    "below_-0.010": 2
+   },
+   "geo30": {
+    "n": 10,
+    "mean": 0.0181,
+    "min": -0.0035,
+    "better": 9,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 10,
+    "mean": 0.023,
+    "min": -0.0024,
+    "better": 8,
+    "below_-0.010": 0
+   },
+   "geo50": {
+    "n": 10,
+    "mean": 0.0233,
+    "min": -0.0069,
+    "better": 8,
+    "below_-0.010": 0
+   },
+   "geo60": {
+    "n": 10,
+    "mean": 0.0214,
+    "min": -0.0126,
+    "better": 8,
+    "below_-0.010": 2
+   }
+  },
+  "Metrica 12": {
+   "tcn_alone": {
+    "n": 12,
+    "mean": 0.018,
+    "min": -0.0083,
+    "better": 9,
+    "below_-0.010": 0
+   },
+   "v213rule": {
+    "n": 12,
+    "mean": 0.0321,
+    "min": 0.0042,
+    "better": 12,
+    "below_-0.010": 0
+   },
+   "ari20": {
+    "n": 12,
+    "mean": 0.0128,
+    "min": -0.0035,
+    "better": 10,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 12,
+    "mean": 0.0213,
+    "min": 0.0033,
+    "better": 12,
+    "below_-0.010": 0
+   },
+   "ari40": {
+    "n": 12,
+    "mean": 0.0275,
+    "min": 0.0057,
+    "better": 12,
+    "below_-0.010": 0
+   },
+   "ari50": {
+    "n": 12,
+    "mean": 0.0298,
+    "min": 0.0044,
+    "better": 12,
+    "below_-0.010": 0
+   },
+   "ari60": {
+    "n": 12,
+    "mean": 0.0275,
+    "min": -0.0014,
+    "better": 11,
+    "below_-0.010": 0
+   },
+   "geo30": {
+    "n": 12,
+    "mean": 0.0221,
+    "min": -0.0019,
+    "better": 11,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 12,
+    "mean": 0.0272,
+    "min": 0.0042,
+    "better": 12,
+    "below_-0.010": 0
+   },
+   "geo50": {
+    "n": 12,
+    "mean": 0.0288,
+    "min": 0.003,
+    "better": 12,
+    "below_-0.010": 0
+   },
+   "geo60": {
+    "n": 12,
+    "mean": 0.0277,
+    "min": 0.0035,
+    "better": 12,
+    "below_-0.010": 0
+   }
+  },
+  "our simulator 17": {
+   "tcn_alone": {
+    "n": 17,
+    "mean": 0.0026,
+    "min": -0.0515,
+    "better": 9,
+    "below_-0.010": 5
+   },
+   "v213rule": {
+    "n": 17,
+    "mean": 0.0191,
+    "min": -0.0321,
+    "better": 14,
+    "below_-0.010": 1
+   },
+   "ari20": {
+    "n": 17,
+    "mean": 0.0112,
+    "min": -0.0035,
+    "better": 14,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 17,
+    "mean": 0.0175,
+    "min": -0.0118,
+    "better": 16,
+    "below_-0.010": 1
+   },
+   "ari40": {
+    "n": 17,
+    "mean": 0.0228,
+    "min": -0.0084,
+    "better": 16,
+    "below_-0.010": 0
+   },
+   "ari50": {
+    "n": 17,
+    "mean": 0.0232,
+    "min": -0.0069,
+    "better": 16,
+    "below_-0.010": 0
+   },
+   "ari60": {
+    "n": 17,
+    "mean": 0.0194,
+    "min": -0.0176,
+    "better": 14,
+    "below_-0.010": 2
+   },
+   "geo30": {
+    "n": 17,
+    "mean": 0.0184,
+    "min": -0.0035,
+    "better": 15,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 17,
+    "mean": 0.0228,
+    "min": -0.0024,
+    "better": 15,
+    "below_-0.010": 0
+   },
+   "geo50": {
+    "n": 17,
+    "mean": 0.0229,
+    "min": -0.0069,
+    "better": 15,
+    "below_-0.010": 0
+   },
+   "geo60": {
+    "n": 17,
+    "mean": 0.0204,
+    "min": -0.0126,
+    "better": 15,
+    "below_-0.010": 2
+   }
+  },
+  "his simulator 5": {
+   "tcn_alone": {
+    "n": 5,
+    "mean": 0.0303,
+    "min": -0.0135,
+    "better": 4,
+    "below_-0.010": 1
+   },
+   "v213rule": {
+    "n": 5,
+    "mean": 0.0382,
+    "min": 0.021,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "ari20": {
+    "n": 5,
+    "mean": 0.0158,
+    "min": 0.0075,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 5,
+    "mean": 0.024,
+    "min": 0.0119,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "ari40": {
+    "n": 5,
+    "mean": 0.0292,
+    "min": 0.0089,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "ari50": {
+    "n": 5,
+    "mean": 0.0369,
+    "min": 0.0192,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "ari60": {
+    "n": 5,
+    "mean": 0.0406,
+    "min": 0.0109,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "geo30": {
+    "n": 5,
+    "mean": 0.0266,
+    "min": 0.0123,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 5,
+    "mean": 0.0339,
+    "min": 0.0148,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "geo50": {
+    "n": 5,
+    "mean": 0.038,
+    "min": 0.0157,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "geo60": {
+    "n": 5,
+    "mean": 0.0399,
+    "min": 0.0119,
+    "better": 5,
+    "below_-0.010": 0
+   }
+  }
+ },
+ "table_committed_weights": {
+  "all 22": {
+   "tcn_alone": {
+    "n": 22,
+    "mean": -0.0266,
+    "min": -0.1003,
+    "better": 3,
+    "below_-0.010": 13
+   },
+   "v213rule": {
+    "n": 22,
+    "mean": 0.0108,
+    "min": -0.0295,
+    "better": 13,
+    "below_-0.010": 5
+   },
+   "ari20": {
+    "n": 22,
+    "mean": 0.0137,
+    "min": -0.0081,
+    "better": 21,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 22,
+    "mean": 0.015,
+    "min": -0.0102,
+    "better": 18,
+    "below_-0.010": 1
+   },
+   "ari40": {
+    "n": 22,
+    "mean": 0.0142,
+    "min": -0.0167,
+    "better": 15,
+    "below_-0.010": 2
+   },
+   "ari50": {
+    "n": 22,
+    "mean": 0.007,
+    "min": -0.0381,
+    "better": 13,
+    "below_-0.010": 7
+   },
+   "ari60": {
+    "n": 22,
+    "mean": -0.0013,
+    "min": -0.0574,
+    "better": 10,
+    "below_-0.010": 7
+   },
+   "geo30": {
+    "n": 22,
+    "mean": 0.0135,
+    "min": -0.009,
+    "better": 14,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 22,
+    "mean": 0.0119,
+    "min": -0.034,
+    "better": 14,
+    "below_-0.010": 5
+   },
+   "geo50": {
+    "n": 22,
+    "mean": 0.0077,
+    "min": -0.0489,
+    "better": 14,
+    "below_-0.010": 7
+   },
+   "geo60": {
+    "n": 22,
+    "mean": 0.0025,
+    "min": -0.0556,
+    "better": 12,
+    "below_-0.010": 7
+   }
+  },
+  "DFL 10": {
+   "tcn_alone": {
+    "n": 10,
+    "mean": -0.0335,
+    "min": -0.1003,
+    "better": 1,
+    "below_-0.010": 7
+   },
+   "v213rule": {
+    "n": 10,
+    "mean": 0.0007,
+    "min": -0.0295,
+    "better": 4,
+    "below_-0.010": 5
+   },
+   "ari20": {
+    "n": 10,
+    "mean": 0.0135,
+    "min": -0.0081,
+    "better": 9,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 10,
+    "mean": 0.014,
+    "min": -0.0102,
+    "better": 8,
+    "below_-0.010": 1
+   },
+   "ari40": {
+    "n": 10,
+    "mean": 0.012,
+    "min": -0.0167,
+    "better": 6,
+    "below_-0.010": 1
+   },
+   "ari50": {
+    "n": 10,
+    "mean": 0.0031,
+    "min": -0.0381,
+    "better": 4,
+    "below_-0.010": 4
+   },
+   "ari60": {
+    "n": 10,
+    "mean": -0.0021,
+    "min": -0.0574,
+    "better": 4,
+    "below_-0.010": 4
+   },
+   "geo30": {
+    "n": 10,
+    "mean": 0.0104,
+    "min": -0.009,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 10,
+    "mean": 0.0061,
+    "min": -0.034,
+    "better": 5,
+    "below_-0.010": 4
+   },
+   "geo50": {
+    "n": 10,
+    "mean": 0.0036,
+    "min": -0.0489,
+    "better": 5,
+    "below_-0.010": 4
+   },
+   "geo60": {
+    "n": 10,
+    "mean": -0.0002,
+    "min": -0.0556,
+    "better": 4,
+    "below_-0.010": 4
+   }
+  },
+  "Metrica 12": {
+   "tcn_alone": {
+    "n": 12,
+    "mean": -0.0207,
+    "min": -0.082,
+    "better": 2,
+    "below_-0.010": 6
+   },
+   "v213rule": {
+    "n": 12,
+    "mean": 0.0191,
+    "min": -0.01,
+    "better": 9,
+    "below_-0.010": 0
+   },
+   "ari20": {
+    "n": 12,
+    "mean": 0.0139,
+    "min": 0.0053,
+    "better": 12,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 12,
+    "mean": 0.0158,
+    "min": -0.0046,
+    "better": 10,
+    "below_-0.010": 0
+   },
+   "ari40": {
+    "n": 12,
+    "mean": 0.0161,
+    "min": -0.0133,
+    "better": 9,
+    "below_-0.010": 1
+   },
+   "ari50": {
+    "n": 12,
+    "mean": 0.0102,
+    "min": -0.0347,
+    "better": 9,
+    "below_-0.010": 3
+   },
+   "ari60": {
+    "n": 12,
+    "mean": -0.0006,
+    "min": -0.0523,
+    "better": 6,
+    "below_-0.010": 3
+   },
+   "geo30": {
+    "n": 12,
+    "mean": 0.016,
+    "min": -0.0069,
+    "better": 9,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 12,
+    "mean": 0.0166,
+    "min": -0.011,
+    "better": 9,
+    "below_-0.010": 1
+   },
+   "geo50": {
+    "n": 12,
+    "mean": 0.0111,
+    "min": -0.0277,
+    "better": 9,
+    "below_-0.010": 3
+   },
+   "geo60": {
+    "n": 12,
+    "mean": 0.0048,
+    "min": -0.0338,
+    "better": 8,
+    "below_-0.010": 3
+   }
+  },
+  "our simulator 17": {
+   "tcn_alone": {
+    "n": 17,
+    "mean": -0.0369,
+    "min": -0.1003,
+    "better": 0,
+    "below_-0.010": 12
+   },
+   "v213rule": {
+    "n": 17,
+    "mean": 0.0059,
+    "min": -0.0295,
+    "better": 9,
+    "below_-0.010": 5
+   },
+   "ari20": {
+    "n": 17,
+    "mean": 0.0123,
+    "min": -0.0081,
+    "better": 16,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 17,
+    "mean": 0.0123,
+    "min": -0.0102,
+    "better": 13,
+    "below_-0.010": 1
+   },
+   "ari40": {
+    "n": 17,
+    "mean": 0.01,
+    "min": -0.0167,
+    "better": 10,
+    "below_-0.010": 2
+   },
+   "ari50": {
+    "n": 17,
+    "mean": 0.0007,
+    "min": -0.0381,
+    "better": 9,
+    "below_-0.010": 7
+   },
+   "ari60": {
+    "n": 17,
+    "mean": -0.009,
+    "min": -0.0574,
+    "better": 6,
+    "below_-0.010": 7
+   },
+   "geo30": {
+    "n": 17,
+    "mean": 0.0099,
+    "min": -0.009,
+    "better": 9,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 17,
+    "mean": 0.0066,
+    "min": -0.034,
+    "better": 9,
+    "below_-0.010": 5
+   },
+   "geo50": {
+    "n": 17,
+    "mean": 0.0018,
+    "min": -0.0489,
+    "better": 9,
+    "below_-0.010": 7
+   },
+   "geo60": {
+    "n": 17,
+    "mean": -0.0035,
+    "min": -0.0556,
+    "better": 8,
+    "below_-0.010": 7
+   }
+  },
+  "his simulator 5": {
+   "tcn_alone": {
+    "n": 5,
+    "mean": 0.0086,
+    "min": -0.0325,
+    "better": 3,
+    "below_-0.010": 1
+   },
+   "v213rule": {
+    "n": 5,
+    "mean": 0.0274,
+    "min": -0.0071,
+    "better": 4,
+    "below_-0.010": 0
+   },
+   "ari20": {
+    "n": 5,
+    "mean": 0.0185,
+    "min": 0.0053,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "ari30": {
+    "n": 5,
+    "mean": 0.0243,
+    "min": 0.008,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "ari40": {
+    "n": 5,
+    "mean": 0.0284,
+    "min": 0.0044,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "ari50": {
+    "n": 5,
+    "mean": 0.0285,
+    "min": -0.0018,
+    "better": 4,
+    "below_-0.010": 0
+   },
+   "ari60": {
+    "n": 5,
+    "mean": 0.0248,
+    "min": -0.0071,
+    "better": 4,
+    "below_-0.010": 0
+   },
+   "geo30": {
+    "n": 5,
+    "mean": 0.0256,
+    "min": 0.0087,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "geo40": {
+    "n": 5,
+    "mean": 0.0298,
+    "min": 0.0046,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "geo50": {
+    "n": 5,
+    "mean": 0.0277,
+    "min": 0.0022,
+    "better": 5,
+    "below_-0.010": 0
+   },
+   "geo60": {
+    "n": 5,
+    "mean": 0.0229,
+    "min": -0.0075,
+    "better": 4,
+    "below_-0.010": 0
+   }
+  }
+ },
+ "diagnostic_metrica3_seed7772": {
+  "ours": 0.6863,
+  "no_flips": 0.6926,
+  "no_dead_extra": 0.6863,
+  "low_noise": 0.684,
+  "no_player_miss": 0.7072,
+  "no_fp": 0.7328,
+  "short_gaps": 0.7001,
+  "clean_all": 0.7279,
+  "sim2": 0.7274,
+  "clean": 0.7418,
+  "ours+box5": 0.6748
+ }
+}

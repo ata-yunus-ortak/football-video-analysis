@@ -1,8 +1,8 @@
 """Synthetic checks of the final-test tool and of the tracking-file writer; no match data, no network, no accuracy claims.
 
 The final test itself (tools/possession_final_test.py on the reserved external match) is run once by the team and
-is not part of this suite. These tests check the process around it: the plan names the frozen release and the
-reserved match, the tool refuses anything else and refuses a second run, the evaluation runs end to end on a
+is not part of this suite. These tests check the process around it: the plan names the frozen entry point it was
+registered for (possession-v2.11k, the delivered system without the second model) and the reserved match, the tool refuses anything else and refuses a second run, the evaluation runs end to end on a
 synthetic prepared match, and files written by possession/epts_export.py are read back correctly.
 """
 import contextlib
@@ -55,8 +55,13 @@ class FinalTestToolTests(unittest.TestCase):
         self.assertEqual(plan['release']['name'], entry.check_release()['version'])
         self.assertEqual(plan['release']['manifest_sha256'], ft.sha256(entry.RELEASE))
         delivered = json.loads((REPO / 'possession-release.json').read_text(encoding='utf-8'))
+        # The plan stays registered for possession-v2.11k: the delivered system without the second model (the first
+        # technical fall-back, and the output of possession-v2.15 itself on the noisier model path). It was not
+        # re-registered for v2.15, because for the network's design the reserved match is not untouched
+        # (possession-v215-plan.json, limits); a result of this tool is a result of v2.11k and is reported as that.
+        self.assertEqual((delivered['release'], delivered['steps'][0]['module']), ('possession-v2.15', 'possession.run215'))
         self.assertEqual((plan['release']['name'], plan['release']['module']),
-                         (delivered['release'], delivered['steps'][0]['module']))              # the test is of the release that is delivered
+                         (delivered['steps'][1]['name'], delivered['steps'][1]['module']))
         data = json.loads(ft.DATA_PLAN.read_text(encoding='utf-8'))
         files = [e for e in data['files'] if e['fixture_id'] == plan['fixture']['id']]
         self.assertEqual({e['split'] for e in files}, {'reserved_test'})

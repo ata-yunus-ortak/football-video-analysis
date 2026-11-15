@@ -1,0 +1,3910 @@
+{
+ "version": "possession-v2.15-results",
+ "written_at": "2026-11-15T02:33:46+03:00",
+ "plan_sha256": "10b1a1340ffa48cb973cde4667e74aaf25c2661d810b1f54797ad7a55b71cadd",
+ "plan_registered_at": "2026-11-15T01:17:34+03:00",
+ "summary": {
+  "tactical": {
+   "n": 16,
+   "diff_spell_f1_mean": 0.0112,
+   "diff_macro_f1_mean": 0.0032,
+   "diff_spell_f1_min": 0.0,
+   "copies_better": 14,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 14,
+    "v2.3": 2
+   },
+   "copies_not_pooled": 2,
+   "frames_changed_per_copy": 1281.9375,
+   "v2_11": {
+    "spell_f1": 0.6447,
+    "macro_f1": 0.8649,
+    "recall_under_2s_iou03": 0.2754,
+    "recall_under_1s_iou03": 0.1146,
+    "trans_f1_12": 0.5432,
+    "trans_f1_25": 0.651,
+    "pred_spells_per_copy": 307.9375
+   },
+   "fused": {
+    "spell_f1": 0.6559,
+    "macro_f1": 0.8681,
+    "recall_under_2s_iou03": 0.2765,
+    "recall_under_1s_iou03": 0.111,
+    "trans_f1_12": 0.553,
+    "trans_f1_25": 0.6613,
+    "pred_spells_per_copy": 304.125
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6496,
+    "macro_f1": 0.8638,
+    "recall_under_2s_iou03": 0.2732,
+    "recall_under_1s_iou03": 0.0829,
+    "trans_f1_12": 0.5381,
+    "trans_f1_25": 0.6594,
+    "pred_spells_per_copy": 312.625
+   },
+   "gt_spells_per_copy": 403.25
+  },
+  "tactical_DFL": {
+   "n": 8,
+   "diff_spell_f1_mean": 0.0126,
+   "diff_macro_f1_mean": 0.0031,
+   "diff_spell_f1_min": 0.0034,
+   "copies_better": 8,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 8,
+    "v2.3": 0
+   },
+   "copies_not_pooled": 0,
+   "frames_changed_per_copy": 1320.5,
+   "v2_11": {
+    "spell_f1": 0.6484,
+    "macro_f1": 0.9192,
+    "recall_under_2s_iou03": 0.2849,
+    "recall_under_1s_iou03": 0.1474,
+    "trans_f1_12": 0.5797,
+    "trans_f1_25": 0.6928,
+    "pred_spells_per_copy": 328.75
+   },
+   "fused": {
+    "spell_f1": 0.6611,
+    "macro_f1": 0.9223,
+    "recall_under_2s_iou03": 0.2915,
+    "recall_under_1s_iou03": 0.1453,
+    "trans_f1_12": 0.5863,
+    "trans_f1_25": 0.7022,
+    "pred_spells_per_copy": 325.625
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6492,
+    "macro_f1": 0.9153,
+    "recall_under_2s_iou03": 0.2717,
+    "recall_under_1s_iou03": 0.1068,
+    "trans_f1_12": 0.5659,
+    "trans_f1_25": 0.6898,
+    "pred_spells_per_copy": 327.625
+   },
+   "gt_spells_per_copy": 435.0
+  },
+  "tactical_Metrica": {
+   "n": 8,
+   "diff_spell_f1_mean": 0.0097,
+   "diff_macro_f1_mean": 0.0034,
+   "diff_spell_f1_min": 0.0,
+   "copies_better": 6,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 6,
+    "v2.3": 2
+   },
+   "copies_not_pooled": 2,
+   "frames_changed_per_copy": 1243.375,
+   "v2_11": {
+    "spell_f1": 0.6411,
+    "macro_f1": 0.8106,
+    "recall_under_2s_iou03": 0.2626,
+    "recall_under_1s_iou03": 0.071,
+    "trans_f1_12": 0.5068,
+    "trans_f1_25": 0.6093,
+    "pred_spells_per_copy": 287.125
+   },
+   "fused": {
+    "spell_f1": 0.6508,
+    "macro_f1": 0.814,
+    "recall_under_2s_iou03": 0.2563,
+    "recall_under_1s_iou03": 0.0653,
+    "trans_f1_12": 0.5197,
+    "trans_f1_25": 0.6203,
+    "pred_spells_per_copy": 282.625
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6501,
+    "macro_f1": 0.8124,
+    "recall_under_2s_iou03": 0.2753,
+    "recall_under_1s_iou03": 0.0511,
+    "trans_f1_12": 0.5103,
+    "trans_f1_25": 0.6289,
+    "pred_spells_per_copy": 297.625
+   },
+   "gt_spells_per_copy": 371.5
+  },
+  "fill_good": {
+   "n": 8,
+   "diff_spell_f1_mean": 0.0106,
+   "diff_macro_f1_mean": 0.002,
+   "diff_spell_f1_min": 0.0,
+   "copies_better": 7,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 7,
+    "v2.3": 1
+   },
+   "copies_not_pooled": 1,
+   "frames_changed_per_copy": 939.25,
+   "v2_11": {
+    "spell_f1": 0.6858,
+    "macro_f1": 0.8806,
+    "recall_under_2s_iou03": 0.3197,
+    "recall_under_1s_iou03": 0.1366,
+    "trans_f1_12": 0.6141,
+    "trans_f1_25": 0.7093,
+    "pred_spells_per_copy": 321.25
+   },
+   "fused": {
+    "spell_f1": 0.6964,
+    "macro_f1": 0.8826,
+    "recall_under_2s_iou03": 0.3261,
+    "recall_under_1s_iou03": 0.1415,
+    "trans_f1_12": 0.6211,
+    "trans_f1_25": 0.7208,
+    "pred_spells_per_copy": 316.0
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6848,
+    "macro_f1": 0.8775,
+    "recall_under_2s_iou03": 0.3186,
+    "recall_under_1s_iou03": 0.1073,
+    "trans_f1_12": 0.5997,
+    "trans_f1_25": 0.7088,
+    "pred_spells_per_copy": 320.5
+   },
+   "gt_spells_per_copy": 403.25,
+   "gate_opened": 8
+  },
+  "fill_medium": {
+   "n": 8,
+   "diff_spell_f1_mean": 0.0114,
+   "diff_macro_f1_mean": 0.0034,
+   "diff_spell_f1_min": 0.0,
+   "copies_better": 7,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 7,
+    "v2.3": 1
+   },
+   "copies_not_pooled": 1,
+   "frames_changed_per_copy": 1213.25,
+   "v2_11": {
+    "spell_f1": 0.6741,
+    "macro_f1": 0.8757,
+    "recall_under_2s_iou03": 0.3099,
+    "recall_under_1s_iou03": 0.1293,
+    "trans_f1_12": 0.5897,
+    "trans_f1_25": 0.6909,
+    "pred_spells_per_copy": 320.5
+   },
+   "fused": {
+    "spell_f1": 0.6854,
+    "macro_f1": 0.8791,
+    "recall_under_2s_iou03": 0.311,
+    "recall_under_1s_iou03": 0.1341,
+    "trans_f1_12": 0.6017,
+    "trans_f1_25": 0.7046,
+    "pred_spells_per_copy": 315.0
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6785,
+    "macro_f1": 0.8757,
+    "recall_under_2s_iou03": 0.3078,
+    "recall_under_1s_iou03": 0.1098,
+    "trans_f1_12": 0.5848,
+    "trans_f1_25": 0.7013,
+    "pred_spells_per_copy": 316.25
+   },
+   "gt_spells_per_copy": 403.25,
+   "gate_opened": 7
+  },
+  "view42": {
+   "n": 8,
+   "diff_spell_f1_mean": 0.0118,
+   "diff_macro_f1_mean": 0.0032,
+   "diff_spell_f1_min": 0.0,
+   "copies_better": 7,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 7,
+    "v2.3": 1
+   },
+   "copies_not_pooled": 1,
+   "frames_changed_per_copy": 1376.375,
+   "v2_11": {
+    "spell_f1": 0.6412,
+    "macro_f1": 0.8631,
+    "recall_under_2s_iou03": 0.2743,
+    "recall_under_1s_iou03": 0.1024,
+    "trans_f1_12": 0.5389,
+    "trans_f1_25": 0.646,
+    "pred_spells_per_copy": 307.375
+   },
+   "fused": {
+    "spell_f1": 0.653,
+    "macro_f1": 0.8663,
+    "recall_under_2s_iou03": 0.2732,
+    "recall_under_1s_iou03": 0.1049,
+    "trans_f1_12": 0.5447,
+    "trans_f1_25": 0.6515,
+    "pred_spells_per_copy": 302.625
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6418,
+    "macro_f1": 0.8615,
+    "recall_under_2s_iou03": 0.257,
+    "recall_under_1s_iou03": 0.0756,
+    "trans_f1_12": 0.5318,
+    "trans_f1_25": 0.6513,
+    "pred_spells_per_copy": 306.75
+   },
+   "gt_spells_per_copy": 403.25
+  },
+  "tactical_sim2": {
+   "n": 4,
+   "diff_spell_f1_mean": 0.0197,
+   "diff_macro_f1_mean": 0.0093,
+   "diff_spell_f1_min": 0.0186,
+   "copies_better": 4,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 4,
+    "v2.3": 0
+   },
+   "copies_not_pooled": 0,
+   "frames_changed_per_copy": 2408.75,
+   "v2_11": {
+    "spell_f1": 0.667,
+    "macro_f1": 0.8617,
+    "recall_under_2s_iou03": 0.2765,
+    "recall_under_1s_iou03": 0.1073,
+    "trans_f1_12": 0.5601,
+    "trans_f1_25": 0.6768,
+    "pred_spells_per_copy": 319.0
+   },
+   "fused": {
+    "spell_f1": 0.6867,
+    "macro_f1": 0.871,
+    "recall_under_2s_iou03": 0.2959,
+    "recall_under_1s_iou03": 0.1024,
+    "trans_f1_12": 0.5839,
+    "trans_f1_25": 0.6994,
+    "pred_spells_per_copy": 314.75
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6805,
+    "macro_f1": 0.8747,
+    "recall_under_2s_iou03": 0.3132,
+    "recall_under_1s_iou03": 0.1073,
+    "trans_f1_12": 0.6078,
+    "trans_f1_25": 0.7188,
+    "pred_spells_per_copy": 312.75
+   },
+   "gt_spells_per_copy": 403.25
+  },
+  "fill_good_DFL": {
+   "n": 4,
+   "diff_spell_f1_mean": 0.0108,
+   "diff_macro_f1_mean": 0.0024,
+   "diff_spell_f1_min": 0.0036,
+   "copies_better": 4,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 4,
+    "v2.3": 0
+   },
+   "copies_not_pooled": 0,
+   "frames_changed_per_copy": 979.25,
+   "v2_11": {
+    "spell_f1": 0.6845,
+    "macro_f1": 0.9305,
+    "recall_under_2s_iou03": 0.3113,
+    "recall_under_1s_iou03": 0.1709,
+    "trans_f1_12": 0.6458,
+    "trans_f1_25": 0.7356,
+    "pred_spells_per_copy": 332.75
+   },
+   "fused": {
+    "spell_f1": 0.6953,
+    "macro_f1": 0.9329,
+    "recall_under_2s_iou03": 0.3264,
+    "recall_under_1s_iou03": 0.1923,
+    "trans_f1_12": 0.6487,
+    "trans_f1_25": 0.7472,
+    "pred_spells_per_copy": 331.5
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6734,
+    "macro_f1": 0.9265,
+    "recall_under_2s_iou03": 0.3151,
+    "recall_under_1s_iou03": 0.1496,
+    "trans_f1_12": 0.6207,
+    "trans_f1_25": 0.7311,
+    "pred_spells_per_copy": 336.5
+   },
+   "gt_spells_per_copy": 435.0
+  },
+  "fill_good_Metrica": {
+   "n": 4,
+   "diff_spell_f1_mean": 0.0104,
+   "diff_macro_f1_mean": 0.0015,
+   "diff_spell_f1_min": 0.0,
+   "copies_better": 3,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 3,
+    "v2.3": 1
+   },
+   "copies_not_pooled": 1,
+   "frames_changed_per_copy": 899.25,
+   "v2_11": {
+    "spell_f1": 0.6871,
+    "macro_f1": 0.8308,
+    "recall_under_2s_iou03": 0.3308,
+    "recall_under_1s_iou03": 0.0909,
+    "trans_f1_12": 0.5823,
+    "trans_f1_25": 0.6831,
+    "pred_spells_per_copy": 309.75
+   },
+   "fused": {
+    "spell_f1": 0.6975,
+    "macro_f1": 0.8323,
+    "recall_under_2s_iou03": 0.3258,
+    "recall_under_1s_iou03": 0.0739,
+    "trans_f1_12": 0.5935,
+    "trans_f1_25": 0.6944,
+    "pred_spells_per_copy": 300.5
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6963,
+    "macro_f1": 0.8285,
+    "recall_under_2s_iou03": 0.3232,
+    "recall_under_1s_iou03": 0.0511,
+    "trans_f1_12": 0.5788,
+    "trans_f1_25": 0.6865,
+    "pred_spells_per_copy": 304.5
+   },
+   "gt_spells_per_copy": 371.5
+  },
+  "fill_medium_DFL": {
+   "n": 4,
+   "diff_spell_f1_mean": 0.0132,
+   "diff_macro_f1_mean": 0.0044,
+   "diff_spell_f1_min": 0.0084,
+   "copies_better": 4,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 4,
+    "v2.3": 0
+   },
+   "copies_not_pooled": 0,
+   "frames_changed_per_copy": 1269.0,
+   "v2_11": {
+    "spell_f1": 0.6777,
+    "macro_f1": 0.9273,
+    "recall_under_2s_iou03": 0.3245,
+    "recall_under_1s_iou03": 0.1538,
+    "trans_f1_12": 0.624,
+    "trans_f1_25": 0.7322,
+    "pred_spells_per_copy": 341.25
+   },
+   "fused": {
+    "spell_f1": 0.6909,
+    "macro_f1": 0.9317,
+    "recall_under_2s_iou03": 0.3302,
+    "recall_under_1s_iou03": 0.1709,
+    "trans_f1_12": 0.6383,
+    "trans_f1_25": 0.7449,
+    "pred_spells_per_copy": 336.0
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6771,
+    "macro_f1": 0.9276,
+    "recall_under_2s_iou03": 0.3151,
+    "recall_under_1s_iou03": 0.141,
+    "trans_f1_12": 0.623,
+    "trans_f1_25": 0.741,
+    "pred_spells_per_copy": 334.5
+   },
+   "gt_spells_per_copy": 435.0
+  },
+  "fill_medium_Metrica": {
+   "n": 4,
+   "diff_spell_f1_mean": 0.0096,
+   "diff_macro_f1_mean": 0.0024,
+   "diff_spell_f1_min": 0.0,
+   "copies_better": 3,
+   "copies_worse": 0,
+   "paths": {
+    "v2.1": 3,
+    "v2.3": 1
+   },
+   "copies_not_pooled": 1,
+   "frames_changed_per_copy": 1157.5,
+   "v2_11": {
+    "spell_f1": 0.6704,
+    "macro_f1": 0.8241,
+    "recall_under_2s_iou03": 0.2904,
+    "recall_under_1s_iou03": 0.0966,
+    "trans_f1_12": 0.5554,
+    "trans_f1_25": 0.6497,
+    "pred_spells_per_copy": 299.75
+   },
+   "fused": {
+    "spell_f1": 0.6799,
+    "macro_f1": 0.8265,
+    "recall_under_2s_iou03": 0.2854,
+    "recall_under_1s_iou03": 0.0852,
+    "trans_f1_12": 0.5651,
+    "trans_f1_25": 0.6642,
+    "pred_spells_per_copy": 294.0
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6799,
+    "macro_f1": 0.8239,
+    "recall_under_2s_iou03": 0.298,
+    "recall_under_1s_iou03": 0.0682,
+    "trans_f1_12": 0.5467,
+    "trans_f1_25": 0.6617,
+    "pred_spells_per_copy": 298.0
+   },
+   "gt_spells_per_copy": 371.5
+  }
+ },
+ "gate_values_unrounded": {
+  "tactical": {
+   "diff_spell_f1_mean": 0.011190134823877103,
+   "diff_macro_f1_mean": 0.003231079904054822,
+   "diff_spell_f1_min": 0.0
+  },
+  "tactical_DFL": {
+   "diff_spell_f1_mean": 0.012638191242910421,
+   "diff_macro_f1_mean": 0.0030660169068318366,
+   "diff_spell_f1_min": 0.0033595596715807474
+  },
+  "tactical_Metrica": {
+   "diff_spell_f1_mean": 0.009742078404843785,
+   "diff_macro_f1_mean": 0.003396142901277807,
+   "diff_spell_f1_min": 0.0
+  },
+  "fill_good": {
+   "diff_spell_f1_mean": 0.010615037333274763,
+   "diff_macro_f1_mean": 0.0019556625948599637,
+   "diff_spell_f1_min": 0.0
+  },
+  "fill_medium": {
+   "diff_spell_f1_mean": 0.011374153705441925,
+   "diff_macro_f1_mean": 0.0033972792068460295,
+   "diff_spell_f1_min": 0.0
+  },
+  "tactical_sim2": {
+   "diff_spell_f1_mean": 0.019664419270070177,
+   "diff_macro_f1_mean": 0.009289210793049785,
+   "diff_spell_f1_min": 0.018633174402396757
+  }
+ },
+ "gates": {
+  "G1 gain": true,
+  "G2 gain on provider flags": true,
+  "G3 no harm on event proxies": true,
+  "G4 no bad copy": true,
+  "G5 macroF1": true,
+  "G6 broadcast fill": true,
+  "G7 other simulator": true
+ },
+ "selected": true,
+ "decision": "all seven gates pass: the pooled system is selected for integration as possession-v2.15 (release only after the integration checks of the plan)",
+ "environment": {
+  "python": "3.13.18",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "scikit_learn": "1.9.1"
+ },
+ "fusion": {
+  "pool": "arithmetic",
+  "weight": 0.2,
+  "decoder": "possession.decode with the constants of the path",
+  "fused_paths": [
+   "v2.1"
+  ],
+  "stride": 2,
+  "prob_decimals": 4
+ },
+ "sha256": {
+  "weights": {
+   "dfl4_both_s0.npz": "9f0226ab9ecd7a251f8c523ccb4a79b0c09bd0313e4df59e28a1397e805940e0",
+   "dfl4_both_s1.npz": "1af5516368e484ff25b1d7f8fd9b62e21e18eec75e3957d37241f3c9ad9dec91",
+   "dfl4_both_s2.npz": "dd81d27ac789e4fa9d4254a5ec2cc28ec77fbdc36196dc09a13ec7c00adc97d2",
+   "dfl6_both_s0.npz": "d92bff05a9eb5404faf69a2a106aaac46698e020eb2e58fd92db23231121ec71",
+   "dfl6_both_s1.npz": "fd6ca4389736f64dd0e0c5a1d94a9bd613bd1a41da90e270f79749b5c8b1be11",
+   "dfl6_both_s2.npz": "65a6d88b7863ab84e1fe6331e622efb7cd1041fc07c5be7e751df87bcf494d84"
+  },
+  "tcn_modules": {
+   "infer.py": "cea6b164d697f77616ab2a38de6632aee23d1f134e485dbcd3b527f492e70922",
+   "features.py": "c33bde1208bc7b1c90058193681e51b631443c548aa281d46d2fa439ee16ee29",
+   "decode.py": "457e12b1ce3cecc6fc659fafcaf4dc6d6129efdc8d6c4fb59b9f2ccd754bfd91",
+   "fuse.py": "abc87d446ea769ec5a68f6c11157603c7e088fb6da9e8833734a37152b992dfe",
+   "degrade.py": "0292d7f73e9886888eff9b4ae9930dd88d228a8f8857191a3eeb2b997b12399d"
+  },
+  "exp_v213.py": "65a0852191c414d7b393f05000a17cd0c7f8fbd0d885775731085e538b087028",
+  "exp_v215.py": "6a78921e6193c356aad9e9931958e0283ec4df13d5c287109faf147456a0966f",
+  "pooling.py": "5133a8fa7d5d15593871680c86c1e0b1de47cabea835aba8ad562fb641b5d11b"
+ },
+ "rows": [
+  {
+   "copy": "J03WN1|19100",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6042959427207637,
+    "macro_f1": 0.9032971697085658,
+    "trans_f1_12": 0.55311004784689,
+    "trans_f1_25": 0.6717703349282298,
+    "n_gt_spells": 500,
+    "n_pred_spells": 338,
+    "pred_spells_under_2s": 57,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 45,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 11
+   },
+   "fused": {
+    "spell_f1": 0.6076555023923444,
+    "macro_f1": 0.9053980975156571,
+    "trans_f1_12": 0.5566218809980806,
+    "trans_f1_25": 0.6679462571976967,
+    "n_gt_spells": 500,
+    "n_pred_spells": 336,
+    "pred_spells_under_2s": 57,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 44,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 10
+   },
+   "tcn_alone": {
+    "spell_f1": 0.5988137603795967,
+    "macro_f1": 0.898443340934544,
+    "trans_f1_12": 0.5706161137440758,
+    "trans_f1_25": 0.6767772511848342,
+    "n_gt_spells": 500,
+    "n_pred_spells": 343,
+    "pred_spells_under_2s": 62,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 48,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 11
+   },
+   "diff_spell_f1": 0.0033595596715807474,
+   "diff_macro_f1": 0.0021009278070913684,
+   "frames_changed": 1314,
+   "noise_m": {
+    "ball_m": 0.0847,
+    "players_m": 0.1359
+   },
+   "keeper2_moved_pieces": 7,
+   "ball_visible_in_play": 0.564,
+   "seconds_v2": 59,
+   "seconds_tcn": 123
+  },
+  {
+   "copy": "J03WN1|19100",
+   "condition": "fill_good",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.647953216374269,
+    "macro_f1": 0.9169881839254449,
+    "trans_f1_12": 0.6100094428706326,
+    "trans_f1_25": 0.7025495750708216,
+    "n_gt_spells": 500,
+    "n_pred_spells": 355,
+    "pred_spells_under_2s": 61,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 52,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 12
+   },
+   "fused": {
+    "spell_f1": 0.6515752625437573,
+    "macro_f1": 0.9199353002532528,
+    "trans_f1_12": 0.6056603773584905,
+    "trans_f1_25": 0.7188679245283018,
+    "n_gt_spells": 500,
+    "n_pred_spells": 357,
+    "pred_spells_under_2s": 64,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 54,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 13
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6268378063010502,
+    "macro_f1": 0.9075105517502768,
+    "trans_f1_12": 0.6035613870665417,
+    "trans_f1_25": 0.7179006560449859,
+    "n_gt_spells": 500,
+    "n_pred_spells": 357,
+    "pred_spells_under_2s": 61,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 56,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 12
+   },
+   "diff_spell_f1": 0.0036220461694883577,
+   "diff_macro_f1": 0.002947116327807864,
+   "frames_changed": 1070,
+   "noise_m": {
+    "ball_m": 0.0847,
+    "players_m": 0.1359
+   },
+   "keeper2_moved_pieces": 7,
+   "ball_visible_in_play": 0.564,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.1842,
+    "filled": 26319,
+    "ball_visible_graded_before": 0.5637,
+    "ball_visible_graded_after": 0.7496
+   },
+   "simulation_seconds": 58,
+   "broadcast_quality": {
+    "bias_sd": 0.192,
+    "b_sd": 0.1731,
+    "p_sd": 0.2272,
+    "ball_frac": 0.7673,
+    "invalid": 0.2666
+   },
+   "seconds_v2": 56,
+   "seconds_tcn": 63
+  },
+  {
+   "copy": "J03WN1|19100",
+   "condition": "fill_medium",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6509803921568628,
+    "macro_f1": 0.9165275970381129,
+    "trans_f1_12": 0.6052141527001862,
+    "trans_f1_25": 0.7113594040968344,
+    "n_gt_spells": 500,
+    "n_pred_spells": 367,
+    "pred_spells_under_2s": 74,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 55,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 11
+   },
+   "fused": {
+    "spell_f1": 0.6593967517401392,
+    "macro_f1": 0.9225879502071747,
+    "trans_f1_12": 0.6116322701688556,
+    "trans_f1_25": 0.7317073170731707,
+    "n_gt_spells": 500,
+    "n_pred_spells": 362,
+    "pred_spells_under_2s": 72,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 56,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 13
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6227432590855801,
+    "macro_f1": 0.9091212878827782,
+    "trans_f1_12": 0.6095954844778928,
+    "trans_f1_25": 0.7130761994355597,
+    "n_gt_spells": 500,
+    "n_pred_spells": 353,
+    "pred_spells_under_2s": 58,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 54,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 11
+   },
+   "diff_spell_f1": 0.008416359583276467,
+   "diff_macro_f1": 0.006060353169061727,
+   "frames_changed": 1574,
+   "noise_m": {
+    "ball_m": 0.0847,
+    "players_m": 0.1359
+   },
+   "keeper2_moved_pieces": 7,
+   "ball_visible_in_play": 0.564,
+   "regime": "medium",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.2635,
+    "filled": 23033,
+    "ball_visible_graded_before": 0.5637,
+    "ball_visible_graded_after": 0.7264
+   },
+   "simulation_seconds": 52,
+   "broadcast_quality": {
+    "bias_sd": 0.2568,
+    "b_sd": 0.3143,
+    "p_sd": 0.3598,
+    "ball_frac": 0.6655,
+    "invalid": 0.2651
+   },
+   "seconds_v2": 57,
+   "seconds_tcn": 63
+  },
+  {
+   "copy": "J03WN1|19100",
+   "condition": "view42",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6068965517241379,
+    "macro_f1": 0.9008205813985762,
+    "trans_f1_12": 0.5594671741198859,
+    "trans_f1_25": 0.6717411988582304,
+    "n_gt_spells": 500,
+    "n_pred_spells": 341,
+    "pred_spells_under_2s": 57,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 46,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 10
+   },
+   "fused": {
+    "spell_f1": 0.609546539379475,
+    "macro_f1": 0.903936079002151,
+    "trans_f1_12": 0.5804597701149425,
+    "trans_f1_25": 0.6743295019157088,
+    "n_gt_spells": 500,
+    "n_pred_spells": 338,
+    "pred_spells_under_2s": 60,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 45,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 11
+   },
+   "tcn_alone": {
+    "spell_f1": 0.5929078014184397,
+    "macro_f1": 0.8927894033122246,
+    "trans_f1_12": 0.555765595463138,
+    "trans_f1_25": 0.6635160680529301,
+    "n_gt_spells": 500,
+    "n_pred_spells": 346,
+    "pred_spells_under_2s": 70,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 47,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 11
+   },
+   "diff_spell_f1": 0.0026499876553370827,
+   "diff_macro_f1": 0.0031154976035747683,
+   "frames_changed": 1584,
+   "keeper2_moved_pieces": 5,
+   "seconds_v2": 56,
+   "seconds_tcn": 66
+  },
+  {
+   "copy": "J03WN1|69100",
+   "condition": "tactical_sim2",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.5558504221954161,
+    "macro_f1": 0.8843581455179542,
+    "trans_f1_12": 0.46853823814133594,
+    "trans_f1_25": 0.6021297192642788,
+    "n_gt_spells": 500,
+    "n_pred_spells": 329,
+    "pred_spells_under_2s": 50,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 35,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 3
+   },
+   "fused": {
+    "spell_f1": 0.5744835965978129,
+    "macro_f1": 0.8902812523700394,
+    "trans_f1_12": 0.4931506849315069,
+    "trans_f1_25": 0.6183953033268101,
+    "n_gt_spells": 500,
+    "n_pred_spells": 323,
+    "pred_spells_under_2s": 46,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 38,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 4
+   },
+   "tcn_alone": {
+    "spell_f1": 0.5462002412545235,
+    "macro_f1": 0.8851027296801414,
+    "trans_f1_12": 0.49423076923076925,
+    "trans_f1_25": 0.6326923076923077,
+    "n_gt_spells": 500,
+    "n_pred_spells": 329,
+    "pred_spells_under_2s": 40,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 39,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 5
+   },
+   "diff_spell_f1": 0.018633174402396757,
+   "diff_macro_f1": 0.0059231068520851915,
+   "frames_changed": 2688,
+   "noise_m": {
+    "ball_m": 0.0199,
+    "players_m": 0.0384
+   },
+   "keeper2_moved_pieces": 0,
+   "ball_visible_in_play": 0.505,
+   "seconds_v2": 56,
+   "seconds_tcn": 67
+  },
+  {
+   "copy": "J03WN1|19101",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.5889541715628672,
+    "macro_f1": 0.8946375949543143,
+    "trans_f1_12": 0.5070955534531694,
+    "trans_f1_25": 0.6395458845789973,
+    "n_gt_spells": 500,
+    "n_pred_spells": 351,
+    "pred_spells_under_2s": 62,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 45,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 7
+   },
+   "fused": {
+    "spell_f1": 0.6028235294117646,
+    "macro_f1": 0.8980561963630006,
+    "trans_f1_12": 0.5142314990512333,
+    "trans_f1_25": 0.6489563567362429,
+    "n_gt_spells": 500,
+    "n_pred_spells": 350,
+    "pred_spells_under_2s": 61,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 47,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 7
+   },
+   "tcn_alone": {
+    "spell_f1": 0.5988304093567252,
+    "macro_f1": 0.8955118999878691,
+    "trans_f1_12": 0.5214953271028038,
+    "trans_f1_25": 0.6616822429906541,
+    "n_gt_spells": 500,
+    "n_pred_spells": 355,
+    "pred_spells_under_2s": 59,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 47,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 4
+   },
+   "diff_spell_f1": 0.013869357848897423,
+   "diff_macro_f1": 0.003418601408686328,
+   "frames_changed": 1716,
+   "noise_m": {
+    "ball_m": 0.2615,
+    "players_m": 0.2254
+   },
+   "keeper2_moved_pieces": 8,
+   "ball_visible_in_play": 0.471,
+   "seconds_v2": 58,
+   "seconds_tcn": 69
+  },
+  {
+   "copy": "J03WN1|19101",
+   "condition": "fill_good",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.654712643678161,
+    "macro_f1": 0.9150530508164697,
+    "trans_f1_12": 0.5972093023255813,
+    "trans_f1_25": 0.7088372093023255,
+    "n_gt_spells": 500,
+    "n_pred_spells": 370,
+    "pred_spells_under_2s": 65,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 54,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 10
+   },
+   "fused": {
+    "spell_f1": 0.6606481481481482,
+    "macro_f1": 0.9173516664953881,
+    "trans_f1_12": 0.6067415730337079,
+    "trans_f1_25": 0.7134831460674157,
+    "n_gt_spells": 500,
+    "n_pred_spells": 364,
+    "pred_spells_under_2s": 61,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 54,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 10
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6317497103128621,
+    "macro_f1": 0.9098984676457591,
+    "trans_f1_12": 0.5841860465116278,
+    "trans_f1_25": 0.7013953488372092,
+    "n_gt_spells": 500,
+    "n_pred_spells": 363,
+    "pred_spells_under_2s": 72,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 53,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 8
+   },
+   "diff_spell_f1": 0.005935504469987252,
+   "diff_macro_f1": 0.0022986156789184253,
+   "frames_changed": 1231,
+   "noise_m": {
+    "ball_m": 0.2615,
+    "players_m": 0.2254
+   },
+   "keeper2_moved_pieces": 8,
+   "ball_visible_in_play": 0.471,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.3483,
+    "filled": 30152,
+    "ball_visible_graded_before": 0.4714,
+    "ball_visible_graded_after": 0.6844
+   },
+   "simulation_seconds": 67,
+   "broadcast_quality": {
+    "bias_sd": 0.1982,
+    "b_sd": 0.052,
+    "p_sd": 0.1434,
+    "ball_frac": 0.6297,
+    "invalid": 0.1649
+   },
+   "seconds_v2": 55,
+   "seconds_tcn": 65
+  },
+  {
+   "copy": "J03WN1|19101",
+   "condition": "fill_medium",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.623945267958951,
+    "macro_f1": 0.9034796380654967,
+    "trans_f1_12": 0.5598526703499079,
+    "trans_f1_25": 0.6887661141804788,
+    "n_gt_spells": 500,
+    "n_pred_spells": 377,
+    "pred_spells_under_2s": 66,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 58,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 11
+   },
+   "fused": {
+    "spell_f1": 0.6377880184331797,
+    "macro_f1": 0.9104676542070013,
+    "trans_f1_12": 0.592730661696179,
+    "trans_f1_25": 0.7027027027027026,
+    "n_gt_spells": 500,
+    "n_pred_spells": 368,
+    "pred_spells_under_2s": 63,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 57,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 11
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6461181923522596,
+    "macro_f1": 0.9119828775221358,
+    "trans_f1_12": 0.5975723622782445,
+    "trans_f1_25": 0.7301587301587301,
+    "n_gt_spells": 500,
+    "n_pred_spells": 363,
+    "pred_spells_under_2s": 69,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 57,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 9
+   },
+   "diff_spell_f1": 0.013842750474228671,
+   "diff_macro_f1": 0.006988016141504572,
+   "frames_changed": 1836,
+   "noise_m": {
+    "ball_m": 0.2615,
+    "players_m": 0.2254
+   },
+   "keeper2_moved_pieces": 8,
+   "ball_visible_in_play": 0.471,
+   "regime": "medium",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.4974,
+    "filled": 30276,
+    "ball_visible_graded_before": 0.4714,
+    "ball_visible_graded_after": 0.6853
+   },
+   "simulation_seconds": 54,
+   "broadcast_quality": {
+    "bias_sd": 0.3943,
+    "b_sd": 0.4844,
+    "p_sd": 0.3449,
+    "ball_frac": 0.7299,
+    "invalid": 0.2829
+   },
+   "seconds_v2": 56,
+   "seconds_tcn": 69
+  },
+  {
+   "copy": "J03WN1|19101",
+   "condition": "view42",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.5878787878787878,
+    "macro_f1": 0.8919011745510558,
+    "trans_f1_12": 0.5173383317713214,
+    "trans_f1_25": 0.6391752577319588,
+    "n_gt_spells": 500,
+    "n_pred_spells": 358,
+    "pred_spells_under_2s": 70,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 46,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 7
+   },
+   "fused": {
+    "spell_f1": 0.6053927315357562,
+    "macro_f1": 0.8968741258060828,
+    "trans_f1_12": 0.5251184834123223,
+    "trans_f1_25": 0.6407582938388625,
+    "n_gt_spells": 500,
+    "n_pred_spells": 353,
+    "pred_spells_under_2s": 64,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 49,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 6
+   },
+   "tcn_alone": {
+    "spell_f1": 0.5886255924170616,
+    "macro_f1": 0.8913067341974031,
+    "trans_f1_12": 0.5155807365439092,
+    "trans_f1_25": 0.6515580736543909,
+    "n_gt_spells": 500,
+    "n_pred_spells": 344,
+    "pred_spells_under_2s": 51,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 45,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 4
+   },
+   "diff_spell_f1": 0.017513943656968456,
+   "diff_macro_f1": 0.004972951255027058,
+   "frames_changed": 2229,
+   "keeper2_moved_pieces": 5,
+   "seconds_v2": 57,
+   "seconds_tcn": 69
+  },
+  {
+   "copy": "J03WN1|19102",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.5976525821596245,
+    "macro_f1": 0.8985172854741917,
+    "trans_f1_12": 0.5454545454545455,
+    "trans_f1_25": 0.649621212121212,
+    "n_gt_spells": 500,
+    "n_pred_spells": 352,
+    "pred_spells_under_2s": 61,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 43,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 9
+   },
+   "fused": {
+    "spell_f1": 0.6123809523809524,
+    "macro_f1": 0.9045466164858587,
+    "trans_f1_12": 0.5470249520153551,
+    "trans_f1_25": 0.6660268714011517,
+    "n_gt_spells": 500,
+    "n_pred_spells": 340,
+    "pred_spells_under_2s": 54,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 45,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 7
+   },
+   "tcn_alone": {
+    "spell_f1": 0.5883194278903456,
+    "macro_f1": 0.8887290746865831,
+    "trans_f1_12": 0.5033112582781457,
+    "trans_f1_25": 0.6338694418164618,
+    "n_gt_spells": 500,
+    "n_pred_spells": 339,
+    "pred_spells_under_2s": 46,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 36,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 3
+   },
+   "diff_spell_f1": 0.014728370221327891,
+   "diff_macro_f1": 0.006029331011666916,
+   "frames_changed": 1541,
+   "noise_m": {
+    "ball_m": 0.1249,
+    "players_m": 0.2746
+   },
+   "keeper2_moved_pieces": 7,
+   "ball_visible_in_play": 0.633,
+   "seconds_v2": 55,
+   "seconds_tcn": 69
+  },
+  {
+   "copy": "J03WN1|19103",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.5967441860465116,
+    "macro_f1": 0.8914278147246689,
+    "trans_f1_12": 0.5187969924812029,
+    "trans_f1_25": 0.6334586466165414,
+    "n_gt_spells": 500,
+    "n_pred_spells": 360,
+    "pred_spells_under_2s": 70,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 51,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 12
+   },
+   "fused": {
+    "spell_f1": 0.6119858989424207,
+    "macro_f1": 0.8969684532222796,
+    "trans_f1_12": 0.5290199809705042,
+    "trans_f1_25": 0.648905803996194,
+    "n_gt_spells": 500,
+    "n_pred_spells": 351,
+    "pred_spells_under_2s": 65,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 51,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 11
+   },
+   "tcn_alone": {
+    "spell_f1": 0.5894982497082848,
+    "macro_f1": 0.8857255467942909,
+    "trans_f1_12": 0.5074906367041199,
+    "trans_f1_25": 0.6179775280898876,
+    "n_gt_spells": 500,
+    "n_pred_spells": 357,
+    "pred_spells_under_2s": 60,
+    "gt_spells_under_2s": 171,
+    "found_under_2s_iou03": 44,
+    "gt_spells_under_1s": 76,
+    "found_under_1s_iou03": 7
+   },
+   "diff_spell_f1": 0.015241712895909143,
+   "diff_macro_f1": 0.0055406384976106615,
+   "frames_changed": 1868,
+   "noise_m": {
+    "ball_m": 0.1656,
+    "players_m": 0.2897
+   },
+   "keeper2_moved_pieces": 2,
+   "ball_visible_in_play": 0.562,
+   "seconds_v2": 54,
+   "seconds_tcn": 65
+  },
+  {
+   "copy": "J03WR9|19110",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.7157894736842106,
+    "macro_f1": 0.9454406403311543,
+    "trans_f1_12": 0.6574074074074074,
+    "trans_f1_25": 0.7407407407407407,
+    "n_gt_spells": 370,
+    "n_pred_spells": 314,
+    "pred_spells_under_2s": 53,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 9
+   },
+   "fused": {
+    "spell_f1": 0.7195301027900147,
+    "macro_f1": 0.9468981617804917,
+    "trans_f1_12": 0.6550522648083623,
+    "trans_f1_25": 0.743321718931475,
+    "n_gt_spells": 370,
+    "n_pred_spells": 311,
+    "pred_spells_under_2s": 49,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 30,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 9
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7057777777777778,
+    "macro_f1": 0.9390709080669847,
+    "trans_f1_12": 0.6231038506417736,
+    "trans_f1_25": 0.751458576429405,
+    "n_gt_spells": 370,
+    "n_pred_spells": 305,
+    "pred_spells_under_2s": 39,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 26,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 5
+   },
+   "diff_spell_f1": 0.003740629105804083,
+   "diff_macro_f1": 0.0014575214493374178,
+   "frames_changed": 910,
+   "noise_m": {
+    "ball_m": 0.1834,
+    "players_m": 0.1004
+   },
+   "keeper2_moved_pieces": 16,
+   "ball_visible_in_play": 0.691,
+   "seconds_v2": 55,
+   "seconds_tcn": 124
+  },
+  {
+   "copy": "J03WR9|19110",
+   "condition": "fill_good",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.7398843930635838,
+    "macro_f1": 0.9469176148267889,
+    "trans_f1_12": 0.6972477064220184,
+    "trans_f1_25": 0.7752293577981653,
+    "n_gt_spells": 370,
+    "n_pred_spells": 322,
+    "pred_spells_under_2s": 54,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 32,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 11
+   },
+   "fused": {
+    "spell_f1": 0.750509461426492,
+    "macro_f1": 0.9494643483795019,
+    "trans_f1_12": 0.7043879907621247,
+    "trans_f1_25": 0.789838337182448,
+    "n_gt_spells": 370,
+    "n_pred_spells": 317,
+    "pred_spells_under_2s": 50,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 36,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 13
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7314787701317715,
+    "macro_f1": 0.9472391628603244,
+    "trans_f1_12": 0.6705202312138728,
+    "trans_f1_25": 0.7861271676300579,
+    "n_gt_spells": 370,
+    "n_pred_spells": 313,
+    "pred_spells_under_2s": 48,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 32,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 9
+   },
+   "diff_spell_f1": 0.010625068362908219,
+   "diff_macro_f1": 0.002546733552712954,
+   "frames_changed": 789,
+   "noise_m": {
+    "ball_m": 0.1834,
+    "players_m": 0.1004
+   },
+   "keeper2_moved_pieces": 16,
+   "ball_visible_in_play": 0.691,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.2675,
+    "filled": 19258,
+    "ball_visible_graded_before": 0.6907,
+    "ball_visible_graded_after": 0.8219
+   },
+   "simulation_seconds": 58,
+   "broadcast_quality": {
+    "bias_sd": 0.1716,
+    "b_sd": 0.1842,
+    "p_sd": 0.2015,
+    "ball_frac": 0.8493,
+    "invalid": 0.223
+   },
+   "seconds_v2": 57,
+   "seconds_tcn": 66
+  },
+  {
+   "copy": "J03WR9|19110",
+   "condition": "fill_medium",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.7169811320754718,
+    "macro_f1": 0.9430143252466867,
+    "trans_f1_12": 0.669735327963176,
+    "trans_f1_25": 0.7710011507479861,
+    "n_gt_spells": 370,
+    "n_pred_spells": 319,
+    "pred_spells_under_2s": 52,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 32,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 10
+   },
+   "fused": {
+    "spell_f1": 0.7349926793557835,
+    "macro_f1": 0.9453674967501572,
+    "trans_f1_12": 0.679814385150812,
+    "trans_f1_25": 0.777262180974478,
+    "n_gt_spells": 370,
+    "n_pred_spells": 313,
+    "pred_spells_under_2s": 48,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 35,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 10
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7173020527859236,
+    "macro_f1": 0.9431732441121726,
+    "trans_f1_12": 0.6404624277456648,
+    "trans_f1_25": 0.769942196531792,
+    "n_gt_spells": 370,
+    "n_pred_spells": 312,
+    "pred_spells_under_2s": 42,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 7
+   },
+   "diff_spell_f1": 0.018011547280311735,
+   "diff_macro_f1": 0.0023531715034704748,
+   "frames_changed": 902,
+   "noise_m": {
+    "ball_m": 0.1834,
+    "players_m": 0.1004
+   },
+   "keeper2_moved_pieces": 16,
+   "ball_visible_in_play": 0.691,
+   "regime": "medium",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.4598,
+    "filled": 15757,
+    "ball_visible_graded_before": 0.6907,
+    "ball_visible_graded_after": 0.798
+   },
+   "simulation_seconds": 52,
+   "broadcast_quality": {
+    "bias_sd": 0.5802,
+    "b_sd": 0.3498,
+    "p_sd": 0.4876,
+    "ball_frac": 0.7928,
+    "invalid": 0.2732
+   },
+   "seconds_v2": 55,
+   "seconds_tcn": 66
+  },
+  {
+   "copy": "J03WR9|19110",
+   "condition": "view42",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.7175616835994194,
+    "macro_f1": 0.9453563915161913,
+    "trans_f1_12": 0.6444188722669736,
+    "trans_f1_25": 0.7341772151898736,
+    "n_gt_spells": 370,
+    "n_pred_spells": 319,
+    "pred_spells_under_2s": 53,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 30,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 8
+   },
+   "fused": {
+    "spell_f1": 0.7368421052631579,
+    "macro_f1": 0.9479405297580997,
+    "trans_f1_12": 0.6527777777777778,
+    "trans_f1_25": 0.7615740740740742,
+    "n_gt_spells": 370,
+    "n_pred_spells": 314,
+    "pred_spells_under_2s": 52,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 35,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 11
+   },
+   "tcn_alone": {
+    "spell_f1": 0.691715976331361,
+    "macro_f1": 0.9363351098601717,
+    "trans_f1_12": 0.6044340723453909,
+    "trans_f1_25": 0.7397899649941657,
+    "n_gt_spells": 370,
+    "n_pred_spells": 306,
+    "pred_spells_under_2s": 43,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 5
+   },
+   "diff_spell_f1": 0.019280421663738445,
+   "diff_macro_f1": 0.002584138241908396,
+   "frames_changed": 977,
+   "keeper2_moved_pieces": 12,
+   "seconds_v2": 54,
+   "seconds_tcn": 68
+  },
+  {
+   "copy": "J03WR9|69101",
+   "condition": "tactical_sim2",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6923976608187135,
+    "macro_f1": 0.9160844325897562,
+    "trans_f1_12": 0.5820721769499416,
+    "trans_f1_25": 0.7124563445867287,
+    "n_gt_spells": 370,
+    "n_pred_spells": 314,
+    "pred_spells_under_2s": 47,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 8
+   },
+   "fused": {
+    "spell_f1": 0.7128654970760234,
+    "macro_f1": 0.9287729031221749,
+    "trans_f1_12": 0.6231038506417736,
+    "trans_f1_25": 0.73512252042007,
+    "n_gt_spells": 370,
+    "n_pred_spells": 314,
+    "pred_spells_under_2s": 45,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 27,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 8
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7331395348837209,
+    "macro_f1": 0.9450783016724221,
+    "trans_f1_12": 0.661308840413318,
+    "trans_f1_25": 0.7738231917336394,
+    "n_gt_spells": 370,
+    "n_pred_spells": 318,
+    "pred_spells_under_2s": 53,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 31,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 7
+   },
+   "diff_spell_f1": 0.020467836257309968,
+   "diff_macro_f1": 0.012688470532418616,
+   "frames_changed": 2457,
+   "noise_m": {
+    "ball_m": 0.0542,
+    "players_m": 0.0391
+   },
+   "keeper2_moved_pieces": 0,
+   "ball_visible_in_play": 0.739,
+   "seconds_v2": 53,
+   "seconds_tcn": 68
+  },
+  {
+   "copy": "J03WR9|19111",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6922844175491679,
+    "macro_f1": 0.9393167640556782,
+    "trans_f1_12": 0.62291169451074,
+    "trans_f1_25": 0.7446300715990454,
+    "n_gt_spells": 370,
+    "n_pred_spells": 291,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 6
+   },
+   "fused": {
+    "spell_f1": 0.7174506828528073,
+    "macro_f1": 0.9415213635670449,
+    "trans_f1_12": 0.6220095693779905,
+    "trans_f1_25": 0.7535885167464116,
+    "n_gt_spells": 370,
+    "n_pred_spells": 289,
+    "pred_spells_under_2s": 41,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 27,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 6
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7078751857355126,
+    "macro_f1": 0.9398633272713343,
+    "trans_f1_12": 0.6144859813084111,
+    "trans_f1_25": 0.7219626168224299,
+    "n_gt_spells": 370,
+    "n_pred_spells": 303,
+    "pred_spells_under_2s": 41,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 24,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 3
+   },
+   "diff_spell_f1": 0.025166265303639412,
+   "diff_macro_f1": 0.002204599511366645,
+   "frames_changed": 1102,
+   "noise_m": {
+    "ball_m": 0.1054,
+    "players_m": 0.1309
+   },
+   "keeper2_moved_pieces": 0,
+   "ball_visible_in_play": 0.778,
+   "seconds_v2": 61,
+   "seconds_tcn": 69
+  },
+  {
+   "copy": "J03WR9|19111",
+   "condition": "fill_good",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6954128440366972,
+    "macro_f1": 0.9431026210866342,
+    "trans_f1_12": 0.6787003610108304,
+    "trans_f1_25": 0.7557160048134777,
+    "n_gt_spells": 370,
+    "n_pred_spells": 284,
+    "pred_spells_under_2s": 43,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 27,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 7
+   },
+   "fused": {
+    "spell_f1": 0.7185410334346505,
+    "macro_f1": 0.9447745924566678,
+    "trans_f1_12": 0.6778443113772455,
+    "trans_f1_25": 0.7664670658682634,
+    "n_gt_spells": 370,
+    "n_pred_spells": 288,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 9
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7033674963396779,
+    "macro_f1": 0.9412463288754912,
+    "trans_f1_12": 0.6244239631336406,
+    "trans_f1_25": 0.7188940092165899,
+    "n_gt_spells": 370,
+    "n_pred_spells": 313,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 26,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 6
+   },
+   "diff_spell_f1": 0.023128189397953247,
+   "diff_macro_f1": 0.0016719713700336092,
+   "frames_changed": 827,
+   "noise_m": {
+    "ball_m": 0.1054,
+    "players_m": 0.1309
+   },
+   "keeper2_moved_pieces": 0,
+   "ball_visible_in_play": 0.778,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.1798,
+    "filled": 10636,
+    "ball_visible_graded_before": 0.778,
+    "ball_visible_graded_after": 0.8505
+   },
+   "simulation_seconds": 59,
+   "broadcast_quality": {
+    "bias_sd": 0.1344,
+    "b_sd": 0.1602,
+    "p_sd": 0.1152,
+    "ball_frac": 0.6379,
+    "invalid": 0.2375
+   },
+   "seconds_v2": 59,
+   "seconds_tcn": 69
+  },
+  {
+   "copy": "J03WR9|19111",
+   "condition": "fill_medium",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.719047619047619,
+    "macro_f1": 0.9459869099200056,
+    "trans_f1_12": 0.6611764705882353,
+    "trans_f1_25": 0.7576470588235293,
+    "n_gt_spells": 370,
+    "n_pred_spells": 302,
+    "pred_spells_under_2s": 45,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 27,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 4
+   },
+   "fused": {
+    "spell_f1": 0.7314456035767513,
+    "macro_f1": 0.9482463984552054,
+    "trans_f1_12": 0.669022379269729,
+    "trans_f1_25": 0.767962308598351,
+    "n_gt_spells": 370,
+    "n_pred_spells": 301,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 27,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 6
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7223529411764705,
+    "macro_f1": 0.9461887536683445,
+    "trans_f1_12": 0.6442641946697566,
+    "trans_f1_25": 0.7508690614136734,
+    "n_gt_spells": 370,
+    "n_pred_spells": 310,
+    "pred_spells_under_2s": 39,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 27,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 6
+   },
+   "diff_spell_f1": 0.012397984529132211,
+   "diff_macro_f1": 0.0022594885351998606,
+   "frames_changed": 764,
+   "noise_m": {
+    "ball_m": 0.1054,
+    "players_m": 0.1309
+   },
+   "keeper2_moved_pieces": 0,
+   "ball_visible_in_play": 0.778,
+   "regime": "medium",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.4463,
+    "filled": 14392,
+    "ball_visible_graded_before": 0.778,
+    "ball_visible_graded_after": 0.8761
+   },
+   "simulation_seconds": 64,
+   "broadcast_quality": {
+    "bias_sd": 0.57,
+    "b_sd": 0.4335,
+    "p_sd": 0.403,
+    "ball_frac": 0.7706,
+    "invalid": 0.1816
+   },
+   "seconds_v2": 57,
+   "seconds_tcn": 69
+  },
+  {
+   "copy": "J03WR9|19111",
+   "condition": "view42",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6909090909090909,
+    "macro_f1": 0.9399484734172784,
+    "trans_f1_12": 0.6054181389870436,
+    "trans_f1_25": 0.7232037691401648,
+    "n_gt_spells": 370,
+    "n_pred_spells": 301,
+    "pred_spells_under_2s": 52,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 30,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 6
+   },
+   "fused": {
+    "spell_f1": 0.7074626865671642,
+    "macro_f1": 0.9420469251266003,
+    "trans_f1_12": 0.6132075471698113,
+    "trans_f1_25": 0.7334905660377358,
+    "n_gt_spells": 370,
+    "n_pred_spells": 300,
+    "pred_spells_under_2s": 50,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 28,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 7
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6967164179104477,
+    "macro_f1": 0.9388087107597959,
+    "trans_f1_12": 0.611957796014068,
+    "trans_f1_25": 0.7221570926143024,
+    "n_gt_spells": 370,
+    "n_pred_spells": 300,
+    "pred_spells_under_2s": 40,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 4
+   },
+   "diff_spell_f1": 0.01655359565807324,
+   "diff_macro_f1": 0.00209845170932188,
+   "frames_changed": 1180,
+   "keeper2_moved_pieces": 0,
+   "seconds_v2": 57,
+   "seconds_tcn": 73
+  },
+  {
+   "copy": "J03WR9|19112",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.7103953147877012,
+    "macro_f1": 0.9437793479381732,
+    "trans_f1_12": 0.6216530849825378,
+    "trans_f1_25": 0.7334109429569268,
+    "n_gt_spells": 370,
+    "n_pred_spells": 313,
+    "pred_spells_under_2s": 55,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 32,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 7
+   },
+   "fused": {
+    "spell_f1": 0.7242603550295857,
+    "macro_f1": 0.9459879916751808,
+    "trans_f1_12": 0.63689776733255,
+    "trans_f1_25": 0.745005875440658,
+    "n_gt_spells": 370,
+    "n_pred_spells": 306,
+    "pred_spells_under_2s": 49,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 33,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 8
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7086892488954344,
+    "macro_f1": 0.9366267132969438,
+    "trans_f1_12": 0.5967365967365967,
+    "trans_f1_25": 0.7319347319347319,
+    "n_gt_spells": 370,
+    "n_pred_spells": 309,
+    "pred_spells_under_2s": 46,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 34,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 10
+   },
+   "diff_spell_f1": 0.013865040241884508,
+   "diff_macro_f1": 0.002208643737007576,
+   "frames_changed": 1049,
+   "noise_m": {
+    "ball_m": 0.1761,
+    "players_m": 0.2455
+   },
+   "keeper2_moved_pieces": 11,
+   "ball_visible_in_play": 0.627,
+   "seconds_v2": 21,
+   "seconds_tcn": 68
+  },
+  {
+   "copy": "J03WR9|19113",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl4_both_s0.npz",
+    "dfl4_both_s1.npz",
+    "dfl4_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6813509544787077,
+    "macro_f1": 0.9371686791840602,
+    "trans_f1_12": 0.610917537746806,
+    "trans_f1_25": 0.7293844367015098,
+    "n_gt_spells": 370,
+    "n_pred_spells": 311,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 28,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 8
+   },
+   "fused": {
+    "spell_f1": 0.6924855491329479,
+    "macro_f1": 0.938736551015948,
+    "trans_f1_12": 0.6291618828932262,
+    "trans_f1_25": 0.7439724454649829,
+    "n_gt_spells": 370,
+    "n_pred_spells": 322,
+    "pred_spells_under_2s": 55,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 32,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 10
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6958823529411765,
+    "macro_f1": 0.9380471174544024,
+    "trans_f1_12": 0.5900116144018582,
+    "trans_f1_25": 0.7224157955865274,
+    "n_gt_spells": 370,
+    "n_pred_spells": 310,
+    "pred_spells_under_2s": 45,
+    "gt_spells_under_2s": 94,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 41,
+    "found_under_1s_iou03": 7
+   },
+   "diff_spell_f1": 0.01113459465424016,
+   "diff_macro_f1": 0.0015678718318877793,
+   "frames_changed": 1064,
+   "noise_m": {
+    "ball_m": 0.295,
+    "players_m": 0.1679
+   },
+   "keeper2_moved_pieces": 4,
+   "ball_visible_in_play": 0.673,
+   "seconds_v2": 23,
+   "seconds_tcn": 70
+  },
+  {
+   "copy": "MET1|19120",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6095808383233533,
+    "macro_f1": 0.8059406354991775,
+    "trans_f1_12": 0.47058823529411764,
+    "trans_f1_25": 0.5546218487394958,
+    "n_gt_spells": 379,
+    "n_pred_spells": 289,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 19,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 1
+   },
+   "fused": {
+    "spell_f1": 0.6317979197622585,
+    "macro_f1": 0.8167276771744493,
+    "trans_f1_12": 0.4946236559139785,
+    "trans_f1_25": 0.5854241338112306,
+    "n_gt_spells": 379,
+    "n_pred_spells": 294,
+    "pred_spells_under_2s": 47,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 20,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 1
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6263929618768328,
+    "macro_f1": 0.8200583347349933,
+    "trans_f1_12": 0.47820965842167257,
+    "trans_f1_25": 0.6101295641931684,
+    "n_gt_spells": 379,
+    "n_pred_spells": 303,
+    "pred_spells_under_2s": 37,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 16,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 0
+   },
+   "diff_spell_f1": 0.022217081438905217,
+   "diff_macro_f1": 0.01078704167527178,
+   "frames_changed": 2394,
+   "noise_m": {
+    "ball_m": 0.2751,
+    "players_m": 0.0488
+   },
+   "keeper2_moved_pieces": 22,
+   "ball_visible_in_play": 0.344,
+   "seconds_v2": 57,
+   "seconds_tcn": 72
+  },
+  {
+   "copy": "MET1|19120",
+   "condition": "fill_good",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6896159317211948,
+    "macro_f1": 0.8449571778967897,
+    "trans_f1_12": 0.5882352941176472,
+    "trans_f1_25": 0.685121107266436,
+    "n_gt_spells": 379,
+    "n_pred_spells": 324,
+    "pred_spells_under_2s": 50,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 30,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 5
+   },
+   "fused": {
+    "spell_f1": 0.7054755043227666,
+    "macro_f1": 0.8499246234947399,
+    "trans_f1_12": 0.6069767441860465,
+    "trans_f1_25": 0.7209302325581396,
+    "n_gt_spells": 379,
+    "n_pred_spells": 315,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 30,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 5
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7012912482065998,
+    "macro_f1": 0.8420491534237821,
+    "trans_f1_12": 0.5803468208092485,
+    "trans_f1_25": 0.7075144508670521,
+    "n_gt_spells": 379,
+    "n_pred_spells": 318,
+    "pred_spells_under_2s": 37,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "diff_spell_f1": 0.01585957260157178,
+   "diff_macro_f1": 0.004967445597950149,
+   "frames_changed": 1352,
+   "noise_m": {
+    "ball_m": 0.2751,
+    "players_m": 0.0488
+   },
+   "keeper2_moved_pieces": 22,
+   "ball_visible_in_play": 0.344,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.3715,
+    "filled": 20543,
+    "ball_visible_graded_before": 0.3442,
+    "ball_visible_graded_after": 0.4859
+   },
+   "simulation_seconds": 61,
+   "broadcast_quality": {
+    "bias_sd": 0.1956,
+    "b_sd": 0.1804,
+    "p_sd": 0.0919,
+    "ball_frac": 0.7166,
+    "invalid": 0.2147
+   },
+   "seconds_v2": 52,
+   "seconds_tcn": 66
+  },
+  {
+   "copy": "MET1|19120",
+   "condition": "fill_medium",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6839650145772596,
+    "macro_f1": 0.8371558948612007,
+    "trans_f1_12": 0.5650644783118406,
+    "trans_f1_25": 0.6541617819460728,
+    "n_gt_spells": 379,
+    "n_pred_spells": 307,
+    "pred_spells_under_2s": 46,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 28,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 5
+   },
+   "fused": {
+    "spell_f1": 0.7055393586005831,
+    "macro_f1": 0.8429150038929581,
+    "trans_f1_12": 0.593200468933177,
+    "trans_f1_25": 0.6799531066822979,
+    "n_gt_spells": 379,
+    "n_pred_spells": 307,
+    "pred_spells_under_2s": 48,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 30,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 5
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6962099125364432,
+    "macro_f1": 0.8401592853682648,
+    "trans_f1_12": 0.5677570093457945,
+    "trans_f1_25": 0.6892523364485982,
+    "n_gt_spells": 379,
+    "n_pred_spells": 307,
+    "pred_spells_under_2s": 35,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "diff_spell_f1": 0.02157434402332359,
+   "diff_macro_f1": 0.00575910903175747,
+   "frames_changed": 1428,
+   "noise_m": {
+    "ball_m": 0.2751,
+    "players_m": 0.0488
+   },
+   "keeper2_moved_pieces": 22,
+   "ball_visible_in_play": 0.344,
+   "regime": "medium",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.4074,
+    "filled": 14339,
+    "ball_visible_graded_before": 0.3442,
+    "ball_visible_graded_after": 0.4431
+   },
+   "simulation_seconds": 51,
+   "broadcast_quality": {
+    "bias_sd": 0.2095,
+    "b_sd": 0.3373,
+    "p_sd": 0.2556,
+    "ball_frac": 0.5798,
+    "invalid": 0.2812
+   },
+   "seconds_v2": 49,
+   "seconds_tcn": 64
+  },
+  {
+   "copy": "MET1|19120",
+   "condition": "view42",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6267857142857143,
+    "macro_f1": 0.8090600635115219,
+    "trans_f1_12": 0.4832535885167464,
+    "trans_f1_25": 0.5861244019138755,
+    "n_gt_spells": 379,
+    "n_pred_spells": 293,
+    "pred_spells_under_2s": 46,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 20,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "fused": {
+    "spell_f1": 0.6379518072289156,
+    "macro_f1": 0.8136671668612662,
+    "trans_f1_12": 0.4860943168077388,
+    "trans_f1_25": 0.585247883917775,
+    "n_gt_spells": 379,
+    "n_pred_spells": 285,
+    "pred_spells_under_2s": 38,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 18,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 1
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6290801186943621,
+    "macro_f1": 0.817396685012597,
+    "trans_f1_12": 0.46737841043890865,
+    "trans_f1_25": 0.6026097271648874,
+    "n_gt_spells": 379,
+    "n_pred_spells": 295,
+    "pred_spells_under_2s": 35,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 16,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 0
+   },
+   "diff_spell_f1": 0.011166092943201367,
+   "diff_macro_f1": 0.004607103349744235,
+   "frames_changed": 1658,
+   "keeper2_moved_pieces": 4,
+   "seconds_v2": 53,
+   "seconds_tcn": 68
+  },
+  {
+   "copy": "MET1|69102",
+   "condition": "tactical_sim2",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.7182978723404256,
+    "macro_f1": 0.8343301425820274,
+    "trans_f1_12": 0.641291810841984,
+    "trans_f1_25": 0.7081891580161477,
+    "n_gt_spells": 379,
+    "n_pred_spells": 326,
+    "pred_spells_under_2s": 50,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 30,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 8
+   },
+   "fused": {
+    "spell_f1": 0.7373219373219373,
+    "macro_f1": 0.847626752657242,
+    "trans_f1_12": 0.6519721577726217,
+    "trans_f1_25": 0.7424593967517402,
+    "n_gt_spells": 379,
+    "n_pred_spells": 323,
+    "pred_spells_under_2s": 56,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 33,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 6
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7213773314203731,
+    "macro_f1": 0.8446042675494435,
+    "trans_f1_12": 0.6473988439306358,
+    "trans_f1_25": 0.7398843930635838,
+    "n_gt_spells": 379,
+    "n_pred_spells": 318,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 33,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 6
+   },
+   "diff_spell_f1": 0.019024064981511657,
+   "diff_macro_f1": 0.013296610075214543,
+   "frames_changed": 2745,
+   "noise_m": {
+    "ball_m": 0.0733,
+    "players_m": 0.0444
+   },
+   "keeper2_moved_pieces": 0,
+   "ball_visible_in_play": 0.535,
+   "seconds_v2": 52,
+   "seconds_tcn": 64
+  },
+  {
+   "copy": "MET1|19121",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6384949348769899,
+    "macro_f1": 0.8255386185537938,
+    "trans_f1_12": 0.508235294117647,
+    "trans_f1_25": 0.6141176470588235,
+    "n_gt_spells": 379,
+    "n_pred_spells": 312,
+    "pred_spells_under_2s": 56,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 27,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "fused": {
+    "spell_f1": 0.64070796460177,
+    "macro_f1": 0.8275759672924354,
+    "trans_f1_12": 0.5023923444976077,
+    "trans_f1_25": 0.6267942583732057,
+    "n_gt_spells": 379,
+    "n_pred_spells": 299,
+    "pred_spells_under_2s": 45,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 24,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6379160636758321,
+    "macro_f1": 0.8150663070396503,
+    "trans_f1_12": 0.5017421602787456,
+    "trans_f1_25": 0.627177700348432,
+    "n_gt_spells": 379,
+    "n_pred_spells": 312,
+    "pred_spells_under_2s": 41,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 23,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 1
+   },
+   "diff_spell_f1": 0.0022130297247801023,
+   "diff_macro_f1": 0.0020373487386415867,
+   "frames_changed": 1360,
+   "noise_m": {
+    "ball_m": 0.2616,
+    "players_m": 0.1873
+   },
+   "keeper2_moved_pieces": 9,
+   "ball_visible_in_play": 0.441,
+   "seconds_v2": 56,
+   "seconds_tcn": 71
+  },
+  {
+   "copy": "MET1|19121",
+   "condition": "fill_good",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6841068917018285,
+    "macro_f1": 0.8413147998985018,
+    "trans_f1_12": 0.5790080738177623,
+    "trans_f1_25": 0.6712802768166091,
+    "n_gt_spells": 379,
+    "n_pred_spells": 332,
+    "pred_spells_under_2s": 61,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "fused": {
+    "spell_f1": 0.6936416184971098,
+    "macro_f1": 0.8410940703256817,
+    "trans_f1_12": 0.5903187721369538,
+    "trans_f1_25": 0.6847697756788667,
+    "n_gt_spells": 379,
+    "n_pred_spells": 313,
+    "pred_spells_under_2s": 47,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 26,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6934497816593886,
+    "macro_f1": 0.834565067106707,
+    "trans_f1_12": 0.5627198124267291,
+    "trans_f1_25": 0.6799531066822979,
+    "n_gt_spells": 379,
+    "n_pred_spells": 308,
+    "pred_spells_under_2s": 32,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 0
+   },
+   "diff_spell_f1": 0.009534726795281334,
+   "diff_macro_f1": -0.00022072957282004424,
+   "frames_changed": 1015,
+   "noise_m": {
+    "ball_m": 0.2616,
+    "players_m": 0.1873
+   },
+   "keeper2_moved_pieces": 9,
+   "ball_visible_in_play": 0.441,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.3477,
+    "filled": 12525,
+    "ball_visible_graded_before": 0.4408,
+    "ball_visible_graded_after": 0.5272
+   },
+   "simulation_seconds": 57,
+   "broadcast_quality": {
+    "bias_sd": 0.0341,
+    "b_sd": 0.1895,
+    "p_sd": 0.0861,
+    "ball_frac": 0.7287,
+    "invalid": 0.2731
+   },
+   "seconds_v2": 57,
+   "seconds_tcn": 67
+  },
+  {
+   "copy": "MET1|19121",
+   "condition": "fill_medium",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6854748603351954,
+    "macro_f1": 0.8432416512367092,
+    "trans_f1_12": 0.5897142857142857,
+    "trans_f1_25": 0.6788571428571428,
+    "n_gt_spells": 379,
+    "n_pred_spells": 337,
+    "pred_spells_under_2s": 61,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 5
+   },
+   "fused": {
+    "spell_f1": 0.6857142857142856,
+    "macro_f1": 0.8422871109744111,
+    "trans_f1_12": 0.5841121495327102,
+    "trans_f1_25": 0.6962616822429907,
+    "n_gt_spells": 379,
+    "n_pred_spells": 321,
+    "pred_spells_under_2s": 48,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 28,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6855474452554745,
+    "macro_f1": 0.8343148901910564,
+    "trans_f1_12": 0.5569917743830787,
+    "trans_f1_25": 0.690951821386604,
+    "n_gt_spells": 379,
+    "n_pred_spells": 306,
+    "pred_spells_under_2s": 26,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 1
+   },
+   "diff_spell_f1": 0.00023942537909016348,
+   "diff_macro_f1": -0.0009545402622981314,
+   "frames_changed": 1383,
+   "noise_m": {
+    "ball_m": 0.2616,
+    "players_m": 0.1873
+   },
+   "keeper2_moved_pieces": 9,
+   "ball_visible_in_play": 0.441,
+   "regime": "medium",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.4826,
+    "filled": 13066,
+    "ball_visible_graded_before": 0.4408,
+    "ball_visible_graded_after": 0.5309
+   },
+   "simulation_seconds": 59,
+   "broadcast_quality": {
+    "bias_sd": 0.3725,
+    "b_sd": 0.4795,
+    "p_sd": 0.4425,
+    "ball_frac": 0.7554,
+    "invalid": 0.1916
+   },
+   "seconds_v2": 52,
+   "seconds_tcn": 65
+  },
+  {
+   "copy": "MET1|19121",
+   "condition": "view42",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6298118668596238,
+    "macro_f1": 0.8205727996338789,
+    "trans_f1_12": 0.5035294117647059,
+    "trans_f1_25": 0.6047058823529412,
+    "n_gt_spells": 379,
+    "n_pred_spells": 312,
+    "pred_spells_under_2s": 50,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 28,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "fused": {
+    "spell_f1": 0.6430678466076696,
+    "macro_f1": 0.8229884384376206,
+    "trans_f1_12": 0.4922341696535245,
+    "trans_f1_25": 0.6117084826762247,
+    "n_gt_spells": 379,
+    "n_pred_spells": 299,
+    "pred_spells_under_2s": 41,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 24,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 1
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6274853801169591,
+    "macro_f1": 0.8097122203738722,
+    "trans_f1_12": 0.49706916764361087,
+    "trans_f1_25": 0.6096131301289567,
+    "n_gt_spells": 379,
+    "n_pred_spells": 305,
+    "pred_spells_under_2s": 36,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 22,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 1
+   },
+   "diff_spell_f1": 0.01325597974804582,
+   "diff_macro_f1": 0.0024156388037417376,
+   "frames_changed": 1428,
+   "keeper2_moved_pieces": 5,
+   "seconds_v2": 55,
+   "seconds_tcn": 67
+  },
+  {
+   "copy": "MET1|19122",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6862170087976539,
+    "macro_f1": 0.8333902314764194,
+    "trans_f1_12": 0.558858501783591,
+    "trans_f1_25": 0.6730083234244946,
+    "n_gt_spells": 379,
+    "n_pred_spells": 303,
+    "pred_spells_under_2s": 54,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 28,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "fused": {
+    "spell_f1": 0.6983847283406756,
+    "macro_f1": 0.8349556151384717,
+    "trans_f1_12": 0.5755053507728894,
+    "trans_f1_25": 0.6777645659928656,
+    "n_gt_spells": 379,
+    "n_pred_spells": 302,
+    "pred_spells_under_2s": 50,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6717423133235725,
+    "macro_f1": 0.8281785724347519,
+    "trans_f1_12": 0.5527876631079478,
+    "trans_f1_25": 0.6809015421115066,
+    "n_gt_spells": 379,
+    "n_pred_spells": 304,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 26,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "diff_spell_f1": 0.012167719543021649,
+   "diff_macro_f1": 0.0015653836620522776,
+   "frames_changed": 1524,
+   "noise_m": {
+    "ball_m": 0.1993,
+    "players_m": 0.1009
+   },
+   "keeper2_moved_pieces": 7,
+   "ball_visible_in_play": 0.414,
+   "seconds_v2": 55,
+   "seconds_tcn": 69
+  },
+  {
+   "copy": "MET1|19123",
+   "condition": "tactical",
+   "path": "v2.3",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": false,
+   "v2_11": {
+    "spell_f1": 0.6640483383685801,
+    "macro_f1": 0.8301844878947863,
+    "trans_f1_12": 0.5721212121212121,
+    "trans_f1_25": 0.6569696969696969,
+    "n_gt_spells": 379,
+    "n_pred_spells": 283,
+    "pred_spells_under_2s": 28,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 20,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "fused": {
+    "spell_f1": 0.6640483383685801,
+    "macro_f1": 0.8301844878947863,
+    "trans_f1_12": 0.5721212121212121,
+    "trans_f1_25": 0.6569696969696969,
+    "n_gt_spells": 379,
+    "n_pred_spells": 283,
+    "pred_spells_under_2s": 28,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 20,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6723279648609078,
+    "macro_f1": 0.8240109385515795,
+    "trans_f1_12": 0.5518867924528301,
+    "trans_f1_25": 0.6721698113207548,
+    "n_gt_spells": 379,
+    "n_pred_spells": 304,
+    "pred_spells_under_2s": 36,
+    "gt_spells_under_2s": 93,
+    "found_under_2s_iou03": 27,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "diff_spell_f1": 0.0,
+   "diff_macro_f1": 0.0,
+   "frames_changed": 0,
+   "noise_m": {
+    "ball_m": 0.1617,
+    "players_m": 0.3001
+   },
+   "keeper2_moved_pieces": 2,
+   "ball_visible_in_play": 0.475,
+   "seconds_v2": 57,
+   "seconds_tcn": 69
+  },
+  {
+   "copy": "MET2|19130",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6453416149068322,
+    "macro_f1": 0.802631647465816,
+    "trans_f1_12": 0.5099009900990099,
+    "trans_f1_25": 0.6089108910891089,
+    "n_gt_spells": 364,
+    "n_pred_spells": 280,
+    "pred_spells_under_2s": 48,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 32,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "fused": {
+    "spell_f1": 0.6618524332810047,
+    "macro_f1": 0.8073442830018882,
+    "trans_f1_12": 0.5263157894736843,
+    "trans_f1_25": 0.6240601503759399,
+    "n_gt_spells": 364,
+    "n_pred_spells": 273,
+    "pred_spells_under_2s": 41,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6503030303030304,
+    "macro_f1": 0.8025052555517824,
+    "trans_f1_12": 0.5048309178743962,
+    "trans_f1_25": 0.6038647342995169,
+    "n_gt_spells": 364,
+    "n_pred_spells": 296,
+    "pred_spells_under_2s": 45,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 35,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 5
+   },
+   "diff_spell_f1": 0.016510818374172564,
+   "diff_macro_f1": 0.004712635536072263,
+   "frames_changed": 1819,
+   "noise_m": {
+    "ball_m": 0.2881,
+    "players_m": 0.0761
+   },
+   "keeper2_moved_pieces": 6,
+   "ball_visible_in_play": 0.404,
+   "seconds_v2": 51,
+   "seconds_tcn": 65
+  },
+  {
+   "copy": "MET2|19130",
+   "condition": "fill_good",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6876132930513597,
+    "macro_f1": 0.8199100283055204,
+    "trans_f1_12": 0.5878048780487803,
+    "trans_f1_25": 0.6926829268292682,
+    "n_gt_spells": 364,
+    "n_pred_spells": 298,
+    "pred_spells_under_2s": 60,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 39,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 5
+   },
+   "fused": {
+    "spell_f1": 0.7038284839203676,
+    "macro_f1": 0.8213441761097972,
+    "trans_f1_12": 0.6024691358024692,
+    "trans_f1_25": 0.688888888888889,
+    "n_gt_spells": 364,
+    "n_pred_spells": 289,
+    "pred_spells_under_2s": 51,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 40,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6843373493975904,
+    "macro_f1": 0.8159865208590867,
+    "trans_f1_12": 0.5669481302774427,
+    "trans_f1_25": 0.6658624849215923,
+    "n_gt_spells": 364,
+    "n_pred_spells": 300,
+    "pred_spells_under_2s": 50,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 39,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "diff_spell_f1": 0.01621519086900791,
+   "diff_macro_f1": 0.001434147804276753,
+   "frames_changed": 1230,
+   "noise_m": {
+    "ball_m": 0.2881,
+    "players_m": 0.0761
+   },
+   "keeper2_moved_pieces": 6,
+   "ball_visible_in_play": 0.404,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.3744,
+    "filled": 12676,
+    "ball_visible_graded_before": 0.4039,
+    "ball_visible_graded_after": 0.4937
+   },
+   "simulation_seconds": 54,
+   "broadcast_quality": {
+    "bias_sd": 0.1958,
+    "b_sd": 0.0525,
+    "p_sd": 0.2165,
+    "ball_frac": 0.6961,
+    "invalid": 0.2605
+   },
+   "seconds_v2": 51,
+   "seconds_tcn": 60
+  },
+  {
+   "copy": "MET2|19130",
+   "condition": "fill_medium",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6453416149068322,
+    "macro_f1": 0.802631647465816,
+    "trans_f1_12": 0.5099009900990099,
+    "trans_f1_25": 0.6089108910891089,
+    "n_gt_spells": 364,
+    "n_pred_spells": 280,
+    "pred_spells_under_2s": 48,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 32,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "fused": {
+    "spell_f1": 0.6618524332810047,
+    "macro_f1": 0.8073442830018882,
+    "trans_f1_12": 0.5263157894736843,
+    "trans_f1_25": 0.6240601503759399,
+    "n_gt_spells": 364,
+    "n_pred_spells": 273,
+    "pred_spells_under_2s": 41,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6503030303030304,
+    "macro_f1": 0.8025052555517824,
+    "trans_f1_12": 0.5048309178743962,
+    "trans_f1_25": 0.6038647342995169,
+    "n_gt_spells": 364,
+    "n_pred_spells": 296,
+    "pred_spells_under_2s": 45,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 35,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 5
+   },
+   "diff_spell_f1": 0.016510818374172564,
+   "diff_macro_f1": 0.004712635536072263,
+   "frames_changed": 1819,
+   "noise_m": {
+    "ball_m": 0.2881,
+    "players_m": 0.0761
+   },
+   "keeper2_moved_pieces": 6,
+   "ball_visible_in_play": 0.404,
+   "regime": "medium",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": false,
+    "median_distance_m": 0.5335,
+    "filled": 0,
+    "ball_visible_graded_before": null,
+    "ball_visible_graded_after": null
+   },
+   "simulation_seconds": 62,
+   "broadcast_quality": {
+    "bias_sd": 0.5728,
+    "b_sd": 0.4229,
+    "p_sd": 0.3129,
+    "ball_frac": 0.6835,
+    "invalid": 0.1598
+   },
+   "seconds_v2": 51,
+   "seconds_tcn": 63
+  },
+  {
+   "copy": "MET2|19130",
+   "condition": "view42",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6553459119496855,
+    "macro_f1": 0.8025442796290488,
+    "trans_f1_12": 0.5031289111389237,
+    "trans_f1_25": 0.6282853566958699,
+    "n_gt_spells": 364,
+    "n_pred_spells": 272,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "fused": {
+    "spell_f1": 0.6691943127962086,
+    "macro_f1": 0.8082366182775038,
+    "trans_f1_12": 0.5126262626262627,
+    "trans_f1_25": 0.6237373737373738,
+    "n_gt_spells": 364,
+    "n_pred_spells": 269,
+    "pred_spells_under_2s": 46,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6524031007751938,
+    "macro_f1": 0.7995080643507576,
+    "trans_f1_12": 0.5104808877928484,
+    "trans_f1_25": 0.6115906288532675,
+    "n_gt_spells": 364,
+    "n_pred_spells": 281,
+    "pred_spells_under_2s": 42,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 32,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "diff_spell_f1": 0.013848400846523057,
+   "diff_macro_f1": 0.005692338648454975,
+   "frames_changed": 1955,
+   "keeper2_moved_pieces": 1,
+   "seconds_v2": 47,
+   "seconds_tcn": 59
+  },
+  {
+   "copy": "MET2|69103",
+   "condition": "tactical_sim2",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.7016393442622951,
+    "macro_f1": 0.8119173055273089,
+    "trans_f1_12": 0.5485436893203883,
+    "trans_f1_25": 0.6844660194174756,
+    "n_gt_spells": 364,
+    "n_pred_spells": 307,
+    "pred_spells_under_2s": 49,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 38,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "fused": {
+    "spell_f1": 0.7221719457013575,
+    "macro_f1": 0.8171659612397897,
+    "trans_f1_12": 0.567237163814181,
+    "trans_f1_25": 0.7017114914425429,
+    "n_gt_spells": 364,
+    "n_pred_spells": 299,
+    "pred_spells_under_2s": 51,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 39,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7212307692307693,
+    "macro_f1": 0.8240485277828573,
+    "trans_f1_12": 0.6282208588957056,
+    "trans_f1_25": 0.7288343558282208,
+    "n_gt_spells": 364,
+    "n_pred_spells": 286,
+    "pred_spells_under_2s": 45,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 42,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 4
+   },
+   "diff_spell_f1": 0.020532601439062326,
+   "diff_macro_f1": 0.0052486557124807875,
+   "frames_changed": 1745,
+   "noise_m": {
+    "ball_m": 0.0862,
+    "players_m": 0.0624
+   },
+   "keeper2_moved_pieces": 0,
+   "ball_visible_in_play": 0.499,
+   "seconds_v2": 50,
+   "seconds_tcn": 64
+  },
+  {
+   "copy": "MET2|19131",
+   "condition": "tactical",
+   "path": "v2.3",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": false,
+   "v2_11": {
+    "spell_f1": 0.6317460317460317,
+    "macro_f1": 0.7953004180641976,
+    "trans_f1_12": 0.49748743718592964,
+    "trans_f1_25": 0.5879396984924623,
+    "n_gt_spells": 364,
+    "n_pred_spells": 266,
+    "pred_spells_under_2s": 35,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 26,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "fused": {
+    "spell_f1": 0.6317460317460317,
+    "macro_f1": 0.7953004180641976,
+    "trans_f1_12": 0.49748743718592964,
+    "trans_f1_25": 0.5879396984924623,
+    "n_gt_spells": 364,
+    "n_pred_spells": 266,
+    "pred_spells_under_2s": 35,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 26,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6547692307692308,
+    "macro_f1": 0.8067832520118534,
+    "trans_f1_12": 0.49877750611246946,
+    "trans_f1_25": 0.6136919315403423,
+    "n_gt_spells": 364,
+    "n_pred_spells": 286,
+    "pred_spells_under_2s": 41,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 29,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "diff_spell_f1": 0.0,
+   "diff_macro_f1": 0.0,
+   "frames_changed": 0,
+   "noise_m": {
+    "ball_m": 0.3056,
+    "players_m": 0.1062
+   },
+   "keeper2_moved_pieces": 11,
+   "ball_visible_in_play": 0.398,
+   "seconds_v2": 54,
+   "seconds_tcn": 63
+  },
+  {
+   "copy": "MET2|19131",
+   "condition": "fill_good",
+   "path": "v2.3",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": false,
+   "v2_11": {
+    "spell_f1": 0.687211093990755,
+    "macro_f1": 0.8169421780617032,
+    "trans_f1_12": 0.5742574257425742,
+    "trans_f1_25": 0.6831683168316832,
+    "n_gt_spells": 364,
+    "n_pred_spells": 285,
+    "pred_spells_under_2s": 37,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 33,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "fused": {
+    "spell_f1": 0.687211093990755,
+    "macro_f1": 0.8169421780617032,
+    "trans_f1_12": 0.5742574257425742,
+    "trans_f1_25": 0.6831683168316832,
+    "n_gt_spells": 364,
+    "n_pred_spells": 285,
+    "pred_spells_under_2s": 37,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 33,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "tcn_alone": {
+    "spell_f1": 0.7060975609756097,
+    "macro_f1": 0.8213738482617323,
+    "trans_f1_12": 0.6051032806804375,
+    "trans_f1_25": 0.692588092345079,
+    "n_gt_spells": 364,
+    "n_pred_spells": 292,
+    "pred_spells_under_2s": 44,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 39,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "diff_spell_f1": 0.0,
+   "diff_macro_f1": 0.0,
+   "frames_changed": 0,
+   "noise_m": {
+    "ball_m": 0.3056,
+    "players_m": 0.1062
+   },
+   "keeper2_moved_pieces": 11,
+   "ball_visible_in_play": 0.398,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.3837,
+    "filled": 14447,
+    "ball_visible_graded_before": 0.3977,
+    "ball_visible_graded_after": 0.5
+   },
+   "simulation_seconds": 60,
+   "broadcast_quality": {
+    "bias_sd": 0.0292,
+    "b_sd": 0.0776,
+    "p_sd": 0.1246,
+    "ball_frac": 0.7009,
+    "invalid": 0.236
+   },
+   "seconds_v2": 53,
+   "seconds_tcn": 66
+  },
+  {
+   "copy": "MET2|19131",
+   "condition": "fill_medium",
+   "path": "v2.3",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": false,
+   "v2_11": {
+    "spell_f1": 0.6666666666666667,
+    "macro_f1": 0.8132918823081887,
+    "trans_f1_12": 0.5568039950062422,
+    "trans_f1_25": 0.6566791510611735,
+    "n_gt_spells": 364,
+    "n_pred_spells": 275,
+    "pred_spells_under_2s": 35,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 26,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "fused": {
+    "spell_f1": 0.6666666666666667,
+    "macro_f1": 0.8132918823081887,
+    "trans_f1_12": 0.5568039950062422,
+    "trans_f1_25": 0.6566791510611735,
+    "n_gt_spells": 364,
+    "n_pred_spells": 275,
+    "pred_spells_under_2s": 35,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 26,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6874806800618238,
+    "macro_f1": 0.818523871376796,
+    "trans_f1_12": 0.5570552147239265,
+    "trans_f1_25": 0.6625766871165644,
+    "n_gt_spells": 364,
+    "n_pred_spells": 283,
+    "pred_spells_under_2s": 35,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 33,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "diff_spell_f1": 0.0,
+   "diff_macro_f1": 0.0,
+   "frames_changed": 0,
+   "noise_m": {
+    "ball_m": 0.3056,
+    "players_m": 0.1062
+   },
+   "keeper2_moved_pieces": 11,
+   "ball_visible_in_play": 0.398,
+   "regime": "medium",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.4755,
+    "filled": 11402,
+    "ball_visible_graded_before": 0.3977,
+    "ball_visible_graded_after": 0.4785
+   },
+   "simulation_seconds": 54,
+   "broadcast_quality": {
+    "bias_sd": 0.3076,
+    "b_sd": 0.4128,
+    "p_sd": 0.2921,
+    "ball_frac": 0.6652,
+    "invalid": 0.2862
+   },
+   "seconds_v2": 53,
+   "seconds_tcn": 64
+  },
+  {
+   "copy": "MET2|19131",
+   "condition": "view42",
+   "path": "v2.3",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": false,
+   "v2_11": {
+    "spell_f1": 0.614354066985646,
+    "macro_f1": 0.794639117541406,
+    "trans_f1_12": 0.49494949494949503,
+    "trans_f1_25": 0.5808080808080808,
+    "n_gt_spells": 364,
+    "n_pred_spells": 263,
+    "pred_spells_under_2s": 35,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "fused": {
+    "spell_f1": 0.614354066985646,
+    "macro_f1": 0.794639117541406,
+    "trans_f1_12": 0.49494949494949503,
+    "trans_f1_25": 0.5808080808080808,
+    "n_gt_spells": 364,
+    "n_pred_spells": 263,
+    "pred_spells_under_2s": 35,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6558502340093604,
+    "macro_f1": 0.806316143305183,
+    "trans_f1_12": 0.49135802469135803,
+    "trans_f1_25": 0.6098765432098765,
+    "n_gt_spells": 364,
+    "n_pred_spells": 277,
+    "pred_spells_under_2s": 38,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 26,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "diff_spell_f1": 0.0,
+   "diff_macro_f1": 0.0,
+   "frames_changed": 0,
+   "keeper2_moved_pieces": 1,
+   "seconds_v2": 53,
+   "seconds_tcn": 62
+  },
+  {
+   "copy": "MET2|19132",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6220820189274449,
+    "macro_f1": 0.8005136326260297,
+    "trans_f1_12": 0.4772727272727273,
+    "trans_f1_25": 0.5808080808080808,
+    "n_gt_spells": 364,
+    "n_pred_spells": 270,
+    "pred_spells_under_2s": 40,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 25,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "fused": {
+    "spell_f1": 0.6271293375394322,
+    "macro_f1": 0.8035132638004107,
+    "trans_f1_12": 0.49051833122629585,
+    "trans_f1_25": 0.5941845764854614,
+    "n_gt_spells": 364,
+    "n_pred_spells": 270,
+    "pred_spells_under_2s": 42,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 27,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6436923076923078,
+    "macro_f1": 0.8051408982242901,
+    "trans_f1_12": 0.515970515970516,
+    "trans_f1_25": 0.6265356265356266,
+    "n_gt_spells": 364,
+    "n_pred_spells": 286,
+    "pred_spells_under_2s": 48,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 28,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 2
+   },
+   "diff_spell_f1": 0.0050473186119873725,
+   "diff_macro_f1": 0.0029996311743809567,
+   "frames_changed": 1105,
+   "noise_m": {
+    "ball_m": 0.089,
+    "players_m": 0.0873
+   },
+   "keeper2_moved_pieces": 7,
+   "ball_visible_in_play": 0.416,
+   "seconds_v2": 50,
+   "seconds_tcn": 66
+  },
+  {
+   "copy": "MET2|19133",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "v2_11": {
+    "spell_f1": 0.6310030395136778,
+    "macro_f1": 0.7911141758384513,
+    "trans_f1_12": 0.46002460024600245,
+    "trans_f1_25": 0.5977859778597786,
+    "n_gt_spells": 364,
+    "n_pred_spells": 294,
+    "pred_spells_under_2s": 51,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 31,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 6
+   },
+   "fused": {
+    "spell_f1": 0.6507836990595611,
+    "macro_f1": 0.7961812782622549,
+    "trans_f1_12": 0.4987405541561713,
+    "trans_f1_25": 0.6095717884130983,
+    "n_gt_spells": 364,
+    "n_pred_spells": 274,
+    "pred_spells_under_2s": 39,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 28,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 5
+   },
+   "tcn_alone": {
+    "spell_f1": 0.6434250764525993,
+    "macro_f1": 0.7973447500099963,
+    "trans_f1_12": 0.47815533980582525,
+    "trans_f1_25": 0.5970873786407768,
+    "n_gt_spells": 364,
+    "n_pred_spells": 290,
+    "pred_spells_under_2s": 59,
+    "gt_spells_under_2s": 105,
+    "found_under_2s_iou03": 34,
+    "gt_spells_under_1s": 44,
+    "found_under_1s_iou03": 3
+   },
+   "diff_spell_f1": 0.019780659545883372,
+   "diff_macro_f1": 0.005067102423803593,
+   "frames_changed": 1745,
+   "noise_m": {
+    "ball_m": 0.0567,
+    "players_m": 0.0931
+   },
+   "keeper2_moved_pieces": 12,
+   "ball_visible_in_play": 0.38,
+   "seconds_v2": 52,
+   "seconds_tcn": 70
+  }
+ ],
+ "provided_fixture_used": false,
+ "metrica_game3_after_decision": {
+  "note": "one new copy (seed 39103) and one copy of the teammate's simulator, run once after the decision; not a gate; game 3 was used in the development of this candidate (diagnostics and the choice of the pooling)",
+  "rows": [
+   {
+    "copy": "MET3|39103",
+    "condition": "tactical",
+    "path": "v2.1",
+    "v2_side": "released bundles",
+    "tcn_weights": [
+     "dfl6_both_s0.npz",
+     "dfl6_both_s1.npz",
+     "dfl6_both_s2.npz"
+    ],
+    "fused_on_this_path": true,
+    "v2_11": {
+     "spell_f1": 0.6427586206896552,
+     "macro_f1": 0.8310347722810945,
+     "trans_f1_12": 0.4916201117318436,
+     "trans_f1_25": 0.5899441340782122,
+     "n_gt_spells": 404,
+     "n_pred_spells": 321,
+     "pred_spells_under_2s": 55,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 32,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 6
+    },
+    "fused": {
+     "spell_f1": 0.6649859943977591,
+     "macro_f1": 0.8404450133376873,
+     "trans_f1_12": 0.4954545454545454,
+     "trans_f1_25": 0.5954545454545455,
+     "n_gt_spells": 404,
+     "n_pred_spells": 310,
+     "pred_spells_under_2s": 45,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 30,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 2
+    },
+    "tcn_alone": {
+     "spell_f1": 0.6711111111111111,
+     "macro_f1": 0.843198659809041,
+     "trans_f1_12": 0.48430493273542596,
+     "trans_f1_25": 0.6076233183856502,
+     "n_gt_spells": 404,
+     "n_pred_spells": 316,
+     "pred_spells_under_2s": 39,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 34,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 4
+    },
+    "diff_spell_f1": 0.022227373708103904,
+    "diff_macro_f1": 0.009410241056592827,
+    "frames_changed": 3342,
+    "noise_m": {
+     "ball_m": 0.2077,
+     "players_m": 0.0544
+    },
+    "keeper2_moved_pieces": 15,
+    "ball_visible_in_play": 0.421,
+    "seconds_v2": 68,
+    "seconds_tcn": 115
+   },
+   {
+    "copy": "MET3|39103",
+    "condition": "fill_good",
+    "path": "v2.1",
+    "v2_side": "released bundles",
+    "tcn_weights": [
+     "dfl6_both_s0.npz",
+     "dfl6_both_s1.npz",
+     "dfl6_both_s2.npz"
+    ],
+    "fused_on_this_path": true,
+    "v2_11": {
+     "spell_f1": 0.7153949129852745,
+     "macro_f1": 0.8620389785921717,
+     "trans_f1_12": 0.6265060240963856,
+     "trans_f1_25": 0.7097480832420591,
+     "n_gt_spells": 404,
+     "n_pred_spells": 343,
+     "pred_spells_under_2s": 58,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 37,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 5
+    },
+    "fused": {
+     "spell_f1": 0.7316421895861147,
+     "macro_f1": 0.863726619051516,
+     "trans_f1_12": 0.6593647316538883,
+     "trans_f1_25": 0.7163198247535597,
+     "n_gt_spells": 404,
+     "n_pred_spells": 345,
+     "pred_spells_under_2s": 62,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 39,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 5
+    },
+    "tcn_alone": {
+     "spell_f1": 0.7093622795115332,
+     "macro_f1": 0.8562846459188235,
+     "trans_f1_12": 0.5824175824175825,
+     "trans_f1_25": 0.6791208791208792,
+     "n_gt_spells": 404,
+     "n_pred_spells": 333,
+     "pred_spells_under_2s": 47,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 40,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 6
+    },
+    "diff_spell_f1": 0.016247276600840244,
+    "diff_macro_f1": 0.0016876404593443306,
+    "frames_changed": 1448,
+    "noise_m": {
+     "ball_m": 0.2077,
+     "players_m": 0.0544
+    },
+    "keeper2_moved_pieces": 15,
+    "ball_visible_in_play": 0.421,
+    "regime": "good",
+    "alignment_mode": "clock",
+    "gate": {
+     "used": true,
+     "median_distance_m": 0.2732,
+     "filled": 20260,
+     "ball_visible_graded_before": 0.4209,
+     "ball_visible_graded_after": 0.5618
+    },
+    "simulation_seconds": 96,
+    "broadcast_quality": {
+     "bias_sd": 0.1414,
+     "b_sd": 0.0502,
+     "p_sd": 0.2273,
+     "ball_frac": 0.7414,
+     "invalid": 0.2066
+    },
+    "seconds_v2": 70,
+    "seconds_tcn": 89
+   },
+   {
+    "copy": "MET3|39103",
+    "condition": "fill_medium",
+    "path": "v2.1",
+    "v2_side": "released bundles",
+    "tcn_weights": [
+     "dfl6_both_s0.npz",
+     "dfl6_both_s1.npz",
+     "dfl6_both_s2.npz"
+    ],
+    "fused_on_this_path": true,
+    "v2_11": {
+     "spell_f1": 0.6885072655217966,
+     "macro_f1": 0.8551391566323746,
+     "trans_f1_12": 0.6013071895424836,
+     "trans_f1_25": 0.6666666666666667,
+     "n_gt_spells": 404,
+     "n_pred_spells": 353,
+     "pred_spells_under_2s": 70,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 40,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 9
+    },
+    "fused": {
+     "spell_f1": 0.7051655629139073,
+     "macro_f1": 0.8578976286572105,
+     "trans_f1_12": 0.6180631120783461,
+     "trans_f1_25": 0.6855277475516867,
+     "n_gt_spells": 404,
+     "n_pred_spells": 351,
+     "pred_spells_under_2s": 68,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 42,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 8
+    },
+    "tcn_alone": {
+     "spell_f1": 0.6980926430517711,
+     "macro_f1": 0.8539145661884087,
+     "trans_f1_12": 0.566079295154185,
+     "trans_f1_25": 0.6563876651982378,
+     "n_gt_spells": 404,
+     "n_pred_spells": 330,
+     "pred_spells_under_2s": 43,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 37,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 5
+    },
+    "diff_spell_f1": 0.016658297392110666,
+    "diff_macro_f1": 0.002758472024835923,
+    "frames_changed": 1620,
+    "noise_m": {
+     "ball_m": 0.2077,
+     "players_m": 0.0544
+    },
+    "keeper2_moved_pieces": 15,
+    "ball_visible_in_play": 0.421,
+    "regime": "medium",
+    "alignment_mode": "clock",
+    "gate": {
+     "used": true,
+     "median_distance_m": 0.4061,
+     "filled": 18094,
+     "ball_visible_graded_before": 0.4209,
+     "ball_visible_graded_after": 0.5467
+    },
+    "simulation_seconds": 64,
+    "broadcast_quality": {
+     "bias_sd": 0.2291,
+     "b_sd": 0.4979,
+     "p_sd": 0.3606,
+     "ball_frac": 0.5875,
+     "invalid": 0.1524
+    },
+    "seconds_v2": 73,
+    "seconds_tcn": 109
+   },
+   {
+    "copy": "MET3|39103",
+    "condition": "view42",
+    "path": "v2.1",
+    "v2_side": "released bundles",
+    "tcn_weights": [
+     "dfl6_both_s0.npz",
+     "dfl6_both_s1.npz",
+     "dfl6_both_s2.npz"
+    ],
+    "fused_on_this_path": true,
+    "v2_11": {
+     "spell_f1": 0.6471910112359551,
+     "macro_f1": 0.8374426345054652,
+     "trans_f1_12": 0.49374288964732654,
+     "trans_f1_25": 0.5984072810011377,
+     "n_gt_spells": 404,
+     "n_pred_spells": 308,
+     "pred_spells_under_2s": 48,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 33,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 6
+    },
+    "fused": {
+     "spell_f1": 0.6645892351274788,
+     "macro_f1": 0.8400676413010434,
+     "trans_f1_12": 0.5051664753157291,
+     "trans_f1_25": 0.6039035591274396,
+     "n_gt_spells": 404,
+     "n_pred_spells": 302,
+     "pred_spells_under_2s": 40,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 33,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 4
+    },
+    "tcn_alone": {
+     "spell_f1": 0.6608203677510608,
+     "macro_f1": 0.8438917497199568,
+     "trans_f1_12": 0.4697833523375143,
+     "trans_f1_25": 0.5906499429874572,
+     "n_gt_spells": 404,
+     "n_pred_spells": 303,
+     "pred_spells_under_2s": 35,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 28,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 3
+    },
+    "diff_spell_f1": 0.01739822389152368,
+    "diff_macro_f1": 0.0026250067955781997,
+    "frames_changed": 2654,
+    "keeper2_moved_pieces": 3,
+    "seconds_v2": 81,
+    "seconds_tcn": 88
+   },
+   {
+    "copy": "MET3|69108",
+    "condition": "tactical_sim2",
+    "path": "v2.1",
+    "v2_side": "released bundles",
+    "tcn_weights": [
+     "dfl6_both_s0.npz",
+     "dfl6_both_s1.npz",
+     "dfl6_both_s2.npz"
+    ],
+    "fused_on_this_path": true,
+    "v2_11": {
+     "spell_f1": 0.6971736204576043,
+     "macro_f1": 0.851392051144756,
+     "trans_f1_12": 0.5616740088105726,
+     "trans_f1_25": 0.6607929515418501,
+     "n_gt_spells": 404,
+     "n_pred_spells": 339,
+     "pred_spells_under_2s": 62,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 43,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 9
+    },
+    "fused": {
+     "spell_f1": 0.7197817189631651,
+     "macro_f1": 0.8563161500836923,
+     "trans_f1_12": 0.5892857142857143,
+     "trans_f1_25": 0.6941964285714286,
+     "n_gt_spells": 404,
+     "n_pred_spells": 329,
+     "pred_spells_under_2s": 57,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 45,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 8
+    },
+    "tcn_alone": {
+     "spell_f1": 0.7195622435020521,
+     "macro_f1": 0.8610666123977331,
+     "trans_f1_12": 0.6112956810631229,
+     "trans_f1_25": 0.7087486157253599,
+     "n_gt_spells": 404,
+     "n_pred_spells": 327,
+     "pred_spells_under_2s": 56,
+     "gt_spells_under_2s": 107,
+     "found_under_2s_iou03": 41,
+     "gt_spells_under_1s": 47,
+     "found_under_1s_iou03": 10
+    },
+    "diff_spell_f1": 0.02260809850556078,
+    "diff_macro_f1": 0.0049240989389363055,
+    "frames_changed": 1227,
+    "noise_m": {
+     "ball_m": 0.0926,
+     "players_m": 0.0518
+    },
+    "keeper2_moved_pieces": 0,
+    "ball_visible_in_play": 0.519,
+    "seconds_v2": 53,
+    "seconds_tcn": 70
+   }
+  ]
+ },
+ "pff_game_3839_after_decision": {
+  "game": "3839",
+  "path": "v2.1",
+  "pooled_on_this_path": true,
+  "goalkeeper_moved_pieces": 0,
+  "tcn_weights": [
+   "dfl6_both_s0.npz",
+   "dfl6_both_s1.npz",
+   "dfl6_both_s2.npz"
+  ],
+  "fusion": {
+   "pool": "arithmetic",
+   "weight": 0.2
+  },
+  "ball_visible_in_play": 0.412,
+  "note": "agreement with an event-derived proxy built by us from PFF events; not ground truth, not a competition score, not a gate; no published licence, reporting only",
+  "v2_11": {
+   "spell_f1": 0.6288590604026846,
+   "macro_f1": 0.8982818354330296,
+   "frame_agreement_in_play": 0.9060000407749967,
+   "label_shares_in_play": {
+    "H": 0.333,
+    "A": 0.209,
+    "D": 0.458
+   }
+  },
+  "fused": {
+   "spell_f1": 0.6542372881355931,
+   "macro_f1": 0.9054574268934371,
+   "frame_agreement_in_play": 0.9127890777375314,
+   "label_shares_in_play": {
+    "H": 0.337,
+    "A": 0.211,
+    "D": 0.452
+   }
+  },
+  "tcn_alone": {
+   "spell_f1": 0.639102564102564,
+   "macro_f1": 0.9024244230252182,
+   "frame_agreement_in_play": 0.9091872863560065,
+   "label_shares_in_play": {
+    "H": 0.341,
+    "A": 0.227,
+    "D": 0.432
+   }
+  },
+  "frames_changed_v2_11_to_fused": 1730,
+  "sha256": {
+   "match_npz": "583651c20c2e681ad0d14e940a4049b5db03ecc29dd65622b356a53335f9ec2e",
+   "pff_v215.py": "6fdebba6a114d65747b225065846f8930bdf617bbf0b0904c5ff1cb215e30094"
+  }
+ }
+}

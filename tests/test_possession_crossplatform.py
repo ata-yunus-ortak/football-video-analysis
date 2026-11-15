@@ -11,6 +11,11 @@ Python 3.13 / numpy 2.5.3:
   possession.run211.run  two variants on a bundle whose goalkeeper tracks carry the other team's id,
                          so that the goalkeeper team correction (possession/keeper2.py) moves tracks:
                          v2.1 path with broadcast and clock, v2.3 path with the tactical camera only.
+  possession.run215.run  two variants in which the second model (possession/tcn/, possession/pooling.py) is
+                         pooled with the v2 models: the first bundle with broadcast and clock, and the
+                         goalkeeper bundle with the tactical camera only. Its matrix products and
+                         exponentials are float64 and its probabilities are rounded to 4 decimals before
+                         the pooling, the pooled ones to 6.
 
 A difference is not an accuracy statement. It says that this platform does not reproduce the recorded
 bytes; the platform, Python and numpy versions that produced the submitted file must then be written
@@ -28,7 +33,7 @@ import unittest
 from pathlib import Path
 import numpy as np
 try:
-    from possession import run29, run211
+    from possession import run29, run211, run215
     from tests.test_possession_v25 import _write_epts, _write_homography, clock_rows
     HAVE_DEPS = True
 except ImportError:
@@ -56,6 +61,12 @@ EXPECTED = {
                           'path': 'v2.1', 'fill': True, 'mode': 'clock', 'moved_pieces': 4},
         'keepers_noisy_tactical_only': {'sha256': 'cc6305dd20944414cc8350930a69d0cefdc57fc860410d011d7209b634d18dfd',
                                         'path': 'v2.3', 'fill': False, 'mode': None, 'moved_pieces': 11},
+        # the two variants with the second model: recorded 2026-11-15 on Linux x86-64, identical under Python 3.10.20 / numpy 1.26.4
+        # and Python 3.13.18 / numpy 2.5.3
+        'pooled_clock': {'sha256': '79d1ba9d062b29965b929cbe965b2c3c3c636728bcef0612d8932cfe769cbfd2',
+                         'path': 'v2.1', 'fill': True, 'mode': 'clock', 'moved_pieces': 1, 'pooled': True},
+        'keepers_pooled_tactical_only': {'sha256': '06a1713a92aaa5b788f9f3fbf503493780f35e18eb99a309577a1575b6d79043',
+                                         'path': 'v2.1', 'fill': False, 'mode': None, 'moved_pieces': 4, 'pooled': True},
     },
 }
 
@@ -162,15 +173,20 @@ def produce(work):
             r = entry.run(data, work / ('out-' + name), game='SYN', halves=halves, release=None, **kw)
         out['runs'][name] = {'sha256': r['submission_sha256'], 'path': r['path'], 'fill': bool(r['broadcast_fill_used']),
                              'mode': r['fusion'].get('alignment_mode')}
-        if entry is run211:
+        if entry is not run29:
             out['runs'][name]['moved_pieces'] = int(r['goalkeeper_correction']['moved_pieces'])
+        if entry is run215:
+            out['runs'][name]['pooled'] = bool(r['second_model']['used'])
     one('clean_clock', clean, True)
+    one('pooled_clock', clean, True, run215)
     one('clean_tracking', clean, False)
     one('noisy_clock', noisy, True)
     shutil.rmtree(clean / 'broadcast'); shutil.rmtree(noisy / 'broadcast')
     one('clean_tactical_only', clean, False)
     one('noisy_tactical_only', noisy, False)
     one('keepers_clock', keepers, True, run211, KEEPER_HALVES)
+    shutil.rmtree(keepers / 'broadcast')
+    one('keepers_pooled_tactical_only', keepers, False, run215, KEEPER_HALVES)
     shutil.rmtree(keepers_noisy / 'broadcast')
     one('keepers_noisy_tactical_only', keepers_noisy, False, run211, KEEPER_HALVES)
     return out
@@ -207,7 +223,8 @@ class CrossPlatformTests(unittest.TestCase):
         names = comparable(got)
         self.assertEqual({k: got['runs'][k]['path'] for k in names},
                          {k: EXPECTED['runs'][k]['path'] for k in names})              # both model paths are exercised
-        self.assertTrue(all(v['moved_pieces'] > 0 for v in EXPECTED['runs'].values() if 'moved_pieces' in v))   # the correction is exercised
+        self.assertTrue(all(v['moved_pieces'] > 0 for k, v in EXPECTED['runs'].items() if k.startswith('keepers')))   # the correction is exercised
+        self.assertTrue(all(v['pooled'] for v in EXPECTED['runs'].values() if 'pooled' in v))                          # and the second model
         self.assertEqual({k: got['runs'][k] for k in names}, {k: EXPECTED['runs'][k] for k in names})
         if len(names) < len(EXPECTED['runs']):
             self.skipTest('the synthetic goalkeeper bundles differ on this platform; the other variants give the recorded bytes')

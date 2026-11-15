@@ -7,7 +7,9 @@ counts, track slots, on how many frames the ball is present, the mean number of 
 graded frames, the share of usable broadcast homography rows, and that the first team of the
 metadata is the home side, Barcelona. This tool reads the files with the very functions the release
 uses (possession.data.read_epts, possession.broadcast.read_homography) and compares what they
-return with those published facts.
+return with those published facts. The Smart Tagging file is read with the release's kick-off
+reader (possession.kickoff.kickoff_tag_starts) and must hold as many "Kick Off (Start)" tags as
+DATA.md lists.
 
 Each tracking file is also read a second time without the release's reader, line by line, the way
 the organisers' own starter/baseline.py reads it: the i-th group of a line is the i-th Player entry
@@ -31,6 +33,7 @@ from pathlib import Path
 import numpy as np
 from .data import read_epts
 from . import broadcast as bc
+from . import kickoff
 
 GAME = 'BAR-ATH'
 # DATA.md (table "tactical / broadcast", sections "Automatic Tracking Data" and "Homography") and the graded
@@ -41,6 +44,7 @@ PUBLISHED = {
     'mean_tracked_on_graded': 20.5,
     'broadcast_records': 164488, 'broadcast_slots': 51, 'broadcast_ball_share': 0.505,
     'broadcast_homography_valid_share': 0.658, 'home_name_contains': 'barcelona',
+    'tagging_kickoff_start_tags': 2,          # DATA.md, Smart Tagging, tag group Type: Kick Off (Start) (2)
 }
 COUNT_TOL = 0.002        # of the number of frames a count refers to
 SHARE_TOL = 0.001        # DATA.md rounds shares to 0.1 percent
@@ -53,7 +57,8 @@ CHECKS = tuple(f'tactical_{k}' for k in RAW) + (
     'tactical_ball_frames', 'tactical_ball_on_graded_frames', 'tactical_tracked_objects', 'tactical_agrees_with_starter_reading',
 ) + tuple(f'broadcast_{k}' for k in RAW) + (
     'broadcast_records', 'broadcast_slots', 'broadcast_slots_belong_to_a_team', 'broadcast_ball_share',
-    'broadcast_agrees_with_starter_reading', 'broadcast_homography_rows', 'broadcast_homography_valid_share')
+    'broadcast_agrees_with_starter_reading', 'broadcast_homography_rows', 'broadcast_homography_valid_share',
+    'tagging_reader_runs', 'tagging_kickoff_start_tags')
 _NUM = r'[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?|[Nn][Aa][Nn]'
 _GROUP = rf'(?:{_NUM})(?:,(?:{_NUM}))*'
 _LINE = re.compile(rf'\d+:{_GROUP}(?:;{_GROUP})*:{_GROUP}')
@@ -207,6 +212,19 @@ def broadcast_checks(meta, raw, homography, pub=PUBLISHED, details=None):
     return res
 
 
+def tagging_checks(tagging, meta, pub=PUBLISHED, details=None):
+    """The Smart Tagging file through the release's kick-off reader: it parses, and it holds as many
+    "Kick Off (Start)" tags as DATA.md lists. Only that count is compared."""
+    try:
+        fps = float(ET.parse(meta).getroot().findtext('.//FrameRate'))
+        starts = kickoff.kickoff_tag_starts(tagging, fps)
+    except Exception as e:                                    # any reader error: its class, never its message
+        if details is not None:
+            details['tagging_reader_runs'] = type(e).__name__
+        return {'tagging_reader_runs': False}
+    return {'tagging_reader_runs': True, 'tagging_kickoff_start_tags': len(starts) == pub['tagging_kickoff_start_tags']}
+
+
 def check(data_dir, game=GAME, pub=PUBLISHED, details=None):
     """{check name: True | False | None}; None = not checked (the files of that camera are not there, or the reader
     stopped with an error). details (a dict, optional) receives, for a failed comparison with the second reading, the
@@ -218,6 +236,9 @@ def check(data_dir, game=GAME, pub=PUBLISHED, details=None):
     files = (b / f'{game}_broadcast_atd.xml', b / f'{game}_broadcast_atd.txt', b / f'{game}_broadcast_homography.csv')
     if all(p.exists() for p in files):
         res.update(broadcast_checks(*files, pub, details))
+    tagging = t / f'{game}_tactical_smart_tagging.xml'
+    if tagging.exists() and 'tagging_kickoff_start_tags' in pub:
+        res.update(tagging_checks(tagging, t / f'{game}_tactical_atd.xml', pub, details))
     return res
 
 

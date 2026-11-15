@@ -1,10 +1,11 @@
 # Sahiplik v2 — dış veride seçilmiş H/A/D sistemi
 
-> **Güncel durum (11 Kasım 2026, öğleden sonra):** teslim sistemi **v2.11**'dir
-> (`python -m possession.run211`). v2.11, aşağıda anlatılan v2.5 sisteminin üstüne üç ek getirir;
-> bunlar belgenin sonundaki "Güncelleme: v2.9" ve "Güncelleme: v2.11" bölümlerindedir. v2.9 bir alt
-> teknik basamak olarak duruyor. Dosyayı üretmek için tek adım: `TESLIM-HAZIRLA.cmd`
-> ("Teslim adımları" bölümü). Form'a yüklenecek kısa belge `TECHNICAL_DOCUMENT.md`'dir.
+> **Güncel durum (15 Kasım 2026):** teslim sistemi **v2.15**'tir (`python -m possession.run215`).
+> Aşağıda anlatılan v2.5 sisteminin üstüne gelen ekler belgenin sonundaki "Güncelleme" bölümlerindedir
+> (v2.9, v2.11, 13 Kasım: başlama vuruşu kuralı, 15 Kasım: ikinci model). Bir alt teknik basamak v2.11k'dır. Dosyayı üretmek
+> için tek adım: `TESLIM-HAZIRLA.cmd` ("Teslim adımları" bölümü). Form'a yüklenecek kısa belge
+> `TECHNICAL_DOCUMENT.md`'dir. **En kısa yol (15 Kasım): `TESLIM-TEK-TIK.cmd`** — dosyaları yerleştirir, GitHub'a
+> yükler ve zinciri çalıştırır (aşağıda "0. Tek tık").
 
 Bu belge `possession/` paketindeki sistemi ekip için anlatır. Ayrıntılı İngilizce kayıt
 `TECHNICAL_DOCUMENT_V2.md` dosyasındadır. Aşağıdaki anlatım **v2.5**'e göredir. Çekirdeği v2.1
@@ -319,6 +320,26 @@ dosyayı verdi.
 **Sıra:** önce `GIT-YUKLE-V2.cmd` (kod GitHub'a gider), sonra `TESLIM-HAZIRLA.cmd` (dosya üretilir
 ve denetlenir), sonra Form.
 
+### 0. Tek tık: `TESLIM-TEK-TIK.cmd` (15 Kasım)
+
+Aşağıdaki işleri sırayla tek pencerede yapar:
+1. `tools/possession_place_files.py`: organizatörün gönderdiği dokuz dosyayı (iki video, Smart Tagging,
+   takip ve homografi dosyaları) indirildikleri yerden (Downloads, Masaüstü, Belgeler, OneDrive, başka
+   sürücülerin üst klasörleri; `.zip` içleri dahil) bulur ve eksik olanları paket klasörüne kopyalar
+   (`viewer-local.cmd` içindeki `MTAH_DATA_DIR`, yoksa `%USERPROFILE%\FootballPrivate\mtah2027\bundle`).
+   Pakette zaten olan bir dosyaya dokunmaz. Ekrana yalnız dosya adı, klasör ve durum sözcüğü yazar.
+   Takip, homografi ya da Smart Tagging dosyası bulunamazsa durur; yalnız videolar yoksa devam eder
+   (zincir saat okumayı atlar).
+2. `GIT-YUKLE-V2.cmd` (birkaç kez bir tuşa basmanız istenir).
+3. Teslim zinciri, takım adı `LittleSickle` ile (`TESLIM-HAZIRLA.cmd` ile aynı).
+4. Paylaşılabilir durum satırlarını `Masaüstü\logs\DOSYA-durum.txt` ve
+   `Masaüstü\logs\PAYLASILABILIR-durum.txt` dosyalarına da kopyalar; asistan sonucu oradan okuyabilir.
+   Bu dosyalarda yalnız paylaşılabilir satırlar vardır (log, CSV ve çalışma kaydı yoktur).
+
+Dosyaları asistan kopyalayamaz: bağlantısı dosyaları buluttan geçirerek taşır, organizatör ise
+sağlanan verinin yapay zekâ hizmetlerine yüklenmesini yasaklıyor. Kopyalama bu yüzden sizin
+bilgisayarınızda, bu programla yapılır.
+
 ### 1. `GIT-YUKLE-V2.cmd`
 
 Yalnız adı yazılı kaynak dosyalarını, iki model paketini, plan/sonuç kayıtlarını ve belgeleri
@@ -351,8 +372,8 @@ Bütün zinciri kendisi yürütür ve ekrana yalnız durum sözcükleri yazar. P
 | SURUM | dondurulmuş kaynakların ve iki model paketinin sürüm bildirimiyle aynı olduğunu denetler | bir dosya değişmiş ya da bir paket eksik (adı yazılır); üretim yapılmaz |
 | TESTLER | sentetik testler | kalan testin adı yazılır |
 | PLATFORM | bu bilgisayar, sentetik paketlerde Linux'ta kaydedilen baytların aynısını üretiyor mu (yedi varyant: beşi v2.9 yolu, ikisi kaleci denetimi) | FARKLI olsa da dosya üretilir; fark belgeye yazılır. Yanında farklı çıkan varyantın adı yazar; iletin |
-| VERI | sağlanan dosyalar beklenen yerde mi | `viewer-local.cmd` içindeki `MTAH_DATA_DIR` |
-| GIRDI OKUMA | sürümün okuyucuları dosyalarda DATA.md'nin yayımladığı toplu olguları görüyor mu (kayıt ve slot sayıları, toplu kare sayıları, kullanılabilir homografi payı); ayrıca iki takip dosyası organizatörün `starter/baseline.py` kodunun okuduğu biçimde ikinci kez okunur ve iki okuma kare kare karşılaştırılır | yanında yalnız tutmayan denetimin adı yazılır (ör. `tactical_agrees_with_starter_reading__team_counts`, `tactical_reader_runs__ValueError`); dosya yine üretilmeye çalışılır. Adı iletin: bakılacak yer okuyucudur, model ya da eşik değiştirilmez |
+| VERI | sağlanan dosyalar beklenen yerde mi (taktik ve yayın takip dosyaları, iki video, Smart Tagging dosyası) | FAIL: `viewer-local.cmd` içindeki `MTAH_DATA_DIR` (yoksa `%USERPROFILE%\FootballPrivate\mtah2027\bundle`). `smart tagging YOK`: `BAR-ATH_tactical_smart_tagging.xml` dosyasını o klasörün `tactical` alt klasörüne koyun; yoksa başlama vuruşu kuralı uygulanmaz ve organizatörün bütün paketten yeniden ürettiği dosya sizinkinden farklı çıkabilir. `videolar YOK`: saat okunamaz; `BAR-ATH_tactical.mp4` dosyasını `tactical`, `BAR-ATH_broadcast.mp4` dosyasını `broadcast` alt klasörüne koyun |
+| GIRDI OKUMA | sürümün okuyucuları dosyalarda DATA.md'nin yayımladığı toplu olguları görüyor mu (kayıt ve slot sayıları, toplu kare sayıları, kullanılabilir homografi payı, Smart Tagging'deki "Kick Off (Start)" etiketi sayısı); ayrıca iki takip dosyası organizatörün `starter/baseline.py` kodunun okuduğu biçimde ikinci kez okunur ve iki okuma kare kare karşılaştırılır | yanında yalnız tutmayan denetimin adı yazılır (ör. `tactical_agrees_with_starter_reading__team_counts`, `tactical_reader_runs__ValueError`); dosya yine üretilmeye çalışılır. Adı iletin: bakılacak yer okuyucudur, model ya da eşik değiştirilmez |
 | URETIM | sürümün giriş noktası; hata verirse `possession-release.json` içindeki bir alt basamak | basamak ve hata sınıfı yazılır, ileti yazılmaz |
 | BICIM, MAKULLUK | organizatörün biçim kuralları; toplu makulluk aralıkları | MAKULLUK FAIL ise göndermeden önce bildirin |
 | ON TESLIM, TESLIM | dosyayı `teslim\<takım>.csv` olarak kopyalar | |
@@ -373,38 +394,57 @@ Açık 5 dakikalık pencereye `run_evaluation.py` ile **bakmayın**: o betik pua
 `ACIK PENCERE` adımı aynı denetimi puan göstermeden yapar ve eşikleri önceden kayıtlıdır
 (`possession-final-check-plan.json`).
 
-### Organizatör başlama karesi sorusuna "uygun değil" derse
+### Başlama vuruşu: organizatörün yanıtı ve yeni varsayılan (13 Kasım)
 
 11 Kasım'da organizatöre, FAQ.md'de yayımlanan ikinci yarı başlama karesinin (113.742) koda sabit
-yazılmasının kurallara uygun olup olmadığı soruldu. Yanıt "uygun" ise ya da son güne kadar gelmezse
-hiçbir şey değişmez. "Uygun değil" ise yedek yapılandırma kullanılır:
+yazılmasının kurallara uygun olup olmadığı soruldu. 12 Kasım'daki yanıt "evet" ya da "hayır" demedi;
+3 Kasım açıklamasını yineledi ve "açıkça izin verilmeyen hiçbir şeye izin yoktur" cümlesini ekledi.
+Bu yüzden o sabit artık kullanılmıyor. `TESLIM-HAZIRLA.cmd` seçenek vermeden çalıştırıldığında
+`possession-release.json` içindeki yeni sıra kullanılır:
+
+`possession-v2.15` → `possession-v2.11k` → `possession-v2.11g` → `possession-v2.9g` → v2.5b → v2.5b yalnız taktik kamera
+(15 Kasım'dan beri; v2.15 için belgenin sonundaki güncellemeye bakın).
+
+- **v2.11g:** modeller ikinci yarının puanlanan penceresinin tamamında çalışır ve başlama vuruşundan
+  önceki karelere kendileri karar verir. Hiçbir basamakta 113.742 sabiti yoktur.
+- **v2.11k = v2.11g + başlama vuruşu kuralı** (`possession/kickoff.py`): puanlanan bir bloğun içinde,
+  otomatik Smart Tagging'deki ilk "Kick Off (Start)" etiketinden önceki kareler `D` yazılır; etiket
+  bloğun başından on dakika ya da daha geç başlıyorsa kullanılmaz. Smart Tagging dosyası yoksa,
+  okunamıyorsa ya da uygun etiket yoksa çıktı v2.11g'nin çıktısıdır. Smart Tagging organizatörün
+  girdi olarak kullanılmasına açıkça izin verdiği otomatik bir varlıktır; kodda hiçbir kare numarası
+  yoktur. Etiketin kullanılıp kullanılmadığı yalnız sizde kalan belge kopyasının Ek R bölümünde yazar.
+
+Kuralsız yedek sıra (yalnız v2.11g ve altı) gerekirse şöyle çalıştırılır:
 
 ```
 TESLIM-HAZIRLA.cmd --release-config possession-release-graded-windows.json
 ```
 
-Bu yapılandırmanın basamakları `possession-v2.11g` → `possession-v2.9g` → v2.5b → v2.5b yalnız taktik
-kameradır.
-Hiçbirinde 113.742 sabiti yoktur; modeller ikinci yarının puanlanan penceresinin tamamında çalışır
-ve başlama vuruşundan önceki karelere kendileri karar verir. Belgelerde 7. adımın anlatımı o durumda
-değişmelidir (asistana haber verin). Sınır: başlama öncesinde modellerin ne yaptığı dış veride
-ölçülemedi, çünkü dış takip verileri başlama vuruşuyla başlar. Tam boy provada (aşağıda) uydurma bir
-başlama öncesi bölümde 2.934 karenin 2.625'i `D` etiketlendi; bu bir ölçüm değil, yalnız çalıştığının
-denetimidir.
+Sınırlar: kural dış veride ölçülemez (dış takip verileri başlama vuruşuyla başlar ve Smart Tagging
+içermez); testleri sentetiktir. Etiket gerçek başlama vuruşundan sonra başlıyorsa oyunun ilk anları
+`D` yazılır. Etiket yoksa modeller karar verir; başlama öncesinde ne yaptıkları da dış veride
+ölçülemedi. Tam boy provada (aşağıda) uydurma bir başlama öncesi bölümde 2.934 karenin 2.625'i `D`
+etiketlendi; bu bir ölçüm değil, yalnız çalıştığının denetimidir. Sabit kareyi kullanan
+`possession.run211` depoda dondurulmuş olarak duruyor, kullanılmıyor.
 
 ### İsteğe bağlı: ayrılmış dış maçta son test (`SON-TEST.cmd`)
 
 Teslimden bağımsızdır; teslim dosyasını değiştirmez. 17 Kasım'dan önce herhangi bir gün, tercihen
 teslim zinciri bittikten sonra çalıştırılabilir.
 
-- **Ne:** 7 Kasım'da ayrılan ve o günden beri hiç indirilmeyen DFL maçı J03WMX indirilir (yaklaşık
-  420 MB, kamuya açık veri, CC BY 4.0). Maçın dört bozuk kopyası, sağlanan dosyaların düzeninde
-  dosyalara yazılır ve dondurulmuş sürümün giriş noktası (`possession.run211`) bu dosyalarda
-  çalıştırılır: yalnız taktik kamera ve benzetilmiş iyi / orta / kötü yayınla. Sonuç sağlayıcının
+- **Ne:** 7 Kasım'da ayrılan ve sürümü kuran süreçte hiç indirilmeyen DFL maçı J03WMX indirilir
+  (yaklaşık 420 MB, kamuya açık veri, CC BY 4.0; bir takım üyesi bu maçı, 15 Kasım'da sürüme giren
+  ikinci modelin tasarımını geliştirirken kullandı; sürümdeki ağırlıklar bu maç olmadan eğitildi).
+  Maçın dört bozuk kopyası, sağlanan dosyaların düzeninde dosyalara yazılır ve ikinci modelsiz
+  sürümün (v2.11k) giriş noktası (`possession.run211k`) bu dosyalarda çalıştırılır (bu maçta Smart
+  Tagging dosyası olmadığı ve oyun blokları iki devre olduğu için çıktı v2.11'in çıktısıyla aynıdır): yalnız taktik kamera ve benzetilmiş iyi / orta / kötü yayınla. Sonuç sağlayıcının
   etiketleriyle, organizatörün ölçütüyle puanlanır.
-- **Neden:** sürümün doğrulama maçları seçim sırasında defalarca kullanıldı. Bu, sürümün hiçbir
-  kararında rol oynamamış bir maçtaki tek ölçüm olur ve teknik belgeye "ayrılmış maç, dondurmadan
-  sonra bir kez" diye yazılır.
+- **Neden:** sürümün doğrulama maçları seçim sırasında defalarca kullanıldı. Bu, ağaç modellerinin
+  (v2.11k) hiçbir kararında rol oynamamış bir maçtaki tek ölçüm olur ve teknik belgeye "ayrılmış maç,
+  dondurmadan sonra bir kez, ikinci model olmadan" diye yazılır.
+- **15 Kasım notu:** bu test v2.15 için yeniden kaydedilmedi. İkinci modelin tasarımı bu maçı
+  gördüğü için v2.15'in bu maçtaki sonucu "taze test" olmazdı. Sonuç, v2.11k'nın (ikinci modelsiz
+  sistemin) sonucu olarak yazılır.
 - **Kurallar (çalıştırmadan önce `possession-final-test-plan.json` içinde kayıtlı):** bir kez
   çalıştırılır; sonuç ne olursa olsun aynen yazılır; sürüm bu sonuca göre değiştirilmez. Kötü
   çıkarsa sınır olarak raporlanır.
@@ -432,13 +472,14 @@ bütün üyelerin kayıt formunda yazdığı adla aynı olmalı.
 cd C:\Users\Abra\Desktop\Football_analysis-main\mtah-2027\submission-clean
 py -3.10 -m venv .venv-possession
 .\.venv-possession\Scripts\python.exe -m pip install -r requirements-possession.txt
-.\.venv-possession\Scripts\python.exe -m possession.run211 --data-dir <veri kökü> --out <yeni klasör> --tactical-clock <saat>\tactical --broadcast-clock <saat>\broadcast
+.\.venv-possession\Scripts\python.exe -m possession.run215 --data-dir <veri kökü> --out <yeni klasör> --tactical-clock <saat>\tactical --broadcast-clock <saat>\broadcast
 .\.venv-possession\Scripts\python.exe -m possession.validate <yeni klasör>\submission.csv
 ```
 
 Veri kökü, içinde `tactical\` ve `broadcast\` klasörleri bulunan klasördür. Eski tek tek
 başlatıcılar (`SAHIPLIK-V2-KURULUM.cmd`, `SAAT-OKU.cmd`, `SAHIPLIK-V211-URET.cmd`) duruyor, ama
-ekrana toplu sayılar yazarlar; o çıktıyı asistana iletmeyin. Sağlanan veriyi, CSV'yi veya kare
+ekrana toplu sayılar yazarlar; o çıktıyı asistana iletmeyin. `SAHIPLIK-V211-URET.cmd` sabit başlama
+kareli v2.11'i çalıştırır; teslim sürümü o değildir. Sağlanan veriyi, CSV'yi veya kare
 düzeyindeki çıktıyı hiçbir AI hizmetine yüklemeyin.
 
 ## Güncelleme, 11 Kasım 2026: v2.9 (gönderim adayı)
@@ -523,3 +564,146 @@ denetim hiçbir şeyi düzeltmez; zarar da vermez. Denetimin sağlanan maçta bi
 yalnız sizde kalan belge kopyasının Ek R bölümünde ve `run.json` içinde yazar; bunları asistana
 iletmeyin.
 
+
+## Güncelleme, 12 Kasım 2026 (gece): v2.12 — topa dokunma sütunları denendi, seçilmedi
+
+Teslim sistemi değişmedi: **possession-v2.11**. Ayrıntılı kayıt: `docs/DENEY_KAYDI_TR.md` K008.
+
+**Fikir.** K007 teşhisi, kaybın çoğunun 2 saniyeden kısa sahiplikler olduğunu gösterdi. Top bir ayağa
+değdiğinde hızı ve yönü aniden değişir. Her karede, topun önceki ve sonraki 0,28 saniyesine birer doğru
+oturtup hız farkını ölçüm gürültüsüne bölüyoruz; fark büyükse "dokunma" diyoruz ve 2 m içindeki en yakın
+oyuncunun takımına yazıyoruz. Modele 36 yeni sütun eklendi (son dokunmadan beri geçen süre, son dokunma
+kimde, topun oyuncuyla birlikte hareketi, baskı).
+
+**Süreç.** Geliştirme yalnız 4 DFL eğitim maçında yapıldı (0,669 → 0,690). Kodu yazmamış ayrı bir denetim
+ajanı iki tur kontrol etti; bir engelleyici hata (kapıların yuvarlanmış sayılarla karar vermesi) kayıttan
+önce düzeltildi. Plan 02:16'da kaydedildi ve sizin bilgisayarınıza kopyalandı; sonra 16 yeni kopyada
+doğrulandı.
+
+**Sonuç.** DFL kopyalarında her koşulda kazanç (taktik kamera +0,0125, 8 kopyanın 8'i iyi); Metrica
+kopyalarında kayıp (-0,0077, 8'in 6'sı kötü; yayın doldurmasıyla -0,020). Altı kapıdan dördü geçmedi;
+v2.12 kullanılmıyor. Ayrılmış Metrica maçı 3'ün tek kopyasında ise kazanç vardı (+0,018), yani Metrica
+tablosu karışık; ama karar önceden yazılmış kurala göre verildi ve kapılar gevşetilmedi.
+
+*Öğrenilecek şey:* "çalışıyor" (testler geçiyor, geliştirmede +0,02) ile "doğruluğu kanıtlandı" aynı şey
+değil. Aynı özellik bir sağlayıcının etiketlerinde açıkça iyileştirirken başka bir sağlayıcının verisinde
+kötüleştirebiliyor; tek kaynakla ölçseydik bunu göremezdik.
+
+## Güncelleme, 13 Kasım 2026: v2.11k — başlama vuruşu kuralı; v2.13 — ikinci modelle birleştirme denendi, seçilmedi
+
+Teslim sistemi artık **possession-v2.11k** (`python -m possession.run211k`). Çalıştırma aynı: `TESLIM-HAZIRLA.cmd`
+(seçenek gerekmez). Ayrıntılı kayıt: `docs/DENEY_KAYDI_TR.md` K010 ve K011.
+
+### v2.11k: yayımlanan sabit kare yerine Smart Tagging etiketi
+
+**Sorun.** İkinci yarı, başlama vuruşundan önceki video karesinden itibaren puanlanıyor; organizatör o karelerin hepsinin
+`D` olduğunu yazıyor. v2.11 bunu FAQ.md'de yayımlanan başlama karesini koda sabit yazarak çözüyordu. Organizatöre bunun
+uygun olup olmadığını sorduk; yanıt açık bir "evet" değildi ("açıkça izin verilmeyen hiçbir şeye izin yoktur").
+
+**Çözüm.** Sabit kare artık kullanılmıyor. Modeller ikinci yarının puanlanan penceresinin tamamında çalışıyor (v2.11g).
+Ardından tek bir kural uygulanıyor (`possession/kickoff.py`): puanlanan bir blokta, otomatik Smart Tagging dosyasındaki
+ilk "Kick Off (Start)" etiketinden önceki kareler `D` yazılır (etiket bloğun başından on dakika ya da daha geç
+başlıyorsa kullanılmaz). Smart Tagging organizatörün girdi olarak kullanılmasına açıkça izin verdiği otomatik bir
+dosyadır. Kuralı takım arkadaşımız kendi dalı için yazmıştı; değiştirmeden aldık ve iki uygulamayı 300 rastgele sentetik
+girdide karşılaştıran bir test ekledik.
+
+**Dosya yoksa ne olur.** Çıktı v2.11g'nin çıktısıdır (modeller karar verir). Bu yüzden zincirin `VERI` satırı artık
+`smart tagging VAR` ya da `YOK` yazar. `YOK` yazıyorsa `BAR-ATH_tactical_smart_tagging.xml` dosyasını veri klasörünün
+`tactical` alt klasörüne koyun: organizatör dosyayı bütün paketten yeniden üreteceği için kural onda uygulanır ve iki
+dosya farklı çıkabilir. `GIRDI OKUMA` satırında `tagging_reader_runs` ya da `tagging_kickoff_start_tags` FAIL
+yazarsa (okuyucu dosyayı okuyamadı ya da DATA.md'nin yazdığı iki etiketi bulamadı) adı iletin; önceden yazdığımız
+kurala göre o durumda kuralsız yedek sıra teslim edilir
+(`TESLIM-HAZIRLA.cmd --release-config possession-release-graded-windows.json`).
+
+**Ölçüm.** Kural dış veride ölçülemez (dış maçların takip verisi başlama vuruşuyla başlar, Smart Tagging'leri yoktur).
+Testler sentetiktir. Zincir, sağlanan dosyaların adlarını ve boyutlarını taşıyan sentetik pakette iki kez prova edildi
+(`possession-v211k-rehearsal.json`): bizim uydurduğumuz bir etiket dosyasıyla bütün adımlar OK ve dosya, sabit kareli
+v2.11'in aynı paketteki puanını aldı (0,764; kuralsız 0,759); etiket dosyası olmadan çıktı v2.11g zincirinin dosyasıyla
+bayt bayt aynı. Bu bir bağlantı denetimidir, doğruluk ölçümü değildir.
+
+*Öğrenilecek şey:* "izin verilmiş bir girdiyi okumak" ile "belgeden bir sayıyı koda yazmak" sonuçta aynı kareyi verse
+bile kural açısından farklıdır. Emin olmadığımız yolu bırakıp açıkça izinli olanı seçtik ve nedenini belgeye yazdık.
+
+### v2.13: bizim modelin olasılıklarını ikinci bir modelle birleştirmek
+
+**Fikir.** Takım arkadaşımız Hüseyin Umut Işık ayrı bir model eğitti: zaman içinde kayan bir sinir ağı (TCN). İki
+model aynı kare için ayrı ayrı "ev sahibi / deplasman / ölü top" olasılığı veriyor. Öneri: iki olasılığın ortalamasını
+alıp sahiplikleri bu ortalamadan çıkarmak. Farklı yapıda iki model farklı yerlerde yanılıyorsa ortalama ikisinden de
+iyi olabilir; hackathon'larda sık kullanılan "topluluk" (ensemble) yöntemi budur.
+
+**Süreç.** Onun kendi ölçümlerinde birleşim daha iyiydi, ama o ölçüm seçim için yeterli değildi (ayar aynı veride
+seçilmişti, eski sürümümüzle karşılaştırılmıştı, etiketler farklı üretilmişti). Kuralını hiç değiştirmeden, bizim
+doğrulama düzenimizle, eşikleri önceden yazarak yeniden ölçtük: `possession-v213-plan.json` (13 Kasım 12:12),
+16 yeni bozuk kopya, v2.12'deki altı kapı.
+
+**Sonuç** (spellF1; yarışma puanı değil):
+- Yalnız taktik kamera, DFL: 0,6640 → 0,6594 (−0,0045; 8 kopyada 3 iyi, 5 kötü; en kötü kopya −0,0295).
+- Yalnız taktik kamera, Metrica: 0,6556 → 0,6728 (+0,0172; 8 kopyada 6 iyi, 2 kötü; en kötü kopya −0,0100).
+- Hepsi birlikte: 0,6598 → 0,6661 (+0,0063; 16 kopyada 9 iyi, 7 kötü; en kötü kopya −0,0295).
+- İyi yayınla doldurma: 0,6959 → 0,7066 (+0,0107; 8 kopyada 6 iyi, 2 kötü; en kötü kopya −0,0070); orta yayınla: 0,6906 → 0,7050 (+0,0143; 8 kopyada 6 iyi, 2 kötü; en kötü kopya −0,0122).
+- TCN tek başına (yalnız taktik kamera, 16 kopya): 0,6257.
+
+Altı kapıdan 3 tanesi geçmedi (G1, G2, G4); birleşim teslim sistemine girmedi.
+
+Karardan sonra, karar girdisi olmadan bir kez bakılan iki maç: ayrılmış Metrica 3'ün yeni bir kopyasında yalnız taktik
+kamerayla 0,7141 → 0,7126, yayınla doldurmada 0,7479 → 0,7325 ve 0,7297 → 0,7470; PFF'in İspanya–Almanya maçında
+(K009) 0,629 → 0,632. Yani orada da belirgin bir fark yok.
+
+**Neden almadık, sonuç kötü değilken?** Ortalamada birleşim biraz iyi; Metrica maçlarında ve yayınla doldurmada
+belirgin iyi. Ama DFL maçlarında ortalamada kötü ve tek tek kopyalarda fark −0,03 ile +0,04 arasında oynuyor. Biz tek
+bir maç teslim ediyoruz; o maç "kazandıran" kopyalara mı "kaybettiren" kopyalara mı benzeyecek, bilmiyoruz. Bu yüzden
+ölçmeden önce iki şart yazmıştık: iki veri kaynağında da kazanç olsun ve hiçbir kopyada belirgin kayıp olmasın. İkisi de
+sağlanmadı.
+
+Bir gözlem daha: arkadaşımızın modeli tek başına, bizim bozma yöntemimizle üretilen 16 kopyanın hiçbirinde bizim modeli
+geçmedi; kendi bozma yöntemiyle üretilen 4 kopyanın 3'ünde geçti. Onun modeli, eğitildiği bozma yönteminde belirgin
+daha güçlü; bizim model iki yöntemde de benzer puan alıyor. Gerçek maçın takip verisi hangisine daha çok benziyor,
+bilmiyoruz ve buna bakamayız.
+
+*Öğrenilecek şey:* iki modelin ortalaması kendiliğinden daha iyi olmaz; modeller farklı yerlerde yanılıyorsa ve ikisi
+de yeterince iyiyse işe yarar. "Ortalamada biraz iyi" ile "güvenle seçilir" aynı şey değildir: kararı sayıları
+görmeden yazdığımız şartlar verdi, sayılara bakıp şartları gevşetmedik. Yöntem teslimden sonra, yeni bir planla
+yeniden denenebilir.
+
+## Güncelleme, 15 Kasım 2026: v2.15 — ikinci model eklendi (üçüncü denemede)
+
+Teslim sistemi artık **possession-v2.15** (`python -m possession.run215`). Çalıştırma aynı: `TESLIM-HAZIRLA.cmd`
+(seçenek gerekmez). Bir alt basamak v2.11k'dır (aynı sistem, ikinci model olmadan). Ayrıntılı kayıt:
+`docs/DENEY_KAYDI_TR.md` K012 ve K013.
+
+**Ne değişti.** Bizim ağaç modellerimiz her kare için "ölü top / ev sahibi / deplasman" olasılığı veriyor. Takım
+arkadaşımızın tasarladığı sinir ağı (TCN) da aynı şeyi veriyor. v2.15 bu iki olasılığın ağırlıklı ortalamasını alır
+(ağ 0,2, ağaçlar 0,8) ve sahiplikleri **bizim çözücümüzle** bu ortalamadan çıkarır. Ağın payı küçük olduğu için
+ağaçların emin olduğu yerde sonucu değiştiremez; ağaçların kararsız kaldığı yerde söz sahibi olur.
+
+**Buraya nasıl gelindi (üç deneme).**
+1. *v2.13 (13 Kasım, geçmedi):* arkadaşımızın kendi ağırlıkları ve kendi çözücüsü. Ortalama kazanç küçüktü, DFL'de eksiydi.
+2. *Teşhis:* ağ yalnız kendi "bozma" yöntemiyle eğitilmişti ve bizim kopyalarımızdaki sahte top algılamalarına
+   dayanamıyordu; ayrıca onun çözücüsü bizimkinin ölü top maliyetlerini kullanmıyordu. Ağı burada, iki bozma yöntemiyle
+   birlikte yeniden eğittik (altı model).
+3. *v2.14 (14-15 Kasım, geçmedi):* yeni ağırlıklar, bizim çözücü, eşit ağırlık. 16 yeni kopyanın 15 tanesinde daha iyi
+   (ortalama +0,0201), ama bir kopyada −0,0160. "Hiçbir kopya −0,010'dan kötü olmasın" şartı geçmedi; şartı
+   gevşetmedik, aday seçilmedi.
+4. *v2.15 (15 Kasım, geçti):* aynı sistem, ağın payı 0,2. Bu ağırlık, ikinci ölçüm sürerken yazılan bir kuralla seçildi.
+   Yine yeni 16 kopya, aynı yedi şart: ortalama +0,0112 (0,6447 → 0,6559), 16 kopyanın 14 tanesinde daha iyi,
+   en kötü kopya +0,0000; yedi şartın yedisi geçti.
+
+**Dürüst sınırlar.** Aynı şartlar üç kez denendi; üçüncüde geçmek, ilkinde geçmekten daha zayıf bir kanıttır. Ölçümler
+başka maçların bozulmuş kopyalarında yapıldı; sağlanan maç için bir ölçüm yoktur. Ağ yalnız bizim iki bozma yöntemimizi
+gördü. Ağırlıkları doğrulamayı yapan süreç eğitti. Gürültülü veri yolunda (v2.3) ikinci model kullanılmaz.
+
+**Zincirde ne değişti.** `PLATFORM` artık dokuz sentetik varyantı karşılaştırır (ikisi ağla). Belge ekinde (Ek R)
+"Second model" satırı vardır: kullanıldı / kullanılmadı. Depoya yeni bir model dosyası girdi
+(`models/possession-tcn-v215.npz`, yaklaşık 10 MB; yalnız açık DFL verisiyle eğitildi). Ağ, bir dosya üretimine
+yaklaşık beş dakika ekler (provada, 2 işlemcide); zincir bu yüzden öncekinden uzun sürer.
+
+**Tam boy prova (15 Kasım, `possession-v215-rehearsal.json`).** K003'ün sentetik paketi ve K011'in uydurma Smart Tagging
+dosyasıyla varsayılan zincir baştan sona çalıştırıldı: bütün adımlar OK, 761 saniye (v2.11k zinciri 417 saniye),
+en çok 1,53 GB bellek. Üretilen dosya v2.11k zincirinin dosyasından puanlanan karelerin %0,6'sında farklı; o
+paketin etiketlerine göre spellF1 0,772 (v2.11k zinciri 0,764). Bu bir bağlantı ve boyut denetimidir; doğruluk ölçümü
+değildir ve hiçbir seçimde kullanılmadı. **Kalan koşul:** zincirin ekibin bilgisayarında da OK bitmesi; `URETIM` ve
+`TESLIM` satırlarında `possession-v2.15` yazmalı. Daha alt bir basamağın adı yazarsa teslim edilen o basamaktır.
+
+*Öğrenilecek şey:* bir fikir ilk ölçümde başarısız olunca iki yol vardır: bırakmak ya da **neden** başarısız olduğunu
+bulmak. Nedeni bulunca (yanlış eğitim verisi, yanlış çözücü) düzeltilmiş hâli yeniden ölçülebilir; ama her yeni ölçüm
+yeni veride ve şartlar önceden yazılarak yapılmalı, kaç kez denendiği de açıkça yazılmalıdır.

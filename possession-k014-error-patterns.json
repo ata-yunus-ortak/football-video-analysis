@@ -1,0 +1,361 @@
+{
+ "version": "possession-k014-error-patterns",
+ "written_at": "2026-11-15T04:20:11+03:00",
+ "what": "Development analysis of 15 Nov 2026, asked for by the team lead: where the decision of possession-v2.15 loses spellF1 on external copies, what the losses have in common, and whether algorithms built on those patterns do better on matches the models were not trained on. Reporting only: no plan was registered, nothing is a validation, nothing was selected, the release is unchanged.",
+ "data": "42 development copies already scored in earlier validations (J03WN1 10, J03WR9 10, Metrica 1 10, Metrica 2 10, Metrica 3 2; 33 with our corruption simulator, 9 with the team's second one). The tree models and the network that produced the stored probabilities were trained on other matches (4 DFL matches for the DFL copies, 6 for the Metrica copies). DFL labels are the provider's per-frame flags, Metrica labels our proxies from events. The provided match was not opened.",
+ "method": "credit of a possession = share of the five IoU thresholds at which the organisers' greedy matching matches it; spellF1 = 2 * sum(credit) / (true + predicted), so the loss 1 - spellF1 splits exactly into (1 - credit) of every true and every predicted possession (errlib.py reproduces the official score on all 42 copies).",
+ "overall": {
+  "copies": 42,
+  "true_possessions": 16938,
+  "predicted_possessions": 12987,
+  "spell_f1_pooled_over_possessions": 0.6727,
+  "loss_true_side": 0.2297,
+  "loss_predicted_side": 0.0977
+ },
+ "loss_by_length": {
+  "under 1 s": {
+   "share_of_true_possessions": 0.1266,
+   "mean_credit": 0.095,
+   "share_of_loss": 0.1981,
+   "share_of_predicted_possessions": 0.041,
+   "mean_credit_of_predicted": 0.448,
+   "share_of_loss_predicted_side": 0.03
+  },
+  "1-2 s": {
+   "share_of_true_possessions": 0.1594,
+   "mean_credit": 0.353,
+   "share_of_loss": 0.1783,
+   "share_of_predicted_possessions": 0.1153,
+   "mean_credit_of_predicted": 0.6043,
+   "share_of_loss_predicted_side": 0.0605
+  },
+  "2-4 s": {
+   "share_of_true_possessions": 0.2109,
+   "mean_credit": 0.5821,
+   "share_of_loss": 0.1524,
+   "share_of_predicted_possessions": 0.2142,
+   "mean_credit_of_predicted": 0.7269,
+   "share_of_loss_predicted_side": 0.0776
+  },
+  "4-8 s": {
+   "share_of_true_possessions": 0.1907,
+   "mean_credit": 0.7426,
+   "share_of_loss": 0.0849,
+   "share_of_predicted_possessions": 0.2251,
+   "mean_credit_of_predicted": 0.7807,
+   "share_of_loss_predicted_side": 0.0654
+  },
+  "over 8 s": {
+   "share_of_true_possessions": 0.3124,
+   "mean_credit": 0.8372,
+   "share_of_loss": 0.088,
+   "share_of_predicted_possessions": 0.4043,
+   "mean_credit_of_predicted": 0.8792,
+   "share_of_loss_predicted_side": 0.0648
+  }
+ },
+ "loss_by_kind": {
+  "true possessions not matched at IoU 0.3": {
+   "share_of_true": 0.3227,
+   "share_of_loss": 0.558,
+   "prediction says the other team": 0.2883,
+   "prediction says the same team, merged or misaligned": 0.1755,
+   "prediction says dead ball": 0.0935,
+   "under 2 s and the prediction says the other team": 0.2102,
+   "mean pooled probability of the right team in those": 0.254
+  },
+  "matched pairs with partial credit (both sides)": {
+   "share_of_true": 0.189,
+   "share_of_loss": 0.2874
+  },
+  "predicted possessions not matched at IoU 0.3": {
+   "share_of_predicted": 0.1167,
+   "share_of_loss": 0.1547,
+   "truth is the other team": 0.0754,
+   "truth is the same team (extra piece)": 0.0601,
+   "truth is dead ball": 0.0184
+  }
+ },
+ "per_match": {
+  "J03WN1": {
+   "copies": 10,
+   "spell_f1": 0.6415,
+   "true_per_copy": 500,
+   "predicted_per_copy": 361,
+   "loss_share_true_under_2s": 0.41,
+   "loss_share_missed_true": 0.575,
+   "loss_share_partial_pairs_both_sides": 0.3,
+   "loss_share_spurious_predicted": 0.126
+  },
+  "J03WR9": {
+   "copies": 10,
+   "spell_f1": 0.697,
+   "true_per_copy": 370,
+   "predicted_per_copy": 298,
+   "loss_share_true_under_2s": 0.366,
+   "loss_share_missed_true": 0.518,
+   "loss_share_partial_pairs_both_sides": 0.32,
+   "loss_share_spurious_predicted": 0.162
+  },
+  "MET1": {
+   "copies": 10,
+   "spell_f1": 0.6832,
+   "true_per_copy": 379,
+   "predicted_per_copy": 298,
+   "loss_share_true_under_2s": 0.337,
+   "loss_share_missed_true": 0.56,
+   "loss_share_partial_pairs_both_sides": 0.258,
+   "loss_share_spurious_predicted": 0.182
+  },
+  "MET2": {
+   "copies": 10,
+   "spell_f1": 0.6649,
+   "true_per_copy": 364,
+   "predicted_per_copy": 274,
+   "loss_share_true_under_2s": 0.38,
+   "loss_share_missed_true": 0.575,
+   "loss_share_partial_pairs_both_sides": 0.27,
+   "loss_share_spurious_predicted": 0.154
+  },
+  "MET3": {
+   "copies": 2,
+   "spell_f1": 0.7294,
+   "true_per_copy": 404,
+   "predicted_per_copy": 338,
+   "loss_share_true_under_2s": 0.357,
+   "loss_share_missed_true": 0.525,
+   "loss_share_partial_pairs_both_sides": 0.276,
+   "loss_share_spurious_predicted": 0.199
+  }
+ },
+ "turnovers_found_and_timed": {
+  "DFL": {
+   "both possessions >= 2 s, ball seen": {
+    "n": 2134,
+    "found_within_3s": 0.891,
+    "within_0.25s": 0.532,
+    "within_0.5s": 0.617,
+    "within_1s": 0.732
+   },
+   "both possessions >= 2 s, ball unseen": {
+    "n": 649,
+    "found_within_3s": 0.74,
+    "within_0.25s": 0.136,
+    "within_0.5s": 0.262,
+    "within_1s": 0.464
+   },
+   "new possession < 2 s, ball seen": {
+    "n": 1342,
+    "found_within_3s": 0.554,
+    "within_0.25s": 0.313,
+    "within_0.5s": 0.357,
+    "within_1s": 0.41
+   },
+   "new possession < 2 s, ball unseen": {
+    "n": 457,
+    "found_within_3s": 0.249,
+    "within_0.25s": 0.033,
+    "within_0.5s": 0.081,
+    "within_1s": 0.131
+   }
+  },
+  "Metrica": {
+   "both possessions >= 2 s, ball seen": {
+    "n": 1791,
+    "found_within_3s": 0.91,
+    "within_0.25s": 0.629,
+    "within_0.5s": 0.735,
+    "within_1s": 0.808
+   },
+   "both possessions >= 2 s, ball unseen": {
+    "n": 738,
+    "found_within_3s": 0.736,
+    "within_0.25s": 0.156,
+    "within_0.5s": 0.291,
+    "within_1s": 0.492
+   },
+   "new possession < 2 s, ball seen": {
+    "n": 1055,
+    "found_within_3s": 0.622,
+    "within_0.25s": 0.407,
+    "within_0.5s": 0.475,
+    "within_1s": 0.545
+   },
+   "new possession < 2 s, ball unseen": {
+    "n": 439,
+    "found_within_3s": 0.33,
+    "within_0.25s": 0.059,
+    "within_0.5s": 0.1,
+    "within_1s": 0.216
+   }
+  }
+ },
+ "upper_bounds_with_the_labels_as_oracle": {
+  "base": 0.6741,
+  "snap_3s": 0.7328,
+  "snap_1s": 0.6978,
+  "snap_3s_seen": 0.7043,
+  "snap_3s_turnovers": 0.7284,
+  "snap_3s_dead": 0.6807,
+  "nodead": 0.7003,
+  "note": "base = v2.15; snap = predicted changes with a true counterpart within the window moved to the true moment; nodead = dead-ball frames perfect. Never a method."
+ },
+ "tested_on_the_development_copies": {
+  "weak signals inside predicted possessions (bumps of the other team's probability), by peak": {
+   "0.20-0.30": {
+    "n": 2105,
+    "true_possession_under_it": 0.113,
+    "iou_0.3_with_a_true_possession": 0.077
+   },
+   "0.30-0.40": {
+    "n": 2348,
+    "true_possession_under_it": 0.173,
+    "iou_0.3_with_a_true_possession": 0.114
+   },
+   "0.40-0.50": {
+    "n": 12534,
+    "true_possession_under_it": 0.273,
+    "iou_0.3_with_a_true_possession": 0.08
+   },
+   "0.50-1.01": {
+    "n": 2125,
+    "true_possession_under_it": 0.346,
+    "iou_0.3_with_a_true_possession": 0.24
+   },
+   "note": "to pay off under spellF1 at this level, an inserted possession must be real in roughly 4 of 10 cases; none of the groups reaches that"
+  },
+  "decoder constants (difference to the release constants)": {
+   "sw2": -0.001,
+   "sw4": -0.0009,
+   "sw5": -0.0032,
+   "b-0.6": -0.0013,
+   "b0": 0.0002
+  },
+  "contact evidence added to the decoder (12 settings)": {
+   "best": [
+    "R1.0_M0.5_l0.4",
+    {
+     "all": 0.0007,
+     "DFL": -0.0,
+     "Metrica": 0.0013,
+     "worst_copy": -0.005,
+     "copies_better": 23
+    }
+   ],
+   "worst": [
+    "R1.5_M1.0_l0.1",
+    {
+     "all": -0.0002,
+     "DFL": 0.0001,
+     "Metrica": -0.0005,
+     "worst_copy": -0.0046,
+     "copies_better": 16
+    }
+   ]
+  },
+  "reception rule that re-times turnovers (24 settings)": {
+   "best": [
+    "{\"R\": 1.0, \"RFAR\": 2.0, \"W\": 38, \"early\": true, \"late\": false}",
+    {
+     "all": 0.0007,
+     "DFL": -0.0009,
+     "Metrica": 0.0021,
+     "worst_copy": -0.004,
+     "copies_better": 24
+    }
+   ],
+   "worst": [
+    "{\"R\": 1.0, \"RFAR\": 2.0, \"W\": 75, \"early\": false, \"late\": true}",
+    {
+     "all": -0.003,
+     "DFL": -0.0033,
+     "Metrica": -0.0028,
+     "worst_copy": -0.0099,
+     "copies_better": 9
+    }
+   ]
+  },
+  "learned combination of both model families, leave one match out (exploration only)": {
+   "all": 0.0095,
+   "DFL": 0.0081,
+   "Metrica": 0.0107,
+   "worst_copy": -0.0226,
+   "copies_better": 32,
+   "copies": 42,
+   "per_match": {
+    "J03WN1": 0.0065,
+    "J03WR9": 0.0098,
+    "MET1": 0.0077,
+    "MET2": 0.0117,
+    "MET3": 0.0203
+   },
+   "note": "gradient-boosted classifier on both families' probabilities and their temporal context, trained on the copies of four matches, tested on the fifth; difference to v2.15. Average gain about the size of the registered minimum, single copies clearly worse: it would not pass the gate on single copies. Not registered: the v2.15 plan says no further attempt with the second model follows."
+  },
+  "minimum possession length in labels and prediction (reading of the organisers' rule that a touch without control is no change of possession)": {
+   "labels_tau_0.0s": {
+    "prediction_m_0.0s": 0.6741,
+    "prediction_m_0.5s": 0.6743,
+    "prediction_m_1.0s": 0.6662,
+    "prediction_m_1.5s": 0.6513,
+    "prediction_m_2.0s": 0.6243,
+    "prediction_m_3.0s": 0.5622
+   },
+   "labels_tau_0.5s": {
+    "prediction_m_0.0s": 0.7058,
+    "prediction_m_0.5s": 0.7069,
+    "prediction_m_1.0s": 0.7008,
+    "prediction_m_1.5s": 0.6874,
+    "prediction_m_2.0s": 0.661,
+    "prediction_m_3.0s": 0.5994
+   },
+   "labels_tau_1.0s": {
+    "prediction_m_0.0s": 0.7222,
+    "prediction_m_0.5s": 0.724,
+    "prediction_m_1.0s": 0.7315,
+    "prediction_m_1.5s": 0.7235,
+    "prediction_m_2.0s": 0.6981,
+    "prediction_m_3.0s": 0.6355
+   },
+   "labels_tau_1.5s": {
+    "prediction_m_0.0s": 0.723,
+    "prediction_m_0.5s": 0.7249,
+    "prediction_m_1.0s": 0.7403,
+    "prediction_m_1.5s": 0.7552,
+    "prediction_m_2.0s": 0.7396,
+    "prediction_m_3.0s": 0.6831
+   },
+   "labels_tau_2.0s": {
+    "prediction_m_0.0s": 0.7184,
+    "prediction_m_0.5s": 0.7205,
+    "prediction_m_1.0s": 0.7381,
+    "prediction_m_1.5s": 0.7602,
+    "prediction_m_2.0s": 0.7646,
+    "prediction_m_3.0s": 0.7219
+   },
+   "labels_tau_3.0s": {
+    "prediction_m_0.0s": 0.6662,
+    "prediction_m_0.5s": 0.6683,
+    "prediction_m_1.0s": 0.6865,
+    "prediction_m_1.5s": 0.7151,
+    "prediction_m_2.0s": 0.7434,
+    "prediction_m_3.0s": 0.7714
+   },
+   "note": "rows: external labels in which a possession shorter than tau after the other team's possession does not count; columns: the same rule applied to the prediction. The best m follows tau. Which tau describes the competition labels cannot be measured on external data, so nothing was changed."
+  }
+ },
+ "label_sets_shifted_against_themselves": "shift1.py: external labels scored against themselves shifted late by 3 / 8 / 25 frames: J03WN1 0.948 / 0.835 / 0.505, J03WR9 0.952 / 0.875 / 0.601, Metrica 1-3 0.93-0.96 / 0.85-0.87 / 0.62; the organisers publish 0.9818 / 0.8933 / 0.6539 for their ground truth (EVALUATION.md). Read only as context: their labels seem to contain fewer very short possessions than ours. Not used for any choice.",
+ "conclusions": [
+  "Possessions under 2 s are 29% of the true possessions and carry 38% of the lost score; 70% of them are not found. In 6 of 10 the prediction keeps the other team, and neither model family shows them (mean probability of the right team 0.25).",
+  "A third of the loss is timing and extent of possessions that are found: with the ball seen, a turnover between two possessions of at least 2 s is timed within 0.5 s in 62% (DFL) and 73% (Metrica) of cases, with the ball unseen in 26-29%. The decision tends to switch while the ball is still travelling to the new team.",
+  "The patterns are the same in all five matches and both label sources. Long true possessions predicted dead occur almost only in the Metrica proxies and are an artefact of those labels.",
+  "Rules built on the patterns (contact evidence, re-timing to the reception, decoder constants) changed the score by at most 0.003 either way; a minimum possession length is neutral at 0.5 s and costs 0.008 at 1 s on the external labels. A learned combination of the two families gained about 0.01 on average with single copies 0.01-0.02 worse.",
+  "None of this reaches the registered minimum for a release change (+0.008 with no copy below -0.010), and the organisers state that differences below about 0.04 are noise on one match. The release stays possession-v2.15."
+ ],
+ "environment": {
+  "python": "3.13.18",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "scikit-learn": "1.9.1"
+ },
+ "provided_fixture_used": false
+}

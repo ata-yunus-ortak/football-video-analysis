@@ -88,7 +88,7 @@ def error_class(text, code):
 def release_detail(text):
     """What a failed release check names: the changed source file or bundle, or a missing package.
     The release check reads no match data, so this part of its message cannot carry any."""
-    m = re.search(r"^(?:ValueError: ((?:frozen (?:source|bundle) changed|the v2\.\d\w? release manifest changed)[\w .:\-]{0,60})"
+    m = re.search(r"^(?:ValueError: ((?:frozen (?:source|bundle) changed|the v2\.\d+\w? release manifest changed)[\w .:\-]{0,60})"
                   r"|ModuleNotFoundError: (No module named '[\w.]+'))\s*$", text, re.M)
     return (m.group(1) or m.group(2)) if m else ''
 
@@ -126,6 +126,29 @@ def keeper_fact(rep):
             'no goalkeeper carried the other id for most of a half')
 
 
+def kickoff_fact(rep):
+    """What the Smart Tagging kick-off rule (possession/kickoff.py) did, as a category (no counts, no frame)."""
+    k = rep.get('kickoff_rule')
+    if not isinstance(k, dict):
+        return 'not part of the entry point that produced the file'
+    if any(k.get('used_in_block') or []):
+        return ('a kick-off tag of the automatic Smart Tagging was used: the frames of a graded block before that tag are '
+                'written D')
+    if not k.get('tagging_file_found'):
+        return 'Smart Tagging file not found: not applied (the models decide before the kick-off)'
+    return 'no usable kick-off tag in the Smart Tagging file: not applied (the models decide before the kick-off)'
+
+
+def second_model_fact(rep):
+    """Whether the second model family (possession/tcn, possession/pooling.py) took part, as a category."""
+    k = rep.get('second_model')
+    if not isinstance(k, dict):
+        return 'not part of the entry point that produced the file'
+    if k.get('used'):
+        return 'used: the probabilities of the tree models were averaged with those of the temporal convolution network before the decoder'
+    return 'not used: the noise gate chose the path on which nothing is averaged (the labels are those of the release without the second model)'
+
+
 def run_record(rep, facts):
     """Markdown appendix with categorical facts of the delivered run (no per-frame content, no measured values)."""
     fus = rep.get('fusion') or {}
@@ -142,7 +165,9 @@ def run_record(rep, facts):
             ('Platform', facts['platform']),
             ('Input files against DATA.md', facts.get('inputs', 'not run')),
             ('Model path chosen by the noise gate', str(rep.get('path'))),
+            ('Second model', second_model_fact(rep)),
             ('Goalkeeper team correction', keeper_fact(rep)),
+            ('Kick-off rule', kickoff_fact(rep)),
             ('Broadcast camera', cam),
             ('Play blocks', str(rep.get('period_source'))),
             ('Format (organisers\' rules)', facts['format']),
@@ -337,15 +362,15 @@ class Chain:
         last = (text.strip().splitlines() or [''])[-1].split()
         word = last[0] if last else ''
         if code == 0 and word == 'SAME':
-            self.facts['platform_check'] = 'same bytes as recorded on Linux x86-64 (seven synthetic variants)'
+            self.facts['platform_check'] = 'same bytes as recorded on Linux x86-64 (nine synthetic variants)'
             return self.step('PLATFORM', 'AYNI')
         if code == 2 and word == 'DIFFERENT':
             self.facts['platform_check'] = 'DIFFERENT from the bytes recorded on Linux x86-64 for: ' + ', '.join(last[1:])
             return self.step('PLATFORM', 'FARKLI (' + ', '.join(last[1:]) + ')', warn=True)
         if code == 3 and word == 'INPUT_DIFFERS' and last[1:] == ['keepers']:
-            self.facts['platform_check'] = ('same bytes as recorded on Linux x86-64 for five synthetic variants; not conclusive for the two '
+            self.facts['platform_check'] = ('same bytes as recorded on Linux x86-64 for six synthetic variants; not conclusive for the three '
                                             'goalkeeper variants (their synthetic input differs on this computer)')
-            return self.step('PLATFORM', 'BELIRSIZ (kaleci varyantlarinin sentetik girdisi bu bilgisayarda farkli; diger bes varyant AYNI)', warn=True)
+            return self.step('PLATFORM', 'BELIRSIZ (kaleci varyantlarinin sentetik girdisi bu bilgisayarda farkli; diger alti varyant AYNI)', warn=True)
         if code == 3 and word == 'INPUT_DIFFERS':
             self.facts['platform_check'] = 'not conclusive (the synthetic input differs on this computer)'
             return self.step('PLATFORM', 'BELIRSIZ (sentetik girdi bu bilgisayarda farkli)', warn=True)
@@ -361,11 +386,16 @@ class Chain:
         self.video = {c: d / c / f'{g}_{c}.mp4' for c in CAMS}
         self.has_bro = all(p.exists() for p in bro)
         self.has_video = all(p.exists() for p in self.video.values())
+        # a release step that reads the Smart Tagging file (kick-off rule) falls back to its base step without it; the
+        # organisers regenerate from the whole bundle, so a missing file here could give another file than theirs
+        reads_tags = any(s.get('smart_tagging') for s in self.steps)
+        self.has_tagging = (d / 'tactical' / f'{g}_tactical_smart_tagging.xml').exists()
         if not all(p.exists() for p in tac):
             self.step('VERI', 'FAIL (taktik ATD dosyalari bulunamadi; viewer-local.cmd icindeki MTAH_DATA_DIR yolunu kontrol edin)')
             return False
-        self.step('VERI', f"OK (taktik VAR, yayin {'VAR' if self.has_bro else 'YOK'}, videolar {'VAR' if self.has_video else 'YOK'})",
-                  warn=not self.has_bro)
+        tags = f", smart tagging {'VAR' if self.has_tagging else 'YOK'}" if reads_tags else ''
+        self.step('VERI', f"OK (taktik VAR, yayin {'VAR' if self.has_bro else 'YOK'}, videolar {'VAR' if self.has_video else 'YOK'}{tags})",
+                  warn=not self.has_bro or (reads_tags and not self.has_tagging))
         return True
 
     def inputs(self):

@@ -1,10 +1,10 @@
 # More Than a Hack 2027 — possession (team repository)
 
-## Submission system: possession v2.11
+## Submission system: possession v2.15
 
-Release `possession-v2.11`, entry point `python -m possession.run211`, manifest
-`possession-v211-release.json`. The release and its technical fall-backs (the next one is
-`possession-v2.9`) are named in `possession-release.json`.
+Release `possession-v2.15`, entry point `python -m possession.run215`, manifest
+`possession-v215-release.json`. The release and its technical fall-backs (the next one is
+`possession-v2.11k`, the same system without the second model) are named in `possession-release.json`.
 
 | where | what |
 |---|---|
@@ -14,7 +14,7 @@ Release `possession-v2.11`, entry point `python -m possession.run211`, manifest
 | [docs/DENEY_KAYDI_TR.md](docs/DENEY_KAYDI_TR.md) | experiment log, newest entry first (Turkish) |
 | [docs/SAHIPLIK_V2_TR.md](docs/SAHIPLIK_V2_TR.md) | team guide (Turkish) |
 | `possession-v*-plan.json`, `possession-v*-results.json` | plan registered before each experiment, and its results |
-| `possession-final-test-plan.json` | registered final test of the frozen release on a reserved external match (`python -m tools.possession_final_test`); its results file exists once the team has run it |
+| `possession-final-test-plan.json` | registered final test of `possession-v2.11k` (the release without the second model) on a reserved external match (`python -m tools.possession_final_test`); its results file exists once the team has run it. It was not re-registered for v2.15: the second model's designer had used that match |
 | [experiments/possession_v2/](experiments/possession_v2/) | the experiment scripts (archive; not needed to regenerate the file) |
 
 ### Regenerate the submission file
@@ -32,7 +32,7 @@ python -m pip install -r requirements-possession.txt
 # clock readings, separate OCR environment (requirements-sync-lock.txt):
 python -m tools.possession_clock --video <bundle root>/tactical/BAR-ATH_tactical.mp4 --out <clock>/tactical
 python -m tools.possession_clock --video <bundle root>/broadcast/BAR-ATH_broadcast.mp4 --out <clock>/broadcast
-python -m possession.run211 --data-dir <bundle root> --out <new folder> --tactical-clock <clock>/tactical --broadcast-clock <clock>/broadcast
+python -m possession.run215 --data-dir <bundle root> --out <new folder> --tactical-clock <clock>/tactical --broadcast-clock <clock>/broadcast
 python -m possession.validate <new folder>/submission.csv
 ```
 
@@ -44,11 +44,14 @@ Before generating, the tool checks the provided files against the facts `DATA.md
 them and against a second reading done the way the organisers' `starter/baseline.py` reads the
 tracking (`python -m possession.inputs_check`, pass/fail only). The whole chain was rehearsed on
 synthetic bundles with the file names, sizes and slot counts of the provided files
-(`possession-rehearsal-results.json`, log entry K003).
+(`possession-rehearsal-results.json`, log entry K003), and again for the current release
+(`possession-v215-rehearsal.json`, log entry K013).
 
-Reserve: `possession-release-graded-windows.json` names `possession.run211g`, the same system without
-the kick-off frame published in the FAQ. It is used only if the organisers answer that this constant
-may not be hard-coded: `python -m tools.possession_deliver --release-config possession-release-graded-windows.json ...`.
+Reserve: `possession-release-graded-windows.json` is the ladder without the Smart Tagging kick-off
+rule and without the second model (`possession.run211g` first): `python -m tools.possession_deliver --release-config possession-release-graded-windows.json ...`.
+Neither configuration uses the kick-off frame published in the FAQ. `possession.run211`, which does,
+stays in the repository frozen and unused: we asked the organisers whether that constant may be
+hard-coded, and their answer of 12 November 2026 did not allow it explicitly.
 
 ### What it is
 
@@ -63,22 +66,35 @@ team.
 - **Broadcast ball fill (v2.5, v2.5b):** the broadcast tracking is aligned to the tactical frames
   (anchored on the match clock read by OCR in both videos); missing tactical balls are filled only
   when both cameras agree within 0.50 m.
-- **Second-half kick-off (v2.5c):** play starts at the kick-off frame published in the organisers' FAQ.
+- **Second-half kick-off (v2.11g, v2.11k):** the models run on the whole graded second half, which starts
+  before the kick-off; the frames before the first automatic Smart Tagging "Kick Off (Start)" tag of a
+  graded block are then written `D` (`possession/kickoff.py`). The kick-off frame published in the
+  organisers' FAQ, used by v2.5c to v2.11, is not used.
 - **Registration (v2.9):** before that gate the broadcast ball is corrected by the calibration error
   measured on players both cameras see (`possession/register.py`).
 - **Goalkeeper team check (v2.11):** goalkeeper track pieces that carry the other team's id are moved
   to the team that defends their goal before the features are computed (`possession/keeper2.py`);
   with correct ids nothing changes.
+- **Second model (v2.15):** on the core path, the probabilities of the tree models are averaged with
+  those of a temporal convolution network (`possession/tcn/`, `models/possession-tcn-v215.npz`; design
+  by a team member, weights trained on the same six DFL matches with both of the team's corruption
+  simulators) and the average goes through the unchanged decoder (`possession/pooling.py`). On the
+  noisier path nothing is averaged.
 
 External numbers (agreement with other providers' labels on corrupted copies; **not competition
 scores**): core 0.631 against 0.196 for the organisers' baseline logic; noise gate 0.603 -> 0.642 on
 24 fresh copies; simulated accurate broadcast +0.024; registration with a medium-quality simulated
 broadcast 0.653 -> 0.681 and with an accurate one 0.686 -> 0.684; goalkeeper check 0.659 -> 0.660
-with correct team ids, 0.335 -> 0.656 with both goalkeepers under the other team's id (simulated). Tested
+with correct team ids, 0.335 -> 0.656 with both goalkeepers under the other team's id (simulated);
+second model 0.645 -> 0.656 on 16 new copies (better on 14, log entry K013). Tested
 and not selected under gates written down beforehand: Smart Tagging evidence (v3), ungated
 broadcast fill (v4), wider noise training (v2.2), v2.3 alone, switch hazard (v2.6), gap features
-(v2.7), Metrica training (v2.8). The first goalkeeper check (v2.10) passed its gates and was replaced
-before release (log entry K004).
+(v2.7), Metrica training (v2.8), touch / control-change columns (v2.12, log entry K008), a first
+way of averaging the models' probabilities with a team member's temporal convolution network (v2.13,
+log entry K010) and a second way with re-trained weights and equal weights (v2.14, log entry K012;
+better on 15 of 16 copies but one copy clearly worse; the third way, with a smaller weight, is the
+release).
+The first goalkeeper check (v2.10) passed its gates and was replaced before release (log entry K004).
 
 ---
 

@@ -1,4 +1,4 @@
-# Possession v2.11 — technical document (short version)
+# Possession v2.15 — technical document (short version)
 
 This is the document for the submission form. The full record (every candidate, table and
 reproducibility check) is `TECHNICAL_DOCUMENT_V2.md`; data sources and licences are in
@@ -11,7 +11,7 @@ reproducibility check) is `TECHNICAL_DOCUMENT_V2.md`; data sources and licences 
 main input; the broadcast tracking is a second ball source behind a gate. No label of the provided
 match is used anywhere.
 
-**Pipeline** (`python -m possession.run211`):
+**Pipeline** (`python -m possession.run215`):
 
 1. *Features* (`possession/features.py`, about 230 per frame, positions only): whether the ball is
    seen and for how long it was/will be missing, where it was last and next seen relative to the
@@ -42,12 +42,17 @@ match is used anywhere.
    are filled with this ball only if, where both cameras see the ball, they agree within 0.50 m
    (median). The gate uses ball positions, which the registration never used, so it is an
    independent check.
-7. *Second-half kick-off*: the FAQ states that frames 110,808-113,741 are graded and all `D`
-   because the second half kicks off at 113,742. Second-half play is started at that published
-   frame; the frames before it are written `D`. We asked the organisers whether a constant taken
-   from their documentation may be used this way. `possession.run211g` is the same system without
-   it (the models run on the whole graded second half) and is kept in reserve for a negative
-   answer; Appendix R names the entry point that produced the submitted file.
+7. *Second-half kick-off*: the second half is graded from its first video frame, before the
+   kick-off, and the FAQ states that the graded frames before the kick-off are all `D`. The
+   kick-off frame published there is not used: we asked the organisers whether a constant taken
+   from their documentation may be hard-coded, and their answer of 12 November did not allow it
+   explicitly. Instead the models and the decoder run on the whole graded second half, and then
+   one rule is applied (`possession/kickoff.py`): in a graded
+   block, the frames before the first automatic Smart Tagging "Kick Off (Start)" tag are written
+   `D`, if that tag starts less than ten minutes after the block begins. Smart Tagging is an
+   automatic asset of the bundle that may be used as input; no frame number is stored in the code.
+   Without the file or a usable tag the models' labels stand. Appendix R names the entry point
+   that produced the submitted file and says whether a tag was used.
 8. *Goalkeeper team check* (`possession/keeper2.py`, applied to the tracking before step 1). The
    team of a track slot is decided by the tracker, and a goalkeeper does not wear his team's kit.
    If a goalkeeper's track carried the other team's id, the features would see an opponent standing
@@ -61,6 +66,23 @@ match is used anywhere.
    piece (mislabelled for a while). Otherwise nothing changes and the output is that of steps
    1-7 alone. We did not look at whether the provided tracking has such errors; Appendix R says
    whether anything was moved.
+9. *Second model family* (`possession/tcn/`, `possession/pooling.py`; between steps 3 and 4, on the
+   core path of step 5). A dilated temporal convolution network reads 37 team-level quantities per
+   frame at 12.5 Hz (ball seen or not, its position, speed and the length of the gap around it;
+   for each team the distance of its nearest player to the ball, players near the ball, centroid,
+   spread and speed) and sees about 25 s on either side of a frame. It outputs home / away / dead.
+   Its probabilities (three trained copies, both team orders averaged) and those of step 3 are
+   averaged with weight 0.2 for the network and 0.8 for the trees, and the average goes through
+   the decoder of step 4, unchanged. With that weight the network can move each of the three
+   probabilities by at most 0.2: it has a say where the trees are undecided and cannot overrule them
+   where they are sure.
+   The two families use the same tracking differently (trees on hand-built windows of up to 10 s;
+   a network with a long memory on raw team geometry), and on new external copies the average was
+   better than the trees alone on 14 of 16 copies, equal on the 2 that take the noisier path of step 5
+   and worse on 0 (0.6447 -> 0.6559, Section 5). The network's design, features and NumPy inference
+   are a team member's; its weights were trained for this release on the six DFL matches of
+   Section 4. On the noisier path of step 5 nothing is averaged, because that was not measured, and
+   the output is that of steps 1-8.
 
 **Why this design.** (i) The ball is missing on 41% of graded frames, so the system must reason
 from context around gaps; that is what the windowed features and the decoder do. (ii) We were
@@ -83,7 +105,10 @@ and handled by the matching model path (step 5). *Team ids of goalkeepers:* chec
 the tracks stand and corrected only on clear evidence (step 8). *Second camera:* used only to fill gaps, only
 after the agreement gate (step 6); a tactical ball position is never replaced. Without broadcast
 files, or with the gate closed, the output is the tactical-only result, and `run.json` records
-which path was taken.
+which path was taken. *Second model:* the network of step 9 reads the same corrected tracking;
+where the ball is missing it is given the position bridged across the gap together with the
+length of the gap, and it was trained on copies with the gaps and false detections of both
+simulators.
 
 ## 2. Possession rules as implemented
 
@@ -115,7 +140,7 @@ hand-written thresholds.
 | tactical ATD | used (main input) |
 | broadcast ATD + homography `valid` flag | used behind the 0.50 m agreement gate; `run.json` records whether the gate opened |
 | videos | only the on-screen match clock (OCR every 5 s) to anchor the broadcast alignment |
-| Smart Tagging | tried on simulated tags (no external match has comparable tags), dropped: +0.011 with typical tags but -0.008 without tags, registered gates failed |
+| Smart Tagging | the "Kick Off (Start)" tags only, for the kick-off rule of step 7. As evidence for the models it was tried on simulated tags (no external match has comparable tags) and dropped: +0.011 with typical tags but -0.008 without tags, registered gates failed |
 | tactical homography | not used |
 | public 5-minute ground truth | not used for any choice. After the file is generated, the delivery tool runs one pass/fail check of pipeline correctness on it (valid file, not broken, teams not exchanged; `possession/public_check.py`). The thresholds were registered beforehand (`possession-final-check-plan.json`); no score is printed or stored, and a failure may only lead to a search for an indexing or mapping bug. Appendix R of the submitted copy says whether it ran |
 | Sportec/DFL open data (CC BY 4.0) | training and validation, provider's per-frame possession/ball-status flags |
@@ -125,7 +150,29 @@ Tried and dropped, each against a gate written down beforehand: ungated broadcas
 ball with 0.5-1.5 m error lowered the score), wider noise training alone, a learned switch-hazard
 decoder (+0.002), gap-bridging ball features (+0.002), a wide decoder sweep (flat), adding a
 Metrica sample game to the training matches (+0.001 on the other Metrica game, -0.011 on DFL), a first
-version of the goalkeeper check (passed its gates; replaced before release, see Section 5). An earlier
+version of the goalkeeper check (passed its gates; replaced before release, see Section 5), and 36
+touch / control-change columns for the core models (ball velocity changes measured against the
+tracking noise and credited to the nearest player's team; `possession/touch.py`, v2.12): +0.0125 on 8
+new DFL copies (all 8 better) but -0.008 on 8 Metrica copies and -0.020 on Metrica with the broadcast
+fill, so four of six registered gates failed and it was not released (`possession-v212-plan.json`,
+`possession-v212-results.json`). Last, averaging our second-stage probabilities with a team member's
+temporal convolution network (37 features; trained by him on the same six DFL matches, and on five of
+them for the copies of the sixth) and decoding the mean with one Viterbi pass (v2.13): on 16 new
+copies with the tactical camera only +0.0063
+(-0.0045 on DFL, +0.0172 on Metrica, single copies from -0.0295 to +0.0441), with the simulated
+broadcast fill +0.0107 and +0.0143, on four copies made with his own corruption simulator +0.0277
+(reported, not a gate); the network alone scored 0.626 against 0.660. The gain was not consistent:
+3 of six registered gates failed (G1, G2, G4: mean gain, gain on DFL, no copy clearly worse), so it
+was not released (`possession-v213-plan.json`, `possession-v213-results.json`). A second attempt changed what a diagnosis on the already-scored
+copies pointed at: the network was re-trained on the corruption of both simulators (the committed
+weights broke on the other simulator's false ball detections), three trained copies were used on
+every row, and the average was decoded by our decoder instead of a single-cost one (v2.14, equal
+weights). On 16 new copies it was better on 15 (+0.0201), but one copy was 0.016 worse, and
+the gate that allows no copy below -0.010 failed; it was not released (`possession-v214-plan.json`,
+`possession-v214-results.json`). The third and last attempt lowered the network's weight to 0.2 by a
+rule written down while the second was still running, was registered before any new result, passed
+the same seven gates on 16 further new copies and is step 9 (`possession-v215-plan.json`,
+`possession-v215-results.json`). An earlier
 vision line (ball detector, contact/control state machine, dead-ball layers under `development/`)
 is not part of the submission.
 
@@ -139,10 +186,19 @@ labelling by the team: none. Details and per-match counts are in `DATA_SOURCES.m
 | Sportec/DFL open data (Bassek et al. 2025, *Scientific Data*; CC BY 4.0), six matches, from the Hugging Face mirror `pysport/idsse-data` at commit `a715a38` (files pinned in `sportec-data-plan.json`) | the provider's per-frame `BallStatus` (in / out of play) and `BallPossession` (home / away) flags inside the official tracking files; mapped mechanically to `D` / `H` / `A` | 856,677 frames at 25 fps, about 9.5 hours: 29.7% `H`, 24.9% `A`, 45.4% `D` | training of both model bundles (all six matches); during model selection four were used for training and two for validation |
 | Metrica Sports sample data, games 1-3 (github.com/metrica-sports/sample-data, commit `e706dd5`) | no possession labels exist; proxy labels computed automatically from the provider's event files (`experiments/possession_v2/metrica_labels.py`) | three matches | validation (games 1-2) and a reserved test scored once per frozen system (game 3); not used to train the submitted models |
 
-A training row is every sixth frame of three independently corrupted copies of a match, also with
-the teams exchanged (856,678 rows per bundle). A seventh DFL match is reserved for one final test
-of the frozen release (design registered in `possession-final-test-plan.json`); it had not been
-downloaded when this document was written.
+A training row of the tree models is every sixth frame of three independently corrupted copies of
+a match, also with the teams exchanged (856,678 rows per bundle). The network of step 9 was trained
+on the same six matches and labels: twelve corrupted copies of every half (six per corruption
+simulator of the team, half of them with the teams exchanged), every second frame, in crops of
+2,048 steps; three runs with different seeds (`experiments/possession_v2/v214/tcn_jax.py`). During
+selection, networks trained on four of the matches were used for the two DFL validation matches.
+
+A seventh DFL match is reserved for one final test of steps 1-8, the release without the second
+model (design registered in `possession-final-test-plan.json`). The process that built the release
+and trained its weights has not downloaded it. A team member used it, with the other matches, while
+he designed the network of step 9; the weights in the release were trained without it. For the
+network's design it is therefore not an untouched match, and there is no untouched test for the
+averaged system.
 
 ## 5. External results and limitations
 
@@ -162,6 +218,10 @@ are not competition scores and the fixtures had been accessed before, except whe
 | same copies, one goalkeeper under the other id: without / with | | 0.627 / 0.658 |
 | same copies, both goalkeepers under the other id 30% of the time: without / with | | 0.642 / 0.659 |
 | same copies seen by a camera that does not track players beyond 42 m (35 m) from play, ids correct: without / with | | 0.649 / 0.649 (0.646 / 0.646) |
+| 16 new copies (2 DFL + 2 Metrica matches), tactical camera: steps 1-8 / with the second model (step 9) | | 0.645 / 0.656 |
+| the 8 DFL copies of these / the 8 Metrica copies | | 0.648 / 0.661 and 0.641 / 0.651 |
+| 8 of them with a simulated accurate (medium) broadcast fill: without / with step 9 | | 0.686 / 0.696 (0.674 / 0.685) |
+| 4 copies made with the team's other corruption simulator: without / with step 9 | | 0.667 / 0.687 |
 
 The registration was first evaluated on 16 copies of which 8 had already served an earlier
 candidate (0.647 / 0.678 and 0.683 / 0.681). Our own records audit found this. The 8 were replaced
@@ -184,21 +244,52 @@ Limitations:
 - **Domain gap.** The models never saw the provided tracking. If its missing-ball pattern or
   position error lies outside the simulated ranges, quality drops; slowly varying position bias is
   invisible to the noise gate.
+- **Second model.** The gain of step 9 was measured on new copies of matches that had been used
+  before, for this and for every earlier choice, and the network had been shown both corruption
+  simulators of the team; whether it holds on tracking corrupted in a way neither simulator
+  produces is not known. It passed its gates at the third attempt with the same gates (Section 3),
+  which is weaker evidence than a pass at the first attempt. Single copies moved between +0.0000
+  and +0.0252. Alone, the network scored 0.650 against 0.645 and was worse than the trees on 7
+  of the 16 copies (by up to 0.014); it is used only in the average. Its weights come from one
+  training run per seed on our side and nobody else has repeated that training; a re-run does not
+  give the same bits. On the noisier model path the step is skipped.
 - **Label semantics.** DFL possession flags change on short touches more often than a
   "controlled possession" definition; the Metrica proxies are closer but have approximate stoppage
   boundaries.
 - **Short possessions are missed.** On the validation copies most unmatched true possessions last
-  about a second; the system predicts about a third fewer team changes than the labels contain.
-  With the ball hidden in exactly these moments, tracking alone does not carry the information
-  (decoder and feature changes did not help).
+  about a second; the system predicts about a quarter fewer possessions than the labels contain.
+  An error breakdown on 42 external development copies (log entry K014,
+  `possession-k014-error-patterns.json`): possessions under 2 s are 29% of the labelled
+  possessions and 38% of the lost score, and 70% of them are not found. Typically the other team
+  has the ball for a second or two inside a longer possession and the decision keeps the first
+  team; in those stretches the averaged probability of the right team is only 0.25, although the
+  ball is seen in two thirds of their frames, so the information is not in the models' view of
+  the tracking (decoder and feature changes did
+  not help; touch columns that detect ball velocity changes recovered part of them on DFL labels
+  but not on the Metrica proxies, and were not released).
+- **Timing of turnovers.** Another 29% of the lost score is the timing and extent of possessions
+  that are found. With the ball seen, a turnover between two possessions of at least 2 s is timed
+  within 0.5 s in 62% (DFL) and 74% (Metrica) of cases; with the ball unseen in 26-29%. The
+  decision tends to switch while the ball is still travelling to the new team, whereas the labels
+  switch when that team reaches it. Rules built on these patterns (contact evidence in the decoder,
+  re-timing the change to the reception) changed the external score by at most 0.003 either way. A
+  minimum possession length lowered it (by 0.008 at 1 s) unless the labels themselves contain no
+  short touches, which external data cannot tell. None was adopted.
 - **Broadcast fill and registration** were validated on simulated streams only, built by us; the
   simulator assumes that players and ball share most of the calibration error (plus a spatial warp
   and a ball-only error). With an already accurate broadcast the registration changed the score
   by -0.002 on average and by -0.020 to +0.011 on single copies (lower on 9 of 16), so on one
   match its effect can go either way; with a medium broadcast it was higher on 15 of 16. On the
   provided match the gate decides once, and we have not looked at that value.
-- **Second-half kick-off** rests on the organisers' statement; its effect cannot be measured
-  externally.
+- **Second-half kick-off.** The rule of step 7 rests on the organisers' statement that the graded
+  frames before the kick-off are `D` and on their automatic Smart Tagging. It cannot be measured
+  externally (external tracking starts at the kick-off and has no Smart Tagging); its tests are
+  synthetic, and the chain was rehearsed on a synthetic bundle with a tag file we invented
+  (Section 7). The organisers' `starter/load_smart_tagging.py` says that each tagged kick-off is a
+  window of about 5 s that contains the real kick-off. If so, the rule writes `D` only before the
+  kick-off and leaves the last moments before it, inside the window, to the models. A tag that
+  started after the real kick-off would turn the first moments of play into `D`. Without a usable
+  tag the models decide, and what they do before a kick-off was never measured either.
 - **Goalkeeper team check.** The id errors and the camera that hides far players are simulated by
   us; the provided tracking may have neither, or errors of another kind (a match official tracked
   under a team id cost 0.004 or less in a diagnostic and is not handled). When the far goalkeeper
@@ -237,9 +328,11 @@ with a hosted LLM assistant. The team reported this; the organisers required del
 materials, re-selection of everything on other fixtures, a frozen pipeline and this disclosure.
 The submitted system was written from scratch afterwards and uses none of the earlier artefacts;
 details, including what could not be verified, are in `TECHNICAL_DOCUMENT_V2.md` Section 2 and
-`REMEDIATION.md`. The v2 code was written with an AI coding assistant that only saw source code,
-public external data and aggregate external results; the pipeline is run on the provided data
-locally by the team.
+`REMEDIATION.md`. The code of steps 1-8 was written, and the weights of the network of step 9
+were trained, with an AI coding assistant that worked only on source code, public external data and
+aggregate external results. The network's design and inference code were written by a team member
+on his own branch (`mtah-possession`). The pipeline is run on the provided data locally by the
+team.
 
 ## 7. Reproduction
 
@@ -267,29 +360,34 @@ python -m pip install -r requirements-possession.txt
 # clock readings, in a separate environment (python -m pip install -r requirements-sync-lock.txt):
 python -m tools.possession_clock --video <bundle root>/tactical/BAR-ATH_tactical.mp4 --out <clock>/tactical
 python -m tools.possession_clock --video <bundle root>/broadcast/BAR-ATH_broadcast.mp4 --out <clock>/broadcast
-python -m possession.run211 --data-dir <bundle root> --out <new folder> \
+python -m possession.run215 --data-dir <bundle root> --out <new folder> \
     --tactical-clock <clock>/tactical --broadcast-clock <clock>/broadcast
 python -m possession.validate <new folder>/submission.csv
 ```
 
 What makes the file regenerable, and what was checked:
 
-- The run verifies the SHA-256 of every inference source file and both model bundles against the
-  release manifest and refuses to run if anything changed. `run.json` records input and output
+- The run verifies the SHA-256 of every inference source file, both tree bundles and the network
+  weights against the release manifest and refuses to run if anything changed. `run.json` records input and output
   hashes and every gate decision.
 - Tree evaluation is plain numpy with probabilities rounded to 1e-6. On external full-size inputs
   the file was byte-identical under Python 3.10/numpy 1.26 and Python 3.13/numpy 2.5 on Linux.
-  `tests/test_possession_crossplatform.py` pins the output hashes of seven synthetic runs (steps
-  1-7 on both model paths, with and without the broadcast camera and the clock; the full
-  pipeline on two bundles whose goalkeeper tracks carry the other team's id), recorded on Linux;
-  the delivery tool runs it on the computer that generates the file.
+  `tests/test_possession_crossplatform.py` pins the output hashes of nine synthetic runs (steps
+  1-6 on both model paths, with and without the broadcast camera and the clock; the same with
+  step 8 on two bundles whose goalkeeper tracks carry the other team's id; two runs with step 9),
+  recorded on Linux; the delivery tool runs it on the computer that generates the file. The
+  network of step 9 is evaluated in float64 NumPy and its probabilities are rounded to four
+  decimals before the averaging and to six after it; its unrounded values differ between NumPy
+  builds, the rounded ones did not in our checks. The kick-off rule of step 7 only rewrites labels
+  before an integer frame and has no floating-point part.
 - The delivery tool generates the file a second time and once more from a fresh clone of the
   pushed branch, and compares the bytes.
 - Before generating, the delivery tool checks that the release's readers return the aggregate facts
   that DATA.md publishes about the files (records, track slots, frames with a ball, mean tracked
-  objects, usable homography rows), and that they agree on every frame with a second reading done
-  the way `starter/baseline.py` reads the tracking files (`possession/inputs_check.py`; pass/fail
-  only, result in Appendix R).
+  objects, usable homography rows, the number of "Kick Off (Start)" tags), and that they agree on
+  every frame with a second reading done the way `starter/baseline.py` reads the tracking files
+  (`possession/inputs_check.py`; pass/fail only, result in Appendix R). It also reports whether
+  the Smart Tagging file is in the bundle, because without it the kick-off rule is not applied.
 - The whole chain was rehearsed on two synthetic bundles with the file names, record counts and
   slot counts of the provided files and the aggregate properties DATA.md publishes (content:
   corrupted Metrica sample games). Every step passed, with the same bytes on a second run. Against
@@ -297,8 +395,15 @@ What makes the file regenerable, and what was checked:
   the same score (spellF1 0.763 and 0.732; 0.007 with the teams exchanged, 0.57 with the rows
   shifted by one second). After the goalkeeper check was added the chain was run again on the
   first bundle (0.764) and on a copy of it in which the goalkeepers' tracks carry the
-  other team's id (0.766 with the check, 0.431 without). This checks wiring and size, not
-  accuracy on the provided match.
+  other team's id (0.766 with the check, 0.431 without). After the kick-off rule of step 7 was
+  added the chain was run once more on the first bundle with an
+  invented Smart Tagging file whose two kick-off tags are 5 s windows around the bundle's
+  kick-offs: every step passed and the file scored 0.764 (0.759 for the same bundle without the
+  tag file, where the models label the invented stretch before the second-half kick-off
+  themselves). For the release as submitted (with step 9) it was run again on that bundle and
+  tag file: every step passed, the file differs from the previous one on 0.6% of the graded
+  frames and scored 0.772 (`possession-v215-rehearsal.json`). This checks wiring and size, not
+  accuracy on the provided match; the games in these bundles had been used in development.
 - The clock readings come from OCR of the two videos and are not stored in the repository. They
   only anchor the broadcast alignment within +-1.6 s; the frame-level alignment is decided by
   player positions. The delivery tool also generates the file without clock readings and reports
@@ -308,6 +413,8 @@ The outcome of these checks for the submitted file (platform, commit, model path
 repeat run, fresh clone, with and without clock) is listed in Appendix R, which the delivery tool
 appends to the submitted copy of this document on the team's computer.
 
-Training from the public data: `python -m possession.train` with `possession-v2-config.json` and
-`possession-v23-config.json` (see the long document). Experiment scripts:
-`experiments/possession_v2/`.
+Training from the public data: the tree bundles with `python -m possession.train` and
+`possession-v2-config.json` / `possession-v23-config.json` (see the long document); the network
+weights with `experiments/possession_v2/v214/tcn_jax.py` (JAX on CPU; a re-run gives equivalent,
+not bit-identical weights, so the release pins the files it was validated with). Experiment
+scripts: `experiments/possession_v2/`.

@@ -1,0 +1,183 @@
+{
+ "version": "possession-v2.11k-rehearsal",
+ "written_at": "2026-11-13T13:33:56+03:00",
+ "what": "Two full-size runs of the delivery chain (tools/possession_deliver.py) with the default release configuration possession-release.json (possession-v2.11k first) on the synthetic rehearsal bundle A of K003 (file names, record counts and slot counts of the provided files; content: corrupted Metrica sample games; an invented stretch before the second-half kick-off). Wiring and size check, reporting only. Nothing here is from the provided match and nothing was selected with it.",
+ "release_manifest_sha256": "e53b7a2931a30ca9fcc9c9d5defdfcb8c28a4187934dd757a85bfd95988aa04d",
+ "release_config_sha256_at_run_2": "4e9837a7c06519bf7664e35af72c0e38a028c9c6afe01b816d3b291092b91ed6",
+ "environment": "chain under Python 3.10.20 / numpy 1.26.4 / scipy 1.11.4 / pandas 2.1.4 (Linux); scoring under 3.13.18 / numpy 2.5.3 against stored labels (truth_stable.npz, the file-order Metrica proxy labels of K005; no label is recomputed)",
+ "run_1_with_an_invented_smart_tagging_file": {
+  "bundle": "bundle A plus tactical/BAR-ATH_tactical_smart_tagging.xml written by experiments/possession_v2/prova_tagging.py: the structure DATA.md describes (638 instances, the published code and set-piece type counts); the two Kick Off (Start) instances are 5 s windows that start 50 and 60 frames before the two kick-offs the bundle was laid out on (frames 11135 and 113682); everything else in it is random",
+  "smart_tagging_sha256": "156ff0b1a4122611539c5b65211ca3ba17ab0753a9e4719af2522d6b2daa62a1",
+  "options": "--no-public-check --no-clone-check --quick (tests and cross-platform check included); simulated clock readings of K003",
+  "tool_note": "run before the VERI line of the tool was extended (it did not yet say whether the Smart Tagging file is present)",
+  "status_lines": [
+   "[ 1] ORTAM ..................... OK (Linux-6.18.44-fc-v445-x86_64-with-glibc2.39, Python 3.10.20, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)",
+   "[ 2] DEPO ...................... ATLANDI (git bilgisi okunamadi)",
+   "[ 3] SURUM ..................... OK (possession-v2.11k)",
+   "[ 4] TESTLER ................... OK",
+   "[ 5] PLATFORM .................. AYNI",
+   "[ 6] VERI ...................... OK (taktik VAR, yayin VAR, videolar YOK)",
+   "[ 7] GIRDI OKUMA ............... OK",
+   "[ 8] URETIM .................... OK (possession-v2.11k, saatli)",
+   "[ 9] BICIM ..................... OK",
+   "[10] MAKULLUK .................. OK",
+   "[11] TESLIM .................... OK (possession-v2.11k, saatli)",
+   "[12] SAAT ...................... VAR (onceki okuma kullanildi)",
+   "[13] TEMIZ KLON ................ ATLANDI",
+   "[14] ORGANIZATOR DOGRULAYICI ... OK",
+   "[15] ACIK PENCERE .............. ATLANDI",
+   "[16] BELGE ..................... OK (Prova.md = teknik belge + calisma kaydi)",
+   "SONUC: TESLIM HAZIR",
+   "[exit 0; 417 s; peak child RSS 1.54 GB]"
+  ],
+  "seconds": 417,
+  "peak_child_rss_gb": 1.54,
+  "delivered_file_against_the_bundle_labels": {
+   "sha256": "bab12b03e249d4809dfa5ba86d0c4f51ab1c06630cb72b5ca268084d0e9d3513",
+   "graded windows": {
+    "spell_f1_mean": 0.7641,
+    "macro_f1": 0.8728,
+    "f1_H": 0.877,
+    "f1_A": 0.9147,
+    "f1_D": 0.8268,
+    "team_acc_both_alive": 0.9575,
+    "gt_spells": 435,
+    "pred_spells": 378
+   },
+   "labels on frames 110808-113741 (before the bundle kick-off)": {
+    "H": 0,
+    "A": 0,
+    "D": 2934,
+    "X": 0
+   },
+   "outside graded windows": {
+    "H": 0,
+    "A": 0,
+    "D": 40462,
+    "X": 0
+   }
+  },
+  "for_comparison_on_bundle_A_11_Nov": {
+   "possession-v2.11g chain": {
+    "sha256": "5c9657b0b6079db390ad776aec99c42a67efb4fa63f81d476dc29bb62d95a9b0",
+    "graded windows": {
+     "spell_f1_mean": 0.7594,
+     "macro_f1": 0.8706,
+     "f1_H": 0.876,
+     "f1_A": 0.9132,
+     "f1_D": 0.8226,
+     "team_acc_both_alive": 0.9575,
+     "gt_spells": 435,
+     "pred_spells": 383
+    },
+    "labels on frames 110808-113741 (before the bundle kick-off)": {
+     "H": 135,
+     "A": 174,
+     "D": 2625,
+     "X": 0
+    },
+    "outside graded windows": {
+     "H": 0,
+     "A": 0,
+     "D": 40462,
+     "X": 0
+    }
+   },
+   "possession-v2.11 chain (second-half play from the published kick-off frame)": {
+    "sha256": "5fc316942c8f123aae871a2e99e9567d18fe8205216aaa8d0bfbe3645257d7fb",
+    "graded windows": {
+     "spell_f1_mean": 0.7641,
+     "macro_f1": 0.8728,
+     "f1_H": 0.877,
+     "f1_A": 0.9147,
+     "f1_D": 0.8268,
+     "team_acc_both_alive": 0.9575,
+     "gt_spells": 435,
+     "pred_spells": 378
+    },
+    "labels on frames 110808-113741 (before the bundle kick-off)": {
+     "H": 0,
+     "A": 0,
+     "D": 2934,
+     "X": 0
+    },
+    "outside graded windows": {
+     "H": 0,
+     "A": 0,
+     "D": 40462,
+     "X": 0
+    }
+   }
+  },
+  "against_the_v2.11g_file": {
+   "frames_that_differ": 309,
+   "first": 111032,
+   "last": 111777,
+   "all_inside_110808_to_tag_minus_1": true,
+   "all_changed_to_D": true,
+   "synthetic_tag_start_frame": 113682,
+   "v2.11k_labels_before_tag": {
+    "H": 0,
+    "A": 0,
+    "D": 2874,
+    "X": 0
+   },
+   "v2.11k_labels_tag_to_kickoff": {
+    "H": 0,
+    "A": 0,
+    "D": 60,
+    "X": 0
+   }
+  },
+  "against_the_v2.11_file": {
+   "frames_that_differ": 1
+  },
+  "run_record_rows": {
+   "System": "possession-v2.11k (v2.11g + dead ball before the Smart Tagging kick-off tag of a graded block)",
+   "Kick-off rule": "a kick-off tag of the automatic Smart Tagging was used: the frames of a graded block before that tag are written D"
+  }
+ },
+ "run_2_without_a_smart_tagging_file": {
+  "bundle": "bundle A as built for K003 (no Smart Tagging file)",
+  "options": "--no-public-check --no-clone-check --no-tests --quick; final tool (VERI reports the missing file and warns)",
+  "status_lines": [
+   "[ 1] ORTAM ..................... OK (Linux-6.18.44-fc-v445-x86_64-with-glibc2.39, Python 3.10.20, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)",
+   "[ 2] DEPO ...................... ATLANDI (git bilgisi okunamadi)",
+   "[ 3] SURUM ..................... OK (possession-v2.11k)",
+   "[ 4] VERI ...................... OK (taktik VAR, yayin VAR, videolar YOK, smart tagging YOK)",
+   "[ 5] GIRDI OKUMA ............... OK",
+   "[ 6] URETIM .................... OK (possession-v2.11k, saatli)",
+   "[ 7] BICIM ..................... OK",
+   "[ 8] MAKULLUK .................. OK",
+   "[ 9] TESLIM .................... OK (possession-v2.11k, saatli)",
+   "[10] SAAT ...................... VAR (onceki okuma kullanildi)",
+   "[11] TEMIZ KLON ................ ATLANDI",
+   "[12] ORGANIZATOR DOGRULAYICI ... OK",
+   "[13] ACIK PENCERE .............. ATLANDI",
+   "[14] BELGE ..................... OK (Prova.md = teknik belge + calisma kaydi)",
+   "SONUC: TESLIM DOSYASI HAZIR, UYARILAR VAR (VERI)",
+   "[exit 2; 205 s; peak child RSS 1.54 GB]"
+  ],
+  "seconds": 205,
+  "peak_child_rss_gb": 1.54,
+  "delivered_file_sha256": "5c9657b0b6079db390ad776aec99c42a67efb4fa63f81d476dc29bb62d95a9b0",
+  "possession-v2.11g_chain_file_sha256_11_Nov": "5c9657b0b6079db390ad776aec99c42a67efb4fa63f81d476dc29bb62d95a9b0",
+  "byte_identical_to_the_v2.11g_chain_file": true,
+  "run_record_rows": {
+   "Kick-off rule": "Smart Tagging file not found: not applied (the models decide before the kick-off)"
+  },
+  "note": "the first attempt of this run was cut off by a restart of the cloud session and started again from an empty folder"
+ },
+ "scripts_sha256": {
+  "prova_tagging.py": "16df5d7417e1d534ce13956a8af9052451a4bc0df01583b55d51ffbff28ba116",
+  "score_k011.py": "32bef0678cbc163c1aa26ba1588ef950ffa24846bc1bb657d6ea5f1a4fb3d36e",
+  "prova_build.py": "ca4666f16afa1c225fefdc3c5a6c0d27d32174c30b6694f096daaad7bb410c44",
+  "score_prova.py": "80be9842d0fc55e8a13c73bea653dd6dfa9b8691a6e066777e136dc78cbdf415"
+ },
+ "limits": [
+  "The Smart Tagging file of run 1 is invented by us around kick-off frames we chose; it says nothing about the tags of the provided file.",
+  "The scores are agreement with Metrica proxy labels on a synthetic layout; they are not competition scores.",
+  "Both runs used --quick: no repeat run, no run without clock readings, no fresh clone."
+ ],
+ "provided_fixture_used": false
+}

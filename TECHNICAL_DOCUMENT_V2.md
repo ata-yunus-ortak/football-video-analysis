@@ -1,7 +1,7 @@
-# Possession v2 — technical document (full record; current release: v2.11)
+# Possession v2 — technical document (full record; current release: v2.15)
 
 Team repository: `possession/` package, branch `feature/external-possession-selection`.
-Submission file regenerated with `python -m possession.run211` (see the two addenda and Reproduction).
+Submission file regenerated with `python -m possession.run215` (see the four addenda and Reproduction).
 
 > **Addendum, 11 November 2026 (v2.9).** The submitted entry point is now `python -m possession.run29`
 > (release manifest `possession-v29-release.json`). It differs from the v2.5b system described below in
@@ -107,6 +107,201 @@ Submission file regenerated with `python -m possession.run211` (see the two adde
 >    path uses the ids as given. Whether the provided tracking has any of this was not looked at;
 >    `run.json` on the team's computer records what was moved (aggregates only).
 
+> **Third addendum, 13 November 2026 (v2.11k): kick-off without the published frame; two candidates
+> not selected.** The submitted entry point is now `python -m possession.run211k` (release manifest
+> `possession-v211k-release.json`). `possession.run211` is unchanged, frozen and no longer used;
+> `possession.run211g` is the next step of the technical fall-back ladder. Log entries K008, K010 and
+> K011 have the full record.
+>
+> 1. **Kick-off.** The first addendum treated the second-half kick-off frame of FAQ.md as a published
+>    fixture constant. On 11 November we asked the organisers whether it may be hard-coded. Their
+>    answer of 12 November said neither yes nor no: it repeated the clarification of 3 November and
+>    added that "anything that is not explicitly allowed is not permitted". Hard-coding a published
+>    frame is not on the list of allowed uses; using the automatic Smart Tagging as input is. The
+>    release therefore (i) runs the models and the decoder on the whole graded second half, as the
+>    reserve entry point `possession.run211g` already did, and (ii) applies one rule afterwards
+>    (`possession/kickoff.py`): in every graded block, if the first "Kick Off (Start)" tag (code
+>    `SET PIECES`, tag group `Type`, compared case-insensitively; frame = round(seconds x frame
+>    rate), the time base DATA.md documents) that starts inside the block starts less than ten
+>    minutes after the block's first frame, the frames of the block before that tag are written
+>    `D`. With a missing or unreadable file, or without such a tag, the output is byte-identical to
+>    that of `possession.run211g`. The rule was written by a team member for his own branch
+>    (`mtah-possession`, commit `4b32747`) and is used unchanged; `tests/test_possession_kickoff.py`
+>    compares our implementation with his on 300 random synthetic cases. No frame number of the
+>    match is stored in the code.
+>
+>    *What supports the rule and what does not.* DATA.md lists two "Kick Off (Start)" tags, and the
+>    organisers' `starter/load_smart_tagging.py` says that each tagged kick-off is a window of
+>    about 5 s that contains the real kick-off. If so, the rule writes `D` only before the kick-off
+>    and leaves the last moments before it to the models. It cannot be measured on external
+>    matches: their tracking starts at the kick-off and they have no Smart Tagging. Its tests are
+>    synthetic. The delivery chain was rehearsed twice on the full-size synthetic bundle of K003
+>    (`possession-v211k-rehearsal.json`): with a Smart Tagging file that we invented (two 5 s
+>    windows around the bundle's kick-offs) every step passed and the delivered file scored
+>    0.764 against the bundle's external labels, the score of the v2.11 chain on that bundle
+>    (0.759 without the rule); without a Smart Tagging file the delivered file was byte-identical
+>    to that of the `possession.run211g` chain. That is a wiring and size check, not accuracy on
+>    the provided match.
+> 2. **Input check and delivery chain.** `possession/inputs_check.py` also reads the Smart Tagging
+>    file with the release's reader and compares the number of "Kick Off (Start)" tags with
+>    DATA.md (28 checks, pass/fail only). The delivery tool reports whether the file is in the
+>    bundle, because a run without it would silently give the `possession.run211g` file while a
+>    regeneration from the whole bundle would apply the rule. Appendix R of the submitted copy
+>    says whether a tag was used (no frame, no count).
+> 3. **Not selected: touch / control-change columns (v2.12, K008).** 36 columns for the core models
+>    built from ball velocity changes measured against the tracking noise (`possession/touch.py`).
+>    Registered plan `possession-v212-plan.json`, 16 new copies: +0.0125 on the 8 DFL copies (all 8
+>    better), -0.0077 on the 8 Metrica copies, -0.020 on Metrica with the broadcast fill; four of
+>    six gates failed (`possession-v212-results.json`).
+> 4. **Not selected: averaging with a second model (v2.13, K010).** A team member trained a temporal
+>    convolution network on the same six DFL matches (37 team-symmetric features, 12.5 Hz, NumPy
+>    inference; branch `mtah-possession`, commit `167dc7b`) and proposed to average its
+>    probabilities with our second-stage probabilities and decode once (his `fuse.py`: weight 0.5,
+>    one Viterbi pass with a cost of 6 per state change, replacing our decoder). His development
+>    numbers (24 Metrica copies: 0.702 for our system, 0.714 for his, 0.731-0.734 for the mix) were
+>    not usable for a decision: the mixing weight and switch cost had been looked at on the scored
+>    copies, the labels were his own, our side was the v2.4 path, not v2.11. So the unchanged
+>    rule was validated under a plan registered before any score of the fusion or of the committed
+>    weights existed on our side (`possession-v213-plan.json`, 13 November): 16 new corrupted copies
+>    of the four validation matches, the six gates of v2.12, the DFL rows with his weights trained
+>    without the scored match and our four-match validation models, the Metrica rows with the pair
+>    as it would be released. Results (`possession-v213-results.json`; spellF1):
+>
+>    | condition | copies | v2.11 | fused | difference | better / worse | worst copy | TCN alone |
+>    |---|---|---|---|---|---|---|---|
+>    | tactical camera only, all (G1, G4, G5) | 16 | 0.6598 | 0.6661 | +0.0063 | 9 / 7 | -0.0295 | 0.6257 |
+>    | tactical camera only, DFL (G2) | 8 | 0.6640 | 0.6594 | -0.0045 | 3 / 5 | -0.0295 | 0.6219 |
+>    | tactical camera only, Metrica (G3) | 8 | 0.6556 | 0.6728 | +0.0172 | 6 / 2 | -0.0100 | 0.6295 |
+>    | simulated accurate broadcast, fill (G6) | 8 | 0.6959 | 0.7066 | +0.0107 | 6 / 2 | -0.0070 | 0.6680 |
+>    | simulated medium broadcast, fill (G6) | 8 | 0.6906 | 0.7050 | +0.0143 | 6 / 2 | -0.0122 | 0.6630 |
+>    | camera window 42 m (reported) | 8 | 0.6506 | 0.6608 | +0.0101 | 4 / 4 | -0.0143 | 0.6151 |
+>    | copies made with the TCN author's simulator (reported) | 4 | 0.6685 | 0.6962 | +0.0277 | 3 / 1 | -0.0071 | 0.6805 |
+>
+>    Gates failed: G1, G2, G4; passed: G3, G5, G6. The gates were applied once to all rows and the
+>    fusion is not used. The gain is uneven: Metrica game 2 is better on all four copies, the DFL
+>    matches are worse on five of eight, and single copies move by -0.03 to +0.04. The network alone
+>    is below v2.11 on every one of our 16 copies (0.6257 against 0.6598) and above it on three of
+>    the four copies made with its author's simulator (0.6805 against 0.6685): the network
+>    is much stronger on the corruption it was trained with, v2.11 scores about the same on both,
+>    and which simulator is closer to the provided tracking is unknown. Reported once after the
+>    decision, not gates: one new copy of
+>    the reserved Metrica game 3, 0.7141 -> 0.7126 with the tactical camera only, 0.7479 -> 0.7325 and
+>    0.7297 -> 0.7470 with the fill; the PFF game of K009, 0.6289 -> 0.6320.
+>    Limits: the validation matches were not fresh for either model; the DFL rows compare our
+>    four-match validation models with his five-match weights; the gates used our simulator.
+> 5. **Final test.** The registered final test on the reserved DFL match J03WMX was re-registered
+>    for `possession.run211k` (13 November). That match has no Smart Tagging and its play blocks are
+>    the two halves, so the output there equals that of v2.11. The process that built the release
+>    has not downloaded the match; a team member used it while developing the separate model of
+>    item 4, so it is reserved for the release, not untouched by the whole team.
+
+> **Fourth addendum, 15 November 2026 (v2.15): a second model family.** The submitted entry point is now
+> `python -m possession.run215` (release manifest `possession-v215-release.json`). `possession.run211k` is
+> unchanged and is the next step of the technical fall-back ladder. Log entries K012 and K013 have the
+> full record.
+>
+> 1. **What changed.** On the core model path (measured noise at most 0.30 m) the second-stage
+>    probabilities of the tree models are averaged with those of a temporal convolution network
+>    (weight 0.2 for the network) and the average goes through the unchanged decoder
+>    (`possession/pooling.py`). The network is the one of the third addendum, item 4: 37 team-level
+>    features per frame, 12.5 Hz, about 25 s of context on either side, NumPy float64 inference
+>    (`possession/tcn/`, byte copies of commit `167dc7b` of branch `mtah-possession`, written by a team
+>    member). Its weights (`models/possession-tcn-v215.npz`, three members) were trained by us for this
+>    release. On the v2.3 path nothing is averaged and the output is that of `possession.run211k`.
+>    Everything before the decoder and the kick-off rule after it are unchanged.
+> 2. **Why the first attempt (v2.13) failed.** A diagnosis on the copies already scored for v2.13
+>    (development data from then on) found: (a) the committed weights were trained with one corruption
+>    simulator and broke on the false ball detections of the other (alone, on one Metrica game 3
+>    copy: 0.686 with our corruption, 0.733 with its false detections switched off, 0.742 on clean
+>    tracking); (b) his single-cost decoder dropped the dead-ball entry and exit costs of our decoder:
+>    with his committed weights, the same probabilities through our decoder with weight 0.2 gave
+>    +0.0137 on 22 development copies where his rule gave +0.0108 with a worst copy of -0.0295;
+>    (c) the DFL rows had used single-seed weights.
+> 3. **Re-training.** PyTorch could not be installed in the development environment, so his training
+>    script was re-implemented in JAX (`experiments/possession_v2/v214/tcn_jax.py`; same architecture,
+>    optimiser and schedule; constant Adam momentum; the network was compared with his NumPy inference
+>    on random input, largest difference of the probabilities 7.9e-7). Training data: the six DFL
+>    matches of the tree bundles, twelve corrupted copies of every half, six made with his simulator
+>    and six with ours, half of them with the teams exchanged. Three seeds on four matches (used for
+>    the DFL validation rows, like our four-match validation models) and three on six matches (the
+>    Metrica rows and the release).
+> 4. **Second attempt (v2.14), not selected.** Arithmetic pool with weight 0.5 (chosen on the 22
+>    development copies by a rule written down beforehand), our decoder. Plan
+>    `possession-v214-plan.json` (14 November 23:33), 16 new copies, the six gates of v2.12 / v2.13
+>    plus a seventh on copies made with his simulator. Results (`possession-v214-results.json`):
+>
+   | condition | copies | v2.11 | pooled | difference | better / worse | worst copy | network alone |
+   |---|---|---|---|---|---|---|---|
+   | tactical camera only, all (G1, G4, G5) | 16 | 0.6475 | 0.6676 | +0.0201 | 15 / 1 | -0.0160 | 0.6518 |
+   | tactical camera only, DFL (G2) | 8 | 0.6413 | 0.6605 | +0.0192 | 8 / 0 | +0.0023 | 0.6417 |
+   | tactical camera only, Metrica (G3) | 8 | 0.6537 | 0.6748 | +0.0211 | 7 / 1 | -0.0160 | 0.6618 |
+   | simulated accurate broadcast, fill (G6) | 8 | 0.6831 | 0.6953 | +0.0122 | 7 / 1 | -0.0109 | 0.6819 |
+   | simulated medium broadcast, fill (G6) | 8 | 0.6903 | 0.7102 | +0.0199 | 8 / 0 | +0.0005 | 0.6924 |
+   | camera window 42 m (reported) | 8 | 0.6404 | 0.6590 | +0.0186 | 8 / 0 | +0.0048 | 0.6396 |
+   | copies made with the network author's simulator (G7) | 4 | 0.6766 | 0.7058 | +0.0292 | 3 / 1 | -0.0056 | 0.7034 |
+>
+>    Six gates passed; G4 (no copy below -0.010) failed on one Metrica copy (-0.0160), so v2.14 was
+>    not released.
+> 5. **Third and last attempt (v2.15), selected.** The conditions were written down while the second
+>    validation was running: only if its mean gates passed; the same weights, pool and decoder; only
+>    a smaller weight, chosen from 0.1, 0.2, 0.3 on the 42 development copies (the 22 earlier ones and
+>    20 copies of the v2.14 validation, after its decision) as the largest mean without a copy below
+>    -0.007; unchanged gates; new copies; no further attempt. The rule gave 0.2. Plan
+>    `possession-v215-plan.json` (15 November 01:17), results `possession-v215-results.json`:
+>
+   | condition | copies | v2.11 | pooled | difference | better / worse | worst copy | network alone |
+   |---|---|---|---|---|---|---|---|
+   | tactical camera only, all (G1, G4, G5) | 16 | 0.6447 | 0.6559 | +0.0112 | 14 / 0 | +0.0000 | 0.6496 |
+   | tactical camera only, DFL (G2) | 8 | 0.6484 | 0.6611 | +0.0126 | 8 / 0 | +0.0034 | 0.6492 |
+   | tactical camera only, Metrica (G3) | 8 | 0.6411 | 0.6508 | +0.0097 | 6 / 0 | +0.0000 | 0.6501 |
+   | simulated accurate broadcast, fill (G6) | 8 | 0.6858 | 0.6964 | +0.0106 | 7 / 0 | +0.0000 | 0.6848 |
+   | simulated medium broadcast, fill (G6) | 8 | 0.6741 | 0.6854 | +0.0114 | 7 / 0 | +0.0000 | 0.6785 |
+   | camera window 42 m (reported) | 8 | 0.6412 | 0.6530 | +0.0118 | 7 / 0 | +0.0000 | 0.6418 |
+   | copies made with the network author's simulator (G7) | 4 | 0.6670 | 0.6867 | +0.0197 | 4 / 0 | +0.0186 | 0.6805 |
+>
+>    All seven gates passed. Recall of possessions under 2 s: 0.275 -> 0.277; predicted
+>    possessions per copy 308 -> 304 (labels: 403).
+> 6. **How to read it.** The same gates were applied three times to three designs, each time on new
+>    copies. A gate on single copies is passed more easily by a design that is tried again with a
+>    more cautious setting, so this pass is weaker evidence than a pass at the first attempt. What
+>    the two validations with re-trained weights and our decoder agree on: of their 32 new
+>    tactical-camera copies the average was better than the trees alone on 29, equal on 2 (copies
+>    on the v2.3 path, where nothing is averaged) and worse on 1, and with the small weight no
+>    copy was worse. The validation matches had been used before, the network saw both of the
+>    team's corruption simulators and nothing else, and its weights were trained by the process
+>    that validated them.
+> 7. **Integration.** `possession.run215` is `possession.run211` with the graded windows, the
+>    pooling and the kick-off rule; with the pooling switched off it writes the bytes of
+>    `possession.run211k` (test). The cross-platform check has nine synthetic variants (two with the
+>    network); the 4-decimal network probabilities and the output were identical under Python 3.10 /
+>    numpy 1.26.4 and Python 3.13 / numpy 2.5.3, the unrounded network outputs were not. The delivery
+>    chain with the default configuration was rehearsed once, after the decision, on the full-size
+>    synthetic bundle of K003 with the invented Smart Tagging file of K011
+>    (`possession-v215-rehearsal.json`): all steps OK in 761 s on 2 CPUs (the v2.11k chain: 417 s; with
+>    the network one generation took about five minutes longer under Python 3.10 / numpy 1.26.4),
+>    peak memory 1.53 GB. The
+>    delivered file differs from the v2.11k chain file on 889 frames (0.6% of the graded frames),
+>    none before the kick-offs; against the proxy labels of that bundle spellF1 0.7721 (v2.11k chain
+>    0.7641), macroF1 0.8732 (0.8728). A wiring and size check on games that had been used in
+>    development, not a selection input and not an accuracy claim. Whether the chain runs on the
+>    team's computer is the last condition of the registered decision rule and is checked there.
+> 8. **Final test.** The plan of the final test on J03WMX stays registered for `possession.run211k`,
+>    the release without the second model. For the network's design that match is not untouched
+>    (its author used it during development), so a run of v2.15 on it could not be reported as a
+>    fresh test; the released weights were trained without it.
+> 9. **Error patterns (K014, 15 November, reporting only).** On the 42 development copies the loss of
+>    v2.15 was split exactly over true and predicted possessions (`possession-k014-error-patterns.json`,
+>    scripts in `experiments/possession_v2/v216/`). True possessions under 2 s are 29% of the labels and
+>    38% of the loss (70% of them are not found; the averaged probability of the right team inside the
+>    typical one is 0.25); 29% of the loss is timing and extent of possessions that are found (the
+>    decision switches while the ball is still travelling to the new team); 15% is predicted
+>    possessions without a counterpart. The shares are similar in all five matches. Decoder constants,
+>    contact evidence in the decoder and a rule that re-times a turnover to the reception changed the
+>    score by at most 0.003; a minimum possession length is a bet on the label definition that
+>    external data cannot settle; a learned combination of both model families, explored with one
+>    match left out at a time, gained 0.0095 on average with a worst copy of -0.023 and was not
+>    registered. The release is unchanged.
+
 ## 1. Summary
 
 Per-frame H/A/D labels are produced from the provided **tactical automatic tracking (ATD)**,
@@ -171,8 +366,8 @@ that the pipeline runs and the file is well formed. Earlier public-window scores
 presented anywhere as validation.
 
 **AI assistance in v2.** v2 code was written with an AI coding assistant working only on
-source code, external datasets and aggregate external results. No provided-match file, extract,
-frame-level output or derived statistic was given to it; the frozen pipeline was run on the
+source code, external datasets and aggregate external results. No provided-match file, extract
+or frame-level output was given to it; the frozen pipeline was run on the
 provided data locally by the team.
 
 ## 3. Data
@@ -543,16 +738,19 @@ cannot rule out without the organisers' machine.
 python -m tools.possession_clock --video <bundle>/tactical/BAR-ATH_tactical.mp4 --out <clock>/tactical
 python -m tools.possession_clock --video <bundle>/broadcast/BAR-ATH_broadcast.mp4 --out <clock>/broadcast
 python -m pip install -r requirements-possession.txt
-python -m possession.run211 --data-dir <bundle root containing tactical/ and broadcast/> --out <new folder> \
+python -m possession.run215 --data-dir <bundle root containing tactical/ and broadcast/> --out <new folder> \
     --tactical-clock <clock>/tactical --broadcast-clock <clock>/broadcast
 python -m possession.validate <new folder>/submission.csv
 # or everything in one command (environment, hash check, tests, clocks, generation, checks):
 python -m tools.possession_deliver --data-dir <bundle root> --private <output folder> --team <team name>
 ```
 
-`run.json` states which path the noise gate took and whether the broadcast fill was used. Without
-broadcast files, or when the accuracy gate is closed, the release (`possession.run211`) writes the
-file that `python -m possession.run25c` writes from the tactical camera alone. For the v2.5b system described in this document
+`run.json` states which path the noise gate took, whether the broadcast fill was used, whether the
+goalkeeper check moved anything, whether a kick-off tag was used and whether the second model was
+pooled. Without broadcast files, or when the accuracy gate is closed, and when the goalkeeper check
+moves nothing, `possession.run211k` (the release without the second model, and the release itself on
+the v2.3 path) writes the file that `python -m possession.run25` writes from the tactical camera
+alone, except for the frames that the kick-off rule sets to `D` (third addendum). For the v2.5b system described in this document
 (`possession.run25`, second-half play from frame 110,808): without broadcast files or with the gate
 closed it writes the same file as `python -m possession.run24`, and when the noise gate also chose
 `v2.1`, as `python -m possession.run`.
@@ -572,14 +770,19 @@ file (identical SHA-256) under Python 3.10/numpy 1.26.4 and Python 3.13/numpy 2.
 synthetic ATD and for a full-size external EPTS file (Metrica sample game 3 tracking, 143,761
 frames, 35 slots, 11 data format specifications; 45 s, 1.2 GB peak memory on two CPU cores).
 
-`possession.run211` (like `possession.run29` and `possession.run25`) reads `tactical/BAR-ATH_tactical_atd.xml` and `_atd.txt`,
+`possession.run215` (like `possession.run211k`, `possession.run211`, `possession.run29` and `possession.run25`) reads `tactical/BAR-ATH_tactical_atd.xml` and `_atd.txt`,
 `broadcast/BAR-ATH_broadcast_atd.xml`, `_atd.txt` and `_homography.csv` (only the `valid` column) and, if
-given, the two clock-observation files. It checks every source file and both bundles against the release
-manifest `possession-v29-release.json` (`possession-v25-release.json` for `run25`) and the bundle cards, and
+given, the two clock-observation files; `run215` and `run211k` also read the "Kick Off (Start)" tags of
+`tactical/BAR-ATH_tactical_smart_tagging.xml`. It checks every source file, both tree bundles and the network weights
+against the release manifest (`possession-v215-release.json`, which lists every inference source and the three model
+files; the lower steps have `possession-v211k-release.json`, `possession-v211g-release.json` and
+`possession-v211-release.json`) and the bundle cards, and
 writes `submission.csv` plus `run.json` (input, model, source and output hashes, measured noise and path,
 alignment mode, gate values, filled frames, team names, aggregate label counts). The graded halves
-are taken from the organisers' `games.half_video_blocks("BAR-ATH")`; in the release the second-half play
-block starts at the kick-off frame published in the FAQ (113,742). Outside the play blocks `D` is written.
+are taken from the organisers' `games.half_video_blocks("BAR-ATH")` and are the play blocks of the release;
+the frames of a block before a usable kick-off tag are then written `D` (third addendum; `possession.run211`,
+which started the second-half play block at the kick-off frame published in the FAQ, is no longer used).
+Outside the play blocks `D` is written.
 The reader follows the FIFA/EPTS `DataFormatSpecification` of the metadata (which player each
 raw `;` group belongs to, per frame range) and falls back to the `Player` list order only when no
 specification is present; slots whose team id is neither team are dropped. Home is the first

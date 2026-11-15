@@ -1,0 +1,171 @@
+{
+ "version": "possession-v2.13-plan",
+ "registered_at": "2026-11-13T12:12:09+03:00",
+ "candidate": "possession-v2.13 = possession-v2.11 (or its variant v2.11g) in which the last step, the v2.11 decoder, is replaced by the fusion rule of the teammate's branch: the second-stage probabilities of v2.11 are averaged with the probabilities of a temporal convolution network (TCN) and decoded by one Viterbi pass. Everything before that step (reader, play blocks, noise gate, goalkeeper team check, broadcast alignment, registration, 0.50 m gate, both model paths and their second stage) is unchanged. The kick-off handling is not part of this validation (see below).",
+ "tcn": {
+  "author": "Huseyin Umut Isik (team member)",
+  "repository": "github.com/ata-yunus-ortak/football-video-analysis, branch mtah-possession",
+  "commit": "167dc7b198c094c2eb1db5cd7ed8a852f603f867",
+  "description": "docs/POSSESSION_TCN.md of that commit: 37 team-symmetric features per frame (features.py), dilated temporal convolution network at 12.5 Hz with three outputs (team 0, team 1, dead), inference in NumPy float64 (infer.py), probabilities averaged over ensemble members and both team orders and rounded to 4 decimals",
+  "training_data_as_documented_by_the_author": "open DFL data (Bassek et al. 2025, CC BY 4.0) only, corrupted by the author's simulator (degrade.py): tcn_dfl6.npz on J03WN1, J03WOH, J03WOY, J03WPY, J03WQQ, J03WR9, three seeds; tcn_dfl5_without_<match>.npz on the five other matches of those six, one seed, same recipe. No Metrica game and not J03WMX in these weights. Not re-trained or checked by us; taken as documented.",
+  "weights_if_selected": "tcn_dfl6.npz as committed, with the released v2 bundles; nothing is trained after the decision"
+ },
+ "fusion_rule_fixed_before_any_score": {
+  "source": "possession/fuse.py of the commit (WEIGHT = 0.5, SWITCH_COST = 6.0), nothing chosen by this plan",
+  "steps": [
+   "v2.11 side: second-stage P(dead) and P(home | alive), rounded to 6 decimals, exactly what the v2.11 decoder is given; on the v2.3 path (measured noise above 0.30 m) they come from the smoothed input and the v2.3 models",
+   "three classes: home = (1 - P(dead)) * P(home | alive), away = (1 - P(dead)) * (1 - P(home | alive)), dead = P(dead)",
+   "TCN probabilities (12.5 Hz) linearly interpolated to the 25 fps frame grid",
+   "arithmetic mean at 25 fps, weight 0.5 each",
+   "one Viterbi pass over log(clip(p, 1e-6, 1)) with cost 6 for every state change, per play block; D outside the blocks",
+   "the v2.11 decoder (switch 3 or 5, out/in 60, dead bias -0.3) is not used in the fused system"
+  ],
+  "tcn_input": "the tracking the v2 models see: packed slots, after the goalkeeper team check, with the filled ball when the 0.50 m gate opened; never smoothed (also on the v2.3 path); metres from the pitch centre (our corner-origin coordinates minus half the pitch size), float32, NaN where missing; team 0 = home slots"
+ },
+ "models_per_match": {
+  "J03WN1, J03WR9 (DFL)": "v2.11 side: validation models trained on J03WOH, J03WOY, J03WPY, J03WQQ (cache/models_v2.pkl, stack_v2.pkl, models_v23.pkl, stack_v23.pkl), as in every earlier validation. TCN side: tcn_dfl5_without_<that match>.npz",
+  "Metrica games 1, 2 (and 3, reported)": "the pair as it would be released: v2 bundles models/possession-v2.npz and possession-v23.npz (six DFL matches) through possession.pipeline.predict_labels, and tcn_dfl6.npz. Neither saw a Metrica game. This differs from earlier validations, which used the four-match validation models on Metrica as well."
+ },
+ "known_asymmetries": [
+  "DFL rows: the v2.11 validation models are trained on four matches, the TCN on five (the other validation match included), with one seed instead of the three of tcn_dfl6.npz. Neither side saw the scored match. The released pair would have six matches each.",
+  "The TCN was trained on its author's simulator and on tracking as given; here it reads goalkeeper-corrected, slot-packed and (in the fill conditions) broadcast-filled tracking corrupted by our simulator."
+ ],
+ "seen_on_external_data_before_registration": [
+  "Development numbers of the TCN author (not registered; his own Metrica labels, not metrica_labels.py; our v2.4 path, not v2.11; an earlier set of TCN weights; weight 0.3-0.7 and switch cost 4-8 looked at on the same copies): 24 corrupted copies of Metrica games 1-3, v2.x 0.702, TCN 0.714, 50/50 fusion 0.731-0.734 spellF1; nine mixes 0.720-0.734.",
+  "The TCN recipe (features, architecture, training schedule) was developed by its author with cross-validation over all seven DFL matches and Metrica games 1-3, with scores visible. Our validation matches, Metrica game 3 and J03WMX are therefore not untouched for the TCN family (the validation matches never were for v2.x either).",
+  "According to the author, the committed weights (tcn_dfl6.npz and the two five-match files) were not scored on any external match before this registration.",
+  "exp_v213.py smoke run on training match J03WOH, training seed 1 (in-sample for every model): wiring only, it computes no score (exp_v213_smoke.json holds label shares and counts of changed frames, nothing compared with labels).",
+  "K009 (12 Nov): possession-v2.11 alone on PFF FC World Cup 2022 game 3839 against our proxy from PFF events (spellF1 0.629, macroF1 0.898; inspection only). Neither the TCN nor the fusion has been run on that game.",
+  "No score of the fusion and no score of the committed TCN weights on any external match exists on our side before registration."
+ ],
+ "validation": {
+  "script": "v213/exp_v213.py (parts 0-3, one validation match each; helpers harness.py, exp_v25.py, exp_v210.py, camera_view.py, synth_broadcast3.py, synth_clock.py; byte copies of the commit's infer.py, features.py, decode.py, fuse.py, degrade.py under v213/tcn/); gates applied by v213/assemble_v213.py, written before any validation row",
+  "matches": [
+   "J03WN1",
+   "J03WR9",
+   "MET1",
+   "MET2"
+  ],
+  "copies": "16 new corrupted copies: possession.degrade, v2 profile (RANGES), parameters sampled from the seed, seed 13100 + 10 * match_index + j, j = 0..3; tracks packed into 46 anonymous slots, 23 per team (possession/epts_export.pack); noise gate on the tracking as given; goalkeeper team check (keeper2)",
+  "conditions": {
+   "tactical": "all 16 copies, tactical camera only",
+   "fill_good": "copies j = 0, 1 (8): simulated broadcast camera (synth_broadcast3 warp simulator, exp_v25 regime good), simulated clock readings, alignment, player registration and the 0.50 m gate as possession.run211; stream seed 43100 + 2 * match_index + j, clock seed 53100 + 2 * match_index + j",
+   "fill_medium": "the same with regime medium; stream seed 43200 + 2 * match_index + j, clock seed 53200 + 2 * match_index + j",
+   "view42": "copies j = 0, 1 (8): camera window of +-42 m around the centre of play (camera_view.py), tactical only (reported)",
+   "tactical_sim2": "one copy per match made with the TCN author's simulator (degrade.py of the commit, each half on its own, random severity, seed 63100 + match_index; our prepared data has no ball height, so its height term is inactive), packed and checked like the others (reported)",
+   "pff_game_3839_after_decision": "PFF FC World Cup 2022 game 3839 as converted for K009 (broadcast tracking, ball visible in 41% of the in-play frames, no corruption added; reference = our proxy from PFF events): v2_11 with the released bundles, fused and tcn_alone with tcn_dfl6.npz (v213/pff_fused.py), once, after the decision. Reported, not a gate: the data has no published licence and is not used for selection",
+   "metrica_game3_after_decision": "Metrica game 3, copy seed 33103, copy index 8 (streams 43108 / 43208, clock readings 53108 / 53208), the four conditions, and one copy of the author's simulator (seed 63108); once, after the decision (reported, not a gate, not an untouched test for the TCN family)"
+  },
+  "systems": {
+   "v2_11": "the release logic after the noise gate, with the models named under models_per_match",
+   "fused": "fusion_rule_fixed_before_any_score",
+   "tcn_alone": "the TCN probabilities through its own decoder (decode.py, switch cost 6); reported, not a gate"
+  },
+  "metric": "spellF1 and macroF1 of the organisers' possession_metrics (possession.evaluate.score) on the DFL provider labels and the Metrica proxy labels (experiments/possession_v2/metrica_labels.py, stable sort, K005)",
+  "environment": {
+   "python": "3.13.18",
+   "numpy": "2.5.3",
+   "pandas": "3.0.5",
+   "scikit_learn": "1.9.1"
+  },
+  "seeds_checked_unused": "copy seeds 13100-13133, stream / clock seeds 43100-43108, 43200-43208, 53100-53108, 53200-53208, simulator seeds 63100-63103 and 63108, 33103: no source, record or log file of the repository copy, the workspace or the TCN branch contains any of these numbers (search run by this script)"
+ },
+ "gates": {
+  "G1 gain": "condition tactical, all 16 copies: mean(fused - v2_11) spellF1 >= +0.008",
+  "G2 gain on provider flags": "condition tactical, the 8 DFL copies: mean(fused - v2_11) spellF1 >= +0.008",
+  "G3 no harm on event proxies": "condition tactical, the 8 Metrica copies: mean(fused - v2_11) spellF1 >= -0.002",
+  "G4 no bad copy": "condition tactical: every copy has fused - v2_11 >= -0.010",
+  "G5 macroF1": "condition tactical, all 16 copies: mean(fused - v2_11) macroF1 >= -0.003",
+  "G6 broadcast fill": "conditions fill_good and fill_medium, 8 copies each: mean(fused - v2_11) spellF1 >= 0.000 in each",
+  "note": "the six gates and thresholds of possession-v212-plan.json, unchanged; evaluated on unrounded values"
+ },
+ "decision_rule": "All six gates pass: the fusion is selected and integrated as possession-v2.13 (new entry point and manifest; byte copies of the commit's inference modules; tcn_dfl6.npz with the registered SHA-256; v2.11 becomes the next step of the technical ladder). It replaces v2.11 / v2.11g in the delivery only if, before the freeze (14 Nov 2026 23:59 Istanbul), the ported inference runs under Python 3.10 / numpy 1.26.4, the output on the synthetic provided-like bundles is byte-identical across Python 3.10 / numpy 1.26.4 and Python 3.13 / numpy 2.5.3, the full test suite passes, the delivery chain runs OK on the team's computer, and the documents describe the TCN's data and its development history; otherwise v2.11 / v2.11g stays. Any gate fails: v2.11 / v2.11g stays the release and the fusion is recorded as tried and not used. The gates are applied once, to all rows; nothing is re-run with other seeds, weights, mixing weights or switch costs.",
+ "reported_alongside": [
+  "every row; means per source (DFL, Metrica) in every condition; the TCN alone; recall of possessions under 2 s and under 1 s; transition F1 at 12 / 25 frames; numbers of predicted spells; frames changed; noise path and goalkeeper moves per copy",
+  "view42 and tactical_sim2: not gates",
+  "Metrica game 3 and PFF game 3839 after the decision (not gates)"
+ ],
+ "not_part_of_this_validation": [
+  "Kick-off handling (the frame published in FAQ.md, the Smart Tagging kick-off tag, or neither): it cannot be measured on external data. It is decided by the team separately and described in the documents.",
+  "The provided match: not read, not run and not scored by this validation."
+ ],
+ "limits": [
+  "The validation matches were used for every earlier selection of v2.x and for the development of the TCN recipe; only the copies are new. This is a validation, not a fresh test.",
+  "There is no untouched test for the fused system: J03WMX was used in the TCN's development. The registered final test of v2.11 on J03WMX (never downloaded on our side) would not describe a released v2.13; a J03WMX run of the fusion could only be reported as not fresh.",
+  "Corruption, slot packing, camera window and broadcast camera are simulated by us; the provided tracking may differ.",
+  "DFL labels are the provider's per-frame flags; Metrica labels are our event-derived proxies.",
+  "The fused system drops the v2.11 decoder with its dead-ball bias and entry / exit costs, so the character of the output (number and length of possessions, share of dead ball) changes as a whole, not only where the models disagree.",
+  "NumPy matrix products are not guaranteed bit-identical across BLAS builds; the 4-decimal rounding makes a different output unlikely, not impossible. Checked only by the integration tests named in the decision rule."
+ ],
+ "hashes": {
+  "tcn_modules_sha256": {
+   "__init__.py": "b46f91fe1c685b8564c2651b10778136875c38b3d225eae5807fdd25bce019fb",
+   "infer.py": "cea6b164d697f77616ab2a38de6632aee23d1f134e485dbcd3b527f492e70922",
+   "features.py": "c33bde1208bc7b1c90058193681e51b631443c548aa281d46d2fa439ee16ee29",
+   "decode.py": "457e12b1ce3cecc6fc659fafcaf4dc6d6129efdc8d6c4fb59b9f2ccd754bfd91",
+   "fuse.py": "abc87d446ea769ec5a68f6c11157603c7e088fb6da9e8833734a37152b992dfe",
+   "degrade.py": "0292d7f73e9886888eff9b4ae9930dd88d228a8f8857191a3eeb2b997b12399d"
+  },
+  "tcn_weights_sha256": {
+   "tcn_dfl6.npz": "808da468de32684ef01ab1905d7a3d8ffada1ab88cb1a4986905374a8f77b631",
+   "tcn_dfl5_without_J03WN1.npz": "14a83c7bc5b47b5c9066fca6e64e1aeefcea55479ea566769aed4f168e39029b",
+   "tcn_dfl5_without_J03WR9.npz": "df3385d2621a4e12f0d278dcb43d5bf619980e3a6bff5c01216f73cdad264491"
+  },
+  "tcn_documents_sha256": {
+   "POSSESSION_TCN.md": "4a31393d4044c0da4984628ce1356240e11187f7ec081291d3121ef599cbf04c",
+   "POSSESSION_TCN_VALIDATION_PLAN.md": "dfd27f19df4e7ac6ef09f380d4ea4a93a1c77811552dbe45a7446bb6fada085b"
+  },
+  "validation_scripts": {
+   "exp_v213.py": "65a0852191c414d7b393f05000a17cd0c7f8fbd0d885775731085e538b087028",
+   "assemble_v213.py": "c029ae86c89f424a34efff30d52ce42b645e93ec1e50b0ccb46e26e05d6e58ec",
+   "register_v213.py": "25cf0dcb0e7ceaeb0d4fbea90eec10f61770fb80a028cd4265f76c82ec5ce332",
+   "pff_fused.py": "2ef6315b29d3d3e5cc4c0f790c5408807deb028948d537a96ba7a574d13dd1af"
+  },
+  "pff_game_3839": {
+   "converted_match_npz": "583651c20c2e681ad0d14e940a4049b5db03ecc29dd65622b356a53335f9ec2e",
+   "run_pff.py": "82aeac7bd00c66eceaef6a9d2c0648090d8654d0d5f6531fcdc141dc0067cb78"
+  },
+  "helpers": {
+   "harness.py": "93618445d8ef3784d63c6c304a9510d90acfd6f1896bbc4e6362fa48e76e4867",
+   "exp_v25.py": "f986bf80b4653709ac3497be1be479043552573dfa2f1b0a7aba28fedb2c9aa8",
+   "exp_v210.py": "d19f87551d4eef26f6d3e2ed29317cca3b5f44150935540b98ecbcf8a0df1c9c",
+   "camera_view.py": "f853e061edb3c56ec7c022e6144bbb0c1aa096d5b0b794f07934d58fcb0cbaae",
+   "synth_broadcast.py": "39c30d0dfc33ed3a3b481480edeb3fa8809b9658f52534b445b2862b860acf07",
+   "synth_broadcast3.py": "c4aa872aacb6f7274167055fe1a4bc4f5984094dad8b61c8439ab9ffabe0836c",
+   "synth_clock.py": "d58859906fd10bda6cda0a9f549c46e439f75989d923f7c99cc4ac7e54a349a5",
+   "metrica_labels.py": "34ec351258515eb78a1f2f4b42fbb77d349ec25218893ee4171d0e9f36fc6e65"
+  },
+  "v2_validation_models": {
+   "models_v2.pkl": "414028ac4e2f901cdd80e206ba297d8ecb532ef62881dbc858535d9bb5c97173",
+   "stack_v2.pkl": "b87360597c89e2b6a339096184974ee403b80f2f4a3c3bbcd216659c08a722c8",
+   "models_v23.pkl": "9a656972b334c4e57891e2afcb6023ec567e4578f4bd08ee9a02a90981390c9f",
+   "stack_v23.pkl": "e4266c3c4116422d626c60304c87fa0a6ba3462c118be0e990bce47f3cbbf031"
+  },
+  "v2_released_bundles": {
+   "possession-v2.npz": "1cd59ba5c21a5abc2be24f8294b3af3d61d84997b61edfc08c028384a9d550d1",
+   "possession-v23.npz": "e89db80134b8569833df75f9bcbb1bfb56a6a2a391bab6c2bd2fefa9233a2365"
+  },
+  "possession_sources": {
+   "degrade.py": "48f1cd2e691ca5b3b3f8a6b7ddf6e3004300a911f968fa928989d4bc69a12a6a",
+   "noise.py": "301b83f2928c9011cfaf577211facaae415abf8fe708b5bd789dbf9accd6dd95",
+   "keeper2.py": "c386e26eee81340eaf76a0eabcc516e0ec5f38044b25ea0421c06633b2b2684d",
+   "smooth.py": "a685aae0247771f8f2c341a9fa4b5cdea920d3a3e5f91e59238674ec041319e8",
+   "features.py": "ea98076cea10a7e029412c9fa3f887e39a53d4ba4ab62bbca86d40cf3d9986c1",
+   "stack.py": "60339f2bc88b5785c369e665faaca509b98541f31342b4ea68d18668dde56077",
+   "decode.py": "4e3644af48f617fc97b9c630ec8d79063e979148fb84848c285b532da1494ec3",
+   "pipeline.py": "890aacee20a3c6a96352242049858b9fa4389f26210a38ac0913ce06ef19b068",
+   "trees.py": "adb83b7e6c0c809e858266cf68cac90fcd2d7c46b5802d17f432c7b948db2d5e",
+   "bundle.py": "4d589ace7e5aaa6bbbf4da659562e40546223ce8d07896fa675469d08ce13c6a",
+   "evaluate.py": "f117fb11b6fcba8ac351e3324b47ae6eeb971b44ae3ae2a15732e9ec2c020fc9",
+   "official_metrics.py": "1a06accd9556f6bf66cc9d748950924e1b989780d4ec83b2d07a7120b44db75b",
+   "epts_export.py": "8487ff9147b1aa79c81a8830d30ac81ea3090a5c76208081d0c22325c6c254dd",
+   "fusion.py": "4c093ff7e884d66391858fec73cc6ea6fdf8ac941f96aa3a5bbe83c4714d6355",
+   "register.py": "2601c559070dea1dfb14cc6ec9cf7e78aed7978d0605de6a5c884082656a72a4",
+   "clocksync.py": "db9f3d66db3789b476cca89f39a8d8fa265efab401b392740ccc5f3a3a950d02",
+   "data.py": "547725e5079e0186a22fe571d135463bb91fdf21bf3ee8d9eb74308300c549f0"
+  },
+  "smoke_run": "4e40016e231a9ec86e8493784002d233bd4485f30a160935c892b3a687da7843"
+ },
+ "provided_fixture_used": false,
+ "review_by_tcn_author": "The design was sent to the author as a draft file on 12 Nov (21:15) and as text (21:47); he asked for it to be resent and no answer to the resent text had reached this session when the run was started at the team lead's request on 13 Nov 12:11. The design follows his own plan document (weight 0.5, switch cost 6, new seeds, K005 labels, the v2.12 gates, his five-match weights on the DFL matches and tcn_dfl6.npz on Metrica)."
+}

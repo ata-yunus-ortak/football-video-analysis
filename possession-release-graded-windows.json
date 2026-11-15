@@ -1,6 +1,6 @@
 {
   "release": "possession-v2.11g",
-  "note": "RESERVE configuration, read by tools/possession_deliver.py only when it is named with --release-config. To be used only if the organisers answer that the kick-off frame published in their FAQ.md may not be hard-coded: no step below uses that frame. 'steps' is the order of technical fall-backs: a lower step is used only when the step above ends with an error or writes a file that fails the organisers' format rules, never because of an output.",
+  "note": "RESERVE configuration, read by tools/possession_deliver.py only when it is named with --release-config: the ladder of possession-release.json without its first step, i.e. without the Smart Tagging kick-off rule (the models decide on the whole graded second half). No step uses the kick-off frame published in FAQ.md. 'steps' is the order of technical fall-backs: a lower step is used only when the step above ends with an error or writes a file that fails the organisers' format rules, never because of an output.",
   "game": "BAR-ATH",
   "rows": 199319,
   "document": "TECHNICAL_DOCUMENT.md",

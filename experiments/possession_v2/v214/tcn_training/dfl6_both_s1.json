@@ -1,0 +1,16 @@
+{
+ "tag": "dfl6_both_s1",
+ "seed": 1,
+ "epochs": 6,
+ "simulators": "both",
+ "matches": [
+  "J03WOH",
+  "J03WOY",
+  "J03WPY",
+  "J03WQQ",
+  "J03WN1",
+  "J03WR9"
+ ],
+ "steps_per_epoch": 156,
+ "replicas_per_simulator_per_half": 6
+}

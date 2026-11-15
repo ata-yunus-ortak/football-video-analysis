@@ -8,3 +8,5 @@ player-dead-ball-selection-plan.json -text
 possession/*.py -text
 models/possession-v2.npz binary
 models/possession-v23.npz binary
+possession/tcn/*.py -text
+models/possession-tcn-v215.npz binary

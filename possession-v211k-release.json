@@ -1,0 +1,15 @@
+{
+ "version": "possession-v2.11k",
+ "frozen_at": "2026-11-13T12:33:00+03:00",
+ "entry_point": "python -m possession.run211k",
+ "status": "prepared on 13 Nov 2026 for the kick-off handling the team agreed on 12 Nov: the kick-off frame published in FAQ.md is not hard-coded (the organisers' answer of 12 Nov did not allow it explicitly), and the automatic Smart Tagging kick-off tag is used once its synthetic tests exist. Which release configuration uses this entry point is recorded in possession-release.json and in the experiment log",
+ "change": "after possession-v2.11g (models and decoder on the whole graded second half), one rule: in every graded block the frames before the first automatic Smart Tagging 'Kick Off (Start)' tag are written D, if that tag starts less than ten minutes after the block's first frame (possession/kickoff.py). Without a usable tag, or without the file, the output is the output of possession-v2.11g. Frame 113742 is not used and no frame number is stored in the code",
+ "evidence": "the rule states a fact of the game (no play before a half has kicked off) through an automatic asset of the provided bundle that the organisers allow as input. It was committed on 12 Nov 2026 by a team member (branch mtah-possession, commit 4b32747, possession/predict.py) and is used unchanged; tests/test_possession_kickoff.py compares it with that code on random synthetic inputs. It cannot be measured on external matches (their tracking starts at the kick-off and they have no Smart Tagging): synthetic tests only (tests/test_possession_kickoff.py, tests/test_possession_v211k.py)",
+ "base_release": "possession-v211g-release.json",
+ "base_release_sha256": "844e615022304898c0e4cf0af3844b7abc315ffb4f4912b13882aee75a82400f",
+ "source_sha256": {
+  "kickoff.py": "314022f6a5419582b9c40520d66e6af19c992910682dbd4558fcc38b9ebd6798",
+  "run211k.py": "906e18813a2986677f376667185731d882e24a860069faae72fceb94ab5c8b41"
+ },
+ "provided_fixture_used": false
+}

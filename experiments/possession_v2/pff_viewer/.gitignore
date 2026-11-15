@@ -1,0 +1,13 @@
+# PFF data and everything derived from it stay outside the repository (no published licence; log entry K009)
+raw/
+*.bz2
+*.jsonl
+*_events.json
+*_metadata.json
+*_rosters.json
+*_summary.json
+*_analysis.json
+*_match.npz
+*_labels.npz
+viewer_*.html
+!viewer_template.html

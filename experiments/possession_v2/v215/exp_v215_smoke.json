@@ -1,0 +1,267 @@
+{
+ "rows": [
+  {
+   "copy": "J03WOH|1",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.282,
+     "A": 0.241,
+     "D": 0.477
+    },
+    "fused": {
+     "H": 0.283,
+     "A": 0.241,
+     "D": 0.476
+    },
+    "tcn_alone": {
+     "H": 0.283,
+     "A": 0.241,
+     "D": 0.476
+    }
+   },
+   "frames_changed": 951,
+   "noise_m": {
+    "ball_m": 0.2598,
+    "players_m": 0.2335
+   },
+   "keeper2_moved_pieces": 6,
+   "ball_visible_in_play": 0.521,
+   "seconds_v2": 22,
+   "seconds_tcn": 62
+  },
+  {
+   "copy": "J03WOH|1",
+   "condition": "fill_good",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.284,
+     "A": 0.248,
+     "D": 0.468
+    },
+    "fused": {
+     "H": 0.283,
+     "A": 0.247,
+     "D": 0.469
+    },
+    "tcn_alone": {
+     "H": 0.282,
+     "A": 0.244,
+     "D": 0.473
+    }
+   },
+   "frames_changed": 981,
+   "noise_m": {
+    "ball_m": 0.2598,
+    "players_m": 0.2335
+   },
+   "keeper2_moved_pieces": 6,
+   "ball_visible_in_play": 0.521,
+   "regime": "good",
+   "alignment_mode": "clock",
+   "gate": {
+    "used": true,
+    "median_distance_m": 0.3291,
+    "filled": 27789,
+    "ball_visible_graded_before": 0.5212,
+    "ball_visible_graded_after": 0.7238
+   },
+   "simulation_seconds": 57,
+   "broadcast_quality": {
+    "bias_sd": 0.0158,
+    "b_sd": 0.0726,
+    "p_sd": 0.1278,
+    "ball_frac": 0.6667,
+    "invalid": 0.172
+   },
+   "seconds_v2": 18,
+   "seconds_tcn": 58
+  },
+  {
+   "copy": "J03WOH|99",
+   "condition": "tactical_sim2",
+   "path": "v2.1",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.279,
+     "A": 0.239,
+     "D": 0.482
+    },
+    "fused": {
+     "H": 0.281,
+     "A": 0.239,
+     "D": 0.48
+    },
+    "tcn_alone": {
+     "H": 0.283,
+     "A": 0.239,
+     "D": 0.478
+    }
+   },
+   "frames_changed": 1005,
+   "noise_m": {
+    "ball_m": 0.0169,
+    "players_m": 0.027
+   },
+   "keeper2_moved_pieces": 0,
+   "ball_visible_in_play": 0.669,
+   "seconds_v2": 20,
+   "seconds_tcn": 66
+  },
+  {
+   "copy": "J03WOH|1|forced validation models v2.3",
+   "condition": "tactical",
+   "path": "v2.3",
+   "v2_side": "validation models",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": false,
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.278,
+     "A": 0.238,
+     "D": 0.484
+    },
+    "fused": {
+     "H": 0.278,
+     "A": 0.238,
+     "D": 0.484
+    },
+    "tcn_alone": {
+     "H": 0.283,
+     "A": 0.241,
+     "D": 0.476
+    }
+   },
+   "frames_changed": 0,
+   "seconds_v2": 22,
+   "seconds_tcn": 64
+  },
+  {
+   "copy": "J03WOH|1|forced released bundles v2.1",
+   "condition": "tactical",
+   "path": "v2.1",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": true,
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.285,
+     "A": 0.24,
+     "D": 0.475
+    },
+    "fused": {
+     "H": 0.284,
+     "A": 0.241,
+     "D": 0.475
+    },
+    "tcn_alone": {
+     "H": 0.283,
+     "A": 0.241,
+     "D": 0.476
+    }
+   },
+   "frames_changed": 877,
+   "seconds_v2": 52,
+   "seconds_tcn": 64
+  },
+  {
+   "copy": "J03WOH|1|forced released bundles v2.3",
+   "condition": "tactical",
+   "path": "v2.3",
+   "v2_side": "released bundles",
+   "tcn_weights": [
+    "dfl6_both_s0.npz",
+    "dfl6_both_s1.npz",
+    "dfl6_both_s2.npz"
+   ],
+   "fused_on_this_path": false,
+   "label_shares_in_play": {
+    "v2_11": {
+     "H": 0.278,
+     "A": 0.241,
+     "D": 0.481
+    },
+    "fused": {
+     "H": 0.278,
+     "A": 0.241,
+     "D": 0.481
+    },
+    "tcn_alone": {
+     "H": 0.283,
+     "A": 0.241,
+     "D": 0.476
+    }
+   },
+   "frames_changed": 0,
+   "seconds_v2": 50,
+   "seconds_tcn": 64
+  }
+ ],
+ "environment": {
+  "python": "3.13.18",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "scikit_learn": "1.9.1"
+ },
+ "fusion": {
+  "pool": "arithmetic",
+  "weight": 0.2,
+  "decoder": "possession.decode with the constants of the path",
+  "fused_paths": [
+   "v2.1"
+  ],
+  "stride": 2,
+  "prob_decimals": 4
+ },
+ "sha256": {
+  "weights": {
+   "dfl4_both_s0.npz": "9f0226ab9ecd7a251f8c523ccb4a79b0c09bd0313e4df59e28a1397e805940e0",
+   "dfl4_both_s1.npz": "1af5516368e484ff25b1d7f8fd9b62e21e18eec75e3957d37241f3c9ad9dec91",
+   "dfl4_both_s2.npz": "dd81d27ac789e4fa9d4254a5ec2cc28ec77fbdc36196dc09a13ec7c00adc97d2",
+   "dfl6_both_s0.npz": "d92bff05a9eb5404faf69a2a106aaac46698e020eb2e58fd92db23231121ec71",
+   "dfl6_both_s1.npz": "fd6ca4389736f64dd0e0c5a1d94a9bd613bd1a41da90e270f79749b5c8b1be11",
+   "dfl6_both_s2.npz": "65a6d88b7863ab84e1fe6331e622efb7cd1041fc07c5be7e751df87bcf494d84"
+  },
+  "tcn_modules": {
+   "infer.py": "cea6b164d697f77616ab2a38de6632aee23d1f134e485dbcd3b527f492e70922",
+   "features.py": "c33bde1208bc7b1c90058193681e51b631443c548aa281d46d2fa439ee16ee29",
+   "decode.py": "457e12b1ce3cecc6fc659fafcaf4dc6d6129efdc8d6c4fb59b9f2ccd754bfd91",
+   "fuse.py": "abc87d446ea769ec5a68f6c11157603c7e088fb6da9e8833734a37152b992dfe",
+   "degrade.py": "0292d7f73e9886888eff9b4ae9930dd88d228a8f8857191a3eeb2b997b12399d"
+  },
+  "exp_v213.py": "65a0852191c414d7b393f05000a17cd0c7f8fbd0d885775731085e538b087028",
+  "exp_v215.py": "6a78921e6193c356aad9e9931958e0283ec4df13d5c287109faf147456a0966f",
+  "pooling.py": "5133a8fa7d5d15593871680c86c1e0b1de47cabea835aba8ad562fb641b5d11b"
+ }
+}

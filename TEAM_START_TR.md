@@ -1,5 +1,11 @@
 # Ekip için başlangıç
 
+> **Güncel teslim sistemi (15 Kasım 2026): `possession/` paketi, sürüm possession-v2.15.** Nasıl çalıştığı,
+> neyin ölçüldüğü ve teslim adımları: [docs/SAHIPLIK_V2_TR.md](docs/SAHIPLIK_V2_TR.md); kısa İngilizce belge:
+> [TECHNICAL_DOCUMENT.md](TECHNICAL_DOCUMENT.md); deney kaydı: [docs/DENEY_KAYDI_TR.md](docs/DENEY_KAYDI_TR.md).
+> Bu sayfanın geri kalanı 8 Kasım ve öncesindeki çalışmayı (donmuş H/A/X temel modeli, görüntü deneyleri, yerel
+> oynatıcılar) anlatır ve hâlâ geçerli olan kurulum ve veri kurallarını içerir.
+
 Bu dal, More Than a Hack 2027 için temiz tracking/sahiplik geliştirmesidir.
 Varsayılan daldaki eski portföy projesinden ayrı bir Git geçmişiyle korunur.
 

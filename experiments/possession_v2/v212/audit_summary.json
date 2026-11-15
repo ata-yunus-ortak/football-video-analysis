@@ -1,0 +1,31 @@
+{
+ "by": "an independent audit agent inside this session (it did not write touch.py or the validation scripts); two passes on 2026-11-12, about 01:55 and 02:08 (Istanbul); its working files are in work/v212/audit/",
+ "pass_1_touch_py_and_development": {
+  "verified_by_running": [
+   "touch_features of J03WOH seed 1, both views, bit-identical under Python 3.13/numpy 2.5.3, Python 3.10/numpy 1.26.4 and the cache (NaN positions included)",
+   "swap=True equals the team-swapped match bit for bit; h_/k_ exchange, diff_ change sign, common columns unchanged (the features.py convention)",
+   "no labels read; no ball-based value finite without supporting visible frames; NaN outside play blocks; no inf; float32; no warnings",
+   "edge cases: blocks of 1-8 frames, 60 one-frame blocks, a block without ball, an absent team, a slot outside both teams, fps 30",
+   "held-out match excluded from every stage-1, pair and stage-2 model (model intercepts equal the label priors of exactly the expected rows)",
+   "probability files and two held-out copies re-scored bit for bit; dev_results.json headline numbers reproduced (4th-decimal rounding only)",
+   "only the four training matches in the development scripts and caches; touch tests 10/10 under both interpreters; release and v2.11 tests 12/12"
+  ],
+  "findings": {
+   "M1 (major)": "the cached touch arrays and rows were built by a process that started before the last edit of touch.py; closed: all 40 arrays and the 4 row files (features and labels) verified bit-identical with the registered file (verify_caches.json)",
+   "m1": "the docstring's look-ahead / look-back limits are not exact; the measured reach is written into the plan (touch_columns_time_reach)",
+   "m2": "tc_since_change and tc_nchange_p1 compare with the previous attributed event however old it is (not capped at 10 s); written into the plan",
+   "m3": "h_/k_tc_press is 0 when no opponent is tracked (opp_gap is NaN); written into the plan",
+   "m4": "two docstring details (player smoothing fills up to 4 missing frames; a seen event can fall on a frame without a visible ball, 1 of 2,415 on J03WOH seed 1)",
+   "m5": "one pow call ((RES_K*sigma)**2) goes through the C library; negligible; the cross-platform byte check covers it",
+   "m6": "the design was prompted by the K007 diagnosis on the validation matches; stated in the plan (seen_before_registration, limits)"
+  },
+  "handling": "touch.py is registered unchanged; m1-m5 change no output and are documented in the plan instead of editing the file; changing m2 or m3 would change outputs and need a new development run",
+  "not_verified": "Windows behaviour (to be checked by the synthetic cross-platform test and the delivery chain on the team's computer); what the last edit of touch.py at 23:23 changed (the only bytecode of the earlier file was overwritten during the audit; the verification above shows that the registered file reproduces every cached array)"
+ },
+ "pass_2_validation_harness_gates_and_entry_point": {
+  "blocker_fixed_before_registration": "B1: the gate script decided on values rounded to 4 decimals (a true -0.00004 would have passed a >= 0 gate, a true 0.00795 a >= 0.008 gate); exp_v212.py now stores unrounded values and assemble_v212.py applies the gates to unrounded means and minimum (checked on synthetic rows: -0.00004 fails G6, 0.00795 fails G1/G2)",
+  "plan_text_corrected": "features.py look-back statement (since/until columns capped at 30 s, held ball positions and attack directions unlimited); the time reach (no fixed bound through event suppression; zmax t+34, zt t+35); the seed search is now done by register_v212.py itself; the cache provenance (M1) is recorded under models",
+  "minor_handled": "integration files hashed at registration; atomic writes of the result files; the run_path equality check now runs on the first v2.1-path tactical row of every part; reserved-copy streams written into the plan; one part at a time (peak memory about 2.4 GB)",
+  "confirmed_by_reading": "the v2_11 arm equals exp_v25.run_path line for line; both arms share the base features and differ only by the touch columns and the models; touch columns on the keeper-corrected tactical tracking before the fill and base columns on the filled ball, as run212.py; seeds and conditions as the plan; copy construction as exp_v211.py and fill as exp_v29.py / run211.py; gate logic (thresholds, copy sets, mean vs min, >=) as the plan text; train_val.py follows possession/train.py; run212/pipeline212/train212 differ from run211/pipeline/train only by the intended changes"
+ }
+}

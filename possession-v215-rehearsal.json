@@ -1,0 +1,159 @@
+{
+ "version": "possession-v2.15-rehearsal",
+ "written_at": "2026-11-15T02:59:21+03:00",
+ "what": "One full-size run of the delivery chain (tools/possession_deliver.py) with the default release configuration possession-release.json (possession-v2.15 first) on the synthetic rehearsal bundle of K003 with the invented Smart Tagging file of K011 (file names, record counts and slot counts of the provided files; content: corrupted Metrica sample games; an invented stretch before the second-half kick-off). The same bundle and options as run 1 of possession-v211k-rehearsal.json. Wiring and size check after the decision of K013, reporting only. Nothing here is from the provided match and nothing was selected with it.",
+ "release_manifest_sha256": "8e6aa6caf7cf000fb69cfb36bd0bfdd0b623d142e39ed870b8bc163d7ba4eb8e",
+ "release_config_sha256": "b99140e3bb95088acd18523b1e402788901176b01c2f59676bf72cd8a0133a8d",
+ "smart_tagging_sha256": "156ff0b1a4122611539c5b65211ca3ba17ab0753a9e4719af2522d6b2daa62a1",
+ "environment": "chain under Python 3.10.20 / numpy 1.26.4 / scipy 1.11.4 / pandas 2.1.4 (Linux, 2 CPUs); scoring under 3.13.18 / numpy 2.5.3 against stored labels (truth_stable.npz, the file-order Metrica proxy labels of K005; no label is recomputed)",
+ "options": "--no-public-check --no-clone-check --quick (tests and cross-platform check included); simulated clock readings of K003",
+ "status_lines": [
+  "[ 1] ORTAM ..................... OK (Linux-6.18.44-fc-v470-x86_64-with-glibc2.39, Python 3.10.20, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)",
+  "[ 2] DEPO ...................... ATLANDI (git bilgisi okunamadi)",
+  "[ 3] SURUM ..................... OK (possession-v2.15)",
+  "[ 4] TESTLER ................... OK",
+  "[ 5] PLATFORM .................. AYNI",
+  "[ 6] VERI ...................... OK (taktik VAR, yayin VAR, videolar YOK, smart tagging VAR)",
+  "[ 7] GIRDI OKUMA ............... OK",
+  "[ 8] URETIM .................... OK (possession-v2.15, saatli)",
+  "[ 9] BICIM ..................... OK",
+  "[10] MAKULLUK .................. OK",
+  "[11] TESLIM .................... OK (possession-v2.15, saatli)",
+  "[12] SAAT ...................... VAR (onceki okuma kullanildi)",
+  "[13] TEMIZ KLON ................ ATLANDI",
+  "[14] ORGANIZATOR DOGRULAYICI ... OK",
+  "[15] ACIK PENCERE .............. ATLANDI",
+  "[16] BELGE ..................... OK (Prova.md = teknik belge + calisma kaydi)",
+  "SONUC: TESLIM HAZIR",
+  "[exit 0; 761 s; peak child RSS 1.53 GB]"
+ ],
+ "seconds": 761,
+ "peak_child_rss_gb": 1.53,
+ "seconds_of_the_v2.11k_chain_13_Nov": 417,
+ "delivered_file_against_the_bundle_labels": {
+  "sha256": "b20bc6bc45f0ad333742efa35c463a6b9764caad5f0af177470af466f6008bbd",
+  "graded windows": {
+   "spell_f1_mean": 0.7721,
+   "macro_f1": 0.8732,
+   "f1_H": 0.8773,
+   "f1_A": 0.916,
+   "f1_D": 0.8262,
+   "team_acc_both_alive": 0.9583,
+   "gt_spells": 435,
+   "pred_spells": 369
+  },
+  "labels on frames 110808-113741 (before the bundle kick-off)": {
+   "H": 0,
+   "A": 0,
+   "D": 2934,
+   "X": 0
+  },
+  "outside graded windows": {
+   "H": 0,
+   "A": 0,
+   "D": 40462,
+   "X": 0
+  },
+  "pieces of the bundle (spellF1, macroF1)": {
+   "game 3 first half": [
+    0.7789,
+    0.8938
+   ],
+   "game 2 piece 1": [
+    0.8078,
+    0.7054
+   ],
+   "game 3 second half": [
+    0.7602,
+    0.8582
+   ],
+   "game 2 piece 2": [
+    0.76,
+    0.8038
+   ]
+  }
+ },
+ "for_comparison_the_v2.11k_chain_file_13_Nov": {
+  "sha256": "bab12b03e249d4809dfa5ba86d0c4f51ab1c06630cb72b5ca268084d0e9d3513",
+  "graded windows": {
+   "spell_f1_mean": 0.7641,
+   "macro_f1": 0.8728,
+   "f1_H": 0.877,
+   "f1_A": 0.9147,
+   "f1_D": 0.8268,
+   "team_acc_both_alive": 0.9575,
+   "gt_spells": 435,
+   "pred_spells": 378
+  },
+  "labels on frames 110808-113741 (before the bundle kick-off)": {
+   "H": 0,
+   "A": 0,
+   "D": 2934,
+   "X": 0
+  },
+  "outside graded windows": {
+   "H": 0,
+   "A": 0,
+   "D": 40462,
+   "X": 0
+  },
+  "pieces of the bundle (spellF1, macroF1)": {
+   "game 3 first half": [
+    0.7571,
+    0.893
+   ],
+   "game 2 piece 1": [
+    0.8078,
+    0.7056
+   ],
+   "game 3 second half": [
+    0.7647,
+    0.8583
+   ],
+   "game 2 piece 2": [
+    0.68,
+    0.7886
+   ]
+  }
+ },
+ "against_the_v2.11k_file": {
+  "frames_that_differ": 889,
+  "share_of_graded_frames": 0.0056,
+  "all_inside_graded_windows": true,
+  "all_from_the_kick_offs_on": true,
+  "none_before_the_synthetic_tag_of_the_second_half": true,
+  "changes": {
+   "H->A": 327,
+   "H->D": 25,
+   "A->H": 325,
+   "A->D": 11,
+   "D->H": 151,
+   "D->A": 50
+  },
+  "v2.15_labels_before_tag": {
+   "H": 0,
+   "A": 0,
+   "D": 2874,
+   "X": 0
+  }
+ },
+ "run_record_rows": {
+  "System": "possession-v2.15 (v2.11 on the graded windows; on the v2.1 path its probabilities are pooled with a temporal convolution network before the v2 decoder; Smart Tagging kick-off rule)",
+  "Second model": "used: the probabilities of the tree models were averaged with those of the temporal convolution network before the decoder",
+  "Kick-off rule": "a kick-off tag of the automatic Smart Tagging was used: the frames of a graded block before that tag are written D"
+ },
+ "scripts_sha256": {
+  "score_k013.py": "69b72d693dab6d998baafefad3f44c68aaeeaf3ea71105bdde08a1e2be8cf8c9",
+  "assemble_rehearsal_v215.py": "6b4ee26b9112d07952c039f79b837d9d5335b901fca8f6878499b979ce76f5b1",
+  "prova_tagging.py": "16df5d7417e1d534ce13956a8af9052451a4bc0df01583b55d51ffbff28ba116",
+  "prova_build.py": "ca4666f16afa1c225fefdc3c5a6c0d27d32174c30b6694f096daaad7bb410c44",
+  "score_prova.py": "80be9842d0fc55e8a13c73bea653dd6dfa9b8691a6e066777e136dc78cbdf415"
+ },
+ "limits": [
+  "The bundle is two corrupted Metrica sample games laid out by us; one of them is game 3, which had been used in the development of v2.14 and v2.15. The scores are agreement with Metrica proxy labels on a synthetic layout; they are not competition scores and were not an input to any choice.",
+  "The Smart Tagging file is invented by us around kick-off frames we chose; it says nothing about the tags of the provided file.",
+  "The run used --quick: no repeat run, no run without clock readings, no fresh clone.",
+  "One machine (Linux). Whether the chain runs on the team's computer is checked there, by the team."
+ ],
+ "provided_fixture_used": false
+}
