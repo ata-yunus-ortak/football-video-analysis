@@ -16,6 +16,10 @@ Python 3.13 / numpy 2.5.3:
                          goalkeeper bundle with the tactical camera only. Its matrix products and
                          exponentials are float64 and its probabilities are rounded to 4 decimals before
                          the pooling, the pooled ones to 6.
+  possession.run216.run  two variants on bundles whose tactical tracking loses players for six seconds at a
+                         time, so that players are added from the broadcast tracking
+                         (possession/playerfill.py): the v2.1 path with the clock anchor and the v2.3 path
+                         without it.
 
 A difference is not an accuracy statement. It says that this platform does not reproduce the recorded
 bytes; the platform, Python and numpy versions that produced the submitted file must then be written
@@ -33,7 +37,7 @@ import unittest
 from pathlib import Path
 import numpy as np
 try:
-    from possession import run29, run211, run215
+    from possession import run29, run211, run215, run216
     from tests.test_possession_v25 import _write_epts, _write_homography, clock_rows
     HAVE_DEPS = True
 except ImportError:
@@ -46,6 +50,7 @@ KEEPER_N, KEEPER_HALVES = 15000, [(1, 0, 7499), (2, 7500, 14999)]      # long en
 EXPECTED = {
     'input': '91996a46b7ec006bf956b53276788e0a8e00e4dc0e15b6e47f20a279976a5ec9',
     'input_keepers': '802cb77f5a79c7eab32406acf7b4c323ea53aba06641c0b980f00a6edf63f449',
+    'input_lost': '37acdfa179647131f9d60609ce06817bc320c02820d1ab3750193dcc5b114afe',
     'runs': {
         'clean_clock': {'sha256': '4076554ee2db1ddeb51336a10820b266fbb6a1c60681d096eddf984a5bb3f8b6',
                         'path': 'v2.1', 'fill': True, 'mode': 'clock'},
@@ -67,13 +72,21 @@ EXPECTED = {
                          'path': 'v2.1', 'fill': True, 'mode': 'clock', 'moved_pieces': 1, 'pooled': True},
         'keepers_pooled_tactical_only': {'sha256': '06a1713a92aaa5b788f9f3fbf503493780f35e18eb99a309577a1575b6d79043',
                                          'path': 'v2.1', 'fill': False, 'mode': None, 'moved_pieces': 4, 'pooled': True},
+        # the two variants with players added from the broadcast tracking: recorded 2026-11-15 on Linux x86-64, identical under
+        # Python 3.10.20 / numpy 1.26.4 and Python 3.13.18 / numpy 2.5.3
+        'lost_added_clock': {'sha256': '3ff3e06727016d0febadd34b6e110564ca08a08518001e9e26d33b2fbf66f48b',
+                             'path': 'v2.1', 'fill': True, 'mode': 'clock', 'moved_pieces': 8, 'pooled': True, 'added': 8771},
+        'lost_noisy_added_tracking': {'sha256': '419c020ab3120463998de2e63e100b039922146d4a614620ce039de5c2071fe8',
+                                      'path': 'v2.3', 'fill': True, 'mode': 'tracking', 'moved_pieces': 15, 'pooled': False,
+                                      'added': 4508},
     },
 }
 
 
-def bundle(root, player_noise=0.0, seed=29):
+def bundle(root, player_noise=0.0, seed=29, lost=False):
     """Tactical tracking with ball gaps and optional player jitter; broadcast = the same match from frame LAG on,
-    shifted by a slowly changing calibration error; clock readings of both videos."""
+    shifted by a slowly changing calibration error; clock readings of both videos. lost: every tactical player is
+    missing for six seconds out of every forty-two (no random numbers, so the rest of the bundle is unchanged)."""
     rng = np.random.default_rng(seed)
     s, T = 10, N + LAG
     v = np.zeros((T, s, 2)); e = rng.normal(0, 0.02, (T, s, 2))
@@ -86,6 +99,9 @@ def bundle(root, player_noise=0.0, seed=29):
     tb = ball[:N].copy()
     tb[np.repeat(rng.random(N // 100 + 1) < 0.4, 100)[:N]] = np.nan
     tp = P[:N] + rng.normal(0, player_noise, (N, s, 2)) if player_noise else P[:N]
+    if lost:
+        tp = tp.copy()
+        tp[(np.arange(N)[:, None] // 150 + 3 * np.arange(s)[None]) % 7 == 0] = np.nan
     _write_epts(root / 'tactical', 'SYN_tactical', tp, tb, team)
     B = N - LAG
     drift = 0.3 * np.cumsum(rng.normal(0, 0.01, (B, 1, 2)), 0) + np.array([0.35, -0.25])   # calibration error
@@ -157,14 +173,16 @@ def digest(root):
 
 
 def produce(work):
-    """{'input': digest, 'input_keepers': digest, 'runs': {variant: {'sha256', 'path', 'fill', 'mode'[, 'moved_pieces']}}}
-    for this computer."""
+    """{'input': digest, 'input_keepers': digest, 'input_lost': digest,
+    'runs': {variant: {'sha256', 'path', 'fill', 'mode'[, 'moved_pieces', 'pooled', 'added']}}} for this computer."""
     work = Path(work)
     out = {'runs': {}}
     clean, noisy = bundle(work / 'clean'), bundle(work / 'noisy', player_noise=0.45)
     keepers, keepers_noisy = keeper_bundle(work / 'keepers'), keeper_bundle(work / 'keepers-noisy', player_noise=0.45)
     out['input'] = hashlib.sha256((digest(clean) + digest(noisy)).encode()).hexdigest()
     out['input_keepers'] = hashlib.sha256((digest(keepers) + digest(keepers_noisy)).encode()).hexdigest()
+    lost, lost_noisy = bundle(work / 'lost', lost=True), bundle(work / 'lost-noisy', player_noise=0.45, lost=True)
+    out['input_lost'] = hashlib.sha256((digest(lost) + digest(lost_noisy)).encode()).hexdigest()
 
     def one(name, data, clock, entry=run29, halves=HALVES):
         kw = dict(tactical_clock=data / 'clock-tactical', broadcast_clock=data / 'clock-broadcast') if clock else {}
@@ -175,8 +193,10 @@ def produce(work):
                              'mode': r['fusion'].get('alignment_mode')}
         if entry is not run29:
             out['runs'][name]['moved_pieces'] = int(r['goalkeeper_correction']['moved_pieces'])
-        if entry is run215:
+        if entry in (run215, run216):
             out['runs'][name]['pooled'] = bool(r['second_model']['used'])
+        if entry is run216:
+            out['runs'][name]['added'] = int(r['added_players'].get('player_positions_added', 0))
     one('clean_clock', clean, True)
     one('pooled_clock', clean, True, run215)
     one('clean_tracking', clean, False)
@@ -189,6 +209,8 @@ def produce(work):
     one('keepers_pooled_tactical_only', keepers, False, run215, KEEPER_HALVES)
     shutil.rmtree(keepers_noisy / 'broadcast')
     one('keepers_noisy_tactical_only', keepers_noisy, False, run211, KEEPER_HALVES)
+    one('lost_added_clock', lost, True, run216)
+    one('lost_noisy_added_tracking', lost_noisy, False, run216)
     return out
 
 
@@ -198,7 +220,7 @@ def status(got=None):
     if got is None:
         with tempfile.TemporaryDirectory() as d:
             got = produce(d)
-    if got['input'] != EXPECTED['input']:
+    if got['input'] != EXPECTED['input'] or got.get('input_lost') != EXPECTED['input_lost']:
         return 'INPUT_DIFFERS', []
     names = comparable(got)
     bad = sorted(k for k in names if got['runs'].get(k) != EXPECTED['runs'][k])
@@ -218,13 +240,15 @@ class CrossPlatformTests(unittest.TestCase):
     def test_release_pipeline_reproduces_the_recorded_bytes(self):
         with tempfile.TemporaryDirectory() as d:
             got = produce(d)
-        if got['input'] != EXPECTED['input']:
+        if got['input'] != EXPECTED['input'] or got.get('input_lost') != EXPECTED['input_lost']:
             self.skipTest('the synthetic input differs on this platform; no conclusion')
         names = comparable(got)
         self.assertEqual({k: got['runs'][k]['path'] for k in names},
                          {k: EXPECTED['runs'][k]['path'] for k in names})              # both model paths are exercised
         self.assertTrue(all(v['moved_pieces'] > 0 for k, v in EXPECTED['runs'].items() if k.startswith('keepers')))   # the correction is exercised
-        self.assertTrue(all(v['pooled'] for v in EXPECTED['runs'].values() if 'pooled' in v))                          # and the second model
+        self.assertTrue(any(v['pooled'] for v in EXPECTED['runs'].values() if 'pooled' in v))                          # and the second model
+        self.assertTrue(all(v['added'] > 0 for v in EXPECTED['runs'].values() if 'added' in v))                        # and the added players
+        self.assertEqual({v['path'] for v in EXPECTED['runs'].values() if 'added' in v}, {'v2.1', 'v2.3'})
         self.assertEqual({k: got['runs'][k] for k in names}, {k: EXPECTED['runs'][k] for k in names})
         if len(names) < len(EXPECTED['runs']):
             self.skipTest('the synthetic goalkeeper bundles differ on this platform; the other variants give the recorded bytes')

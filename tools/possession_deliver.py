@@ -149,6 +149,19 @@ def second_model_fact(rep):
     return 'not used: the noise gate chose the path on which nothing is averaged (the labels are those of the release without the second model)'
 
 
+def added_players_fact(rep):
+    """Whether players were added from the broadcast tracking (possession/playerfill.py), as a category (no counts)."""
+    k = rep.get('added_players')
+    if not isinstance(k, dict):
+        return 'not part of the entry point that produced the file'
+    if k.get('used') and k.get('player_positions_added'):
+        return ('used: players that the tactical tracking does not have at a moment and the registered broadcast tracking shows were added '
+                'to the tracking the models see')
+    if k.get('used'):
+        return 'the accuracy gate was open, but the broadcast tracking showed no player that the tactical tracking lacks: nothing added'
+    return 'not used: no broadcast files, or the accuracy gate was closed (the labels are those of the release without this step)'
+
+
 def run_record(rep, facts):
     """Markdown appendix with categorical facts of the delivered run (no per-frame content, no measured values)."""
     fus = rep.get('fusion') or {}
@@ -166,6 +179,7 @@ def run_record(rep, facts):
             ('Input files against DATA.md', facts.get('inputs', 'not run')),
             ('Model path chosen by the noise gate', str(rep.get('path'))),
             ('Second model', second_model_fact(rep)),
+            ('Players added from the broadcast camera', added_players_fact(rep)),
             ('Goalkeeper team correction', keeper_fact(rep)),
             ('Kick-off rule', kickoff_fact(rep)),
             ('Broadcast camera', cam),
@@ -362,15 +376,15 @@ class Chain:
         last = (text.strip().splitlines() or [''])[-1].split()
         word = last[0] if last else ''
         if code == 0 and word == 'SAME':
-            self.facts['platform_check'] = 'same bytes as recorded on Linux x86-64 (nine synthetic variants)'
+            self.facts['platform_check'] = 'same bytes as recorded on Linux x86-64 (eleven synthetic variants)'
             return self.step('PLATFORM', 'AYNI')
         if code == 2 and word == 'DIFFERENT':
             self.facts['platform_check'] = 'DIFFERENT from the bytes recorded on Linux x86-64 for: ' + ', '.join(last[1:])
             return self.step('PLATFORM', 'FARKLI (' + ', '.join(last[1:]) + ')', warn=True)
         if code == 3 and word == 'INPUT_DIFFERS' and last[1:] == ['keepers']:
-            self.facts['platform_check'] = ('same bytes as recorded on Linux x86-64 for six synthetic variants; not conclusive for the three '
+            self.facts['platform_check'] = ('same bytes as recorded on Linux x86-64 for eight synthetic variants; not conclusive for the three '
                                             'goalkeeper variants (their synthetic input differs on this computer)')
-            return self.step('PLATFORM', 'BELIRSIZ (kaleci varyantlarinin sentetik girdisi bu bilgisayarda farkli; diger alti varyant AYNI)', warn=True)
+            return self.step('PLATFORM', 'BELIRSIZ (kaleci varyantlarinin sentetik girdisi bu bilgisayarda farkli; diger sekiz varyant AYNI)', warn=True)
         if code == 3 and word == 'INPUT_DIFFERS':
             self.facts['platform_check'] = 'not conclusive (the synthetic input differs on this computer)'
             return self.step('PLATFORM', 'BELIRSIZ (sentetik girdi bu bilgisayarda farkli)', warn=True)

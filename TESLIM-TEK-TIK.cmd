@@ -2,7 +2,7 @@
 rem One double-click for the whole delivery, on the team lead's computer only:
 rem   1. tools/possession_place_files.py puts the files the organisers shipped (videos, Smart Tagging, tracking)
 rem      into the bundle folder: a local copy that never replaces a file already there,
-rem   2. GIT-YUKLE-V2.cmd commits and pushes the release (it asks for a key a few times),
+rem   2. GIT-YUKLE-V2.cmd commits and pushes the release (started from here it asks for no key unless something fails),
 rem   3. tools/possession_deliver.py runs the whole delivery chain, as TESLIM-HAZIRLA.cmd, with the team name,
 rem   4. the shareable status lines of steps 1 and 3 are copied to Desktop\logs (names and status words only).
 rem Nothing here sends a match file anywhere; the files are read only by the release, on this computer.
@@ -27,7 +27,7 @@ if not defined PYV (
 )
 echo.
 echo Bu pencere bir-iki saat acik kalabilir. Bilgisayari kapatmayin ve uyku moduna almayin.
-echo Ekranda "bir tusa basin" yazdikca bir tusa basin.
+echo Bir sorun olmazsa hicbir tusa basmaniz gerekmez. Ekranda "bir tusa basin" yazarsa bir tusa basin.
 echo.
 echo ===== 1/3 Mac dosyalari paket klasorune yerlestiriliyor =====
 py -%PYV% -m tools.possession_place_files --status-file "%LOGS%\DOSYA-durum.txt"
@@ -42,6 +42,7 @@ if errorlevel 1 (
 :placed
 echo.
 echo ===== 2/3 GitHub'a yukleniyor =====
+set "POSSESSION_NO_PAUSE=1"
 call "%~dp0GIT-YUKLE-V2.cmd"
 if errorlevel 1 (
   echo.

@@ -1,11 +1,18 @@
 {
-  "release": "possession-v2.15",
-  "note": "Read by tools/possession_deliver.py. 'steps' is the order of technical fall-backs: a lower step is used only when the step above ends with an error (exception or non-zero exit code) or writes a file that fails the organisers' format rules. A step is never chosen by looking at an output. With clock readings each broadcast step is tried with the clock anchor first, then without it. 'smart_tagging': true marks a step that reads the Smart Tagging file of the bundle; the tool then reports whether that file is present. The first step pools the v2 models with a second model family (possession-v215-plan.json); every lower step is the v2 models alone. No step uses the kick-off frame published in FAQ.md: the organisers' answer of 12 Nov 2026 did not allow that constant explicitly. possession-v2.11, which uses it, stays in the repository, frozen and unused.",
+  "release": "possession-v2.16",
+  "note": "Read by tools/possession_deliver.py. 'steps' is the order of technical fall-backs: a lower step is used only when the step above ends with an error (exception or non-zero exit code) or writes a file that fails the organisers' format rules. A step is never chosen by looking at an output. With clock readings each broadcast step is tried with the clock anchor first, then without it. 'smart_tagging': true marks a step that reads the Smart Tagging file of the bundle; the tool then reports whether that file is present. The first step is the second with one addition: players the tactical tracking has lost are added from the broadcast tracking when the accuracy gate is open (possession-v216-plan.json). The second step pools the v2 models with a second model family (possession-v215-plan.json); every lower step is the v2 models alone. No step uses the kick-off frame published in FAQ.md: the organisers' answer of 12 Nov 2026 did not allow that constant explicitly. possession-v2.11, which uses it, stays in the repository, frozen and unused.",
   "game": "BAR-ATH",
   "rows": 199319,
   "document": "TECHNICAL_DOCUMENT.md",
   "clock_module": "tools.possession_clock",
   "steps": [
+    {
+      "name": "possession-v2.16",
+      "module": "possession.run216",
+      "manifest": "possession-v216-release.json",
+      "broadcast": true,
+      "smart_tagging": true
+    },
     {
       "name": "possession-v2.15",
       "module": "possession.run215",
@@ -64,6 +71,7 @@
     "tests.test_possession_v211g",
     "tests.test_possession_kickoff",
     "tests.test_possession_v211k",
-    "tests.test_possession_v215"
+    "tests.test_possession_v215",
+    "tests.test_possession_v216"
   ]
 }

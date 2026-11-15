@@ -27,7 +27,11 @@ combination was not selected (log entry K010, `possession-v213-plan.json`,
 `possession-v213-results.json`). Those weights are not loaded by the release and are not in this
 branch.
 
-**Second model of the release (v2.15).** Design, features and NumPy inference: the same team member
+**Players added from the broadcast tracking (v2.16).** No new data and nothing trained: the step is a fixed rule
+(`possession/playerfill.py`) validated on new corrupted copies of the validation matches below with a simulated
+second camera (`possession-v216-plan.json`).
+
+**Second model of the release (v2.15 and v2.16).** Design, features and NumPy inference: the same team member
 (branch `mtah-possession`, commit `167dc7b`; byte copies under `possession/tcn/`). He developed the
 recipe on all seven DFL matches and Metrica games 1-3. The weights in `models/possession-tcn-v215.npz`
 (three members) were trained for the release with `experiments/possession_v2/v214/tcn_jax.py` on the six

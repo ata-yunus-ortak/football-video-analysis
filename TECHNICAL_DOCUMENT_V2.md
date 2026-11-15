@@ -1,7 +1,7 @@
-# Possession v2 — technical document (full record; current release: v2.15)
+# Possession v2 — technical document (full record; current release: v2.16)
 
 Team repository: `possession/` package, branch `feature/external-possession-selection`.
-Submission file regenerated with `python -m possession.run215` (see the four addenda and Reproduction).
+Submission file regenerated with `python -m possession.run216` (see the five addenda and Reproduction).
 
 > **Addendum, 11 November 2026 (v2.9).** The submitted entry point is now `python -m possession.run29`
 > (release manifest `possession-v29-release.json`). It differs from the v2.5b system described below in
@@ -301,6 +301,67 @@ Submission file regenerated with `python -m possession.run215` (see the four add
 >    external data cannot settle; a learned combination of both model families, explored with one
 >    match left out at a time, gained 0.0095 on average with a worst copy of -0.023 and was not
 >    registered. The release is unchanged.
+> 10. **Set-piece tags as a trigger for a missing stoppage (K015, 15 November, reporting only).** The
+>    organisers' documentation says every set-piece tag is a restart at the end of a dead-ball
+>    stretch. On the 42 development copies the v2.15 decision has at least one `D` frame on 93% of
+>    the labelled stretches that end in a restart; the 5.9 per copy without any are short (median
+>    4.7 s) and the ball is seen on 9% of their frames. Tags simulated at the published per-type counts
+>    cover about half of the restarts (2.4 missed stretches per copy carry one). Writing the true stretch
+>    there would gain +0.0029 spellF1 (DFL +0.0011, Metrica +0.0045); moving the end of our `D` to the true
+>    restart +0.0003. A rule that forces the unchanged decoder through `D` where it objects least,
+>    if that costs at most one entry and exit (120 log units), gained +0.0011 with exact tags,
+>    +0.0016 with tags accurate to a second, +0.0010 / +0.0005 / +0.0008 with typical / noisy / 30% false tags;
+>    without the cost limit false tags cost up to -0.0045. A tenth of the gain gate used for every
+>    candidate, with simulated tags whose real error profile cannot be measured: not registered, the
+>    release is unchanged (`possession-k015-tag-rescue.json`, scripts in `experiments/possession_v2/v217/`).
+>
+> **Fifth addendum, 15 November 2026 (v2.16): players the tactical tracking has lost.** The submitted entry point is now
+> `python -m possession.run216` (release manifest `possession-v216-release.json`). `possession.run215` is the next
+> step of the technical ladder; everything in the fourth addendum still applies.
+>
+> 1. **The question (K016, exploration).** The team lead asked whether the broadcast camera, being closer, should take
+>    priority where it agrees with the tactical camera. On development copies of the four validation matches with a
+>    simulated second camera (`possession-k016-camera-priority.json`), with the alignment, registration, gate and ball
+>    fill of the release unchanged, the v2.15 decision changed as follows against the release, for a stream clearly
+>    more precise than the tactical copy / as precise / less precise: broadcast ball where both cameras agree within
+>    0.5 m -0.0007 / +0.0008 / -0.0051; broadcast ball wherever both see it -0.0016 / -0.0047; mean of the two
+>    balls -0.0049 / +0.0002; ball and agreeing players from the broadcast stream +0.0022 / +0.0002 / -0.0036.
+>    Without the second camera the score was 0.036-0.043 lower on every copy. Priority does not help; what the
+>    second camera adds is what the first does not see. On these copies the tactical ball is present on 46% of
+>    graded frames, the broadcast ball fills 15%, and on 40% neither camera has it. Adding the broadcast players
+>    that the tactical copy lacks gained +0.0057 / +0.0097 on four copies, and +0.0069 with a stream that itself loses
+>    and invents players.
+> 2. **The step** (`possession/playerfill.py`). Per accepted broadcast frame, the offset that `register.py` measures
+>    at the ball from players seen by both cameras (median over +-0.5 s) is subtracted from the broadcast players. A
+>    registered broadcast player with no tactical player of either team within 1.5 m is written into an extra slot
+>    (one per broadcast track) under the team of its track. It runs only when `fusion.fuse_gated` reports the gate
+>    open; the goalkeeper team check then runs on tactical + added players. Tactical positions are never moved. The
+>    radius is the only constant and the only value tried.
+> 3. **Validation** (`possession-v216-plan.json`, registered 15:01 before the first validation row;
+>    `possession-v216-results.json`). 16 new corrupted copies, both arms on the same copy, stream, alignment and
+>    models. Accurate stream: 0.6864 -> 0.6968 (+0.0104; DFL +0.0098, Metrica +0.0111; 13 better, 3 worse,
+>    single copies -0.0056 to +0.0261; macroF1 +0.0019). Medium stream (8 copies) +0.0073; stream that loses and
+>    invents players (8) +0.0044 (DFL +0.0088, Metrica -0.0000, one copy -0.0148); tactical copies of the other
+>    simulator (4) +0.0004 (3 of 4 lower). The seven gates of the earlier plans, moved to the conditions in which
+>    the candidate differs from the release, all passed; the last by 0.0004. Without the second model the same
+>    step gained +0.0089 on the accurate stream.
+> 4. **Release and checks.** `run216.py` is `run215.py` with exact text replacements (the fill behind the open
+>    gate, a report entry, a test switch); with the switch off it writes the bytes of `run215` (test), as it does
+>    without broadcast files or with the gate closed (tests). Frozen 2026-11-15 17:05. The cross-platform check has
+>    eleven synthetic variants (two new ones on bundles whose tactical tracks vanish for six seconds at a time, one
+>    per model path), byte-identical under Python 3.10 / numpy 1.26.4 and Python 3.13 / numpy 2.5.3; 467 tests pass
+>    in both environments. The chain was rehearsed once on the synthetic bundle of K003 with the invented tag file
+>    of K011 (`possession-v216-rehearsal.json`): all steps OK in 1006 s (v2.15 chain 761 s), peak memory
+>    2.2 GB; 67,338 player positions added on that bundle; the file differs from the v2.15 chain
+>    file on 0.7% of the graded frames; spellF1 0.7826 against 0.7721. A wiring and size check on games used
+>    in development, not a selection input. Appendix R has a row that says, as a category, whether players were
+>    added. Whether the chain runs on the team's computer is the last condition of the decision rule.
+> 5. **Limits.** A simulated second camera whose players come from clean positions; only one of the four
+>    conditions lets it lose or invent players. The provided broadcast tracking was not examined; a referee that it
+>    carries under a team and the tactical tracking lacks would be added as a player. The step was picked among
+>    seven variants on four development copies, on a day on which three other ideas were examined on the same
+>    matches. It does not touch the statement of the fourth addendum that no further candidate with the second model
+>    is registered: the second model is the same in both arms.
 
 ## 1. Summary
 
@@ -738,7 +799,7 @@ cannot rule out without the organisers' machine.
 python -m tools.possession_clock --video <bundle>/tactical/BAR-ATH_tactical.mp4 --out <clock>/tactical
 python -m tools.possession_clock --video <bundle>/broadcast/BAR-ATH_broadcast.mp4 --out <clock>/broadcast
 python -m pip install -r requirements-possession.txt
-python -m possession.run215 --data-dir <bundle root containing tactical/ and broadcast/> --out <new folder> \
+python -m possession.run216 --data-dir <bundle root containing tactical/ and broadcast/> --out <new folder> \
     --tactical-clock <clock>/tactical --broadcast-clock <clock>/broadcast
 python -m possession.validate <new folder>/submission.csv
 # or everything in one command (environment, hash check, tests, clocks, generation, checks):
@@ -770,12 +831,12 @@ file (identical SHA-256) under Python 3.10/numpy 1.26.4 and Python 3.13/numpy 2.
 synthetic ATD and for a full-size external EPTS file (Metrica sample game 3 tracking, 143,761
 frames, 35 slots, 11 data format specifications; 45 s, 1.2 GB peak memory on two CPU cores).
 
-`possession.run215` (like `possession.run211k`, `possession.run211`, `possession.run29` and `possession.run25`) reads `tactical/BAR-ATH_tactical_atd.xml` and `_atd.txt`,
+`possession.run216` (like `possession.run215`, `possession.run211k`, `possession.run211`, `possession.run29` and `possession.run25`) reads `tactical/BAR-ATH_tactical_atd.xml` and `_atd.txt`,
 `broadcast/BAR-ATH_broadcast_atd.xml`, `_atd.txt` and `_homography.csv` (only the `valid` column) and, if
-given, the two clock-observation files; `run215` and `run211k` also read the "Kick Off (Start)" tags of
+given, the two clock-observation files; `run216`, `run215` and `run211k` also read the "Kick Off (Start)" tags of
 `tactical/BAR-ATH_tactical_smart_tagging.xml`. It checks every source file, both tree bundles and the network weights
-against the release manifest (`possession-v215-release.json`, which lists every inference source and the three model
-files; the lower steps have `possession-v211k-release.json`, `possession-v211g-release.json` and
+against the release manifest (`possession-v216-release.json`, which lists every inference source and the three model
+files; the lower steps have `possession-v215-release.json`, `possession-v211k-release.json`, `possession-v211g-release.json` and
 `possession-v211-release.json`) and the bundle cards, and
 writes `submission.csv` plus `run.json` (input, model, source and output hashes, measured noise and path,
 alignment mode, gate values, filled frames, team names, aggregate label counts). The graded halves

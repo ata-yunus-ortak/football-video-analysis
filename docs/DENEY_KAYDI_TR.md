@@ -1,5 +1,247 @@
 # Deney kaydı
 
+## K018 — Teslim zinciri ekibin bilgisayarında v2.15 ile baştan sona OK (ilk tam çalıştırma), 15 Kasım 2026
+
+**Ne oldu.** Takım lideri `TESLIM-TEK-TIK.cmd`'yi 11:34'te başlattı. Dosya yerleştirme adımı dokuz dosyanın hepsini paket
+klasörüne koydu (iki video Desktop ve Downloads'tan kopyalandı). Yükleme adımı saatlerce bekledi: `git diff --cached --stat`
+uzun listeyi sayfalayıcıda açtı ve pencere "(END)" yazısında `q` tuşunu bekledi; takım lideri 16:25'te sordu, `q` ve Enter ile
+devam etti. 16:28'de commit `668fc04` (v2.15, K007-K014 kayıtları) GitHub'a gitti; GitHub Actions bu commit'te başarılı
+(11 dk 39 sn). Zincir 16:28-17:31 arasında çalıştı (63 dakika).
+
+**Paylaşılabilir durum satırları** (`Desktop\logs\PAYLASILABILIR-durum.txt`; başka hiçbir çıktı okunmadı):
+
+```
+[ 1] ORTAM ..................... OK (Windows-10-10.0.19045-SP0, Python 3.10.11, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)
+[ 2] DEPO ...................... commit 668fc04560ed, temiz
+[ 3] SURUM ..................... OK (possession-v2.15)
+[ 4] TESTLER ................... OK
+[ 5] PLATFORM .................. AYNI
+[ 6] VERI ...................... OK (taktik VAR, yayin VAR, videolar VAR, smart tagging VAR)
+[ 7] GIRDI OKUMA ............... OK
+[ 8] URETIM .................... OK (possession-v2.15, saatsiz)
+[ 9] BICIM ..................... OK
+[10] MAKULLUK .................. OK
+[11] ON TESLIM ................. OK (possession-v2.15, saatsiz; onceki teslim dosyasindan FARKLI (eskisi .onceki olarak saklandi))
+[12] SAAT OKUMA ................ OK
+[13] SAATLI URETIM ............. OK (possession-v2.15, saatli)
+[14] MAKULLUK .................. OK
+[15] TESLIM .................... OK (possession-v2.15, saatli)
+[16] SAATSIZ KARSILASTIRMA ..... AYNI
+[17] TEKRAR URETIM ............. AYNI
+[18] TEMIZ KLON ................ AYNI (commit 668fc04560ed)
+[19] ORGANIZATOR DOGRULAYICI ... OK
+[20] ACIK PENCERE .............. OK
+[21] BELGE ..................... OK (LittleSickle.md = teknik belge + calisma kaydi)
+SONUC: TESLIM HAZIR
+```
+
+**Ne anlama geliyor.**
+- K013'ün son koşulu (zincir ekibin bilgisayarında OK; `URETIM` ve `TESLIM` satırlarında `possession-v2.15`) sağlandı. Elde
+  kurallara uygun, geçerli bir v2.15 teslimi var: `FootballPrivate\teslim\LittleSickle.csv` ve `LittleSickle.md`.
+- Windows 10 / Python 3.10.11, dokuz sentetik varyantta Linux'ta kaydedilen baytların aynısını verdi (`PLATFORM AYNI`); dosya
+  ikinci çalıştırmada, saat okumaları olmadan ve GitHub'daki dalın temiz klonundan da aynı baytlarla üretildi.
+- Girdi denetimi (DATA.md toplamları, 28 denetim), organizatörün doğrulayıcısı ve açık beş dakikadaki geçti/kaldı denetimi
+  geçti. Bunlar doğruluk ölçümü değildir; dosyanın geçerli ve boru hattının bozuk olmadığını söyler.
+- Bu çalıştırma v2.16'dan önceydi. v2.16 için zincir bir kez daha çalıştırılmalı (K017'nin kalan koşulu); o çalıştırma
+  OK bitmezse ya da daha alt bir basamak yazarsa bu v2.15 teslimi geçerli kalır.
+
+**Düzeltme.** `GIT-YUKLE-V2.cmd` artık git'i `--no-pager` ile çağırır ve `TESLIM-TEK-TIK.cmd` içinden başlatıldığında tuş
+beklemez (hata olmadıkça). Veri türü dosyaları reddeden koruma değişmedi.
+
+## K017 — possession-v2.16: taktik kameranın kaybettiği oyuncular yayın kamerasından eklenir (kayıtlı doğrulama geçti; sürüm), 15 Kasım 2026
+
+**Ne.** v2.16 = v2.15 + bir adım (`possession/playerfill.py`): yayın dosyaları varsa ve top doğruluk kapısı açıksa (iki kamera
+topta 0,50 m içinde anlaşıyor), zaman hizalaması ve oyuncu tabanlı kayıttan sonra **1,5 m çevresinde hiçbir takımdan taktik
+oyuncu bulunmayan** yayın oyuncusu, modellerin gördüğü takip verisine eklenir (yayın izinin verdiği takımla, iz başına bir ek
+yuvada). Taktik konumlar hiç değiştirilmez. Kaleci takım denetimi eklenmiş oyuncularla birlikte çalışır; top önceki gibi
+doldurulur. Yayın dosyası yoksa ya da kapı kapalıysa çıktı v2.15'in çıktısıdır (test: adım kapalıyken `run216`, `run215` ile aynı
+baytları yazar). Kullanılan düzeltme, yayın topunu düzelten kare başına kaymanın aynısıdır.
+
+**Neden.** K016: ikinci kameraya öncelik vermek kazandırmadı; kazandıran tek kullanım, birinci kameranın kaybettiği oyuncuları
+eklemekti. Otomatik takip, oyuncuları en çok birbirine yakın olduklarında bir iki saniyeliğine kaybeder; yayın kamerası topu
+izlediği için çoğu zaman onları görür.
+
+**Plan (sonuçlardan önce).** `possession-v216-plan.json`, kayıt 15:01:19 (ilk doğrulama satırı 15:04:54). Kural ve tek sabiti
+(1,5 m) kayıttan önce sabitlendi; doğrulama betiği keşifteki bir satırı birebir yeniden üretti. 16 yeni bozulmuş kopya (4 maç ×
+4 tohum, tohumlar 28100...), benzetilmiş ikinci kamera. İki kol aynı kopyayı, akışı, hizalamayı, kaydı, top doldurmayı ve
+modelleri paylaşır; yalnız aday kol oyuncu ekler. Kapılar v2.12-v2.15 planlarındaki yedi kapı ve eşiklerdir; adayın sürümden
+farklılaştığı koşullara taşındı (ikinci kamera olmadan aday hiçbir şeyi değiştirmez).
+
+**Sonuç (spellF1; `possession-v216-results.json`).**
+
+| koşul | v2.15 | aday | fark | DFL | Metrica | daha iyi / kötü | en kötü kopya | ikinci model olmadan fark |
+|---|---|---|---|---|---|---|---|---|
+| iyi yayın kamerası, 16 kopya | 0,6864 | 0,6968 | +0,0104 | +0,0098 | +0,0111 | 13 / 3 | -0,0056 | +0,0089 |
+| orta kalitede yayın kamerası, 8 kopya | 0,6861 | 0,6934 | +0,0073 | +0,0077 | +0,0069 | 5 / 3 | -0,0026 | +0,0092 |
+| oyuncu kaybeden / uyduran yayın kamerası, 8 kopya | 0,6930 | 0,6974 | +0,0044 | +0,0088 | -0,0000 | 6 / 2 | -0,0148 | +0,0039 |
+| ekip arkadaşının benzeticisiyle taktik kopya, iyi yayın, 4 kopya | 0,7031 | 0,7035 | +0,0004 | +0,0014 | -0,0006 | 1 / 3 | -0,0047 | +0,0006 |
+
+| kapı | eşik | değer | sonuç |
+|---|---|---|---|
+| G1 kazanç (iyi yayın, 16 kopya) | ≥ +0,008 | +0,0104 | geçti |
+| G2 DFL kopyaları (8) | ≥ +0,008 | +0,0098 | geçti |
+| G3 Metrica kopyaları (8) | ≥ −0,002 | +0,0111 | geçti |
+| G4 en kötü kopya | ≥ −0,010 | -0,0056 | geçti |
+| G5 macroF1 | ≥ −0,003 | +0,0019 | geçti |
+| G6 öteki akışlar (orta; oyuncu kaybeden / uyduran) | her biri ≥ 0,000 | +0,0073; +0,0044 | geçti |
+| G7 öteki benzetici (4 kopya) | ≥ 0,000 | +0,0004 | geçti (kıl payı) |
+
+"İyi" koşulda eklenen konumlar taktik oyuncu konumlarının ortalama %2,2'si; puanlanan karelerin %30'unda en az bir
+eklenmiş oyuncu var. "Orta" koşulda eklenenlerin %68'i, oyuncu kaybeden / uyduran akışta %52'si gerçek bir oyuncunun 1 m
+yakınında; kazanç yine de sıfırın üstünde.
+
+**Karar.** Yedi kapının yedisi geçti; kayıtlı kurala göre aday seçildi ve **possession-v2.16** olarak donduruldu
+(2026-11-15 17:05; `possession-v216-release.json`; `run216.py`, `run215.py`'den birebir metin değişiklikleriyle türetildi).
+Basamak sırası (`possession-release.json`): v2.16 → v2.15 → v2.11k → v2.11g → v2.9g → v2.5b → v2.5b yalnız taktik.
+
+**Entegrasyon denetimleri (kayıtlı teslim koşulları).**
+- Python 3.10.20 / numpy 1.26.4 altında çalışıyor.
+- Platformlar arası bayt denetimi artık 11 sentetik varyant (ikisi yeni: taktik izleri altışar saniye kaybolan paketlerde
+  oyuncu eklenen v2.1 ve v2.3 yolları); 11'i de Python 3.10 / numpy 1.26.4 ile Python 3.13 / numpy 2.5.3 altında aynı bayt.
+- Bütün testler: 467 test, Python 3.13 altında 4 atlama, Python 3.10 (sabitlenmiş paketler) altında 15 atlama, hata yok.
+- Tam boy zincir provası (K003 sentetik paketi + K011'in uydurma Smart Tagging dosyası, `possession-v216-rehearsal.json`): bütün
+  adımlar OK, 1006 sn (v2.15 zinciri 761 sn), en çok 2,20 GB bellek (v2.15: 1,53 GB). Bu sentetik pakette
+  67 338 oyuncu konumu eklendi (48 515 karede); teslim dosyası v2.15 zincirinin dosyasından puanlanan karelerin
+  %0,7'sinde farklı; paketin etiketlerine göre spellF1 0,7826 (v2.15 zinciri 0,7721). Bağlantı ve boyut denetimidir; doğruluk ölçümü
+  değildir, hiçbir seçimde kullanılmadı.
+- Ek R'ye "Players added from the broadcast camera" satırı eklendi (yalnız kategori: kullanıldı / eklenecek oyuncu yok /
+  kullanılmadı; sayı yok).
+
+**Kalan koşul.** Zincirin ekibin bilgisayarında OK bitmesi; `URETIM` ve `TESLIM` satırlarında `possession-v2.16` yazmalı. Daha
+alt bir basamağın adı yazarsa teslim edilen o basamaktır ve belgeler ona göre düzeltilir.
+
+**Sınırlar.**
+- İkinci kamera benzetimdir; oyuncuları temiz dış konumlardan gelir. Dört koşulun üçünde penceresi içinde hiç oyuncu
+  kaybetmez ve uydurmaz; dördüncüsü uydurulmuş tek bir hata düzenidir (orada kazanç +0,0044, bir kopya -0,0148).
+- Sağlanan yayın verisine bakılmadı: ne sıklıkta oyuncu kaybettiği ya da uydurduğu bilinmiyor. Yayın verisinde bir takımın
+  altında taşınan ama taktik veride olmayan bir hakem, oyuncu olarak eklenir.
+- G7 kıl payı geçti (+0,0004; 4 kopyanın 3'ünde hafif eksi): az oyuncu kaybeden kopyalarda adım neredeyse hiçbir şey
+  değiştirmiyor.
+- Adım, dört geliştirme kopyasında yedi seçenek arasından seçildi; doğrulama kopyaları yeni, maçlar yeni değil. Aynı gün aynı
+  maçlarda incelenen dördüncü fikirdi (K014, K015, K016). Organizatör, tek maçta 0,04'ün altındaki farkların gürültü olduğunu
+  söylüyor.
+- Bu, v2.15 planındaki "ikinci modelle başka aday kaydedilmez" kaydını değiştirmez: iki kolda da ikinci model aynıdır.
+
+## K016 — İkinci kameraya öncelik vermek işe yaramıyor; işe yarayan, birincinin göremediğini eklemek (keşif; bir aday çıktı), 15 Kasım 2026
+
+**Neden.** Takım lideri 15 Kasım 12:24'te sordu: yayın kamerası daha yakından ve net görüyor; taktik kamerayla tutarlı olduğu
+yerlerde yayın kamerasına öncelik versek, az sayıda oyuncu görse bile o noktada onu temel alsak daha iyi olmaz mı? Ayrıca şu an
+maçın ne kadarında hangi kamerayı kullanıyoruz? Bu kayıt geliştirme kopyalarında benzetilmiş ikinci kamerayla yapılan keşiftir;
+plan kaydedilmedi. Sağlanan maç açılmadı. Sayılar: `possession-k016-camera-priority.json`; betikler:
+`experiments/possession_v2/v218/` (`cam1.py`, `cam2.py`, `cam3.py`).
+
+**Şu an hangi kameradan ne alıyoruz.** Taktik takip verisi her karede temeldir (bütün oyuncular ve top). Yayın takip verisinden
+yalnız top alınır; yalnız taktik top eksikse, o kare için kabul edilmiş bir yayın karesi varsa ve iki kamera topta 0,50 m içinde
+anlaşıyorsa. Yayın oyuncuları yalnız kalibrasyon hatasını ölçmek için kullanılır. Videoların görüntüsünden yalnız maç saati
+okunur. Sağlanan maçtaki oranlar bu kayıtta yoktur (maç verisi ve ondan hesaplanan sayılar ajana verilmez). Benzetilmiş
+kopyalarda (yayın "iyi" düzeyde, 8 kopya, puanlanan karelerin payı): taktik top %46, yayından doldurulan %15, iki kamerada da
+top yok %40; iki kamera topu birlikte %22 karede görüyor (%20'inde 0,5 m içinde). Kabul edilmiş yayın karesi olan
+kareler %64.
+
+**Yöntem.** Dört doğrulama maçı (J03WN1, J03WR9, MET1, MET2), maç başına iki bozulmuş kopya; her kolda v2.15 kararı. İkinci
+kamera temiz konumlardan benzetildi (top çevresinde pencere, yakın çekim ve tekrarlar, çekim başına kalibrasyon kayması, gürültü),
+üç düzeyde: **keskin** (yayın, taktik kopyadan belirgin biçimde daha hassas: top hatası ortanca 0,03 m, taktikte
+0,15 m; oyuncularda 0,04 m ve 0,13 m), **iyi** ve **orta** (v2.5 / v2.9 / v2.15 doğrulamalarındaki düzeyler). Hizalama, kayıt
+(registration), kapı ve top doldurma her seçenekte sürümdeki gibidir; yalnız modellerin gördüğü top ya da oyuncular değişir.
+
+**Sonuç: sürüme göre spellF1 farkı** (parantez içinde: daha iyi / daha kötü kopya sayısı).
+
+| | seçenek | keskin yayın | iyi yayın | orta yayın |
+|---|---|---|---|---|
+| T | ikinci kamera hiç kullanılmaz | -0,0428 (0/8, 8 kopya) | -0,0356 (0/8, 8 kopya) | -0,0383 (0/4, 4 kopya) |
+| B1 | iki kamera 0,5 m içinde tutarlıysa top yayından | -0,0007 (5/3, 8 kopya) | +0,0008 (4/4, 8 kopya) | -0,0051 (0/4, 4 kopya) |
+| B2 | iki kamera da topu görüyorsa top hep yayından | -0,0016 (1/3, 4 kopya) | -0,0047 (1/3, 4 kopya) | — |
+| C | tutarlı yerde iki topun ortalaması | -0,0049 (1/3, 4 kopya) | +0,0002 (2/2, 4 kopya) | — |
+| P | tutarlı top ve tutarlı oyuncular yayından | +0,0022 (5/3, 8 kopya) | +0,0002 (6/2, 8 kopya) | -0,0036 (0/4, 4 kopya) |
+| F | taktiğin kaybettiği oyuncular yayından eklenir | +0,0057 (3/1, 4 kopya) | +0,0097 (3/1, 4 kopya) | — |
+| PF | P ve F birlikte | +0,0047 (3/1, 4 kopya) | +0,0114 (3/1, 4 kopya) | — |
+
+- **Önceliği yayına vermek kazandırmıyor.** Yayın beş kat daha hassas olsa bile fark ±0,002 içinde; yayın daha kabaysa
+  −0,004 / −0,005. İki ölçüm yarım metre içinde anlaşıyorsa hangisini seçtiğimiz az şey değiştirir; modelleri sınırlayan,
+  eğitildikleri düzeyin altındaki hassasiyet değil.
+- **İkinci kameranın değeri, birincinin görmediğini görmesinde.** İkinci kamera hiç kullanılmazsa puan 0,036-0,043 düşüyor
+  (8 kopyanın 8'inde). Tutarlı oyuncuların %24'ü (topa 15 m'den yakın olanların %70'u) yayından alınabiliyor, ama almak bir
+  şey kazandırmıyor.
+- **Taktiğin kaybettiği oyuncuları eklemek (F) kazandırıyor:** keskin yayında +0,0057, iyi yayında +0,0097 (4'er kopya).
+  Yayın akışı kendi de oyuncu kaybedip uydursa ve takımları karıştırsa bile (`cam3.py`: her iz zamanın %10'unda yok, dört hayalet
+  iz, iki iz daha yanlış takımda; eklenen konumların yalnız %41-67'si gerçek oyuncu) +0,0069 (en kötü kopya -0,0006).
+  12 karşılaştırmanın 9'unda daha iyi, en kötüsü -0,0027. Konumları da değiştiren PF belirgin biçimde daha iyi değil ve taktik
+  konumlara dokunuyor.
+
+**Karar.** F, önceki planların kapılarıyla aday olarak kaydedildi (`possession-v216-plan.json`, K017). Öteki seçenekler
+kullanılmadı.
+
+**Sınırlar.** Karşılaştırma başına 4 (B1 ve P için 8) geliştirme kopyası; 0,005'in altındaki farklar kopyalar arası
+dağılımın içindedir. İkinci kamera benzetimdir; sağlanan yayın verisinin nasıl davrandığına bakılmadı. Sayılar bozulmuş dış
+kopyalarda başka sağlayıcıların etiketleriyle uyumdur; yarışma puanı değildir.
+
+## K015 — Smart Tagging duran top etiketiyle "kaçırılan duran topu zorla yaz" fikri: ölçüldü, kazanç çok küçük (sürüm değişmedi), 15 Kasım 2026
+
+**Neden.** Takım lideri 15 Kasım 11:47'de şunu sordu: Smart Tagging bir aralık için duran top diyorsa ve biz o aralıkta hiç duran
+top yazmamışsak, orada mutlaka bir duran top vardır; ölü top olasılığının en yüksek olduğu yere bir duran top koyup sonra başını
+ve sonunu bulsak puan artar mı? Bu daha önce denenmemişti: v3.0 / v3.1 (P002) etiketleri ikinci aşamaya öğrenilen kanıt olarak
+vermişti. Organizatörün belgeleri fikri destekliyor ("every set piece is a restart and every restart ends a dead-ball stretch"),
+ama aynı yerde etiketlerin otomatik olduğu, sahte ve eksik etiket içerdiği de yazıyor. Bu kayıt yalnız geliştirme ve raporlamadır:
+plan kaydedilmedi, doğrulama yapılmadı, hiçbir şey seçilmedi, teslim sistemi **v2.15** olarak kaldı. Sağlanan maç ve etiket dosyası
+açılmadı. Sayılar: `possession-k015-tag-rescue.json`; betikler: `experiments/possession_v2/v217/`.
+
+**Veri.** K014'ün 42 geliştirme kopyası (5 dış maç) ve bunlar için saklanan v2.15 kararı. Dış maçlarda Smart Tagging olmadığı için
+duran top etiketleri **benzetimle** üretildi: gerçek yeniden başlama anının çevresinde birkaç saniyelik pencere (v3 planındaki
+benzetici), tür başına sayılar DATA.md'de yayımlanan sayılara göre (taç 26, korner 12, kale vuruşu 10, serbest vuruş 5, gol sonrası
+başlama 4), ardından zaman kayması ve sahte etiket eklenerek.
+
+**Bu durum ne sıklıkta oluyor?** Kopya başına 85,4 duran top (yeniden başlamayla biten ölü top aralığı) var. Kararımız bunların
+%93'ünde en az bir D karesi yazıyor; hiç D yazmadığımız aralık kopya başına 5,9 (DFL maçlarında %2, Metrica maçlarında %10-20).
+Kaçırılanlar kısa (ortanca 4,7 sn; bulunanlarda 21,3 sn) ve top bu karelerin yalnız %9'unda görünüyor.
+Kaçırılan aralıklarda en yüksek ölü top olasılığının ortancası 0,63: model çoğunda bir şey görüyor ama çözücünün
+D'ye giriş-çıkış maliyetini aşamıyor.
+
+| tür | kopya başına | hiç D yazmadığımız | sağlanan dosyada yayımlanan etiket sayısı |
+|---|---|---|---|
+| taç | 35,5 | %7,4 | 26 |
+| serbest vuruş (Metrica maçlarında kale vuruşları da burada) | 33,9 | %9,5 | 5 |
+| kale vuruşu | 6,7 | %1,4 | 10 |
+| korner | 5,7 | %0,0 | 12 |
+| gol sonrası başlama | 3,7 | %0,0 | 4 |
+
+Yayımlanan sayılarla etiketler bir maçtaki yeniden başlamaların yaklaşık yarısını kapsıyor (benzetimde kopya başına 40,5 / 85,7)
+ve en çok kaçırdığımız türden (serbest vuruş) yalnız 5 etiket var. "Etiket var, bizde D yok" durumu kopya başına 2,4 kez oluşuyor.
+
+**Tavan (etiketler kusursuz, aralığın gerçek sınırları biliniyor).**
+
+| | bütün yeniden başlamalar etiketli olsaydı | yayımlanan sayılarla |
+|---|---|---|
+| kaçırılan aralığı D yaz | +0,0091 | +0,0029 (DFL +0,0011, Metrica +0,0045) |
+| D'nin bitişini gerçek yeniden başlama anına çek | +0,0014 | +0,0003 (13 kopyada daha kötü) |
+| ikisi birlikte | +0,0161 | +0,0040 |
+
+**Denenen kural.** Etiket penceresinin 5 sn öncesinden sonuna kadar kararımızda hiç D yoksa: çözücünün o bölgede D'den geçmesinin
+en ucuz olduğu kare bulunur (değiştirilmemiş v2 çözücüsünün ileri-geri puanları); bu maliyet bir sınırın altındaysa (120 log
+birimi = bir D parçasının giriş-çıkış maliyeti) çözücü o kare D'ye zorlanarak yeniden çalıştırılır; D parçasının başı ve sonu
+böylece modelin olasılıklarından çıkar. spellF1 değişimi (42 kopya ortalaması):
+
+| etiket benzetimi | sınır 120: ortalama | en kötü kopya | kopya başına zorlanan | gerçek bir duran topa denk gelen | sınırsız: ortalama | en kötü kopya |
+|---|---|---|---|---|---|---|
+| kusursuz etiket (kayma yok) | +0,0011 | -0,0011 | 2,2 | %99 | +0,0015 | +0,0000 |
+| bir saniye kadar kayan etiket, %5 sahte | +0,0016 | -0,0031 | 2,9 | %94 | +0,0012 | -0,0080 |
+| tipik (±1,5 sn kayma, 0,3-3 sn dağılma, %0-15 sahte) | +0,0010 | -0,0034 | 2,7 | %89 | -0,0003 | -0,0073 |
+| gürültülü (yarı sayıda etiket, 1,5 sn gecikme, 3 sn dağılma, %15 sahte) | +0,0005 | -0,0019 | 2,0 | %87 | -0,0012 | -0,0074 |
+| tipik, %30 sahte etiket | +0,0008 | -0,0029 | 3,6 | %76 | -0,0045 | -0,0183 |
+
+Sınırın başka değerleri (60-110), arama bölgesinin 3 / 8 sn öncesinden başlaması ya da 2 sn sonrasına uzaması, zorlanan parçanın
+en az 1 sn yapılması ve parça ile bir sonraki takım değişimi arasındaki kısa sahipliğin D yazılması bu tabloyu değiştirmedi
+(hepsi -0,0001 ile +0,0016 arasında). Etiketin "vuruşu kullanan takım" bilgisinin düzelteceği bir şey yok: bulunan
+yeniden başlamalardan sonra yazdığımız ilk takım 651 durumun 9'unda yanlış.
+
+**Sonuç.** Fikir mantıklı ve kural beklendiği gibi çalışıyor, ama kazanılabilecek puan çok küçük: kusursuz kullanımda bile
++0,003, denenen kuralla +0,0005 ile +0,0016 arası; sınır konmazsa sahte etiketler zarar veriyor (-0,0045'e kadar).
+Bu, şimdiye kadarki her adaya uygulanan kazanç kapısının (+0,008) onda biri ve organizatörün tek maçta gürültü saydığı farkın
+(0,04) çok altında. Gerçek etiketlerin hata düzeni bilinmiyor ve ölçülemez; etiketleyici topun izine dayanıyorsa zaten bizim de
+bulduğumuz duran topları etiketliyor olabilir. Bu yüzden aday olarak kaydedilmedi ve sürüm değiştirilmedi.
+
+**Sınırlar.** Geliştirme kopyaları daha önce kullanıldı ve kural seçenekleri bunların üzerinde karşılaştırıldı; bu bir doğrulama
+değildir. Etiketler benzetimdir. Sayılar bozulmuş dış kopyalarda başka sağlayıcıların etiketleriyle uyumdur; yarışma puanı değildir.
+
 ## K014 — Hata örüntüleri: puanı nerede kaybediyoruz, ortak nedenler ve bunlara dayalı denemeler (sürüm değişmedi), 15 Kasım 2026
 
 **Neden.** Takım lideri 15 Kasım 03:42'de şunu istedi: sistemin yanlış yaptığı yerleri bul, ortak örüntüyü çıkar, buna göre yeni

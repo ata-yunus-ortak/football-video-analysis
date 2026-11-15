@@ -1,4 +1,4 @@
-# Possession v2.15 — technical document (short version)
+# Possession v2.16 — technical document (short version)
 
 This is the document for the submission form. The full record (every candidate, table and
 reproducibility check) is `TECHNICAL_DOCUMENT_V2.md`; data sources and licences are in
@@ -8,10 +8,10 @@ reproducibility check) is `TECHNICAL_DOCUMENT_V2.md`; data sources and licences 
 ## 1. Approach and why
 
 **Input.** The provided tactical automatic tracking (players, ball, team of each track slot) is the
-main input; the broadcast tracking is a second ball source behind a gate. No label of the provided
-match is used anywhere.
+main input; the broadcast tracking is a second source behind a gate, for the ball and for players
+the tactical tracking does not have at a moment. No label of the provided match is used anywhere.
 
-**Pipeline** (`python -m possession.run215`):
+**Pipeline** (`python -m possession.run216`):
 
 1. *Features* (`possession/features.py`, about 230 per frame, positions only): whether the ball is
    seen and for how long it was/will be missing, where it was last and next seen relative to the
@@ -83,6 +83,21 @@ match is used anywhere.
    are a team member's; its weights were trained for this release on the six DFL matches of
    Section 4. On the noisier path of step 5 nothing is averaged, because that was not measured, and
    the output is that of steps 1-8.
+10. *Players the tactical tracking has lost* (`possession/playerfill.py`; applied to the tracking
+   before steps 8 and 1, only when the gate of step 6 is open). An automatic tracker loses players
+   for a second or two, most often where players are close together, and the broadcast camera
+   follows the ball and often still shows them. A broadcast player that, after the alignment and
+   the registration of step 6 (the same per-frame offset that corrects the broadcast ball), has no
+   tactical player of either team within 1.5 m is added to the tracking the models see, under the
+   team the broadcast tracking gives it. Tactical positions are never moved or removed, and frames
+   without an accepted broadcast frame get nothing.
+   The step came out of a question the team asked late: should the closer camera take priority
+   where the two agree? On external copies with a simulated second camera it should not: taking
+   the ball or the players from the broadcast stream where both cameras see them changed the score
+   by -0.005 to +0.002, even with a stream five times as precise as the tactical copy. What the
+   second camera adds is what the first does not see. Adding the lost players gained +0.0104 on 16
+   new copies (0.6864 -> 0.6968; better on 13, worse on 3; Section 5). Without broadcast files, or
+   with the gate closed, the output is that of steps 1-9.
 
 **Why this design.** (i) The ball is missing on 41% of graded frames, so the system must reason
 from context around gaps; that is what the windowed features and the decoder do. (ii) We were
@@ -100,10 +115,11 @@ long the ball has been and will be missing, where it was last and next seen, whi
 were nearest before and after). The decoder carries the current possession through a gap unless
 the evidence around it says otherwise. A missing ball is never read as a stoppage. *Players:*
 track gaps and tracklets with the wrong team are part of the training corruption; track slots that
-the metadata assigns to neither team are dropped. *Position noise:* measured on the input itself
+the metadata assigns to neither team are dropped; a player whom the tactical tracking lacks and the
+second camera shows is added (step 10). *Position noise:* measured on the input itself
 and handled by the matching model path (step 5). *Team ids of goalkeepers:* checked against where
-the tracks stand and corrected only on clear evidence (step 8). *Second camera:* used only to fill gaps, only
-after the agreement gate (step 6); a tactical ball position is never replaced. Without broadcast
+the tracks stand and corrected only on clear evidence (step 8). *Second camera:* used only to fill gaps (the ball in step 6,
+players in step 10), only after the agreement gate; a tactical position is never replaced. Without broadcast
 files, or with the gate closed, the output is the tactical-only result, and `run.json` records
 which path was taken. *Second model:* the network of step 9 reads the same corrected tracking;
 where the ball is missing it is given the position bridged across the gap together with the
@@ -138,9 +154,9 @@ hand-written thresholds.
 | asset | status |
 |---|---|
 | tactical ATD | used (main input) |
-| broadcast ATD + homography `valid` flag | used behind the 0.50 m agreement gate; `run.json` records whether the gate opened |
+| broadcast ATD + homography `valid` flag | used behind the 0.50 m agreement gate: its ball where the tactical ball is missing (step 6) and its players where the tactical tracking has none (step 10); `run.json` records whether the gate opened |
 | videos | only the on-screen match clock (OCR every 5 s) to anchor the broadcast alignment |
-| Smart Tagging | the "Kick Off (Start)" tags only, for the kick-off rule of step 7. As evidence for the models it was tried on simulated tags (no external match has comparable tags) and dropped: +0.011 with typical tags but -0.008 without tags, registered gates failed |
+| Smart Tagging | the "Kick Off (Start)" tags only, for the kick-off rule of step 7. As evidence for the models it was tried on simulated tags (no external match has comparable tags) and dropped: +0.011 with typical tags but -0.008 without tags, registered gates failed. A rule that forces a dead-ball stretch at a set-piece tag where the decision has none was explored on development copies with simulated tags (log entry K015): the decision already has `D` on 93% of the stretches before a restart and the published tag counts cover about half of the restarts, so the ceiling is +0.003 spellF1 and the rule gave +0.0005 to +0.0016; not adopted |
 | tactical homography | not used |
 | public 5-minute ground truth | not used for any choice. After the file is generated, the delivery tool runs one pass/fail check of pipeline correctness on it (valid file, not broken, teams not exchanged; `possession/public_check.py`). The thresholds were registered beforehand (`possession-final-check-plan.json`); no score is printed or stored, and a failure may only lead to a search for an indexing or mapping bug. Appendix R of the submitted copy says whether it ran |
 | Sportec/DFL open data (CC BY 4.0) | training and validation, provider's per-frame possession/ball-status flags |
@@ -172,7 +188,12 @@ the gate that allows no copy below -0.010 failed; it was not released (`possessi
 `possession-v214-results.json`). The third and last attempt lowered the network's weight to 0.2 by a
 rule written down while the second was still running, was registered before any new result, passed
 the same seven gates on 16 further new copies and is step 9 (`possession-v215-plan.json`,
-`possession-v215-results.json`). An earlier
+`possession-v215-results.json`). Giving the broadcast
+tracking priority where the two cameras agree (its ball, its players, or the mean of the two balls)
+was explored on development copies with a simulated second camera and not adopted (-0.005 to
++0.002; log entry K016); the one use with a gain, adding players the tactical tracking has lost,
+was registered, passed the same seven gates on 16 new copies and is step 10
+(`possession-v216-plan.json`, `possession-v216-results.json`). An earlier
 vision line (ball detector, contact/control state machine, dead-ball layers under `development/`)
 is not part of the submission.
 
@@ -222,6 +243,11 @@ are not competition scores and the fixtures had been accessed before, except whe
 | the 8 DFL copies of these / the 8 Metrica copies | | 0.648 / 0.661 and 0.641 / 0.651 |
 | 8 of them with a simulated accurate (medium) broadcast fill: without / with step 9 | | 0.686 / 0.696 (0.674 / 0.685) |
 | 4 copies made with the team's other corruption simulator: without / with step 9 | | 0.667 / 0.687 |
+| 16 further new copies with a simulated accurate broadcast camera: steps 1-9 / with the added players (step 10) | | 0.686 / 0.697 |
+| the 8 DFL copies of these / the 8 Metrica copies | | 0.687 / 0.697 and 0.685 / 0.696 |
+| 8 of them, broadcast camera with medium calibration error: without / with step 10 | | 0.686 / 0.693 |
+| 8 of them, broadcast camera that itself loses players, invents players and mislabels teams: without / with step 10 | | 0.693 / 0.697 |
+| 4 copies made with the team's other corruption simulator, accurate broadcast camera: without / with step 10 | | 0.703 / 0.704 |
 
 The registration was first evaluated on 16 copies of which 8 had already served an earlier
 candidate (0.647 / 0.678 and 0.683 / 0.681). Our own records audit found this. The 8 were replaced
@@ -253,6 +279,18 @@ Limitations:
   of the 16 copies (by up to 0.014); it is used only in the average. Its weights come from one
   training run per seed on our side and nobody else has repeated that training; a re-run does not
   give the same bits. On the noisier model path the step is skipped.
+- **Added players.** The gain of step 10 was measured with a simulated second camera whose players
+  come from the clean external positions. In three of the four conditions it never loses or
+  invents a player inside its window; the fourth is one invented error profile (a tenth of its
+  player positions lost, ghost players beside real ones, more tracks under the wrong team), and
+  there the gain was +0.0044 with one copy 0.015 lower. We did not examine the provided
+  broadcast tracking: how often it loses or invents players is unknown, and a referee carried
+  under a team by the broadcast tracking and absent from the tactical tracking would be added as
+  a player. On copies made with the team's other simulator, which loses few players, the step
+  changed almost nothing (+0.0004; lower on 3 of 4), so that gate passed by the smallest margin.
+  Single copies moved between -0.0056 and +0.0261. The step was picked among seven ways of using
+  the second camera on four development copies before it was validated on new ones, and it was
+  the fourth idea examined on these matches on the same day.
 - **Label semantics.** DFL possession flags change on short touches more often than a
   "controlled possession" definition; the Metrica proxies are closer but have approximate stoppage
   boundaries.
@@ -328,7 +366,7 @@ with a hosted LLM assistant. The team reported this; the organisers required del
 materials, re-selection of everything on other fixtures, a frozen pipeline and this disclosure.
 The submitted system was written from scratch afterwards and uses none of the earlier artefacts;
 details, including what could not be verified, are in `TECHNICAL_DOCUMENT_V2.md` Section 2 and
-`REMEDIATION.md`. The code of steps 1-8 was written, and the weights of the network of step 9
+`REMEDIATION.md`. The code of steps 1-8 and 10 was written, and the weights of the network of step 9
 were trained, with an AI coding assistant that worked only on source code, public external data and
 aggregate external results. The network's design and inference code were written by a team member
 on his own branch (`mtah-possession`). The pipeline is run on the provided data locally by the
@@ -360,7 +398,7 @@ python -m pip install -r requirements-possession.txt
 # clock readings, in a separate environment (python -m pip install -r requirements-sync-lock.txt):
 python -m tools.possession_clock --video <bundle root>/tactical/BAR-ATH_tactical.mp4 --out <clock>/tactical
 python -m tools.possession_clock --video <bundle root>/broadcast/BAR-ATH_broadcast.mp4 --out <clock>/broadcast
-python -m possession.run215 --data-dir <bundle root> --out <new folder> \
+python -m possession.run216 --data-dir <bundle root> --out <new folder> \
     --tactical-clock <clock>/tactical --broadcast-clock <clock>/broadcast
 python -m possession.validate <new folder>/submission.csv
 ```
@@ -372,9 +410,10 @@ What makes the file regenerable, and what was checked:
   hashes and every gate decision.
 - Tree evaluation is plain numpy with probabilities rounded to 1e-6. On external full-size inputs
   the file was byte-identical under Python 3.10/numpy 1.26 and Python 3.13/numpy 2.5 on Linux.
-  `tests/test_possession_crossplatform.py` pins the output hashes of nine synthetic runs (steps
+  `tests/test_possession_crossplatform.py` pins the output hashes of eleven synthetic runs (steps
   1-6 on both model paths, with and without the broadcast camera and the clock; the same with
-  step 8 on two bundles whose goalkeeper tracks carry the other team's id; two runs with step 9),
+  step 8 on two bundles whose goalkeeper tracks carry the other team's id; two runs with step 9;
+  two runs with step 10 on bundles whose tactical tracking loses players, one on each model path),
   recorded on Linux; the delivery tool runs it on the computer that generates the file. The
   network of step 9 is evaluated in float64 NumPy and its probabilities are rounded to four
   decimals before the averaging and to six after it; its unrounded values differ between NumPy
@@ -402,7 +441,10 @@ What makes the file regenerable, and what was checked:
   tag file, where the models label the invented stretch before the second-half kick-off
   themselves). For the release as submitted (with step 9) it was run again on that bundle and
   tag file: every step passed, the file differs from the previous one on 0.6% of the graded
-  frames and scored 0.772 (`possession-v215-rehearsal.json`). This checks wiring and size, not
+  frames and scored 0.772 (`possession-v215-rehearsal.json`). With step 10 it was run once more on
+  the same bundle, whose simulated broadcast stream then also supplies players: every step passed,
+  the file differs from the previous one on 0.7% of the graded frames and scored 0.783
+  (`possession-v216-rehearsal.json`). This checks wiring and size, not
   accuracy on the provided match; the games in these bundles had been used in development.
 - The clock readings come from OCR of the two videos and are not stored in the repository. They
   only anchor the broadcast alignment within +-1.6 s; the frame-level alignment is decided by

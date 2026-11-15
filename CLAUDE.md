@@ -57,7 +57,8 @@ supplied Barcelona–Athletic LaLiga match (199,319 frames, 25 fps; ~158,857 gra
 - `possession/` — the submission system (H/A/D). Frozen inference sources are listed with their
   SHA-256 in `possession-v211-release.json` (every inference source and both bundles); `possession-v211g-release.json`
   and `possession-v211k-release.json` chain to it and add `run211g.py`, `kickoff.py` and `run211k.py`;
-  `possession-v215-release.json` adds `run215.py`, `pooling.py`, `tcn/*.py` and the network weights. Lower ladder steps
+  `possession-v215-release.json` adds `run215.py`, `pooling.py`, `tcn/*.py` and the network weights;
+  `possession-v216-release.json` adds `playerfill.py` and `run216.py`. Lower ladder steps
   have their own manifests (`-v29g-`, `-v29-`, `-v25-`, `-v25c-`). `possession-release.json` names the release and its
   technical fall-backs (`possession-release-graded-windows.json` = the same ladder without the Smart Tagging kick-off rule).
   Non-frozen helpers: `validate.py`, `plausibility.py`, `public_check.py`, `inputs_check.py`,
@@ -88,7 +89,7 @@ supplied Barcelona–Athletic LaLiga match (199,319 frames, 25 fps; ~158,857 gra
 python -m pip install -r requirements.txt -r requirements-possession.txt
 python -m unittest discover -s tests -v            # run after any change (about 6 min; current counts in the status snapshot)
 python -m tools.possession_deliver --data-dir <bundle> --private <dir> --team <name>   # USER ONLY, local: whole delivery chain
-python -m possession.run215 --data-dir <bundle> --out <new dir> [--tactical-clock <dir> --broadcast-clock <dir>]   # USER ONLY, local
+python -m possession.run216 --data-dir <bundle> --out <new dir> [--tactical-clock <dir> --broadcast-clock <dir>]   # USER ONLY, local
 python -m clean_model.run --meta <atd.xml> --tracking <atd.txt> --model model.json --out <new dir>
 python -m tools.validate_output <csv> --frames 199319
 python -m tools.sequence_selection --local-plan <external>/local-plan.json --out <private dir>
@@ -117,7 +118,60 @@ Ubuntu/Py3.12 and Windows/Py3.10. Output directories must not already exist.
 - Active branch: `feature/external-possession-selection`. Keep experiments on separate
   branches; a selected release needs its own version, source freeze and provenance.
 
-## Status snapshot (15 Nov 2026, early morning — verify before relying on it)
+## Status snapshot (15 Nov 2026, evening — verify before relying on it)
+
+- **Submission system: `possession-v2.16`** (`python -m possession.run216`, manifest `possession-v216-release.json`,
+  frozen 2026-11-15 17:05) = v2.15 + one step (`possession/playerfill.py`): when the broadcast files are present and
+  the accuracy gate of the ball fill is open, a registered broadcast player with no tactical player of either team
+  within 1.5 m is added to the tracking the models see (one extra slot per broadcast track, team of that track); the
+  goalkeeper check then runs on tactical + added players. Tactical positions are never moved. Without broadcast files,
+  with the gate closed or with `add_players=False` (test switch) `run216` writes the bytes of `run215` (tested).
+  `run216.py` is derived from `run215.py` by exact text replacements (`experiments/possession_v2/v218/port/make_run216.py`).
+  Ladder in `possession-release.json`: v2.16 -> v2.15 -> v2.11k -> v2.11g -> v2.9g -> v2.5b -> v2.5b tactical only.
+  Do not edit `playerfill.py` or `run216.py` (hash-frozen); a change needs a new version and a new plan.
+- **Where it came from (K016, exploration):** the team lead asked whether the broadcast camera should take priority where
+  it agrees with the tactical one. On development copies with a simulated second camera, taking the ball or the players
+  from the broadcast stream where both agree changed the score by -0.005 to +0.002, even with a stream five times as
+  precise (`possession-k016-camera-priority.json`); without the second camera the score is 0.036-0.043 lower. Adding the
+  players the tactical copy has lost was the one variant with a gain (+0.0057 / +0.0097 on four copies).
+- **Validation (K017):** `possession-v216-plan.json` registered 15:01:19 before the first validation row; 16 new
+  copies with a simulated second camera, both arms on the same copy and stream: 0.6864 -> 0.6968 (+0.0104;
+  DFL +0.0098, Metrica +0.0111; 13 better, 3 worse, worst -0.0056); medium stream +0.0073; stream that loses and
+  invents players +0.0044 (one copy -0.0148); copies of the other simulator +0.0004 (3 of 4 lower). All seven
+  gates (the thresholds of the earlier plans) passed; G7 by 0.0004. **Say these margins whenever the result is quoted.**
+  The plan says no further candidate that takes players from the broadcast tracking is registered before the deadline.
+- **Conditions of the registered decision rule** (otherwise v2.15 stays), to be met by 16 Nov 23:59 Istanbul: runs under
+  Python 3.10 / numpy 1.26.4 (done); eleven synthetic bundles byte-identical under 3.10 / 1.26.4 and 3.13 / 2.5.3 (done; two
+  new variants with added players, one per model path); full test suite (done: 467 tests, 15 skipped under 3.10 with the
+  pins; 467, 4 skipped under 3.13); full-size chain rehearsal (done: `possession-v216-rehearsal.json`, all steps OK in
+  1006 s, peak 2.2 GB; 67,338 positions added on that synthetic bundle; spellF1 0.7826 against 0.7721 for
+  the v2.15 chain file; a wiring check, not an accuracy claim); documents (done). **Still open: the delivery chain must
+  run OK on the team's computer** with `URETIM` and `TESLIM` naming `possession-v2.16`; if they name a lower step, that
+  step is what is delivered and the documents must be brought in line before the Form is filled.
+- **Limits to keep in every description:** the second camera is simulated and its players come from clean positions;
+  the provided broadcast tracking was not examined (a referee it carries under a team and the tactical tracking lacks
+  would be added as a player); the step was picked among seven variants on four development copies on a day on which
+  three other ideas were examined on the same matches.
+- **Delivery chain:** `PLATFORM` compares eleven synthetic variants; Appendix R has a "Players added from the broadcast
+  camera" row (category only). `GIT-YUKLE-V2.cmd` now calls git with `--no-pager` (on 15 Nov the team lead's window
+  stopped for hours at the pager's "(END)" until he pressed q) and asks for no key when `TESLIM-TEK-TIK.cmd` starts it
+  (`POSSESSION_NO_PAUSE`); the data-type guard is unchanged.
+- **The team lead's runs on 15 Nov:** `TESLIM-TEK-TIK.cmd` started 11:34 (all nine files placed), the upload went through
+  at 16:28 (commit 668fc04: v2.15, records K007-K014; GitHub Actions succeeded on it), and the chain then ran from 16:28
+  to 17:31 with v2.15 as the first step: **every step OK** (Windows 10, Python 3.10.11; `PLATFORM AYNI` on nine
+  variants; `VERI` videos and Smart Tagging present; `URETIM` / `TESLIM` possession-v2.15 with the clock anchor; same bytes
+  without clock, on a second run and from a fresh clone; organisers' validator and the public pass/fail check OK;
+  `SONUC: TESLIM HAZIR`; log entry K018). So a valid v2.15 delivery exists in `FootballPrivate\teslim` (`LittleSickle.csv`,
+  `LittleSickle.md`) and the last condition of K013 is met. The v2.16 files and the K015-K018 records are copied to the PC
+  only when no launcher is running there (never overwrite a `.cmd` file that may be running), and reach GitHub with
+  the next run of `TESLIM-TEK-TIK.cmd` or `GIT-YUKLE-V2.cmd`.
+- **Asked and refused on 15 Nov 14:06:** integrating a ready-made video model and judging it by eye on the provided
+  video. Checking output against the provided video is forbidden by the organisers' clarification of 3 Nov; ready-made
+  "possession from video" tools use the nearest-player rule on weaker detections than the provided tracking, and
+  action-spotting models could not be measured together with our system on any external match in the time left.
+- Everything in the snapshot below still holds except the name of the release and what is listed here.
+
+## Earlier status (15 Nov 2026, early morning to afternoon)
 
 - **Submission system: `possession-v2.15`** (`python -m possession.run215`, manifest `possession-v215-release.json`,
   frozen 2026-11-15 02:33) = v2.11k + a second model family on the core model path (v2.1, measured noise at most
@@ -169,6 +223,14 @@ Ubuntu/Py3.12 and Windows/Py3.10. Output directories must not already exist.
   learned combination of both families (leave one match out, exploration) gained +0.0095 with a worst copy of -0.023
   and was NOT registered (the v2.15 plan says no further attempt with the second model). The organisers state that
   differences below about 0.04 are noise on one match. Do not present any of this as a validation.
+- **K015 (15 Nov, reporting only; release unchanged):** the team lead asked whether a Smart Tagging set-piece tag
+  without a `D` of ours around it should force a dead-ball stretch (`possession-k015-tag-rescue.json`,
+  `experiments/possession_v2/v217/`; simulated tags on the 42 development copies, the provided tag file was not read).
+  The decision already has `D` on 93% of the stretches before a restart; the published tag counts (57 without the
+  start kick-offs, only 5 free kicks) cover about half of the restarts, so the case occurs 2.4 times per copy. Ceiling
+  +0.0029; the rule (force the decoder through `D` where it costs least, cost limit 120) +0.0005 to +0.0016; without
+  the limit false tags cost up to -0.0045. Not registered (a tenth of the +0.008 gain gate). Do not present it
+  as tested on real tags, and do not re-open it without new evidence about the real tags (which cannot be looked at).
 - **Final-test plan NOT re-registered:** `possession-final-test-plan.json` stays registered for `possession-v2.11k`
   (the release without the second model; `tests/test_possession_final_test.py` checks exactly that). The network's
   designer used J03WMX during his development, so a run of v2.15 on it could not be reported as a fresh test. The
@@ -186,6 +248,13 @@ Ubuntu/Py3.12 and Windows/Py3.10. Output directories must not already exist.
   user pasting it. The assistant must never copy the match files itself: the bridge would route them through the cloud.
 - GitHub: remote branch still at a152fa2 (11 Nov 21:58) when this was written. K007-K013, v2.11k, v2.15 and the
   weights are pushed only when the user runs `GIT-YUKLE-V2.cmd` (this session has read-only access).
+- **15 Nov 11:34:** the user started `TESLIM-TEK-TIK.cmd`; `Desktop\logs\DOSYA-durum.txt` says all nine files are in the
+  bundle (`SONUC: TAMAM`; the two videos were copied from Desktop and Downloads, the rest was already there). At 12:16
+  the remote branch was still at a152fa2 and no `PAYLASILABILIR-durum.txt` existed: the launcher was probably waiting
+  for a key in the upload step. The K015 records (log entry, JSON, `experiments/possession_v2/v217/`, document sentences,
+  launcher message) were written in the agent copy at 12:15 and are copied to the PC only after that run has ended:
+  never overwrite a `.cmd` file while it may be running (cmd.exe reads batch files from disk as it goes), and a
+  document changed mid-run would show up as a locally modified file in the run record.
 - Still pending (user): the three files in the bundle folder (two videos, Smart Tagging) -> `GIT-YUKLE-V2.cmd` ->
   Actions -> `TESLIM-HAZIRLA.cmd` -> paste the `[..]` lines and `SONUC` -> Google Form (one member submits; team name
   `LittleSickle`; deadline 17 Nov 23:59 CET = 18 Nov 01:59 Istanbul). Optional: `SON-TEST.cmd` (v2.11k only).

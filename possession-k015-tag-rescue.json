@@ -1,0 +1,907 @@
+{
+ "version": "possession-k015-tag-rescue (exploration, reporting only)",
+ "written_at": "2026-11-15T12:13:22+03:00",
+ "what": "Question of the team lead (15 Nov 11:47): a Smart Tagging set-piece tag says a restart happened in its window, so a dead-ball stretch ends there; if the decision has no D around the window, force one at the most likely place and then settle its extent. This had not been tried (v3.0 / v3.1 gave the tags to the second stage as learned evidence). Measured here on the 42 development copies of K014 with SIMULATED set-piece tags, because no external match has Smart Tagging. No plan was registered, nothing was validated, nothing was selected; the release stays possession-v2.15.",
+ "data": {
+  "copies": 42,
+  "matches": {
+   "J03WN1": {
+    "minutes_graded": 94.4,
+    "restarts": 105
+   },
+   "J03WR9": {
+    "minutes_graded": 97.9,
+    "restarts": 90
+   },
+   "MET1": {
+    "minutes_graded": 96.7,
+    "restarts": 74
+   },
+   "MET2": {
+    "minutes_graded": 94.1,
+    "restarts": 74
+   },
+   "MET3": {
+    "minutes_graded": 95.8,
+    "restarts": 84
+   }
+  },
+  "decision": "the v2.15 decision stored for K014 (pooled probabilities, v2 decoder); the models behind the probabilities had not seen these matches",
+  "restart": "a labelled D stretch followed by H or A inside a half (one single D frame at the start of a half of J03WN1 is left out of the counts under how_often); type guessed from the clean ball position (possession.tags._restart_type), as in the simulator of possession-v3-plan.json. Metrica proxy labels end many stoppages at an event, so goal kicks of the Metrica games fall under \"free kick\"",
+  "published_counts_used": "DATA.md of the organisers: Throw-in 26, Corner Kick 12, Goal Kick 10, Free Kick 5, Kick Off (After Goal) 4 per 158,857 graded frames (the 2 start kick-offs are used by the kick-off rule already). Public documentation; the provided tag file was not read"
+ },
+ "how_often": {
+  "true_stretches_ending_in_a_restart": 3588,
+  "per_copy": 85.4,
+  "no_D_of_ours_on_the_stretch": 0.0694,
+  "per_copy_missed": 5.9,
+  "by_match": {
+   "J03WN1": 0.0192,
+   "J03WR9": 0.02,
+   "MET1": 0.1027,
+   "MET2": 0.1378,
+   "MET3": 0.1964
+  },
+  "by_type": {
+   "throw-in": {
+    "per_copy": 35.5,
+    "no_D_of_ours_on_the_stretch": 0.0738,
+    "median_length_s": 11.9,
+    "published_tags_of_this_type_in_the_provided_file": 26
+   },
+   "corner kick": {
+    "per_copy": 5.7,
+    "no_D_of_ours_on_the_stretch": 0.0,
+    "median_length_s": 29.3,
+    "published_tags_of_this_type_in_the_provided_file": 12
+   },
+   "goal kick": {
+    "per_copy": 6.7,
+    "no_D_of_ours_on_the_stretch": 0.0142,
+    "median_length_s": 18.5,
+    "published_tags_of_this_type_in_the_provided_file": 10
+   },
+   "free kick": {
+    "per_copy": 33.9,
+    "no_D_of_ours_on_the_stretch": 0.0948,
+    "median_length_s": 26.4,
+    "published_tags_of_this_type_in_the_provided_file": 5
+   },
+   "kick off": {
+    "per_copy": 3.7,
+    "no_D_of_ours_on_the_stretch": 0.0,
+    "median_length_s": 63.6,
+    "published_tags_of_this_type_in_the_provided_file": 4
+   }
+  },
+  "by_length_of_the_stretch": {
+   "0-2 s": {
+    "share": 0.0089,
+    "no_D_of_ours_on_the_stretch": 0.9375,
+    "mean_share_of_the_stretch_written_D": 0.0618
+   },
+   "2-4 s": {
+    "share": 0.0373,
+    "no_D_of_ours_on_the_stretch": 0.4179,
+    "mean_share_of_the_stretch_written_D": 0.5672
+   },
+   "4-8 s": {
+    "share": 0.126,
+    "no_D_of_ours_on_the_stretch": 0.2522,
+    "mean_share_of_the_stretch_written_D": 0.7243
+   },
+   "8-16 s": {
+    "share": 0.2419,
+    "no_D_of_ours_on_the_stretch": 0.053,
+    "mean_share_of_the_stretch_written_D": 0.9118
+   },
+   "16-32 s": {
+    "share": 0.3188,
+    "no_D_of_ours_on_the_stretch": 0.0026,
+    "mean_share_of_the_stretch_written_D": 0.9783
+   },
+   "over 32 s": {
+    "share": 0.267,
+    "no_D_of_ours_on_the_stretch": 0.0,
+    "mean_share_of_the_stretch_written_D": 0.9849
+   }
+  },
+  "missed_stretches": {
+   "median_length_s": 4.7,
+   "found_median_length_s": 21.3,
+   "ball_seen_share": 0.0884,
+   "ball_seen_share_on_found": 0.3135,
+   "same_team_before_and_after": 0.3173,
+   "largest_pooled_P_dead_on_the_stretch_quantiles_10_25_50_75_90": [
+    0.1065,
+    0.2527,
+    0.6292,
+    0.7813,
+    0.8661
+   ]
+  }
+ },
+ "ceilings_with_the_labels_as_oracle": {
+  "what": "spellF1 change if tags were used perfectly: \"miss\" writes the true stretch as D where we have no D on it; \"time\" moves the end of our D to the true restart; \"both\". \"all\" = every restart tagged; \"published\" = tagged with the per-type probabilities that give the published counts (one draw per copy, seeds 900000 + copy index)",
+  "mean_restarts_per_copy": 85.7,
+  "mean_tagged_at_published_counts": 40.5,
+  "all_miss": {
+   "mean": 0.0091,
+   "dfl": 0.0028,
+   "metrica": 0.0148,
+   "min": -0.0015,
+   "max": 0.0288,
+   "better": 38,
+   "worse": 1,
+   "stretches_written_per_copy": 6.2,
+   "restarts_moved_per_copy": 0.0
+  },
+  "all_time": {
+   "mean": 0.0014,
+   "dfl": 0.0017,
+   "metrica": 0.0011,
+   "min": -0.0088,
+   "max": 0.0187,
+   "better": 25,
+   "worse": 16,
+   "stretches_written_per_copy": 0.0,
+   "restarts_moved_per_copy": 53.0
+  },
+  "all_both": {
+   "mean": 0.0161,
+   "dfl": 0.0118,
+   "metrica": 0.02,
+   "min": 0.0012,
+   "max": 0.0406,
+   "better": 42,
+   "worse": 0,
+   "stretches_written_per_copy": 8.5,
+   "restarts_moved_per_copy": 53.0
+  },
+  "published_miss": {
+   "mean": 0.0029,
+   "dfl": 0.0011,
+   "metrica": 0.0045,
+   "min": -0.0009,
+   "max": 0.0141,
+   "better": 30,
+   "worse": 1,
+   "stretches_written_per_copy": 2.4,
+   "restarts_moved_per_copy": 0.0
+  },
+  "published_time": {
+   "mean": 0.0003,
+   "dfl": -0.0001,
+   "metrica": 0.0008,
+   "min": -0.0077,
+   "max": 0.0098,
+   "better": 26,
+   "worse": 13,
+   "stretches_written_per_copy": 0.0,
+   "restarts_moved_per_copy": 24.8
+  },
+  "published_both": {
+   "mean": 0.004,
+   "dfl": 0.002,
+   "metrica": 0.0057,
+   "min": -0.0037,
+   "max": 0.0152,
+   "better": 32,
+   "worse": 9,
+   "stretches_written_per_copy": 2.9,
+   "restarts_moved_per_copy": 24.8
+  }
+ },
+ "rule_tried": {
+  "definition": "for every set-piece window without a D of the decision in [start - 5 s, end): the frame of that region through which the decoder passes D at the least cost (forward-backward scores of the unchanged v2 decoder); if that cost is at most c (log units; one D run costs 120 in transitions), the decoder is re-run with that frame forced to D, which also settles the extent of the run. Variants: other c, search region from 3 s / 8 s before or up to 2 s after the window, runs widened to 1 s, short possession pieces between the forced run and the next team change written D (bridge)",
+  "simulated_tags": "windows [restart - U(0.5, 4) s, restart + U(1, 5) s] as in possession-v3-plan.json, kept with the published per-type rates times a scale, start and end shifted by lag + N(0, sigma); false windows of 3-7 s on live frames. Regimes: {\"clean\": {\"scale\": [1, 1], \"lag\": [0, 0], \"sigma\": [0.3, 0.3], \"false\": [0, 0]}, \"default\": {\"scale\": [0.5, 1.5], \"lag\": [-1.5, 1.5], \"sigma\": [0.3, 3.0], \"false\": [0, 0.15]}, \"noisy\": {\"scale\": [0.5, 0.5], \"lag\": [1.5, 1.5], \"sigma\": [3.0, 3.0], \"false\": [0.15, 0.15]}, \"false30\": {\"scale\": [0.5, 1.5], \"lag\": [-1.5, 1.5], \"sigma\": [0.3, 3.0], \"false\": [0.3, 0.3]}, \"second\": {\"scale\": [1, 1], \"lag\": [0, 0], \"sigma\": [1.0, 1.0], \"false\": [0.05, 0.05]}} (scale, lag s, sigma s, false windows as a share of the tags; pairs are uniform ranges); seeds 910000 + 1000 * regime index + copy index",
+  "spell_f1_change_by_regime_and_variant": {
+   "clean": {
+    "c inf": {
+     "mean": 0.0015,
+     "dfl": 0.0002,
+     "metrica": 0.0027,
+     "min": 0.0,
+     "max": 0.0111,
+     "better": 23,
+     "worse": 0,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 2.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.97
+    },
+    "c 120": {
+     "mean": 0.0011,
+     "dfl": 0.0002,
+     "metrica": 0.0019,
+     "min": -0.0011,
+     "max": 0.0111,
+     "better": 18,
+     "worse": 2,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 2.2,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.99
+    },
+    "c 110": {
+     "mean": 0.0009,
+     "dfl": 0.0002,
+     "metrica": 0.0015,
+     "min": -0.0011,
+     "max": 0.0068,
+     "better": 16,
+     "worse": 3,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 1.6,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.99
+    },
+    "c 100": {
+     "mean": 0.0008,
+     "dfl": 0.0002,
+     "metrica": 0.0013,
+     "min": -0.0011,
+     "max": 0.0062,
+     "better": 17,
+     "worse": 2,
+     "macro_f1_mean": 0.0004,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.98
+    },
+    "c 90": {
+     "mean": 0.0007,
+     "dfl": 0.0002,
+     "metrica": 0.0011,
+     "min": -0.0011,
+     "max": 0.006,
+     "better": 16,
+     "worse": 2,
+     "macro_f1_mean": 0.0004,
+     "forced_per_copy": 1.4,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.98
+    },
+    "c 60": {
+     "mean": 0.0004,
+     "dfl": 0.0001,
+     "metrica": 0.0007,
+     "min": -0.0011,
+     "max": 0.0055,
+     "better": 10,
+     "worse": 2,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 0.7,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.97
+    },
+    "c 100 bridge 3": {
+     "mean": 0.0009,
+     "dfl": 0.0001,
+     "metrica": 0.0016,
+     "min": -0.0008,
+     "max": 0.0055,
+     "better": 17,
+     "worse": 2,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.98
+    },
+    "c 100 pre 8": {
+     "mean": 0.0007,
+     "dfl": 0.0001,
+     "metrica": 0.0012,
+     "min": -0.0012,
+     "max": 0.0062,
+     "better": 16,
+     "worse": 3,
+     "macro_f1_mean": 0.0004,
+     "forced_per_copy": 1.4,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.97
+    },
+    "c 100 pre 3": {
+     "mean": 0.0008,
+     "dfl": 0.0002,
+     "metrica": 0.0013,
+     "min": -0.0011,
+     "max": 0.0062,
+     "better": 17,
+     "worse": 2,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.98
+    },
+    "c 100 post 2": {
+     "mean": 0.0008,
+     "dfl": 0.0002,
+     "metrica": 0.0013,
+     "min": -0.0011,
+     "max": 0.0062,
+     "better": 17,
+     "worse": 2,
+     "macro_f1_mean": 0.0004,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.98
+    },
+    "c 100 min 25": {
+     "mean": 0.0007,
+     "dfl": 0.0001,
+     "metrica": 0.0013,
+     "min": -0.0011,
+     "max": 0.0062,
+     "better": 16,
+     "worse": 3,
+     "macro_f1_mean": 0.0004,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.98
+    }
+   },
+   "default": {
+    "c inf": {
+     "mean": -0.0003,
+     "dfl": -0.0025,
+     "metrica": 0.0018,
+     "min": -0.0073,
+     "max": 0.0104,
+     "better": 16,
+     "worse": 20,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 5.2,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.54
+    },
+    "c 120": {
+     "mean": 0.001,
+     "dfl": 0.0001,
+     "metrica": 0.0017,
+     "min": -0.0034,
+     "max": 0.0127,
+     "better": 15,
+     "worse": 10,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 2.7,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.89
+    },
+    "c 110": {
+     "mean": 0.0008,
+     "dfl": 0.0001,
+     "metrica": 0.0014,
+     "min": -0.0034,
+     "max": 0.0085,
+     "better": 14,
+     "worse": 10,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 2.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.86
+    },
+    "c 100": {
+     "mean": 0.0007,
+     "dfl": 0.0001,
+     "metrica": 0.0011,
+     "min": -0.0034,
+     "max": 0.0061,
+     "better": 15,
+     "worse": 8,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 1.9,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.87
+    },
+    "c 90": {
+     "mean": 0.0007,
+     "dfl": 0.0001,
+     "metrica": 0.0013,
+     "min": -0.0034,
+     "max": 0.0061,
+     "better": 15,
+     "worse": 6,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 1.7,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.89
+    },
+    "c 60": {
+     "mean": 0.0005,
+     "dfl": 0.0001,
+     "metrica": 0.0009,
+     "min": -0.0011,
+     "max": 0.0039,
+     "better": 13,
+     "worse": 3,
+     "macro_f1_mean": 0.0004,
+     "forced_per_copy": 1.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.91
+    },
+    "c 100 bridge 3": {
+     "mean": 0.0006,
+     "dfl": -0.0002,
+     "metrica": 0.0014,
+     "min": -0.0034,
+     "max": 0.0082,
+     "better": 17,
+     "worse": 9,
+     "macro_f1_mean": 0.0004,
+     "forced_per_copy": 1.9,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.87
+    },
+    "c 100 pre 8": {
+     "mean": 0.0005,
+     "dfl": 0.0001,
+     "metrica": 0.0009,
+     "min": -0.0034,
+     "max": 0.0047,
+     "better": 15,
+     "worse": 7,
+     "macro_f1_mean": 0.0004,
+     "forced_per_copy": 1.9,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.87
+    },
+    "c 100 pre 3": {
+     "mean": 0.0006,
+     "dfl": 0.0,
+     "metrica": 0.0012,
+     "min": -0.004,
+     "max": 0.0061,
+     "better": 15,
+     "worse": 6,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 2.1,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.85
+    },
+    "c 100 post 2": {
+     "mean": 0.0006,
+     "dfl": 0.0,
+     "metrica": 0.0011,
+     "min": -0.0034,
+     "max": 0.0061,
+     "better": 14,
+     "worse": 8,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 1.8,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.88
+    },
+    "c 100 min 25": {
+     "mean": 0.0007,
+     "dfl": 0.0001,
+     "metrica": 0.0011,
+     "min": -0.0034,
+     "max": 0.0061,
+     "better": 15,
+     "worse": 8,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 1.9,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.87
+    }
+   },
+   "noisy": {
+    "c inf": {
+     "mean": -0.0012,
+     "dfl": -0.0018,
+     "metrica": -0.0007,
+     "min": -0.0074,
+     "max": 0.0054,
+     "better": 13,
+     "worse": 26,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 4.6,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.41
+    },
+    "c 120": {
+     "mean": 0.0005,
+     "dfl": 0.0001,
+     "metrica": 0.0008,
+     "min": -0.0019,
+     "max": 0.0072,
+     "better": 16,
+     "worse": 13,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 2.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.87
+    },
+    "c 110": {
+     "mean": 0.0003,
+     "dfl": 0.0002,
+     "metrica": 0.0004,
+     "min": -0.0019,
+     "max": 0.0057,
+     "better": 14,
+     "worse": 14,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 1.6,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.84
+    },
+    "c 100": {
+     "mean": 0.0003,
+     "dfl": 0.0002,
+     "metrica": 0.0003,
+     "min": -0.0019,
+     "max": 0.0057,
+     "better": 14,
+     "worse": 13,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.83
+    },
+    "c 90": {
+     "mean": 0.0002,
+     "dfl": 0.0,
+     "metrica": 0.0003,
+     "min": -0.0016,
+     "max": 0.0057,
+     "better": 10,
+     "worse": 9,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 1.3,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.86
+    },
+    "c 60": {
+     "mean": 0.0002,
+     "dfl": 0.0001,
+     "metrica": 0.0002,
+     "min": -0.0016,
+     "max": 0.0039,
+     "better": 9,
+     "worse": 5,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 0.9,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.87
+    },
+    "c 100 bridge 3": {
+     "mean": -0.0001,
+     "dfl": -0.0006,
+     "metrica": 0.0005,
+     "min": -0.0039,
+     "max": 0.0057,
+     "better": 15,
+     "worse": 17,
+     "macro_f1_mean": -0.0,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.83
+    },
+    "c 100 pre 8": {
+     "mean": 0.0003,
+     "dfl": 0.0003,
+     "metrica": 0.0003,
+     "min": -0.0014,
+     "max": 0.0039,
+     "better": 11,
+     "worse": 7,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 1.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.81
+    },
+    "c 100 pre 3": {
+     "mean": 0.0002,
+     "dfl": -0.0002,
+     "metrica": 0.0005,
+     "min": -0.002,
+     "max": 0.0057,
+     "better": 10,
+     "worse": 14,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 1.8,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.81
+    },
+    "c 100 post 2": {
+     "mean": 0.0005,
+     "dfl": 0.0003,
+     "metrica": 0.0007,
+     "min": -0.0028,
+     "max": 0.0062,
+     "better": 16,
+     "worse": 8,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.83
+    },
+    "c 100 min 25": {
+     "mean": 0.0003,
+     "dfl": 0.0002,
+     "metrica": 0.0003,
+     "min": -0.0019,
+     "max": 0.0057,
+     "better": 14,
+     "worse": 13,
+     "macro_f1_mean": 0.0001,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.83
+    }
+   },
+   "false30": {
+    "c inf": {
+     "mean": -0.0045,
+     "dfl": -0.0064,
+     "metrica": -0.0027,
+     "min": -0.0183,
+     "max": 0.0071,
+     "better": 11,
+     "worse": 31,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 11.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.28
+    },
+    "c 120": {
+     "mean": 0.0008,
+     "dfl": -0.0002,
+     "metrica": 0.0017,
+     "min": -0.0029,
+     "max": 0.0071,
+     "better": 18,
+     "worse": 15,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 3.6,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.76
+    },
+    "c 110": {
+     "mean": 0.0006,
+     "dfl": -0.0002,
+     "metrica": 0.0014,
+     "min": -0.0029,
+     "max": 0.0071,
+     "better": 17,
+     "worse": 13,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 2.8,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.78
+    },
+    "c 100": {
+     "mean": 0.0005,
+     "dfl": -0.0002,
+     "metrica": 0.0012,
+     "min": -0.0029,
+     "max": 0.0071,
+     "better": 16,
+     "worse": 13,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 2.6,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.8
+    },
+    "c 90": {
+     "mean": 0.0005,
+     "dfl": -0.0004,
+     "metrica": 0.0012,
+     "min": -0.0029,
+     "max": 0.0071,
+     "better": 14,
+     "worse": 13,
+     "macro_f1_mean": 0.0002,
+     "forced_per_copy": 2.4,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.79
+    },
+    "c 60": {
+     "mean": 0.0004,
+     "dfl": -0.0001,
+     "metrica": 0.0008,
+     "min": -0.0029,
+     "max": 0.0053,
+     "better": 13,
+     "worse": 7,
+     "macro_f1_mean": 0.0002,
+     "forced_per_copy": 1.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.79
+    },
+    "c 100 bridge 3": {
+     "mean": 0.0003,
+     "dfl": -0.0007,
+     "metrica": 0.0012,
+     "min": -0.0054,
+     "max": 0.0082,
+     "better": 14,
+     "worse": 17,
+     "macro_f1_mean": 0.0002,
+     "forced_per_copy": 2.6,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.8
+    },
+    "c 100 pre 8": {
+     "mean": 0.0008,
+     "dfl": 0.0,
+     "metrica": 0.0015,
+     "min": -0.0021,
+     "max": 0.0071,
+     "better": 17,
+     "worse": 7,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 2.3,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.83
+    },
+    "c 100 pre 3": {
+     "mean": 0.0006,
+     "dfl": -0.0003,
+     "metrica": 0.0015,
+     "min": -0.0037,
+     "max": 0.0071,
+     "better": 17,
+     "worse": 10,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 2.8,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.84
+    },
+    "c 100 post 2": {
+     "mean": 0.0005,
+     "dfl": -0.0004,
+     "metrica": 0.0012,
+     "min": -0.0035,
+     "max": 0.0071,
+     "better": 17,
+     "worse": 13,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 2.7,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.74
+    },
+    "c 100 min 25": {
+     "mean": 0.0005,
+     "dfl": -0.0002,
+     "metrica": 0.0012,
+     "min": -0.0029,
+     "max": 0.0071,
+     "better": 16,
+     "worse": 13,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 2.6,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.8
+    }
+   },
+   "second": {
+    "c inf": {
+     "mean": 0.0012,
+     "dfl": -0.0005,
+     "metrica": 0.0028,
+     "min": -0.008,
+     "max": 0.0079,
+     "better": 22,
+     "worse": 15,
+     "macro_f1_mean": 0.0006,
+     "forced_per_copy": 4.5,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.7
+    },
+    "c 120": {
+     "mean": 0.0016,
+     "dfl": 0.0003,
+     "metrica": 0.0028,
+     "min": -0.0031,
+     "max": 0.0095,
+     "better": 24,
+     "worse": 5,
+     "macro_f1_mean": 0.0006,
+     "forced_per_copy": 2.9,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.94
+    },
+    "c 110": {
+     "mean": 0.0013,
+     "dfl": 0.0002,
+     "metrica": 0.0023,
+     "min": -0.0029,
+     "max": 0.0095,
+     "better": 21,
+     "worse": 6,
+     "macro_f1_mean": 0.0006,
+     "forced_per_copy": 2.1,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.96
+    },
+    "c 100": {
+     "mean": 0.0011,
+     "dfl": 0.0002,
+     "metrica": 0.002,
+     "min": -0.0029,
+     "max": 0.0095,
+     "better": 21,
+     "worse": 5,
+     "macro_f1_mean": 0.0006,
+     "forced_per_copy": 2.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.95
+    },
+    "c 90": {
+     "mean": 0.0009,
+     "dfl": -0.0001,
+     "metrica": 0.0018,
+     "min": -0.0029,
+     "max": 0.0095,
+     "better": 18,
+     "worse": 5,
+     "macro_f1_mean": 0.0005,
+     "forced_per_copy": 1.8,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.95
+    },
+    "c 60": {
+     "mean": 0.0005,
+     "dfl": -0.0,
+     "metrica": 0.0011,
+     "min": -0.0029,
+     "max": 0.0095,
+     "better": 15,
+     "worse": 3,
+     "macro_f1_mean": 0.0003,
+     "forced_per_copy": 1.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.93
+    },
+    "c 100 bridge 3": {
+     "mean": 0.0012,
+     "dfl": -0.0001,
+     "metrica": 0.0025,
+     "min": -0.005,
+     "max": 0.0105,
+     "better": 20,
+     "worse": 4,
+     "macro_f1_mean": 0.0006,
+     "forced_per_copy": 2.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.95
+    },
+    "c 100 pre 8": {
+     "mean": 0.0011,
+     "dfl": 0.0003,
+     "metrica": 0.0019,
+     "min": -0.0029,
+     "max": 0.0095,
+     "better": 20,
+     "worse": 5,
+     "macro_f1_mean": 0.0006,
+     "forced_per_copy": 1.9,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.94
+    },
+    "c 100 pre 3": {
+     "mean": 0.0013,
+     "dfl": 0.0004,
+     "metrica": 0.0021,
+     "min": -0.0026,
+     "max": 0.0095,
+     "better": 21,
+     "worse": 4,
+     "macro_f1_mean": 0.0006,
+     "forced_per_copy": 2.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.95
+    },
+    "c 100 post 2": {
+     "mean": 0.0012,
+     "dfl": 0.0002,
+     "metrica": 0.002,
+     "min": -0.0029,
+     "max": 0.0095,
+     "better": 21,
+     "worse": 5,
+     "macro_f1_mean": 0.0006,
+     "forced_per_copy": 1.9,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.95
+    },
+    "c 100 min 25": {
+     "mean": 0.0011,
+     "dfl": 0.0001,
+     "metrica": 0.002,
+     "min": -0.0029,
+     "max": 0.0095,
+     "better": 20,
+     "worse": 6,
+     "macro_f1_mean": 0.0006,
+     "forced_per_copy": 2.0,
+     "share_of_forced_frames_within_1s_of_a_true_dead_frame": 0.95
+    }
+   }
+  }
+ },
+ "taker_team": {
+  "what": "tagged restarts with a team (not throw-ins) where a possession of ours starts after a D within 3 s of the restart: how often it is the wrong team, and the gain if the label were corrected",
+  "n": 651,
+  "wrong_team": 9,
+  "oracle_gain_mean": -0.0002,
+  "min": -0.0045,
+  "max": 0.0011
+ },
+ "conclusions": [
+  "The decision has at least one D frame on 93% of the dead-ball stretches that end in a restart. The stretches without any (about 6 per copy; 2% in the DFL matches, 10-20% in the Metrica games) are short (median 4.7 s against 21 s) and the ball is seen on 9% of their frames (31% on the stretches that are found).",
+  "The published tag counts cover about half of the restarts of a match and only 5 free kicks, the type we miss most often; about 2.4 missed stretches per copy carry a tag.",
+  "Ceiling with perfect tags and the true extents: +0.003 spellF1 (+0.004 with the restart moment as well). The rule that was tried gives +0.001 with clean tags, +0.0016 with tags accurate to a second, +0.0005 to +0.001 with noisy or false tags, and only with the cost limit: without it false tags cost up to -0.0045.",
+  "The taker team of the tags has nothing to correct (wrong team after a found restart in 1.4% of the cases).",
+  "Not adopted and not registered: the possible gain is a tenth of the gain gate used for every candidate so far (+0.008) and far below what one match can show (the organisers: differences under about 0.04 are noise); the error profile of the real tags is unknown and cannot be measured."
+ ],
+ "limits": [
+  "Development copies that earlier work has used; variants were compared on them; nothing here is a validation.",
+  "The tags are simulated from the labels. How the real tagger chooses which restarts to tag is unknown; if it needs the tracked ball it may tag exactly the stretches the models find anyway.",
+  "Agreement with other providers labels on corrupted external copies; not a competition score."
+ ],
+ "scripts_sha256": {
+  "rest1.py": "4c268e92088a9892f00b82cbcc65e04e1dc9c183e82bd3aede5ce2e753efe5f6",
+  "rest2.py": "2e30eb8f9bd2161d8eba831191cdfc976285b2b891f10acde01fff5a8bbbb80f",
+  "orc1.py": "0405d8d889540af9dbf7ee5091e4f02d55e418ef9609752fb7089cdd6e79972b",
+  "taglib.py": "c1a425b24622b5462127f0955601473c88797c7e3f8e4b8d0f602d49854fcd64",
+  "rule1.py": "ddf7ac45b1055710d58be705da5e87458dc46b4b857547deeab205b924936a5c",
+  "team1.py": "9a34f19343f63c5cd7f242a939437ea5897db906aca8fb5d445ea21a903165f7",
+  "k015_assemble.py": "07e29d9db44472b246263d4b0b432371ad360b46e46e00dbe618e80d5e92b583"
+ },
+ "environment": {
+  "python": "3.13.18",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "labels": "stored with the development copies (file-order Metrica proxy labels of K005); the restarts recomputed today with the current metrica_labels.py were checked against them"
+ },
+ "provided_fixture_used": false
+}

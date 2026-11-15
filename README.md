@@ -1,10 +1,11 @@
 # More Than a Hack 2027 — possession (team repository)
 
-## Submission system: possession v2.15
+## Submission system: possession v2.16
 
-Release `possession-v2.15`, entry point `python -m possession.run215`, manifest
-`possession-v215-release.json`. The release and its technical fall-backs (the next one is
-`possession-v2.11k`, the same system without the second model) are named in `possession-release.json`.
+Release `possession-v2.16`, entry point `python -m possession.run216`, manifest
+`possession-v216-release.json`. The release and its technical fall-backs (the next ones are
+`possession-v2.15`, the same system without the players added from the second camera, and
+`possession-v2.11k`, without the second model as well) are named in `possession-release.json`.
 
 | where | what |
 |---|---|
@@ -32,7 +33,7 @@ python -m pip install -r requirements-possession.txt
 # clock readings, separate OCR environment (requirements-sync-lock.txt):
 python -m tools.possession_clock --video <bundle root>/tactical/BAR-ATH_tactical.mp4 --out <clock>/tactical
 python -m tools.possession_clock --video <bundle root>/broadcast/BAR-ATH_broadcast.mp4 --out <clock>/broadcast
-python -m possession.run215 --data-dir <bundle root> --out <new folder> --tactical-clock <clock>/tactical --broadcast-clock <clock>/broadcast
+python -m possession.run216 --data-dir <bundle root> --out <new folder> --tactical-clock <clock>/tactical --broadcast-clock <clock>/broadcast
 python -m possession.validate <new folder>/submission.csv
 ```
 
@@ -80,20 +81,26 @@ team.
   by a team member, weights trained on the same six DFL matches with both of the team's corruption
   simulators) and the average goes through the unchanged decoder (`possession/pooling.py`). On the
   noisier path nothing is averaged.
+- **Players the tactical tracking has lost (v2.16):** when the two cameras agree on the ball (the gate
+  of the broadcast fill is open), a registered broadcast player with no tactical player of either
+  team within 1.5 m is added to the tracking the models see (`possession/playerfill.py`). Tactical
+  positions are never moved; without broadcast files or with the gate closed nothing is added.
 
 External numbers (agreement with other providers' labels on corrupted copies; **not competition
 scores**): core 0.631 against 0.196 for the organisers' baseline logic; noise gate 0.603 -> 0.642 on
 24 fresh copies; simulated accurate broadcast +0.024; registration with a medium-quality simulated
 broadcast 0.653 -> 0.681 and with an accurate one 0.686 -> 0.684; goalkeeper check 0.659 -> 0.660
 with correct team ids, 0.335 -> 0.656 with both goalkeepers under the other team's id (simulated);
-second model 0.645 -> 0.656 on 16 new copies (better on 14, log entry K013). Tested
+second model 0.645 -> 0.656 on 16 new copies (better on 14, log entry K013); players added from a
+simulated second camera 0.686 -> 0.697 on 16 further new copies (better on 13, log entry K017). Tested
 and not selected under gates written down beforehand: Smart Tagging evidence (v3), ungated
 broadcast fill (v4), wider noise training (v2.2), v2.3 alone, switch hazard (v2.6), gap features
 (v2.7), Metrica training (v2.8), touch / control-change columns (v2.12, log entry K008), a first
 way of averaging the models' probabilities with a team member's temporal convolution network (v2.13,
 log entry K010) and a second way with re-trained weights and equal weights (v2.14, log entry K012;
-better on 15 of 16 copies but one copy clearly worse; the third way, with a smaller weight, is the
-release).
+better on 15 of 16 copies but one copy clearly worse; the third way, with a smaller weight, is part of
+the release). Explored and not registered: forcing a stoppage at set-piece tags (log entry K015) and
+giving the broadcast tracking priority where the cameras agree (log entry K016).
 The first goalkeeper check (v2.10) passed its gates and was replaced before release (log entry K004).
 
 ---

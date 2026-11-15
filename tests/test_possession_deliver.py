@@ -182,6 +182,23 @@ class HelperTests(unittest.TestCase):
         for text in (used, unused):
             self.assertFalse(any(ch.isdigit() for ch in text))                                   # a category: no weight, no hash
 
+    def test_the_run_record_says_whether_players_were_added_as_a_category(self):
+        facts = dict.fromkeys(('file', 'sha256', 'when', 'command', 'repo', 'platform', 'format', 'plausibility', 'repeat', 'clone',
+                               'noclock', 'platform_check', 'organiser', 'public'), 'x')
+        row = lambda rep: [l for l in pd.run_record(rep, facts).splitlines() if l.startswith('| Players added from the broadcast camera')][0]
+        base = {'rows': 5, 'system': 's', 'path': 'v2.1', 'fusion': {'reason': 'none'}}
+        self.assertIn('not part of the entry point', row(base))                                  # v2.15 and every lower step
+        counts = {'frames_with_a_usable_offset': 81234, 'player_positions_added': 4321, 'frames_with_an_added_player': 3999,
+                  'extra_slots': 51, 'extra_slots_used': 37, 'empty_radius_m': 1.5}
+        used = row(dict(base, added_players=dict(counts, used=True)))
+        self.assertIn('used: players that the tactical tracking does not have', used)
+        none = row(dict(base, added_players=dict(counts, used=True, player_positions_added=0)))
+        self.assertIn('nothing added', none)
+        unused = row(dict(base, added_players={'used': False, 'reason': 'no broadcast files, or the accuracy gate is closed'}))
+        self.assertIn('not used: no broadcast files, or the accuracy gate was closed', unused)
+        for text in (used, none, unused):
+            self.assertFalse(any(ch.isdigit() for ch in text))                                   # a category: no counts
+
     def test_the_data_line_says_whether_the_smart_tagging_file_is_there_only_when_the_release_reads_it(self):
         def data_line(root, data, steps):
             a = pd.parse(['--data-dir', str(data), '--private', str(root / 'private'), '--release-config', str(config(root, steps))])
@@ -205,7 +222,7 @@ class HelperTests(unittest.TestCase):
             self.assertEqual(line, 'OK (taktik VAR, yayin VAR, videolar YOK)')
             self.assertEqual(warn, [])
         default = json.loads((REPO / 'possession-release.json').read_text(encoding='utf-8'))
-        self.assertEqual([bool(s.get('smart_tagging')) for s in default['steps']], [True, True, False, False, False, False])   # v2.15 and v2.11k read it
+        self.assertEqual([bool(s.get('smart_tagging')) for s in default['steps']], [True, True, True, False, False, False, False])   # v2.16, v2.15 and v2.11k read it
         reserve = json.loads((REPO / 'possession-release-graded-windows.json').read_text(encoding='utf-8'))
         self.assertFalse(any(s.get('smart_tagging') for s in reserve['steps']))
 

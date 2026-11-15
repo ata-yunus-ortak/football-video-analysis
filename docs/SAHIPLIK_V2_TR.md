@@ -1,8 +1,9 @@
 # Sahiplik v2 — dış veride seçilmiş H/A/D sistemi
 
-> **Güncel durum (15 Kasım 2026):** teslim sistemi **v2.15**'tir (`python -m possession.run215`).
+> **Güncel durum (15 Kasım 2026, akşam):** teslim sistemi **v2.16**'dır (`python -m possession.run216`).
 > Aşağıda anlatılan v2.5 sisteminin üstüne gelen ekler belgenin sonundaki "Güncelleme" bölümlerindedir
-> (v2.9, v2.11, 13 Kasım: başlama vuruşu kuralı, 15 Kasım: ikinci model). Bir alt teknik basamak v2.11k'dır. Dosyayı üretmek
+> (v2.9, v2.11, 13 Kasım: başlama vuruşu kuralı, 15 Kasım: ikinci model, 15 Kasım akşam: yayın kamerasından
+> eklenen oyuncular). Alt teknik basamaklar v2.15 ve v2.11k'dır. Dosyayı üretmek
 > için tek adım: `TESLIM-HAZIRLA.cmd` ("Teslim adımları" bölümü). Form'a yüklenecek kısa belge
 > `TECHNICAL_DOCUMENT.md`'dir. **En kısa yol (15 Kasım): `TESLIM-TEK-TIK.cmd`** — dosyaları yerleştirir, GitHub'a
 > yükler ve zinciri çalıştırır (aşağıda "0. Tek tık").
@@ -402,8 +403,8 @@ yazılmasının kurallara uygun olup olmadığı soruldu. 12 Kasım'daki yanıt 
 Bu yüzden o sabit artık kullanılmıyor. `TESLIM-HAZIRLA.cmd` seçenek vermeden çalıştırıldığında
 `possession-release.json` içindeki yeni sıra kullanılır:
 
-`possession-v2.15` → `possession-v2.11k` → `possession-v2.11g` → `possession-v2.9g` → v2.5b → v2.5b yalnız taktik kamera
-(15 Kasım'dan beri; v2.15 için belgenin sonundaki güncellemeye bakın).
+`possession-v2.16` → `possession-v2.15` → `possession-v2.11k` → `possession-v2.11g` → `possession-v2.9g` → v2.5b → v2.5b yalnız taktik kamera
+(15 Kasım akşamından beri; v2.15 ve v2.16 için belgenin sonundaki güncellemelere bakın).
 
 - **v2.11g:** modeller ikinci yarının puanlanan penceresinin tamamında çalışır ve başlama vuruşundan
   önceki karelere kendileri karar verir. Hiçbir basamakta 113.742 sabiti yoktur.
@@ -472,7 +473,7 @@ bütün üyelerin kayıt formunda yazdığı adla aynı olmalı.
 cd C:\Users\Abra\Desktop\Football_analysis-main\mtah-2027\submission-clean
 py -3.10 -m venv .venv-possession
 .\.venv-possession\Scripts\python.exe -m pip install -r requirements-possession.txt
-.\.venv-possession\Scripts\python.exe -m possession.run215 --data-dir <veri kökü> --out <yeni klasör> --tactical-clock <saat>\tactical --broadcast-clock <saat>\broadcast
+.\.venv-possession\Scripts\python.exe -m possession.run216 --data-dir <veri kökü> --out <yeni klasör> --tactical-clock <saat>\tactical --broadcast-clock <saat>\broadcast
 .\.venv-possession\Scripts\python.exe -m possession.validate <yeni klasör>\submission.csv
 ```
 
@@ -704,6 +705,45 @@ paketin etiketlerine göre spellF1 0,772 (v2.11k zinciri 0,764). Bu bir bağlant
 değildir ve hiçbir seçimde kullanılmadı. **Kalan koşul:** zincirin ekibin bilgisayarında da OK bitmesi; `URETIM` ve
 `TESLIM` satırlarında `possession-v2.15` yazmalı. Daha alt bir basamağın adı yazarsa teslim edilen o basamaktır.
 
-*Öğrenilecek şey:* bir fikir ilk ölçümde başarısız olunca iki yol vardır: bırakmak ya da **neden** başarısız olduğunu
+## Güncelleme, 15 Kasım 2026 (akşam): v2.16 — taktik kameranın kaybettiği oyuncular yayın kamerasından eklenir
+
+Teslim sistemi artık **possession-v2.16** (`python -m possession.run216`). Çalıştırma aynı: `TESLIM-TEK-TIK.cmd` ya da
+`TESLIM-HAZIRLA.cmd`. Bir alt basamak v2.15'tir (aynı sistem, bu adım olmadan). Ayrıntılı kayıt: `docs/DENEY_KAYDI_TR.md`
+K016 ve K017.
+
+**Soru neydi.** "Yayın kamerası daha net; iki kamera tutarlıysa yayını temel alsak?" Dış maçlarda benzetilmiş ikinci
+kamerayla ölçtük: önceliği yayına vermek (top, oyuncular ya da ortalama) puanı değiştirmedi (−0,005 ile +0,002), yayın beş
+kat keskin olsa bile. İkinci kameranın faydası daha net görmesinden değil, **birincinin göremediğini görmesinden** geliyor.
+Bunu şimdiye kadar yalnız top için kullanıyorduk.
+
+**Ne değişti.** Otomatik takip, oyuncuları en çok birbirine yakın olduklarında bir iki saniyeliğine kaybeder. Yayın kamerası
+topu izlediği için onları çoğu zaman görür. v2.16, iki kamera topta anlaşıyorsa (0,50 m kapısı açıksa), yayın kamerasının
+gördüğü ve çevresinde 1,5 m içinde hiçbir taktik oyuncu bulunmayan oyuncuyu modellerin gördüğü veriye ekler. Taktik
+konumlara dokunmaz. Yayın dosyası yoksa ya da kapı kapalıysa sonuç v2.15 ile aynıdır.
+
+**Ölçüm (16 yeni kopya, önceden yazılmış yedi şart).** 0,6864 → 0,6968 (+0,0104); 16 kopyanın 13'ünde daha iyi, en
+kötü kopya -0,0056. Orta kalitede yayın kamerasıyla +0,0073; kendi de oyuncu kaybeden ve uyduran yayın kamerasıyla +0,0044;
+öteki benzeticiyle +0,0004. Yedi şartın yedisi geçti (sonuncusu kıl payı).
+
+**Dürüst sınırlar.** İkinci kamera benzetimdir; gerçek yayın verisinin ne kadar oyuncu kaybettiğini ya da uydurduğunu
+bilmiyoruz ve bakamayız. Yayın verisinde bir takımın altında görünen ama taktik veride olmayan bir hakem, oyuncu diye
+eklenir. Az oyuncu kaybeden kopyalarda adım neredeyse hiçbir şey değiştirmiyor. Bu, aynı gün aynı maçlarda incelenen
+dördüncü fikirdi; ölçümler sağlanan maç için bir ölçüm değildir.
+
+**Zincirde ne değişti.** `PLATFORM` artık 11 sentetik varyantı karşılaştırır (ikisi oyuncu eklemeli). Belge ekinde (Ek R)
+"Players added from the broadcast camera" satırı vardır: kullanıldı / eklenecek oyuncu yok / kullanılmadı.
+
+**Tam boy prova (`possession-v216-rehearsal.json`).** Bütün adımlar OK, 1006 saniye, en çok 2,20 GB bellek. Üretilen
+dosya v2.15 zincirinin dosyasından puanlanan karelerin %0,7'sinde farklı; o paketin etiketlerine göre spellF1 0,783
+(v2.15 zinciri 0,772). Bağlantı ve boyut denetimidir; doğruluk ölçümü değildir. **Kalan koşul:** zincirin ekibin
+bilgisayarında OK bitmesi; `URETIM` ve `TESLIM` satırlarında `possession-v2.16` yazmalı. Daha alt bir basamağın adı yazarsa
+teslim edilen o basamaktır.
+
+*Öğrenilecek şey:* "daha net olan kaynağa öncelik ver" sezgisi makul görünüyordu ama ölçüm onu desteklemedi; ölçüm
+sırasında aynı fikrin başka bir parçası (eksik olanı tamamlamak) işe yaradı. Bir fikri denemenin değeri bazen ilk sorunun
+cevabında değil, o sırada görülen başka bir şeydedir. Yine de o "başka şey" ayrı bir planla, yeni veride ölçülmeden sürüme
+girmedi.
+
+*Öğrenilecek şey (v2.15):* bir fikir ilk ölçümde başarısız olunca iki yol vardır: bırakmak ya da **neden** başarısız olduğunu
 bulmak. Nedeni bulunca (yanlış eğitim verisi, yanlış çözücü) düzeltilmiş hâli yeniden ölçülebilir; ama her yeni ölçüm
 yeni veride ve şartlar önceden yazılarak yapılmalı, kaç kez denendiği de açıkça yazılmalıdır.

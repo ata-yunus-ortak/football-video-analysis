@@ -2,6 +2,8 @@
 rem Commits the possession release (source, model bundles and network weights, plans, results, documents, tests, launchers, experiment scripts)
 rem and, as a second commit, the external control-reference tooling that was only on this computer. Then pushes the branch.
 rem Every path is named below; nothing else is added. Data file types are refused even if they were listed by mistake.
+rem git is called with --no-pager: a long list must not stop the window at the pager. With POSSESSION_NO_PAUSE set
+rem (TESLIM-TEK-TIK.cmd sets it) the script asks for no key unless something fails.
 setlocal
 cd /d "%~dp0"
 for /f %%b in ('git rev-parse --abbrev-ref HEAD') do set "BR=%%b"
@@ -17,7 +19,7 @@ echo NOT: .github\workflows\tests.yml yalniz requirements.txt kuruyor; GitHub te
 echo      Isterseniz once o dosyadaki "python -m pip install -r requirements.txt" satirinin sonuna
 echo      " -r requirements-possession.txt" ekleyip kaydedin, sonra bu betigi yeniden calistirin.
 echo      Bu haliyle devam etmek icin bir tusa basin; iptal icin pencereyi kapatin.
-pause >nul
+if not defined POSSESSION_NO_PAUSE pause >nul
 :workflowok
 git reset -q
 git add -- possession models/possession-v2.npz models/possession-v23.npz models/possession-tcn-v215.npz "tests/test_possession_*.py" tests/test_ball_patch_data.py "possession-*.json" experiments/possession_v2 tools/possession_clock.py tools/possession_deliver.py tools/possession_final_test.py tools/possession_place_files.py requirements-possession.txt requirements-possession-train.txt SAHIPLIK-V2-KURULUM.cmd SAHIPLIK-V2-URET.cmd SAHIPLIK-V24-URET.cmd SAHIPLIK-V25-URET.cmd SAHIPLIK-V29-URET.cmd SAHIPLIK-V211-URET.cmd SAAT-OKU.cmd TESLIM-HAZIRLA.cmd TESLIM-TEK-TIK.cmd SON-TEST.cmd GIT-YUKLE-V2.cmd TECHNICAL_DOCUMENT.md TECHNICAL_DOCUMENT_V2.md DATA_SOURCES.md README.md CLAUDE.md AGENTS.md TEAM_START_TR.md docs/SAHIPLIK_V2_TR.md docs/DENEY_KAYDI_TR.md .gitignore .gitattributes .github/workflows/tests.yml
@@ -28,69 +30,40 @@ git diff --cached --quiet
 if not errorlevel 1 goto second
 echo.
 echo ===== 1. commit: sahiplik surumu =====
-git diff --cached --stat
+git --no-pager diff --cached --stat
 echo.
 echo Listede .csv, .xml, .mp4, data/ veya FootballPrivate OLMAMALI.
 echo Devam etmek icin bir tusa basin; iptal icin bu pencereyi kapatin.
-pause >nul
+if not defined POSSESSION_NO_PAUSE pause >nul
 set "POSSESSION_MSG1=%TEMP%\possession_msg1.txt"
-> "%POSSESSION_MSG1%" echo Release possession-v2.15 (second model pooled with the v2 models); records K007-K014
+> "%POSSESSION_MSG1%" echo Release possession-v2.16: lost players added from the broadcast tracking; records K015-K018
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K013: the submission system is now possession-v2.15 = v2.11k plus a second model family on the core
->> "%POSSESSION_MSG1%" echo model path. The second-stage probabilities of the tree models are averaged with those of a temporal
->> "%POSSESSION_MSG1%" echo convolution network, weight 0.2 for the network, and decoded by the unchanged v2 decoder, see
->> "%POSSESSION_MSG1%" echo possession/pooling.py, possession/tcn and models/possession-tcn-v215.npz. The network was designed
->> "%POSSESSION_MSG1%" echo by a team member, branch mtah-possession, commit 167dc7b; its weights were trained by us on the six
->> "%POSSESSION_MSG1%" echo open DFL matches with both corruption simulators, experiments/possession_v2/v214/tcn_jax.py.
->> "%POSSESSION_MSG1%" echo Registered before any new result, possession-v215-plan.json: on 16 new copies spellF1 +0.0112,
->> "%POSSESSION_MSG1%" echo better on 14 copies and worse on 0, all seven gates passed, possession-v215-results.json.
->> "%POSSESSION_MSG1%" echo It is the third attempt with the same gates and the documents say so. Nothing is pooled on the
->> "%POSSESSION_MSG1%" echo noisier v2.3 path. The next step of the technical ladder is v2.11k.
+>> "%POSSESSION_MSG1%" echo K017: the submission system is now possession-v2.16 = v2.15 plus one step, possession/playerfill.py. When the
+>> "%POSSESSION_MSG1%" echo broadcast files are present and the accuracy gate of the ball fill is open, a registered broadcast player with
+>> "%POSSESSION_MSG1%" echo no tactical player of either team within 1.5 m is added to the tracking the models see. Tactical positions
+>> "%POSSESSION_MSG1%" echo are never moved; without broadcast files or with the gate closed the output is that of v2.15.
+>> "%POSSESSION_MSG1%" echo Registered before any validation row, possession-v216-plan.json: on 16 new copies with a simulated second
+>> "%POSSESSION_MSG1%" echo camera spellF1 +0.0104, better on 13 copies and worse on 3, worst copy -0.0056; medium stream +0.0073,
+>> "%POSSESSION_MSG1%" echo stream that loses and invents players +0.0044, copies of the other simulator +0.0004. All seven gates
+>> "%POSSESSION_MSG1%" echo passed, the last one by a hair, possession-v216-results.json. The second camera is simulated and the
+>> "%POSSESSION_MSG1%" echo provided broadcast tracking was not examined; the documents say so. The next step of the ladder is v2.15.
+>> "%POSSESSION_MSG1%" echo Eleven synthetic variants give the same bytes under Python 3.10 with numpy 1.26.4 and Python 3.13 with numpy 2.5.3.
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K014: error-pattern study of v2.15 on 42 external development copies, reporting only, see
->> "%POSSESSION_MSG1%" echo possession-k014-error-patterns.json and experiments/possession_v2/v216. Possessions under 2 s carry
->> "%POSSESSION_MSG1%" echo 38 per cent of the lost score and are not visible to either model family; 29 per cent is the timing
->> "%POSSESSION_MSG1%" echo of possessions that are found. Rules built on these patterns changed the score by at most 0.003,
->> "%POSSESSION_MSG1%" echo a learned combination of both families was explored and not registered. The release is unchanged.
+>> "%POSSESSION_MSG1%" echo K016: asked by the team lead, whether the broadcast camera should take priority where it agrees with the
+>> "%POSSESSION_MSG1%" echo tactical one. Simulated second camera on development copies, reporting only, possession-k016-camera-priority.json
+>> "%POSSESSION_MSG1%" echo and experiments/possession_v2/v218: taking the ball or the players from the broadcast stream where both
+>> "%POSSESSION_MSG1%" echo agree changed the score by -0.005 to +0.002, also with a stream five times as precise. Not adopted.
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo TESLIM-TEK-TIK.cmd: one double-click for the delivery on the team lead computer.
->> "%POSSESSION_MSG1%" echo tools/possession_place_files.py copies the files the organisers shipped from where a download put
->> "%POSSESSION_MSG1%" echo them into the bundle folder, on that computer only; then this script and the delivery chain run, and
->> "%POSSESSION_MSG1%" echo the shareable status lines are also copied to Desktop logs. Tests: tests/test_possession_place_files.py,
->> "%POSSESSION_MSG1%" echo synthetic folders only.
+>> "%POSSESSION_MSG1%" echo K015: asked by the team lead, whether a Smart Tagging set-piece tag without a dead-ball stretch of ours
+>> "%POSSESSION_MSG1%" echo around it should force one. Simulated tags on the 42 development copies, reporting only, see
+>> "%POSSESSION_MSG1%" echo possession-k015-tag-rescue.json and experiments/possession_v2/v217. The decision already has a dead-ball
+>> "%POSSESSION_MSG1%" echo stretch before 93 per cent of the restarts and the published tag counts cover about half of them, so the
+>> "%POSSESSION_MSG1%" echo ceiling is 0.003 and the rule gained about 0.001. Not registered.
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K012: candidate possession-v2.14, the same pooled system with equal weights: +0.0201 on 16 new
->> "%POSSESSION_MSG1%" echo copies and better on 15, but one copy was 0.016 worse, so the gate on single copies failed and it
->> "%POSSESSION_MSG1%" echo is not released, see possession-v214-plan.json and possession-v214-results.json.
+>> "%POSSESSION_MSG1%" echo K018: on 15 Nov the delivery chain ran end to end on the team lead computer with v2.15, every step OK,
+>> "%POSSESSION_MSG1%" echo same bytes as recorded on Linux for the synthetic variants. v2.16 needs one more run of the chain there.
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K011: possession-v2.11k = v2.11g plus one rule (possession/kickoff.py):
->> "%POSSESSION_MSG1%" echo in a graded block, the frames before the first automatic Smart Tagging Kick Off (Start) tag are
->> "%POSSESSION_MSG1%" echo written D if that tag starts less than ten minutes after the block begins. Without a usable tag the
->> "%POSSESSION_MSG1%" echo output is that of v2.11g. No step of possession-release.json uses the kick-off frame published in
->> "%POSSESSION_MSG1%" echo FAQ.md any more: the organisers answer of 12 Nov did not allow that constant explicitly.
->> "%POSSESSION_MSG1%" echo possession.run211 stays frozen and unused. The rule is taken unchanged from commit 4b32747 of branch
->> "%POSSESSION_MSG1%" echo mtah-possession. It cannot be measured on external matches; its tests are synthetic and the chain was
->> "%POSSESSION_MSG1%" echo rehearsed on a synthetic bundle (possession-v211k-rehearsal.json). The delivery chain now reports
->> "%POSSESSION_MSG1%" echo whether the Smart Tagging file is present, the input check compares the number of kick-off tags with
->> "%POSSESSION_MSG1%" echo DATA.md (28 checks), and the final-test plan was re-registered for v2.11k and stays there.
->> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K010: candidate possession-v2.13, the release probabilities averaged with the temporal convolution
->> "%POSSESSION_MSG1%" echo network of a team member (his fusion rule unchanged), was registered before any score, see
->> "%POSSESSION_MSG1%" echo possession-v213-plan.json, and validated on 16 new copies. Tactical camera only: spellF1
->> "%POSSESSION_MSG1%" echo -0.0045 on DFL, +0.0172 on Metrica, worst copy -0.0295. 3 of six gates failed (G1, G2, G4),
->> "%POSSESSION_MSG1%" echo so it is not released (possession-v213-results.json).
->> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K007: diagnosis on used validation copies, reporting only: 74%% of the possessions shorter than 2 s
->> "%POSSESSION_MSG1%" echo are missed and there is no systematic lag (possession-k007-diagnosis.json).
->> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K008: candidate possession-v2.12 (possession/touch.py, ball-touch and control-change columns for the
->> "%POSSESSION_MSG1%" echo core models): spellF1 +0.0125 on DFL, -0.008 on Metrica; four of six registered gates failed, so it
->> "%POSSESSION_MSG1%" echo is not released. Unused integration code is kept under
->> "%POSSESSION_MSG1%" echo experiments/possession_v2/v212/integration_not_released.
->> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K009: the frozen v2.11 was watched on one external PFF FC World Cup 2022 game, inspection only, see
->> "%POSSESSION_MSG1%" echo experiments/possession_v2/pff_viewer. That data has no published licence and is not in the
->> "%POSSESSION_MSG1%" echo repository; nothing was selected or tuned on it.
+>> "%POSSESSION_MSG1%" echo Launchers: this script calls git without its pager and asks for no key when TESLIM-TEK-TIK.cmd starts it.
 >> "%POSSESSION_MSG1%" echo.
 >> "%POSSESSION_MSG1%" echo No provided match data and no frame-level output are in the repository. External numbers are
 >> "%POSSESSION_MSG1%" echo agreement with other providers labels, not competition scores.
@@ -108,9 +81,9 @@ git diff --cached --quiet
 if not errorlevel 1 goto push
 echo.
 echo ===== 2. commit: dis kaynakli kontrol referansi araclari =====
-git diff --cached --stat
+git --no-pager diff --cached --stat
 echo Devam etmek icin bir tusa basin; iptal icin bu pencereyi kapatin.
-pause >nul
+if not defined POSSESSION_NO_PAUSE pause >nul
 set "POSSESSION_MSG2=%TEMP%\possession_msg2.txt"
 > "%POSSESSION_MSG2%" echo External control reference tooling: reviewed event kinds, workspace builder, checks
 >> "%POSSESSION_MSG2%" echo.
@@ -129,10 +102,10 @@ git push origin feature/external-possession-selection
 if errorlevel 1 (echo PUSH BASARISIZ & pause & exit /b 1)
 echo.
 for /f %%h in ('git rev-parse --short HEAD') do echo YUKLEME TAMAM. Commit: %%h
-git diff HEAD --name-only
+git --no-pager diff HEAD --name-only
 echo Yukaridaki satirlar bos ise izlenen dosyalarin hepsi GitHub ile ayni.
 echo GitHub Actions sekmesinde testlerin sonucunu kontrol edin, sonra TESLIM-HAZIRLA.cmd calistirin.
-pause
+if not defined POSSESSION_NO_PAUSE pause
 exit /b 0
 
 :guard
@@ -143,7 +116,7 @@ if not errorlevel 1 goto refuse
 exit /b 0
 :refuse
 echo HATA: eklenecek dosyalar arasinda veri turu bir dosya var. Hicbir sey commit edilmedi.
-git diff --cached --name-only
+git --no-pager diff --cached --name-only
 git reset -q
 pause
 exit /b 1

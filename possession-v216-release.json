@@ -1,0 +1,142 @@
+{
+ "version": "possession-v2.16",
+ "frozen_at": "2026-11-15T17:05:45+03:00",
+ "entry_point": "python -m possession.run216",
+ "components": {
+  "core": "possession-v2.1 (models/possession-v2.npz)",
+  "noise_gate_and_v2_3_path": "possession-v2.4",
+  "broadcast_fill": "possession-v2.5 (accuracy gate median <= 0.50 m)",
+  "clock_anchor": "possession-v2.5b",
+  "registration": "possession-v2.9 (possession/register.py): broadcast ball registered through shared players and smoothed, before the accuracy gate",
+  "goalkeeper_team_correction": "possession-v2.11 (possession/keeper2.py): goalkeeper track pieces found under the id of the team that does not defend their goal are moved to the defending team in the tracking the models see (whole half: most of the goal's evidence is under the other id; shorter: the piece continues a goalkeeper piece); noise gate, broadcast alignment, registration and accuracy gate use the ids as given",
+  "second_half_kickoff": "play blocks = the organisers' graded windows (as possession-v2.11g); then the Smart Tagging kick-off rule of possession-v2.11k (possession/kickoff.py); the kick-off frame published in FAQ.md is not used",
+  "second_model": "possession-v2.15: on the v2.1 path the second-stage probabilities of the v2 models are pooled (arithmetic pool, weight 0.2; possession/pooling.py) with a temporal convolution network (possession/tcn/, models/possession-tcn-v215.npz, three members) and decoded by the unchanged v2 decoder; on the v2.3 path nothing is pooled",
+  "added_players": "possession-v2.16: when the accuracy gate of the broadcast fill is open, broadcast players that, after the alignment and the player-based registration, have no tactical player of either team within 1.5 m are added to the tracking the models see (possession/playerfill.py); the goalkeeper team check then runs on the tracking with the added players. Tactical positions are never moved. Without broadcast files or with the gate closed nothing is added"
+ },
+ "selection": {
+  "plan": "possession-v216-plan.json",
+  "plan_sha256": "8d229df3ae13316ef697d354250f0fa79f0bce3a8bf7814986e64fc9dde95644",
+  "results": "possession-v216-results.json",
+  "results_sha256": "0df1298471acc170b4bc4bd6c02a7ec7474a22307a18a4d1e576b9f9e5961465",
+  "rule": "all seven registered gates passed on 16 new corrupted copies of four external validation matches with a simulated second camera: +0.0104 spellF1 over possession-v2.15 (DFL +0.0098, Metrica +0.0111; 13 better, 3 worse, worst -0.0056); medium stream +0.0073; stream that loses and invents players +0.0044; copies of the other simulator +0.0004"
+ },
+ "evidence_limits": "the second camera is simulated; in three of the four conditions it never loses or invents a player inside its window. The gate on the copies of the other simulator passed by 0.0004 (three of four copies lower). Validation matches and simulators had been used before; only the copies were new. Without broadcast files or with the gate closed the output is that of possession-v2.15",
+ "source_sha256": {
+  "data.py": "547725e5079e0186a22fe571d135463bb91fdf21bf3ee8d9eb74308300c549f0",
+  "features.py": "ea98076cea10a7e029412c9fa3f887e39a53d4ba4ab62bbca86d40cf3d9986c1",
+  "trees.py": "adb83b7e6c0c809e858266cf68cac90fcd2d7c46b5802d17f432c7b948db2d5e",
+  "decode.py": "4e3644af48f617fc97b9c630ec8d79063e979148fb84848c285b532da1494ec3",
+  "pipeline.py": "890aacee20a3c6a96352242049858b9fa4389f26210a38ac0913ce06ef19b068",
+  "bundle.py": "4d589ace7e5aaa6bbbf4da659562e40546223ce8d07896fa675469d08ce13c6a",
+  "run.py": "95bc9f380bb6b406403a1981d653e1f577922968e6960b1b54c917be9978e8bb",
+  "stack.py": "60339f2bc88b5785c369e665faaca509b98541f31342b4ea68d18668dde56077",
+  "tags.py": "b500dc318d39dd12b44e62d1e9322835ddaa8bf0c77cd798c0ed7619363774c7",
+  "smooth.py": "a685aae0247771f8f2c341a9fa4b5cdea920d3a3e5f91e59238674ec041319e8",
+  "noise.py": "301b83f2928c9011cfaf577211facaae415abf8fe708b5bd789dbf9accd6dd95",
+  "run24.py": "f3830ddf3621fd6a87084c51a145d57a8065771c850f332ca164b9767092386e",
+  "broadcast.py": "4e23d826934e9bb2c2c546f03011823808f742d1fbce4b3f7ca7456aa3579a90",
+  "fusion.py": "4c093ff7e884d66391858fec73cc6ea6fdf8ac941f96aa3a5bbe83c4714d6355",
+  "clocksync.py": "db9f3d66db3789b476cca89f39a8d8fa265efab401b392740ccc5f3a3a950d02",
+  "run25.py": "a154480cb972a8e5145c57daaf72efeb838dde4d3d18325906a7fb01c9bd05b6",
+  "register.py": "2601c559070dea1dfb14cc6ec9cf7e78aed7978d0605de6a5c884082656a72a4",
+  "run29.py": "336c03bebc96187dc1778ce8a4640dc39cd04a7eea49d98e836c9dc3f08af426",
+  "keeper2.py": "c386e26eee81340eaf76a0eabcc516e0ec5f38044b25ea0421c06633b2b2684d",
+  "run211.py": "1f72d289a0c85c98bcb76def030ba68f5d1e568ae799ce5ce2873f5282134077",
+  "tcn/__init__.py": "b46f91fe1c685b8564c2651b10778136875c38b3d225eae5807fdd25bce019fb",
+  "tcn/infer.py": "cea6b164d697f77616ab2a38de6632aee23d1f134e485dbcd3b527f492e70922",
+  "tcn/features.py": "c33bde1208bc7b1c90058193681e51b631443c548aa281d46d2fa439ee16ee29",
+  "tcn/decode.py": "457e12b1ce3cecc6fc659fafcaf4dc6d6129efdc8d6c4fb59b9f2ccd754bfd91",
+  "pooling.py": "5133a8fa7d5d15593871680c86c1e0b1de47cabea835aba8ad562fb641b5d11b",
+  "kickoff.py": "314022f6a5419582b9c40520d66e6af19c992910682dbd4558fcc38b9ebd6798",
+  "run211g.py": "c52d6beaaf83569693277c109f3f483e7352797d17f4f2dbfb58bf0e842052be",
+  "run211k.py": "906e18813a2986677f376667185731d882e24a860069faae72fceb94ab5c8b41",
+  "run215.py": "da51bfbff8b5f9f1c2bf222f83d730d29a9ed94e15eff672a1da5fc9587e0a86",
+  "playerfill.py": "ccc8f38d03a85df878f2c06efc8ca6671cbf60fe777f4f8428d6c50a9fe7cb12",
+  "run216.py": "68185c5349d1711f2c1990899e1205a7eca0477bf72adc387db28b687714ccc4"
+ },
+ "bundle_sha256": {
+  "v2.1": "1cd59ba5c21a5abc2be24f8294b3af3d61d84997b61edfc08c028384a9d550d1",
+  "v2.3": "e89db80134b8569833df75f9bcbb1bfb56a6a2a391bab6c2bd2fefa9233a2365",
+  "tcn": "5f6588a5df2f3390d61204620aa67aab8b1f2620fdc82cb00fd574fa1bdd2044"
+ },
+ "tcn_members_sha256": {
+  "dfl6_both_s0.npz": "d92bff05a9eb5404faf69a2a106aaac46698e020eb2e58fd92db23231121ec71",
+  "dfl6_both_s1.npz": "fd6ca4389736f64dd0e0c5a1d94a9bd613bd1a41da90e270f79749b5c8b1be11",
+  "dfl6_both_s2.npz": "65a6d88b7863ab84e1fe6331e622efb7cd1041fc07c5be7e751df87bcf494d84"
+ },
+ "tcn_training": {
+  "script": "experiments/possession_v2/v214/tcn_jax.py",
+  "data": "six open DFL matches (CC BY 4.0), replicas of both corruption simulators",
+  "runs": {
+   "dfl6_both_s0.npz": {
+    "tag": "dfl6_both_s0",
+    "seed": 0,
+    "epochs": 6,
+    "simulators": "both",
+    "matches": [
+     "J03WOH",
+     "J03WOY",
+     "J03WPY",
+     "J03WQQ",
+     "J03WN1",
+     "J03WR9"
+    ],
+    "steps_per_epoch": 156,
+    "replicas_per_simulator_per_half": 6
+   },
+   "dfl6_both_s1.npz": {
+    "tag": "dfl6_both_s1",
+    "seed": 1,
+    "epochs": 6,
+    "simulators": "both",
+    "matches": [
+     "J03WOH",
+     "J03WOY",
+     "J03WPY",
+     "J03WQQ",
+     "J03WN1",
+     "J03WR9"
+    ],
+    "steps_per_epoch": 156,
+    "replicas_per_simulator_per_half": 6
+   },
+   "dfl6_both_s2.npz": {
+    "tag": "dfl6_both_s2",
+    "seed": 2,
+    "epochs": 6,
+    "simulators": "both",
+    "matches": [
+     "J03WOH",
+     "J03WOY",
+     "J03WPY",
+     "J03WQQ",
+     "J03WN1",
+     "J03WR9"
+    ],
+    "steps_per_epoch": 156,
+    "replicas_per_simulator_per_half": 6
+   }
+  }
+ },
+ "plans": [
+  "possession-v2-plan.json",
+  "possession-v23-plan.json",
+  "possession-v24-plan.json",
+  "possession-v25-plan.json",
+  "possession-v25b-plan.json",
+  "possession-v29-plan.json",
+  "possession-v29-amendment-plan.json",
+  "possession-v210-plan.json",
+  "possession-v211-plan.json",
+  "possession-v213-plan.json",
+  "possession-v214-plan.json",
+  "possession-v215-plan.json",
+  "possession-v216-plan.json"
+ ],
+ "previous_release": {
+  "name": "possession-v2.15",
+  "manifest": "possession-v215-release.json",
+  "manifest_sha256": "8e6aa6caf7cf000fb69cfb36bd0bfdd0b623d142e39ed870b8bc163d7ba4eb8e"
+ },
+ "provided_fixture_used": false
+}

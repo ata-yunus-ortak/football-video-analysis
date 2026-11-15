@@ -38,10 +38,16 @@
 - Do not claim all organizer/remediation conditions are complete; provider-side
   conversation/upload cleanup remains unverified in the handoff.
 
-- Possession (`possession/`): the submission system is `possession-v2.15`, entry point
-  `python -m possession.run215`, release manifest `possession-v215-release.json`; the release and its
-  technical fall-backs (the next one is `possession-v2.11k`, `possession.run211k`) are named in
-  `possession-release.json`. v2.15 = v2.11k + a second model family on the core path: the second-stage
+- Possession (`possession/`): the submission system is `possession-v2.16`, entry point
+  `python -m possession.run216`, release manifest `possession-v216-release.json`; the release and its
+  technical fall-backs (the next ones are `possession-v2.15`, `possession.run215`, and
+  `possession-v2.11k`, `possession.run211k`) are named in `possession-release.json`.
+  v2.16 = v2.15 + players the tactical tracking has lost, added from the broadcast tracking when the
+  accuracy gate of the broadcast fill is open (`possession/playerfill.py`; a registered broadcast
+  player with no tactical player of either team within 1.5 m; tactical positions are never moved;
+  log entries K016 and K017, `possession-v216-plan.json`, `-results.json`). `playerfill.py` and
+  `run216.py` are hash-frozen like every other release file: a change needs a new version and plan.
+  v2.15 = v2.11k + a second model family on the core path: the second-stage
   probabilities are averaged with those of a temporal convolution network (`possession/tcn/`, byte
   copies of a team member's modules; `models/possession-tcn-v215.npz`, three members trained by us on
   the six DFL matches with both corruption simulators; `possession/pooling.py`) before the unchanged

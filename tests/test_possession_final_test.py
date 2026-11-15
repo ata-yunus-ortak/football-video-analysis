@@ -59,9 +59,12 @@ class FinalTestToolTests(unittest.TestCase):
         # technical fall-back, and the output of possession-v2.15 itself on the noisier model path). It was not
         # re-registered for v2.15, because for the network's design the reserved match is not untouched
         # (possession-v215-plan.json, limits); a result of this tool is a result of v2.11k and is reported as that.
-        self.assertEqual((delivered['release'], delivered['steps'][0]['module']), ('possession-v2.15', 'possession.run215'))
+        # possession-v2.16 adds players from a second camera, which the reserved match does not have: on its files the
+        # output of v2.16 is that of v2.15.
+        self.assertEqual((delivered['release'], delivered['steps'][0]['module']), ('possession-v2.16', 'possession.run216'))
+        self.assertEqual(delivered['steps'][1]['module'], 'possession.run215')
         self.assertEqual((plan['release']['name'], plan['release']['module']),
-                         (delivered['steps'][1]['name'], delivered['steps'][1]['module']))
+                         (delivered['steps'][2]['name'], delivered['steps'][2]['module']))
         data = json.loads(ft.DATA_PLAN.read_text(encoding='utf-8'))
         files = [e for e in data['files'] if e['fixture_id'] == plan['fixture']['id']]
         self.assertEqual({e['split'] for e in files}, {'reserved_test'})
