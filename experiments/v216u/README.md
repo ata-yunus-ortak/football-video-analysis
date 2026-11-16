@@ -121,6 +121,29 @@ This is not the team's registered validation: the matches are the usual four, th
 team's, and it was run by the party that built the candidate. It only says the development numbers were not
 an artefact of the reused copies.
 
+## Update 16 Nov, morning: pooling on the v2.3 (noisy) path
+
+v2.15 pools only on the v2.1 path; on the v2.3 path its output is v2.11k. If the noise gate sends a
+recording to the v2.3 path, the network contributes nothing. Tested here whether the candidate's members
+could be pooled there as well (`scan23.py`, `score23.py`, `v23.sh`; `noisy_path_*.json`): copies made with the
+`RANGES_V23` profile (seeds 32000 + 100 * match + k, k < 14), kept when the gate chose v2.3; the v2.3
+second-stage probabilities (from the smoothed input, as in the release) pooled with the TCN (unsmoothed input)
+and decoded with the v2.3 decoder constants. Candidate and weight were not changed for this.
+Difference to v2.11k, mean / worst:
+
+| members | side | copies | TCN alone | w 0.2 | w 0.3 | w 0.4 | w 0.5 |
+|---|---|---|---|---|---|---|---|
+| a x4 + f x4 | Metrica (released v2.3 bundle) | 24 | +0.0282 / -0.023 | +0.0149 / -0.0018 | +0.0227 / +0.0019 | +0.0278 / +0.0006 | +0.0321 / +0.0049 |
+| a x4 + f x4 | DFL (rebuilt v2.3 validation models) | 23 | +0.0120 / -0.044 | +0.0186 / -0.0016 | +0.0241 / -0.0059 | +0.0277 / -0.0070 | +0.0294 / -0.0108 |
+| a x4 | DFL | 23 | -0.0001 / -0.065 | +0.0163 / -0.0064 | +0.0215 / -0.0165 | +0.0230 / -0.0243 | +0.0242 / -0.0207 |
+| v2.15 members | Metrica | 24 | +0.0065 / -0.058 | +0.0083 / -0.0105 | +0.0100 / -0.0225 | +0.0137 / -0.0232 | +0.0172 / -0.0183 |
+
+Limits of this part: the DFL side uses `models_v23.pkl` / `stack_v23.pkl` rebuilt with `v2val.py` (V23=1;
+logic of `precompute23.py _s23t v2.3 1 1,2,3`, `train1.py`, `exp_stack.py`), which could NOT be checked
+against recorded numbers (no recorded DFL row is on the v2.3 path); the copies come from a noisier profile than
+the validation copies; the two v2.3 copies among the 40 old development copies agree (+0.025 at w 0.4).
+The extended-feature members matter here: without them single copies lose up to 0.024.
+
 ## Limits
 
 - The 40 copies were used before (v2.14 / v2.15 validations and their development), and the
