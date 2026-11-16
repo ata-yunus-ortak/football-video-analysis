@@ -13,7 +13,7 @@ import os
 
 import numpy as np
 
-from . import features
+from . import features, features2
 
 STRIDE = 2            # the network runs at 12.5 Hz on 25 fps tracking
 GROUPS = 8
@@ -79,16 +79,24 @@ def load_weights(path):
              if key.startswith(m + "/")} for m in members]
 
 
+BUILDERS = {features.N_FEATURES: features.build, features2.N_FEATURES: features2.build}
+
+
 def probabilities(members, ball, team0, team1):
     """(T', 3) probabilities [team0, team1, dead] at the model stride.
 
-    Averaged over ensemble members and over the two team orders, then rounded.
+    Averaged over ensemble members and over the two team orders, then rounded. Every member gets the
+    feature set it was trained with, recognised by the input width of its first convolution.
     """
-    feats, _ = features.build(ball, team0, team1)
-    swapped, _ = features.build(ball, team1, team0)
+    feats = {}
     total = 0.0
     for w in members:
-        total = total + forward(w, feats) + forward(w, swapped)[:, [1, 0, 2]]
+        width = w["stem.weight"].shape[1]
+        if width not in feats:
+            build = BUILDERS[width]
+            feats[width] = (build(ball, team0, team1)[0], build(ball, team1, team0)[0])
+        direct, swapped = feats[width]
+        total = total + forward(w, direct) + forward(w, swapped)[:, [1, 0, 2]]
     return np.round(total / (2 * len(members)), PROB_DECIMALS)
 
 

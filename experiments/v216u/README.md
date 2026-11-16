@@ -75,12 +75,54 @@ Reading: with the recipe-a members the pooled gain is about +0.025 (DFL) and +0.
 w 0.3 with no copy clearly worse, against about +0.013 / +0.014 for v2.15 at w 0.2. Same caveat as
 above: reused copies, several sets and weights compared.
 
+## Update 16 Nov, 05:30: proposed candidate and one check on new seeds
+
+**Candidate (fixed before the check below):** eight TCN members, weight 0.4, everything else as v2.15.
+- `a_s0..a_s3`: recipe a on the 37 features of `features.py`.
+- `f_s0..f_s3`: same recipe on the 71 features of `possession/features2.py` (the 37 columns, then the three
+  players of each team closest to the ball - distance, position relative to the ball, speed, speed towards
+  the ball - and four ball-kinematics columns). `possession/infer.py` on this branch gives every member the
+  feature set of its first convolution's input width; nothing else in the inference changes. NumPy agrees
+  with the PyTorch forward pass to 1e-6 for these members too. The nearest-player ordering uses a stable sort.
+- `d4_*` files for validation rows on J03WN1 / J03WR9, `d6_*` for Metrica rows and a release.
+- Recipe b files were removed from the branch (weaker on DFL; they are in commit 48524c5).
+
+Development grid on the 40 old copies (`dev_grid_final.json`), difference to v2.11, mean / worst:
+
+| members | side | TCN alone | w 0.2 | w 0.3 | w 0.4 | w 0.5 |
+|---|---|---|---|---|---|---|
+| a x4 + f x4 | DFL | +0.0188 / -0.020 | +0.0182 / +0.0033 | +0.0258 / +0.0101 | +0.0319 / +0.0179 | +0.0329 / +0.0104 |
+| a x4 + f x4 | Metrica | +0.0219 / -0.026 | +0.0195 / -0.0008 | +0.0234 / 0.0 | +0.0289 / 0.0 | +0.0260 / 0.0 |
+| f x4 | DFL | +0.0106 / -0.023 | +0.0170 / -0.0012 | +0.0255 / +0.0008 | +0.0300 / +0.0012 | +0.0276 / +0.0015 |
+| f x4 | Metrica | +0.0195 / -0.011 | +0.0211 / 0.0 | +0.0272 / 0.0 | +0.0287 / 0.0 | +0.0270 / -0.0015 |
+
+**Check on new seeds** (`hold.sh`, `holdout_new_seeds.json`): 20 copies never used before - per match four
+tactical copies with seeds 23100 + 10 * match + j and one second-simulator copy 73100 + match, built with
+`lib214.inputs`; candidate and weight fixed beforehand; run once. Difference to v2.11, mean / worst copy:
+
+| system | DFL (10) | Metrica (10) |
+|---|---|---|
+| candidate, a x4 + f x4, w 0.4 | +0.0232 / -0.0025 | +0.0306 / +0.0144 |
+| same members, w 0.3 | +0.0233 / -0.0004 | +0.0250 / +0.0127 |
+| a x4 only, w 0.4 | +0.0188 / -0.0051 | +0.0275 / +0.0005 |
+| v2.15 members, w 0.2 (as released) | not available here | +0.0123 / +0.0030 |
+
+19 of 20 copies better than v2.11 with the candidate; all 20 on the v2.1 path. Against the numbers of gates
+G1-G4 and G7 (taken against v2.11): mean +0.027, DFL +0.023, Metrica +0.031, worst copy -0.0025, second
+simulator +0.025 to +0.044 on its four copies. Not checked here: macroF1 (G5), the broadcast-fill
+conditions (G6), the 42 m view.
+
+This is not the team's registered validation: the matches are the usual four, the simulators are the
+team's, and it was run by the party that built the candidate. It only says the development numbers were not
+an artefact of the reused copies.
+
 ## Limits
 
 - The 40 copies were used before (v2.14 / v2.15 validations and their development), and the
   table compares 4 member sets x 4 weights on them: optimistic by construction.
 - Sets that include the v2.15 members could not be pooled on DFL here.
-- Run time: each member adds about one minute per match in the NumPy inference.
+- Run time: each member adds about one minute per match in the NumPy inference; eight members about eight minutes.
+- The f members need `features2.py` and the changed `probabilities()` of `infer.py` in the port (two files).
 
 ## Reproduce
 

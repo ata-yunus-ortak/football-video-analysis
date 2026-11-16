@@ -11,9 +11,9 @@ _mk = os.makedirs
 os.makedirs = lambda p, *a, **k: None if str(p).startswith('/home/claude') else _mk(p, *a, **k)
 import lib214 as L
 os.makedirs = _mk
-D = '/Users/umut/BARCELONA/work/v216u/dev/'
+D = os.environ.get('DEVD', '/Users/umut/BARCELONA/work/v216u/dev/')
 NAMES = ['J03WN1', 'J03WR9', 'MET1', 'MET2']
-SETS = ((19100, 69100), (16100, 66100))          # (copy seed base, second-simulator seed base) of v2.15 and v2.14
+SETS = eval(os.environ.get('DEVSETS', '((19100, 69100), (16100, 66100))'))          # (copy seed base, second-simulator seed base) of v2.15 and v2.14
 LETTERS = np.array(['H', 'A', 'D'])
 
 def prep(name):

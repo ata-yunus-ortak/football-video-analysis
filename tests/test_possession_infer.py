@@ -54,6 +54,23 @@ class InferTest(unittest.TestCase):
         self.assertTrue((fuse.fuse(tcn, dead, home) == 1).all())
         self.assertTrue((fuse.fuse(tcn, dead, home, weight=0.0) == 0).all())
 
+    def test_extended_features_and_mixed_ensemble(self):
+        from possession import features, features2
+        rng = np.random.default_rng(2)
+        ball = (rng.normal(size=(300, 2)) * 10).astype(np.float32)
+        ball[50:80] = np.nan
+        t0 = (rng.normal(size=(300, 23, 2)) * 15).astype(np.float32)
+        t1 = (rng.normal(size=(300, 23, 2)) * 15).astype(np.float32)
+        t0[:, 11:] = np.nan
+        t1[:, 2:] = np.nan                                  # fewer players than K_NEAR
+        x2, _ = features2.build(ball, t0, t1)
+        self.assertEqual(x2.shape, (300, features2.N_FEATURES))
+        self.assertTrue(np.isfinite(x2).all())
+        self.assertTrue(np.array_equal(x2[:, :features.N_FEATURES], features.build(ball, t0, t1)[0]))
+        prob = infer.probabilities([self.weights(), self.weights(feats=features2.N_FEATURES)], ball, t0, t1)
+        self.assertEqual(prob.shape, (150, 3))
+        self.assertTrue(np.allclose(prob.sum(1), 1.0, atol=2e-4))
+
 
 if __name__ == "__main__":
     unittest.main()

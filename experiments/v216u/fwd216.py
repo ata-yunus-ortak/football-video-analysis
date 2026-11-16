@@ -3,7 +3,7 @@ release arithmetic is the NumPy one, agreement about 1e-6). Run from football-vi
 Usage: fwd216.py PATTERN W.npz [W.npz ...]      PATTERN = 'J03*' or 'MET*' """
 import sys, glob, os, numpy as np, torch
 from possession.train import make_model
-D = '/Users/umut/BARCELONA/work/v216u/dev/'
+D = os.environ.get('DEVD', '/Users/umut/BARCELONA/work/v216u/dev/')
 dev = 'mps' if torch.backends.mps.is_available() else 'cpu'
 def members(path):
     blob = np.load(path); out = []
