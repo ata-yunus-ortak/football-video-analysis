@@ -185,10 +185,23 @@ weights broke on the other simulator's false ball detections), three trained cop
 every row, and the average was decoded by our decoder instead of a single-cost one (v2.14, equal
 weights). On 16 new copies it was better on 15 (+0.0201), but one copy was 0.016 worse, and
 the gate that allows no copy below -0.010 failed; it was not released (`possession-v214-plan.json`,
-`possession-v214-results.json`). The third and last attempt lowered the network's weight to 0.2 by a
+`possession-v214-results.json`). The third attempt lowered the network's weight to 0.2 by a
 rule written down while the second was still running, was registered before any new result, passed
 the same seven gates on 16 further new copies and is step 9 (`possession-v215-plan.json`,
-`possession-v215-results.json`). Giving the broadcast
+`possession-v215-results.json`). Its plan and our documents called it the last attempt and said
+that no further candidate with the second model would be registered before the deadline. We went
+back on that statement once. On 16 November the team member who wrote the network pushed eight
+newly trained copies of it (four of them reading 71 quantities instead of 37) together with his
+own development numbers and the weight he proposed for them, 0.4. The team lead decided to have
+them validated, and a fourth validation was registered before any of its results
+(`possession-v217-plan.json`): the same seven gates and thresholds, now against the released
+system instead of the trees alone, on 16 new copies, run by the process that had not built the
+candidate. With the tactical camera the eight
+copies scored 0.6848 against 0.6704 for the release (+0.0144; better on 14 copies, worse on 2),
+and with the simulated second camera they were +0.0125 (accurate stream) and +0.0050 (medium stream)
+higher. Six gates passed. The gate that allows no copy more than 0.010 below the release failed:
+one copy was 0.0182 lower. That is the gate the second attempt had failed, so the eight copies
+were not released either (`possession-v217-results.json`) and step 9 is unchanged. Giving the broadcast
 tracking priority where the two cameras agree (its ball, its players, or the mean of the two balls)
 was explored on development copies with a simulated second camera and not adopted (-0.005 to
 +0.002; log entry K016); the one use with a gain, adding players the tactical tracking has lost,
@@ -290,7 +303,11 @@ Limitations:
   changed almost nothing (+0.0004; lower on 3 of 4), so that gate passed by the smallest margin.
   Single copies moved between -0.0056 and +0.0261. The step was picked among seven ways of using
   the second camera on four development copies before it was validated on new ones, and it was
-  the fourth idea examined on these matches on the same day.
+  the fourth idea examined on these matches on the same day. On the team's computer the release
+  with this step wrote the same bytes as the release without it (status line of the delivery
+  tool, 16 November): on the provided match the step changed no label. Either it was not applied
+  (the accuracy gate was closed), or it found no player to add, or the players it added changed
+  no decision; the row "Players added from the broadcast camera" of Appendix R says which.
 - **Label semantics.** DFL possession flags change on short touches more often than a
   "controlled possession" definition; the Metrica proxies are closer but have approximate stoppage
   boundaries.

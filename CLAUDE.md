@@ -118,7 +118,34 @@ Ubuntu/Py3.12 and Windows/Py3.10. Output directories must not already exist.
 - Active branch: `feature/external-possession-selection`. Keep experiments on separate
   branches; a selected release needs its own version, source freeze and provenance.
 
-## Status snapshot (15 Nov 2026, evening — verify before relying on it)
+## Status snapshot (16 Nov 2026, afternoon — verify before relying on it)
+
+- **Submission system: still `possession-v2.16`** (`python -m possession.run216`). Nothing of the release changed today.
+- **K020, a fourth attempt with the second model, against a written statement: FAILED its gates.** The v2.15 plan and the
+  documents said that no further candidate with the second model would be registered. On 16 Nov the team member who
+  wrote the network pushed eight new members (branch `mtah-possession`, commit `74bedbf`) with his development numbers;
+  the team lead decided at 12:24 to have them validated. Plan `possession-v217-plan.json` (registered 12:47:22, before any
+  row; the same seven gates and thresholds, against the release). Results `possession-v217-results.json`: tactical
+  0.6704 -> 0.6848 (+0.0144; 14 better, 2 worse); fills +0.0125 / +0.0050; other simulator +0.0110; six gates
+  passed, G4 failed (one copy at -0.0182; limit -0.010; the gate v2.14 had failed). Not released. The plan says:
+  **whatever the outcome, no further candidate with the second model is registered before the deadline.** Scripts and
+  the prepared, unreleased integration: `experiments/possession_v2/v219/`. If the team lead asks to deliver the
+  candidate anyway: the gates are not relaxed after the fact (AGENTS.md), and a system that failed its registered
+  validation is not presented as selected.
+- **K019 (16 Nov 00:13-01:04): the chain ran OK on the team's computer with v2.16** (commit 1c31412; GitHub Actions
+  succeeded; `PLATFORM AYNI` on eleven variants; `TEMIZ KLON AYNI`), and its status line
+  `TESLIM ... onceki teslim dosyasi ile AYNI` says that **the v2.16 file is byte-identical to the v2.15 file** of 15 Nov:
+  on the provided match the added-players step changed no label (not applied, or nothing to add, or what was added
+  changed no decision; Appendix R says which and is not read here). A hash comparison, not an accuracy measurement and
+  not a selection input.
+- **Form:** the team lead submitted the Google Form on 15 Nov at about 18:45 with the v2.15 files (the same bytes as the
+  v2.16 file). The Form can be sent again through the same link (not recorded in the repository: it was mailed to
+  participants only); the last response before the deadline counts (SUBMISSION.md). Only the team lead fills it in.
+  The technical document changed today (Section 3 tells of the fourth attempt): one more chain run regenerates
+  `LittleSickle.md`, and the Form should then be sent again with it.
+- **Deadline:** Tue 17 Nov 23:59 CET = Wed 18 Nov 01:59 Istanbul.
+
+## Earlier status (15 Nov 2026, evening)
 
 - **Submission system: `possession-v2.16`** (`python -m possession.run216`, manifest `possession-v216-release.json`,
   frozen 2026-11-15 17:05) = v2.15 + one step (`possession/playerfill.py`): when the broadcast files are present and

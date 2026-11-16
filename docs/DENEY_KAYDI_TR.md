@@ -1,5 +1,113 @@
 # Deney kaydı
 
+## K020 — ikinci modelle dördüncü deneme: takım arkadaşının sekiz ağı, ağırlık 0,4 (v2.17 adayı): kayıtlı kapılar geçmedi, sürüm değişmedi, 16 Kasım 2026
+
+**Ne.** Aday: v2.16, ikinci model değişmiş hâliyle: üç ağ ve 0,2 ağırlık yerine sekiz ağ ve 0,4 ağırlık. Dört ağ sürümdeki 37
+özelliği okur; dördü 71 özelliği (aynı 37, sonra her takımın topa en yakın üç oyuncusu ve topun kendi hareketinden dört sütun).
+Ağlar ve çıkarım, ağı yazan takım arkadaşının `mtah-possession` dalındaki commit `74bedbf` dosyalarıdır.
+
+**Yazdığımız sözden bir kez döndük.** K013 v2.15 için "üçüncü ve son deneme" demişti; planı ve belgeler "ikinci modelle başka aday
+kaydedilmez" diye yazıyordu. 16 Kasım 00:49-05:58 arasında takım arkadaşı kendi dalına sekiz yeni üye, kendi geliştirme sayıları
+ve başka tohumlarda yaptığı bir denetimi yükledi. Bu süreç onları istememişti; 06:10 civarında depo denetlenirken gördü. İki
+tarafın da puanladığı 20 kopyada adayın (onun) değerleri v2.15'in kayıtlı değerlerinden ortalama +0,0162 yüksekti; bu kopyalar
+adayın geliştirme verisiydi. Takım liderine, yeni bir kaydın yazılı sözden dönmek olduğu ve kararın onun olduğu söylendi; bu
+süreç ayrıca, öncelik kazanmaksa denemeye değer bulduğunu yazdı. Takım lideri 12:24'te bir deneme daha yapılmasını seçti.
+Kapılar gevşetilmedi: aynı yedi kapı ve eşik; karşılaştırma kolu ağaçlar değil, yürürlükteki sürüm. Eski kayıtların hiçbiri
+değiştirilmedi.
+
+**Aday kimin.** Üyeleri takım arkadaşı kendi bilgisayarında eğitti, üye kümesini ve 0,4 ağırlığını o seçti. Bu süreç hiçbir şey
+eğitmedi ve seçmedi; eğitimi görmedi. "Yalnız dış maçlar kullanıldı, sağlanan maç açılmadı" cümlesi onun beyanıdır
+(`experiments/possession_v2/v219/author_74bedbf/experiments/v216u/README.md`).
+
+**Kayıttan önceki denetimler (yeni kopya yok).** 16 ağırlık dosyasının SHA-256 değerleri yazarın listesiyle aynı; sentetik bir
+girdide sekiz üyenin yuvarlanmış olasılıkları burada (Linux; Python 3.13 ve 3.10) ve yazarın bilgisayarında (macOS) aynı özeti
+veriyor; doğrulama betiği eski üç kopyada kayıtlı satırları aynen, yazarın aday değerlerini altı ondalığa kadar üretti.
+
+**Plan.** `possession-v217-plan.json`, 16 Kasım 12:47:22'de kaydedildi; o anda hiçbir doğrulama satırı yoktu. Kollar: `v2_16`
+(üç üye, 0,2) ve `candidate` (sekiz üye, 0,4); kopya, model girdisi, ağaç olasılıkları, havuz ve çözücü ortak. Kopyalar yeni:
+tohum 29100 + 10·maç + j; yayın 54100 / 54200, saat 84100 / 84200, öteki benzetici 94100 + maç. Yayın akışlı koşullarda model
+girdisi v2.16'nınkidir (doldurulmuş top ve eklenen oyuncular). Doğrulamayı, adayı kurmamış olan bu süreç çalıştırdı; kapılar bir
+kez, bütün satırlara uygulandı.
+
+**Sonuç** (`possession-v217-results.json`; dış sağlayıcıların etiketleriyle uyum, yarışma puanı değil):
+
+| koşul | kopya | v2.16 | aday | fark | DFL / Metrica | iyi / kötü / eşit | en kötü kopya |
+|---|---|---|---|---|---|---|---|
+| taktik kamera | 16 | 0,6704 | 0,6848 | +0,0144 | +0,0084 / +0,0204 | 14 / 2 / 0 | −0,0182 |
+| iyi yayın akışı (v2.16 girdisi) | 8 | 0,7069 | 0,7194 | +0,0125 | +0,0157 / +0,0094 | 7 / 1 / 0 | −0,0004 |
+| orta yayın akışı (v2.16 girdisi) | 8 | 0,7087 | 0,7136 | +0,0050 | −0,0016 / +0,0115 | 6 / 2 / 0 | −0,0159 |
+| öteki benzetici | 4 | 0,6963 | 0,7073 | +0,0110 | +0,0121 / +0,0099 | 4 / 0 / 0 | +0,0016 |
+
+Kapılar: G1 +0,0144, G2 +0,0084, G3 +0,0204, G4 −0,0182 — J03WR9|29113 (**geçmedi**), G5 +0,0052, G6 +0,0125 / +0,0050, G7 +0,0110.
+
+Ağaçlara (v2.11) göre aday +0,0263, v2.16 +0,0119.
+
+**Karar.** Yedi kapıdan biri geçmedi: G4, "hiçbir kopya sürümden 0,010'dan fazla kötü olmasın". J03WR9, tohum 29113 kopyasında
+üç ağlı sürüm ağaçlara +0,0117 eklerken sekiz ağlı aday −0,0065 verdi. Bu, v2.14'ün (K012) tablosunun aynısıdır:
+ortalamada ve 14/16 kopyada kazanç, tek bir kopyada belirgin kayıp. Aday "denendi, kullanılmadı" olarak kaydedildi;
+**sürüm v2.16 olarak kaldı**, hiçbir sürüm dosyası değişmedi. Plan, sonuç ne olursa olsun teslimden önce ikinci modelle başka
+aday kaydedilmeyeceğini yazar. Betikler, sürüme girmeyen giriş noktasının üreteci ve yazarın anlatımı ile betiklerinin bayt
+kopyaları `experiments/possession_v2/v219/` altındadır; ağırlık dosyaları yalnız onun dalındadır.
+
+**Öğrenilen.** Geliştirme kopyalarında ve yazarın kendi denetiminde görülen kazanç yeni kopyalarda da görüldü (ortalama
++0,0144); ama kapılar yalnız ortalamaya bakmaz. Yarışma tek bir maçla puanlanır; "hiçbir kopya belirgin kötü olmasın"
+şartı, ortalamada iyi olup tek bir maçta kötüleşebilen bir sistemi elemek için vardır. İki tarafın da puanladığı 20 geliştirme
+kopyasında aday hiçbir kopyada sürümün belirgin altında kalmamıştı (en kötü −0,0002); yazarın yeni tohumlardaki denetimi ise adayı
+sürümle değil ağaçlarla karşılaştırıyordu (en kötü −0,0025). Buradaki 16 yeni kopyanın birinde aday sürümün 0,0182
+altında kaldı. Sözden bir kez dönüldü, şartlar gevşetilmedi ve sonuç ne çıktıysa o yazıldı.
+
+## K019 — Teslim zinciri ekibin bilgisayarında v2.16 ile OK; çıkan dosya v2.15 dosyasıyla aynı baytlar; form gönderildi, 15-16 Kasım 2026
+
+**Ne oldu.**
+- *Form (15 Kasım, yaklaşık 18:45).* Takım lideri organizatörün gönderim formunu K018 çalıştırmasının dosyalarıyla gönderdi:
+  takım adı LittleSickle, `LittleSickle.csv`, bu dalın adresi, `LittleSickle.md` (v2.15 belgesi). Formu yalnız takım lideri
+  doldurur; bu süreç forma dokunmadı ve tahmin dosyasını okumadı. Form bağlantısı yalnız katılımcılara gönderildiği için depoya
+  yazılmadı. Form aynı bağlantıdan yeniden gönderilebiliyor; organizatörün SUBMISSION.md dosyasına göre son tarihten önceki son
+  yanıt puanlanır.
+- *v2.16 zinciri (16 Kasım).* Takım lideri `TESLIM-TEK-TIK.cmd`'yi 00:13'te yeniden başlattı (yeni sürümde tuş beklemedi).
+  Commit `1c31412` (v2.16, K015-K018 kayıtları) GitHub'a gitti; GitHub Actions bu commit'te başarılı (17 dk 41 sn; Ubuntu
+  3.12 ve Windows 3.10). Zincir 00:13-01:04 arasında çalıştı (51 dakika; saat okuması önceki çalıştırmadan alındı).
+
+**Paylaşılabilir durum satırları** (`Desktop\logs\PAYLASILABILIR-durum.txt`; başka hiçbir çıktı okunmadı):
+
+```
+[ 1] ORTAM ..................... OK (Windows-10-10.0.19045-SP0, Python 3.10.11, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)
+[ 2] DEPO ...................... commit 1c3141279e45, temiz
+[ 3] SURUM ..................... OK (possession-v2.16)
+[ 4] TESTLER ................... OK
+[ 5] PLATFORM .................. AYNI
+[ 6] VERI ...................... OK (taktik VAR, yayin VAR, videolar VAR, smart tagging VAR)
+[ 7] GIRDI OKUMA ............... OK
+[ 8] URETIM .................... OK (possession-v2.16, saatli)
+[ 9] BICIM ..................... OK
+[10] MAKULLUK .................. OK
+[11] TESLIM .................... OK (possession-v2.16, saatli; onceki teslim dosyasi ile AYNI)
+[12] SAAT ...................... VAR (onceki okuma kullanildi)
+[13] SAATSIZ KARSILASTIRMA ..... AYNI
+[14] TEKRAR URETIM ............. AYNI
+[15] TEMIZ KLON ................ AYNI (commit 1c3141279e45)
+[16] ORGANIZATOR DOGRULAYICI ... OK
+[17] ACIK PENCERE .............. OK
+[18] BELGE ..................... OK (LittleSickle.md = teknik belge + calisma kaydi)
+SONUC: TESLIM HAZIR
+```
+
+**Ne anlama geliyor.**
+- K017'nin son koşulu sağlandı: zincir ekibin bilgisayarında OK bitti, `URETIM` ve `TESLIM` satırlarında `possession-v2.16`
+  yazıyor. On bir sentetik varyant (ikisi oyuncu eklemeli) Windows'ta Linux'ta kaydedilen baytları verdi; dosya ikinci
+  çalıştırmada, saat okumaları olmadan ve dalın temiz klonundan da aynı baytlarla üretildi.
+- **`onceki teslim dosyasi ile AYNI`:** v2.16'nın bu maçta ürettiği dosya, bir gün önce v2.15'in ürettiği ve forma yüklenen
+  dosyayla bayt bayt aynıdır. v2.16'nın eklediği adım bu maçta hiçbir etiketi değiştirmedi. Neden: ya iki kameranın topta
+  anlaşmasını ölçen doğruluk kapısı kapalı kaldı, ya da kapı açıkken eklenecek oyuncu bulunmadı (ya da eklenenler kararı
+  değiştirmedi). Hangisi olduğu teslim belgesinin Ek R'sinde ("Broadcast camera" ve "Players added from the broadcast
+  camera" satırları) yazılıdır; bu süreç o eki okumaz.
+- K017'deki +0,0104, benzetilmiş ikinci kamerayla dış maç kopyalarında ölçülmüştü; bu maç için bir kazanç iddiası değildi. Bu
+  satır, o kazancın bu maçta gerçekleşmediğini gösterir: puanlanacak dosya v2.15'in dosyasıdır.
+- Bu bir özet (hash) karşılaştırmasıdır: yalnız sağlanan veriyle yapılan otomatik bir denetim. Doğruluk ölçümü değildir ve
+  hiçbir seçimde kullanılmadı (v2.16 dış veride, bu çalıştırmadan önce seçilmişti; iki çıktı zaten aynıdır).
+- Formdaki sahiplik dosyası bu yüzden değişmedi. Yeni `LittleSickle.md` v2.16'yı anlatır; takım liderine 16 Kasım sabahı
+  formu yeni belgeyle bir kez daha göndermesi söylendi. Bunun yapıldığı, bu kayıt yazılırken teyit edilmemişti.
+
 ## K018 — Teslim zinciri ekibin bilgisayarında v2.15 ile baştan sona OK (ilk tam çalıştırma), 15 Kasım 2026
 
 **Ne oldu.** Takım lideri `TESLIM-TEK-TIK.cmd`'yi 11:34'te başlattı. Dosya yerleştirme adımı dokuz dosyanın hepsini paket

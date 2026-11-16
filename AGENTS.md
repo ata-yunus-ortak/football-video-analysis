@@ -110,9 +110,16 @@
   single-cost decoder (v2.13, log entry K010; scripts and byte copies of his modules under
   `experiments/possession_v2/v213/`), and weights re-trained by us with the v2 decoder and equal
   weights (v2.14, log entry K012: better on 15 of 16 new copies, but the gate on single copies
-  failed). Keep the files and records. v2.15 (log entry K013), the release, is the third and last
-  attempt; it changes none of the earlier records, and its plan says that no further candidate with
-  the second model is registered before the deadline.
+  failed). Keep the files and records. v2.15 (log entry K013), the second model of the release, was
+  the third attempt; its plan and these documents called it the last and said that no further
+  candidate with the second model would be registered before the deadline. That statement was set
+  aside once, by a decision of the team lead on 16 Nov after a team member had pushed eight new
+  network members with his development numbers: a fourth registered attempt (the v2.17 candidate,
+  log entry K020; `possession-v217-plan.json`, `-results.json`; scripts under
+  `experiments/possession_v2/v219/`) failed the gate on single copies (better on 14 of 16 new copies,
+  one copy 0.018 lower) and is not part of any release.
+  Its plan says that whatever the outcome no further candidate with the second model is registered
+  before the deadline. Do not register one. None of the earlier records was changed.
 - The network weights of v2.15 were trained in an agent session on external data
   (`experiments/possession_v2/v214/tcn_jax.py`). A re-run is not bit-identical: never replace
   `models/possession-tcn-v215.npz`; a new training is a new version with a new plan. The files

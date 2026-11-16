@@ -1,7 +1,7 @@
 # Possession v2 — technical document (full record; current release: v2.16)
 
 Team repository: `possession/` package, branch `feature/external-possession-selection`.
-Submission file regenerated with `python -m possession.run216` (see the five addenda and Reproduction).
+Submission file regenerated with `python -m possession.run216` (see the six addenda and Reproduction).
 
 > **Addendum, 11 November 2026 (v2.9).** The submitted entry point is now `python -m possession.run29`
 > (release manifest `possession-v29-release.json`). It differs from the v2.5b system described below in
@@ -362,6 +362,45 @@ Submission file regenerated with `python -m possession.run216` (see the five add
 >    seven variants on four development copies, on a day on which three other ideas were examined on the same
 >    matches. It does not touch the statement of the fourth addendum that no further candidate with the second model
 >    is registered: the second model is the same in both arms.
+
+> **Sixth addendum, 16 November 2026: a fourth attempt with the second model, not released.** The submitted entry point
+> stays `python -m possession.run216`; nothing of the release changed.
+>
+> 1. **What happened.** The fourth addendum calls v2.15 the third and last attempt with the second model, and the
+>    fifth repeats that no further candidate with it is registered. On 16 November, between 00:49 and 05:58, the team
+>    member who wrote the network pushed to his branch (`mtah-possession`, commit `74bedbf`) eight newly trained
+>    members, an inference that gives each member its own features, and his own numbers: a development grid on the
+>    40 copies of the v2.14 and v2.15 validations and one check on other seeds. This process had not asked for them
+>    and saw them at about 06:10 while checking the repository. It told the team lead that a further registration
+>    goes back on the written statement and that the choice was his, and wrote that in its view the attempt was
+>    worth making if winning was the priority. The team lead chose at 12:24 to make one more attempt. This was a
+>    departure from what we had written, made after the candidate's development numbers were known; the earlier
+>    records are unchanged.
+> 2. **The candidate** (fixed by its author before his own check; nothing chosen here). Members `d6_a_s0-3` (the 37
+>    features of the released members) and `d6_f_s0-3` (71 features: the 37, the three players of each team closest
+>    to the ball with distance, relative position, speed and closing speed, and four ball-kinematics columns);
+>    arithmetic pool with weight 0.4 for the network; everything else as v2.16. Training, as he states it: six DFL
+>    matches, per match 16 copies of the team's simulator and 8 of his own, packed and goalkeeper-corrected with the
+>    team's code; PyTorch; external matches only. The process that validated the files did not observe the training.
+> 3. **Validation** (`possession-v217-plan.json`, registered 12:47 before the first validation row;
+>    `possession-v217-results.json`). Run by this process with the candidate's NumPy inference. Arms: v2.16 (three
+>    members, weight 0.2) and the candidate, on the same copy, model input, tree probabilities, pool and decoder.
+>    Before the registration the script reproduced three rows of earlier validations exactly and the author's values
+>    of the candidate on two of them. 16 new copies, tactical camera: 0.6704 -> 0.6848 (+0.0144; DFL +0.0084,
+>    Metrica +0.0204; 14 better, 2 worse, 0 equal, single copies -0.0182 to +0.0351; macroF1 +0.0052).
+>    With the simulated second camera and the added players of v2.16 (8 copies each): accurate stream +0.0125
+>    (single copies -0.0004 to +0.0213), medium stream +0.0050 (-0.0159 to +0.0194; DFL -0.0016, Metrica +0.0115).
+>    Copies of the other simulator (4): +0.0110. Against the trees alone the candidate is at +0.0263 and v2.16 at
+>    +0.0119 on the 16 tactical copies. Gates, unchanged, against the release: G1 +0.0144 (at least +0.008),
+>    G2 +0.0084 (+0.008), G3 +0.0204 (-0.002), G4 worst copy -0.0182 (-0.010; FAILED), G5 +0.0052 (-0.003),
+>    G6 +0.0125 and +0.0050 (0), G7 +0.0110 (0).
+> 4. **Decision.** One gate failed, the one on single copies (G4): on copy J03WR9, seed 29113 the release is
+>    +0.0117 against the trees and the candidate -0.0065. It is the picture of v2.14 (fourth addendum, item 4): a gain
+>    on average and on 14 of 16 copies, and one copy clearly lower. The candidate is recorded as tried and not used, and
+>    v2.16 stays the release. The plan says that, whatever the outcome, no further candidate with the second model is
+>    registered before the deadline. The validation scripts, the generated entry point that was not released and byte
+>    copies of the author's account and scripts are under `experiments/possession_v2/v219/`; his weight files are on
+>    his branch only.
 
 ## 1. Summary
 

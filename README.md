@@ -99,7 +99,9 @@ broadcast fill (v4), wider noise training (v2.2), v2.3 alone, switch hazard (v2.
 way of averaging the models' probabilities with a team member's temporal convolution network (v2.13,
 log entry K010) and a second way with re-trained weights and equal weights (v2.14, log entry K012;
 better on 15 of 16 copies but one copy clearly worse; the third way, with a smaller weight, is part of
-the release). Explored and not registered: forcing a stoppage at set-piece tags (log entry K015) and
+the release) and, as a fourth attempt made although the third had been called the last, a team
+member's eight newly trained network members with weight 0.4 (log entry K020: +0.0144 and better on
+14 of 16 copies, but one copy clearly worse, the same gate as v2.14). Explored and not registered: forcing a stoppage at set-piece tags (log entry K015) and
 giving the broadcast tracking priority where the cameras agree (log entry K016).
 The first goalkeeper check (v2.10) passed its gates and was replaced before release (log entry K004).
 

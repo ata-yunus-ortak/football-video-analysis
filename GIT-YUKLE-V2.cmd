@@ -36,34 +36,20 @@ echo Listede .csv, .xml, .mp4, data/ veya FootballPrivate OLMAMALI.
 echo Devam etmek icin bir tusa basin; iptal icin bu pencereyi kapatin.
 if not defined POSSESSION_NO_PAUSE pause >nul
 set "POSSESSION_MSG1=%TEMP%\possession_msg1.txt"
-> "%POSSESSION_MSG1%" echo Release possession-v2.16: lost players added from the broadcast tracking; records K015-K018
+> "%POSSESSION_MSG1%" echo Records K019-K020: v2.16 chain OK on the team computer; a fourth attempt with the second model failed its gates
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K017: the submission system is now possession-v2.16 = v2.15 plus one step, possession/playerfill.py. When the
->> "%POSSESSION_MSG1%" echo broadcast files are present and the accuracy gate of the ball fill is open, a registered broadcast player with
->> "%POSSESSION_MSG1%" echo no tactical player of either team within 1.5 m is added to the tracking the models see. Tactical positions
->> "%POSSESSION_MSG1%" echo are never moved; without broadcast files or with the gate closed the output is that of v2.15.
->> "%POSSESSION_MSG1%" echo Registered before any validation row, possession-v216-plan.json: on 16 new copies with a simulated second
->> "%POSSESSION_MSG1%" echo camera spellF1 +0.0104, better on 13 copies and worse on 3, worst copy -0.0056; medium stream +0.0073,
->> "%POSSESSION_MSG1%" echo stream that loses and invents players +0.0044, copies of the other simulator +0.0004. All seven gates
->> "%POSSESSION_MSG1%" echo passed, the last one by a hair, possession-v216-results.json. The second camera is simulated and the
->> "%POSSESSION_MSG1%" echo provided broadcast tracking was not examined; the documents say so. The next step of the ladder is v2.15.
->> "%POSSESSION_MSG1%" echo Eleven synthetic variants give the same bytes under Python 3.10 with numpy 1.26.4 and Python 3.13 with numpy 2.5.3.
+>> "%POSSESSION_MSG1%" echo K020: a team member pushed eight newly trained network members on 16 Nov. The v2.15 plan and the documents had
+>> "%POSSESSION_MSG1%" echo said that no further candidate with the second model would be registered; the team lead decided to make one more
+>> "%POSSESSION_MSG1%" echo attempt, and the plan and the documents say so. Registered before any validation row, possession-v217-plan.json:
+>> "%POSSESSION_MSG1%" echo the same seven gates and thresholds, against the release. On 16 new copies with the tactical camera spellF1
+>> "%POSSESSION_MSG1%" echo 0.6704 to 0.6848, with a simulated second camera +0.0125 and +0.0050, copies of the other simulator +0.0110.
+>> "%POSSESSION_MSG1%" echo Six gates passed; the gate on single copies failed, one copy 0.0182 lower, possession-v217-results.json.
+>> "%POSSESSION_MSG1%" echo Not released: possession-v2.16 stays the release and no
+>> "%POSSESSION_MSG1%" echo release file changed. Scripts and the prepared, unreleased integration are under experiments/possession_v2/v219.
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K016: asked by the team lead, whether the broadcast camera should take priority where it agrees with the
->> "%POSSESSION_MSG1%" echo tactical one. Simulated second camera on development copies, reporting only, possession-k016-camera-priority.json
->> "%POSSESSION_MSG1%" echo and experiments/possession_v2/v218: taking the ball or the players from the broadcast stream where both
->> "%POSSESSION_MSG1%" echo agree changed the score by -0.005 to +0.002, also with a stream five times as precise. Not adopted.
->> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K015: asked by the team lead, whether a Smart Tagging set-piece tag without a dead-ball stretch of ours
->> "%POSSESSION_MSG1%" echo around it should force one. Simulated tags on the 42 development copies, reporting only, see
->> "%POSSESSION_MSG1%" echo possession-k015-tag-rescue.json and experiments/possession_v2/v217. The decision already has a dead-ball
->> "%POSSESSION_MSG1%" echo stretch before 93 per cent of the restarts and the published tag counts cover about half of them, so the
->> "%POSSESSION_MSG1%" echo ceiling is 0.003 and the rule gained about 0.001. Not registered.
->> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K018: on 15 Nov the delivery chain ran end to end on the team lead computer with v2.15, every step OK,
->> "%POSSESSION_MSG1%" echo same bytes as recorded on Linux for the synthetic variants. v2.16 needs one more run of the chain there.
->> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo Launchers: this script calls git without its pager and asks for no key when TESLIM-TEK-TIK.cmd starts it.
+>> "%POSSESSION_MSG1%" echo K019: on 16 Nov the delivery chain ran end to end on the team lead computer with v2.16, every step OK. Its status
+>> "%POSSESSION_MSG1%" echo line says that the v2.16 file has the same bytes as the v2.15 file of the day before: on the provided match the
+>> "%POSSESSION_MSG1%" echo added-players step changed no label. The Form had been submitted on 15 Nov with those bytes.
 >> "%POSSESSION_MSG1%" echo.
 >> "%POSSESSION_MSG1%" echo No provided match data and no frame-level output are in the repository. External numbers are
 >> "%POSSESSION_MSG1%" echo agreement with other providers labels, not competition scores.

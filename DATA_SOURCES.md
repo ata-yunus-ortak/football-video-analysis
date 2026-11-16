@@ -31,6 +31,13 @@ branch.
 (`possession/playerfill.py`) validated on new corrupted copies of the validation matches below with a simulated
 second camera (`possession-v216-plan.json`).
 
+**A team member's eight network members (16 Nov), validated and not selected.** Trained by the team member who wrote
+the network, on his own computer, on the six DFL training matches below and, by his statement, on nothing else (his
+account and scripts: byte copies under `experiments/possession_v2/v219/author_74bedbf/`). They were pooled with the
+release's probabilities in a registered validation and that combination was not selected (log entry K020,
+`possession-v217-plan.json`, `possession-v217-results.json`). Those weights are not loaded by the release and are
+not in this branch.
+
 **Second model of the release (v2.15 and v2.16).** Design, features and NumPy inference: the same team member
 (branch `mtah-possession`, commit `167dc7b`; byte copies under `possession/tcn/`). He developed the
 recipe on all seven DFL matches and Metrica games 1-3. The weights in `models/possession-tcn-v215.npz`

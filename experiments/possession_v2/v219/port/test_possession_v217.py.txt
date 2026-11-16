@@ -1,0 +1,139 @@
+"""Synthetic checks for possession v2.17 (possession/tcn/features2.py, possession/tcn/infer2.py, possession/run217.py,
+models/possession-tcn-v217/); no accuracy claims."""
+import ast
+import hashlib
+import json
+import tempfile
+import unittest
+from pathlib import Path
+import numpy as np
+try:
+    from possession import run215, run216, run217, pooling
+    from possession.tcn import infer as tcn_infer, infer2 as tcn_infer2, features as tcn_features, features2 as tcn_features2
+    from tests.test_possession_crossplatform import bundle, HALVES
+    from tests.test_possession_v216 import quiet, labels
+    HAVE_DEPS = True
+except ImportError:
+    HAVE_DEPS = False
+
+REPO = Path(__file__).resolve().parents[1]
+
+
+def tracking(n=600, seed=3):
+    rng = np.random.default_rng(seed)
+    t0 = np.cumsum(rng.normal(0, 0.1, (n, 6, 2)), 0) + rng.uniform(-30, 0, (1, 6, 2))
+    t1 = np.cumsum(rng.normal(0, 0.1, (n, 6, 2)), 0) + rng.uniform(0, 30, (1, 6, 2))
+    ball = t0[:, 0] + 0.5
+    ball[200:260] = np.nan
+    t1[100:130, 2] = np.nan
+    return ball.astype(np.float32), t0.astype(np.float32), t1.astype(np.float32)
+
+
+@unittest.skipUnless(HAVE_DEPS, 'possession dependencies not installed')
+class NetworkTests(unittest.TestCase):
+    def members(self, names=None):
+        return sum((tcn_infer2.load_weights(run217.TCN_DIR / n) for n in (names or run217.TCN_MEMBERS)), [])
+
+    def test_eight_member_files_four_on_each_feature_set(self):
+        self.assertEqual(len(run217.TCN_MEMBERS), 8)
+        members = self.members()
+        self.assertEqual(len(members), 8)                                              # one network per file
+        self.assertEqual([w['stem.weight'].shape for w in members],
+                         [(128, tcn_features.N_FEATURES, 5)] * 4 + [(128, tcn_features2.N_FEATURES, 5)] * 4)
+        self.assertEqual((tcn_features.N_FEATURES, tcn_features2.N_FEATURES), (37, 71))
+        for w in members:
+            self.assertEqual(w['head.weight'].shape, (3, 128, 1))
+            self.assertEqual(sum(1 for k in w if k.endswith('.dilation')), 14)
+
+    def test_the_extended_features_start_with_the_first_feature_set(self):
+        ball, t0, t1 = tracking()
+        f1, s1 = tcn_features.build(ball, t0, t1)
+        f2, s2 = tcn_features2.build(ball, t0, t1)
+        self.assertEqual((f1.shape, f2.shape, s1), ((600, 37), (600, 71), s2))
+        self.assertTrue(np.array_equal(f1, f2[:, :37]))
+        self.assertTrue(np.isfinite(f2).all())
+        self.assertEqual(f2.dtype, np.float32)
+        empty = np.full((600, 6, 2), np.nan, np.float32)                               # a team without any player
+        self.assertTrue(np.isfinite(tcn_features2.build(ball, t0, empty)[0]).all())
+
+    def test_every_member_gets_its_own_features(self):
+        ball, t0, t1 = tracking()
+        a, f = self.members(['d6_a_s0.npz', 'd6_f_s0.npz'])
+        mixed = tcn_infer2.probabilities([a, f], ball, t0, t1)
+        total = 0.0
+        for w, feats in ((a, tcn_features), (f, tcn_features2)):
+            total = total + tcn_infer2.forward(w, feats.build(ball, t0, t1)[0]) + tcn_infer2.forward(w, feats.build(ball, t1, t0)[0])[:, [1, 0, 2]]
+        self.assertTrue(np.array_equal(mixed, np.round(total / 4, tcn_infer2.PROB_DECIMALS)))
+        self.assertEqual(mixed.shape, (300, 3))
+        self.assertTrue(np.allclose(mixed.sum(1), 1.0, atol=2e-4))
+        swapped = tcn_infer2.probabilities([a, f], ball, t1, t0)
+        self.assertTrue(np.allclose(mixed, swapped[:, [1, 0, 2]], atol=1e-9))            # averaged over both team orders
+
+    def test_the_new_inference_gives_the_old_bytes_for_the_old_members(self):
+        ball, t0, t1 = tracking()
+        old = tcn_infer.load_weights(run215.TCN_MODEL)
+        self.assertTrue(np.array_equal(tcn_infer2.probabilities(old, ball, t0, t1), tcn_infer.probabilities(old, ball, t0, t1)))
+        self.assertEqual((tcn_infer2.STRIDE, tcn_infer2.PROB_DECIMALS), (tcn_infer.STRIDE, tcn_infer.PROB_DECIMALS))
+
+
+@unittest.skipUnless(HAVE_DEPS, 'possession dependencies not installed')
+class Run217Tests(unittest.TestCase):
+    def test_manifest_and_no_frame_constant(self):
+        rel = run217.check_release()
+        self.assertEqual(rel['version'], 'possession-v2.17')
+        self.assertEqual(run217.SOURCES, run216.SOURCES + ('tcn/features2.py', 'tcn/infer2.py', 'run217.py'))
+        v216 = json.loads(run216.RELEASE.read_text(encoding='utf-8'))
+        self.assertEqual({k: rel['source_sha256'][k] for k in v216['source_sha256']}, v216['source_sha256'])      # no v2.16 file changed
+        self.assertEqual(rel['tcn_members_sha256'],
+                         {n: hashlib.sha256((run217.TCN_DIR / n).read_bytes()).hexdigest() for n in run217.TCN_MEMBERS})
+        self.assertEqual((run217.TCN_WEIGHT, pooling.POOL, run217.FUSED_PATH), (0.4, 'arithmetic', 'v2.1'))
+        for mod in (run217, tcn_infer2, tcn_features2):
+            tree = ast.parse(Path(mod.__file__).read_text(encoding='utf-8'))
+            numbers = [n.value for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, (int, float))
+                       and not isinstance(n.value, bool)]
+            self.assertTrue(all(abs(v) <= 2000 for v in numbers), numbers)       # no frame number of any match in the code
+
+    def test_the_second_model_is_the_only_difference_to_v216(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            data = bundle(root / 'lost', lost=True)
+            kw = dict(game='SYN', halves=HALVES, release=None)
+            # 1. the second model switched off in both: the same bytes (every other line of run217 is the v2.16 flow)
+            quiet(run216, data, root / 'off216', pooled=False, **kw)
+            off = quiet(run217, data, root / 'off', pooled=False, **kw)
+            self.assertEqual((root / 'off' / 'submission.csv').read_bytes(), (root / 'off216' / 'submission.csv').read_bytes())
+            self.assertFalse(off['second_model']['used'])
+            # 2. on: eight members with weight 0.4 are recorded, the labels are H/A/D and differ from v2.16
+            old = quiet(run216, data, root / 'v216', **kw)
+            on = quiet(run217, data, root / 'on', **kw)
+            rep = json.loads((root / 'on' / 'run.json').read_text())
+            self.assertEqual(rep['path'], 'v2.1')
+            self.assertIn('v2.17', rep['system'])
+            self.assertEqual({k: v for k, v in rep['second_model'].items() if k != 'weights_sha256'},
+                             {'used': True, 'members': 8, 'pool': 'arithmetic', 'weight': 0.4})
+            self.assertEqual(list(rep['second_model']['weights_sha256']), list(run217.TCN_MEMBERS))
+            self.assertEqual(rep['added_players'], old['added_players'])                          # the same tracking goes into the models
+            self.assertTrue(rep['added_players']['used'])
+            lo = labels(root / 'on' / 'submission.csv')
+            self.assertEqual(len(lo), 9000)
+            self.assertTrue(set(np.unique(lo)) <= {'H', 'A', 'D'})
+            self.assertTrue((lo != labels(root / 'v216' / 'submission.csv')).any())
+            self.assertEqual(rep['submission_sha256'], on['submission_sha256'])
+            # 3. the same run again: the same bytes
+            quiet(run217, data, root / 'again', **kw)
+            self.assertEqual((root / 'again' / 'submission.csv').read_bytes(), (root / 'on' / 'submission.csv').read_bytes())
+
+    def test_noisy_path_is_not_pooled_and_gives_the_bytes_of_v216(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            data = bundle(root / 'noisy', player_noise=0.45, lost=True)
+            kw = dict(game='SYN', halves=HALVES, release=None)
+            quiet(run216, data, root / 'v216', **kw)
+            v = quiet(run217, data, root / 'v', **kw)
+            self.assertEqual(v['path'], 'v2.3')
+            self.assertFalse(v['second_model']['used'])
+            self.assertEqual((root / 'v' / 'submission.csv').read_bytes(), (root / 'v216' / 'submission.csv').read_bytes())
+
+
+if __name__ == '__main__':
+    unittest.main()

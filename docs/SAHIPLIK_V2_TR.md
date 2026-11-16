@@ -747,3 +747,19 @@ girmedi.
 *Öğrenilecek şey (v2.15):* bir fikir ilk ölçümde başarısız olunca iki yol vardır: bırakmak ya da **neden** başarısız olduğunu
 bulmak. Nedeni bulunca (yanlış eğitim verisi, yanlış çözücü) düzeltilmiş hâli yeniden ölçülebilir; ama her yeni ölçüm
 yeni veride ve şartlar önceden yazılarak yapılmalı, kaç kez denendiği de açıkça yazılmalıdır.
+
+## Güncelleme, 16 Kasım 2026: v2.16 bu maçta dosyayı değiştirmedi; ikinci modelle dördüncü deneme geçmedi
+
+Teslim sistemi **possession-v2.16** olarak kaldı. Ayrıntılı kayıt: `docs/DENEY_KAYDI_TR.md` K019 ve K020.
+
+**K019.** Zincir 16 Kasım gecesi ekibin bilgisayarında v2.16 ile sorunsuz çalıştı; ama çıkan dosya v2.15'in dosyasıyla bayt bayt
+aynıydı. Yani v2.16'nın eklediği adım bu maçta hiçbir etiketi değiştirmedi. Dış kopyalarda ölçülen kazanç benzetilmiş ikinci
+kamerayla ölçülmüştü; bu maç için bir söz değildi.
+
+**K020.** Takım arkadaşımız ikinci model için sekiz yeni ağ eğitti. v2.15 için "son deneme" yazmıştık; takım lideri bir deneme
+daha yapılmasına karar verdi ve bunu açıkça yazdık. Şartları gevşetmedik. 16 yeni kopyada taktik kamerayla +0,0144
+(16 kopyanın 14'ünde daha iyi), ama bir kopyada 0,0182 daha kötü çıktı ve "hiçbir kopya 0,010'dan fazla kötü olmasın" şartı
+geçmedi (v2.14'ü durduran şart). Öteki altı şart geçti. Aday sürüme girmedi.
+
+*Öğrenilecek şey:* umut verici bir sonuç görünce "bir kez daha deneyelim" demek insani bir şeydir. Onu savunulabilir kılan,
+şartları önceden yazmak, gevşetmemek ve sonucu, hoşa gitmese de, olduğu gibi kaydetmektir.
