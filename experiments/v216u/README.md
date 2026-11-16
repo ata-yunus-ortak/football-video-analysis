@@ -144,6 +144,12 @@ against recorded numbers (no recorded DFL row is on the v2.3 path); the copies c
 the validation copies; the two v2.3 copies among the 40 old development copies agree (+0.025 at w 0.4).
 The extended-feature members matter here: without them single copies lose up to 0.024.
 
+## Cross-version check
+
+`xenv.py` (synthetic input, eight six-match members, rounded probabilities): the same SHA-256
+`a91b133b...ba9ebf6b` under Python 3.12.13 / NumPy 2.5.4 and Python 3.10.20 / NumPy 1.26.4, both on macOS arm64.
+Linux and Windows were not tested here.
+
 ## Limits
 
 - The 40 copies were used before (v2.14 / v2.15 validations and their development), and the
