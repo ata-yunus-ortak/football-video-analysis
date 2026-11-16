@@ -11,12 +11,15 @@ matches = sys.argv[5:]
 CROP, BATCH = 2048, 16
 seqs = []
 for m in matches:
-    for f in sorted(glob.glob(f'{C}cache/{m}_h*_*.npz')):
+    for f in sorted(glob.glob(f'{C}cache{os.environ.get("FEAT", "")}/{m}_h*_*.npz')):
         b = np.load(f); seqs.append((b['x'].astype(np.float32), b['y'].astype(np.int64)))
 print(tag, 'sequences', len(seqs), flush=True)
 torch.manual_seed(seed); rng = np.random.default_rng(seed)
 dev = 'mps' if torch.backends.mps.is_available() else 'cpu'
-model = make_model(dropout=dropout).to(dev)
+model = make_model(hidden=int(os.environ.get('HIDDEN', 128)), dropout=dropout)
+if seqs[0][0].shape[1] != model.stem.in_channels:
+    model.stem = torch.nn.Conv1d(seqs[0][0].shape[1], model.stem.out_channels, 5, padding=2)
+model = model.to(dev)
 steps = sum(len(x) for x, _ in seqs) // (CROP * BATCH)
 opt = torch.optim.AdamW(model.parameters(), lr=2e-3, weight_decay=1e-2)
 sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=2e-3, total_steps=epochs * steps)

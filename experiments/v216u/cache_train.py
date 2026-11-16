@@ -4,7 +4,10 @@ Usage: cache_train.py MATCH N_OURS N_SIM2"""
 import sys, os, numpy as np
 import env
 from env import E, play_blocks, tfeat
-OUT = '/Users/umut/BARCELONA/work/v216u/cache/'
+FEAT = os.environ.get('FEAT', '')
+OUT = '/Users/umut/BARCELONA/work/v216u/cache%s/' % FEAT
+if FEAT:
+    sys.path.insert(0, '/Users/umut/BARCELONA/work/v216u'); import importlib; tfeat = importlib.import_module('features' + FEAT)
 MATCHES = ['J03WOH', 'J03WOY', 'J03WPY', 'J03WQQ', 'J03WN1', 'J03WR9']
 CODE = {'H': 0, 'A': 1, 'D': 2}
 os.makedirs(OUT, exist_ok=True)

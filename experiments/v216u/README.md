@@ -47,11 +47,39 @@ All 20 DFL copies: d4_a pair 0.6554, d4_b pair 0.6434, all four 0.6526.
 Reading: recipe a adds more than recipe b. With the a members added, the worst copy stops
 going negative up to weight 0.4 on Metrica. The pooled effect on DFL is unknown here.
 
+## Update 16 Nov, night: pooled numbers on DFL as well
+
+`v2val.py` rebuilds the four-match v2.1 validation models (`models_v2.pkl`, `stack_v2.pkl`) with the
+logic of `train1.py` (FTAG=_f2) and `exp_stack.py _f2`, scikit-learn 1.9.1. Check: on all ten DFL
+copies of the v2.15 validation the rebuilt models give the v2_11 spellF1 of
+`possession-v215-results.json` to four decimals (e.g. J03WN1|19100 0.6043, J03WR9|19110 0.7158).
+All 20 DFL development copies are on the v2.1 path.
+
+More members: `d4_a_s2`, `d4_a_s3`, `d6_a_s2`, `d6_a_s3` (recipe a, seeds 2 and 3). Also tried and
+not kept: hidden 192 (three seeds), hidden 256, 7 epochs - single members differ by seed, ensembles
+end at the same level as recipe a.
+
+Pooled exactly as v2.15 (`grid216.py`), mean spellF1 difference to v2.11 / worst copy, 20 DFL + 20 Metrica copies:
+
+| TCN members | side | TCN alone | w 0.2 | w 0.3 | w 0.4 | w 0.5 |
+|---|---|---|---|---|---|---|
+| a_s0..s3 (4) | DFL | +0.0134 / -0.026 | +0.0179 / +0.0047 | +0.0252 / +0.0090 | +0.0297 / +0.0142 | +0.0290 / +0.0069 |
+| a_s0..s3 (4) | Metrica | +0.0083 / -0.032 | +0.0172 / 0.0 | +0.0206 / -0.0004 | +0.0219 / -0.0104 | +0.0218 / -0.0086 |
+| v2.15 (3) | Metrica | +0.0091 / -0.034 | +0.0136 / -0.0031 | +0.0162 / -0.0019 | +0.0194 / 0.0 | +0.0187 / -0.0160 |
+| v2.15 (3) + a_s0..s3 + three hidden-192 | Metrica | +0.0186 / -0.023 | +0.0168 / 0.0 | +0.0208 / 0.0 | +0.0233 / 0.0 | +0.0257 / -0.0066 |
+
+For comparison, the registered v2.15 result (w 0.2, its own new copies): DFL +0.0126, Metrica +0.0097.
+The v2.15 four-match members are not in the repository, so sets containing them cannot be scored on DFL here.
+
+Reading: with the recipe-a members the pooled gain is about +0.025 (DFL) and +0.021 (Metrica) at
+w 0.3 with no copy clearly worse, against about +0.013 / +0.014 for v2.15 at w 0.2. Same caveat as
+above: reused copies, several sets and weights compared.
+
 ## Limits
 
 - The 40 copies were used before (v2.14 / v2.15 validations and their development), and the
   table compares 4 member sets x 4 weights on them: optimistic by construction.
-- The pooled system could not be run on DFL here.
+- Sets that include the v2.15 members could not be pooled on DFL here.
 - Run time: each member adds about one minute per match in the NumPy inference.
 
 ## Reproduce

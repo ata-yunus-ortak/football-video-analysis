@@ -36,7 +36,7 @@ def score(tag, weight, names):
     """names: weight-file stems whose member probabilities fwd216.py stored (all members of all files are averaged)."""
     rows = []
     for f in sorted(glob.glob(D + ('J03*' if tag == 'd4' else 'MET*') + '.npz')):
-        z = np.load(f); per, lab, path = z['per'], z['lab'], str(z['path'])
+        z = dict(np.load(f)); per, lab, path = z['per'], z['lab'], str(z['path'])
         mem = [np.load(g) for n in names for g in sorted(glob.glob(f'{D}probs/{n}.m*__{os.path.basename(f)}'))]
         assert mem, (names, f)
         tcn = np.full((len(per), 3), 1.0 / 3.0); alone = np.full(len(per), 'D', dtype='<U1')
@@ -45,7 +45,10 @@ def score(tag, weight, names):
             tcn[a:b] = tdecode.upsample(prob, tinfer.STRIDE, b - a)
             alone[a:b] = LETTERS[tdecode.decode(prob, tfuse.SWITCH_COST, tinfer.STRIDE, b - a)]
         r = {'copy': os.path.basename(f)[:-4], 'path': path, 'tcn_alone': E.metrics(lab, alone, per)['spell_f1']}
-        if 'p_dead' in z.files:
+        v2f = D + 'v2_' + os.path.basename(f)
+        if 'p_dead' not in z and os.path.exists(v2f):
+            z.update(np.load(v2f))
+        if 'p_dead' in z:
             r['v2_11'] = E.metrics(lab, z['v2_labels'], per)['spell_f1']
             for wt in weight:
                 if path == 'v2.1':

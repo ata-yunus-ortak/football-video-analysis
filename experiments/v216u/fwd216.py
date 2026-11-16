@@ -8,7 +8,10 @@ dev = 'mps' if torch.backends.mps.is_available() else 'cpu'
 def members(path):
     blob = np.load(path); out = []
     for m in sorted({k.split('/')[0] for k in blob.files}):
-        model = make_model()
+        sw = blob[m + '/stem.weight']
+        model = make_model(hidden=sw.shape[0])
+        if sw.shape[1] != model.stem.in_channels:
+            model.stem = torch.nn.Conv1d(sw.shape[1], sw.shape[0], 5, padding=2)
         model.load_state_dict({k.split('/', 1)[1]: torch.from_numpy(blob[k]) for k in blob.files if k.startswith(m + '/') and not k.endswith('dilation')})
         out.append(model.eval().to(dev))
     return out
@@ -24,6 +27,8 @@ for wpath in sys.argv[2:]:
             if os.path.exists(o):
                 continue
             z = np.load(f); out = {}; k = 0
+            if mem[0].stem.in_channels != 37:
+                z = np.load(D + 'f%d_' % {71: 2}.get(mem[0].stem.in_channels, 0) + os.path.basename(f))
             while f'x{k}' in z.files:
                 out[f'p{k}'] = 0.5 * (fwd(model, z[f'x{k}']) + fwd(model, z[f'w{k}'])[:, [1, 0, 2]]); k += 1
             np.savez(o, **out)
