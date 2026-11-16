@@ -109,8 +109,13 @@ tactical copies with seeds 23100 + 10 * match + j and one second-simulator copy 
 
 19 of 20 copies better than v2.11 with the candidate; all 20 on the v2.1 path. Against the numbers of gates
 G1-G4 and G7 (taken against v2.11): mean +0.027, DFL +0.023, Metrica +0.031, worst copy -0.0025, second
-simulator +0.025 to +0.044 on its four copies. Not checked here: macroF1 (G5), the broadcast-fill
-conditions (G6), the 42 m view.
+simulator +0.025 to +0.044 on its four copies. macroF1 (G5): +0.0103 on DFL, +0.0076 on Metrica.
+
+Broadcast fill (G6; `holdfill.sh`, `holdout_new_seeds_fill.json`): copies j = 0, 1 of each match (8 per regime),
+stream / clock seeds 83100 / 93100, built with `lib214.inputs` and the quality sampler of `exp_v25`; the 0.50 m gate
+opened on all 16. Candidate at w 0.4, difference to v2.11: fill_good +0.0259 (worst +0.0127; DFL +0.0277, Metrica
++0.0241), fill_medium +0.0266 (worst -0.0088; DFL +0.0352, Metrica +0.0180). The v2.15 members at w 0.2 on the same
+Metrica copies: +0.0097 and +0.0068. Not checked here: the 42 m view.
 
 This is not the team's registered validation: the matches are the usual four, the simulators are the
 team's, and it was run by the party that built the candidate. It only says the development numbers were not

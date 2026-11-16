@@ -19,3 +19,14 @@ import pooling
 from possession.decode import emissions, decode_blocks
 from possession.features import play_blocks
 from tcn import infer as tinfer, decode as tdecode, fuse as tfuse, features as tfeat, degrade as tdegrade
+
+# real broadcast-quality sampler of exp_v25 (its module cannot be imported: it loads pickles at import)
+import synth_broadcast as _sb
+_REG = {'good': ((0.0, 0.2), (0.05, 0.25), (0.05, 0.25)), 'medium': ((0.2, 0.6), (0.25, 0.5), (0.25, 0.5))}
+def _quality(rng, regime):
+    q = _sb.sample_quality(rng, 'default')
+    (b0, b1), (s0, s1), (p0, p1) = _REG[regime]
+    q.update(bias_sd=float(rng.uniform(b0, b1)), b_sd=float(rng.uniform(s0, s1)), p_sd=float(rng.uniform(p0, p1)))
+    return q
+stub.quality = _quality
+E.quality = _quality

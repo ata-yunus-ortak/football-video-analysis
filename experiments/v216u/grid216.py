@@ -13,7 +13,8 @@ def one(args):
     if 'p_dead' not in z:
         z.update(np.load(v2f))
     per, lab, path = z['per'], z['lab'], str(z['path'])
-    out = {'copy': base[:-4], 'path': path, 'v2_11': E.metrics(lab, z['v2_labels'], per)['spell_f1'], 'sets': {}}
+    m11 = E.metrics(lab, z['v2_labels'], per)
+    out = {'copy': base[:-4], 'path': path, 'v2_11': m11['spell_f1'], 'v2_11_macro': m11['macro_f1'], 'sets': {}}
     for name, stems in sets.items():
         if dfl and 'HIS' in stems:
             continue
@@ -31,7 +32,8 @@ def one(args):
         for w in weights:
             if path == 'v2.1':
                 pd2, ph2 = pooling.pool(tcn, z['p_dead'], z['p_home'], weight=w)
-                r['w%.2f' % w] = E.metrics(lab, decode_blocks(emissions(pd2, ph2), per, E.PATHS[path][2]), per)['spell_f1']
+                mm = E.metrics(lab, decode_blocks(emissions(pd2, ph2), per, E.PATHS[path][2]), per)
+                r['w%.2f' % w] = mm['spell_f1']; r['macro_w%.2f' % w] = mm['macro_f1']
             else:
                 r['w%.2f' % w] = out['v2_11']
         out['sets'][name] = r
@@ -54,4 +56,5 @@ if __name__ == '__main__':
             for k in ['alone'] + ['w%.2f' % w for w in weights]:
                 d = [r['sets'][name][k] - r['v2_11'] for r in rr]
                 line.append('%s %+.4f/%+.4f' % (k, np.mean(d), min(d)))
-            print('  ', grp, len(rr), ' '.join(line), flush=True)
+            mac = ['macro w%.2f %+.4f' % (w, np.mean([r['sets'][name].get('macro_w%.2f' % w, r['v2_11_macro']) - r['v2_11_macro'] for r in rr])) for w in weights]
+            print('  ', grp, len(rr), ' '.join(line), '|', ' '.join(mac), flush=True)
