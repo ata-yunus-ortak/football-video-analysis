@@ -6,11 +6,24 @@ import sys, os, time, pickle, numpy as np
 import env, harness
 harness.CACHE = '/Users/umut/BARCELONA/work/v216u/v2cache/'
 from harness import load, feats, DFL_TRAIN
-TAG, SEEDS, C = '_f2', [1, 2, 3], harness.CACHE
+V23 = os.environ.get('V23') == '1'      # v2.3 path models: profile v2.3, smoothed input (precompute23.py _s23t v2.3 1 1,2,3)
+TAG, SEEDS, C = ('_s23t' if V23 else '_f2'), [1, 2, 3], harness.CACHE
+OUT1, OUT2 = ('models_v23.pkl', 'stack_v23.pkl') if V23 else ('models_v2.pkl', 'stack_v2.pkl')
 if sys.argv[1] == 'feats':
-    for s in SEEDS:
-        for w in (False, True):
-            feats(sys.argv[2], s, w, TAG)
+    if V23:
+        from possession.degrade import degrade, sample_params, RANGES_V23
+        from possession.features import features
+        from possession.smooth import smooth_positions
+        m, lab = load(sys.argv[2])
+        for s in SEEDS:
+            rng = np.random.default_rng(s)
+            dm = smooth_positions(degrade(m, lab, rng, sample_params(rng, ranges=RANGES_V23)))
+            for w in (False, True):
+                np.save(f'{C}{sys.argv[2]}_s{s}_w{int(w)}{TAG}.npy', features(dm, swap=w)[0])
+    else:
+        for s in SEEDS:
+            for w in (False, True):
+                feats(sys.argv[2], s, w, TAG)
     print('done', sys.argv[2]); sys.exit()
 from sklearn.ensemble import HistGradientBoostingClassifier
 from possession.stack import stack_features
@@ -50,7 +63,7 @@ def probs(models, name, seed):
     return pd_, ph
 
 t = time.time()
-pickle.dump(fit1(DFL_TRAIN), open(C + 'models_v2.pkl', 'wb')); print('stage 1', round(time.time() - t), flush=True)
+pickle.dump(fit1(DFL_TRAIN), open(C + OUT1, 'wb')); print('stage 1', round(time.time() - t), flush=True)
 oof = {}
 for k in DFL_TRAIN:
     models = fit1([n for n in DFL_TRAIN if n != k])
@@ -70,4 +83,4 @@ X2 = np.concatenate(Xs); yd2 = np.concatenate(yd); yh2 = np.concatenate(yh)
 sd = HistGradientBoostingClassifier(random_state=0, **HP2).fit(X2, yd2)
 a = yh2 >= 0
 sh = HistGradientBoostingClassifier(random_state=0, **HP2).fit(X2[a], yh2[a])
-pickle.dump((sd, sh), open(C + 'stack_v2.pkl', 'wb')); print('stacked', round(time.time() - t), flush=True)
+pickle.dump((sd, sh), open(C + OUT2, 'wb')); print('stacked', round(time.time() - t), flush=True)
