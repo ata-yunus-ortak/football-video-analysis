@@ -118,9 +118,19 @@ Ubuntu/Py3.12 and Windows/Py3.10. Output directories must not already exist.
 - Active branch: `feature/external-possession-selection`. Keep experiments on separate
   branches; a selected release needs its own version, source freeze and provenance.
 
-## Status snapshot (16 Nov 2026, afternoon — verify before relying on it)
+## Status snapshot (17 Nov 2026, 00:40 — verify before relying on it)
 
-- **Submission system: still `possession-v2.16`** (`python -m possession.run216`). Nothing of the release changed today.
+- **Submission system: still `possession-v2.16`** (`python -m possession.run216`). Nothing of the release changed on 16 Nov.
+- **K021 (16 Nov 23:31 - 17 Nov 00:24): the chain ran OK on commit cc62a5f** (K019-K020 records; every step OK;
+  `TESLIM ... onceki teslim dosyasi ile AYNI`; `TEMIZ KLON AYNI`; GitHub Actions run 16 succeeded). **Documents only since
+  then:** at the team lead's request Section 6 of `TECHNICAL_DOCUMENT.md` (the delivered document) now has the four items
+  the organisers' reply of 3 Nov asks for (rules snapshot, what happened, affected stages, how the selection was re-done)
+  and says what that reply answered (a "good-faith situation"; the team may continue and be evaluated as normal on four
+  conditions) and what was done for each condition. One sentence of `TECHNICAL_DOCUMENT_V2.md` Section 2 was corrected (the
+  team worked from its old `RULES.md` until the end of October). The provider-side cleanup is written as the team lead
+  stated it on 16 Nov (he verified it himself; no agent saw that check; `REMEDIATION.md` records it as his statement and
+  keeps its earlier entries). Keep to that form: say what was done and where it is recorded. **Still open:** one more
+  chain run by the team lead so that `LittleSickle.md` carries the new Section 6, then the Form.
 - **K020, a fourth attempt with the second model, against a written statement: FAILED its gates.** The v2.15 plan and the
   documents said that no further candidate with the second model would be registered. On 16 Nov the team member who
   wrote the network pushed eight new members (branch `mtah-possession`, commit `74bedbf`) with his development numbers;
@@ -141,8 +151,8 @@ Ubuntu/Py3.12 and Windows/Py3.10. Output directories must not already exist.
 - **Form:** the team lead submitted the Google Form on 15 Nov at about 18:45 with the v2.15 files (the same bytes as the
   v2.16 file). The Form can be sent again through the same link (not recorded in the repository: it was mailed to
   participants only); the last response before the deadline counts (SUBMISSION.md). Only the team lead fills it in.
-  The technical document changed today (Section 3 tells of the fourth attempt): one more chain run regenerates
-  `LittleSickle.md`, and the Form should then be sent again with it.
+  The technical document changed on 16 Nov (Section 3: the fourth attempt; Section 6: the extended disclosure, K021): the
+  Form is sent again with the `LittleSickle.md` of the chain run that follows the K021 commit.
 - **Deadline:** Tue 17 Nov 23:59 CET = Wed 18 Nov 01:59 Istanbul.
 
 ## Earlier status (15 Nov 2026, evening)

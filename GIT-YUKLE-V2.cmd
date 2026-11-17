@@ -22,7 +22,7 @@ echo      Bu haliyle devam etmek icin bir tusa basin; iptal icin pencereyi kapat
 if not defined POSSESSION_NO_PAUSE pause >nul
 :workflowok
 git reset -q
-git add -- possession models/possession-v2.npz models/possession-v23.npz models/possession-tcn-v215.npz "tests/test_possession_*.py" tests/test_ball_patch_data.py "possession-*.json" experiments/possession_v2 tools/possession_clock.py tools/possession_deliver.py tools/possession_final_test.py tools/possession_place_files.py requirements-possession.txt requirements-possession-train.txt SAHIPLIK-V2-KURULUM.cmd SAHIPLIK-V2-URET.cmd SAHIPLIK-V24-URET.cmd SAHIPLIK-V25-URET.cmd SAHIPLIK-V29-URET.cmd SAHIPLIK-V211-URET.cmd SAAT-OKU.cmd TESLIM-HAZIRLA.cmd TESLIM-TEK-TIK.cmd SON-TEST.cmd GIT-YUKLE-V2.cmd TECHNICAL_DOCUMENT.md TECHNICAL_DOCUMENT_V2.md DATA_SOURCES.md README.md CLAUDE.md AGENTS.md TEAM_START_TR.md docs/SAHIPLIK_V2_TR.md docs/DENEY_KAYDI_TR.md .gitignore .gitattributes .github/workflows/tests.yml
+git add -- possession models/possession-v2.npz models/possession-v23.npz models/possession-tcn-v215.npz "tests/test_possession_*.py" tests/test_ball_patch_data.py "possession-*.json" experiments/possession_v2 tools/possession_clock.py tools/possession_deliver.py tools/possession_final_test.py tools/possession_place_files.py requirements-possession.txt requirements-possession-train.txt SAHIPLIK-V2-KURULUM.cmd SAHIPLIK-V2-URET.cmd SAHIPLIK-V24-URET.cmd SAHIPLIK-V25-URET.cmd SAHIPLIK-V29-URET.cmd SAHIPLIK-V211-URET.cmd SAAT-OKU.cmd TESLIM-HAZIRLA.cmd TESLIM-TEK-TIK.cmd SON-TEST.cmd GIT-YUKLE-V2.cmd TECHNICAL_DOCUMENT.md TECHNICAL_DOCUMENT_V2.md REMEDIATION.md DATA_SOURCES.md README.md CLAUDE.md AGENTS.md TEAM_START_TR.md docs/SAHIPLIK_V2_TR.md docs/DENEY_KAYDI_TR.md .gitignore .gitattributes .github/workflows/tests.yml
 if errorlevel 1 (echo git add basarisiz. & pause & exit /b 1)
 call :guard
 if errorlevel 1 exit /b 1
@@ -36,23 +36,19 @@ echo Listede .csv, .xml, .mp4, data/ veya FootballPrivate OLMAMALI.
 echo Devam etmek icin bir tusa basin; iptal icin bu pencereyi kapatin.
 if not defined POSSESSION_NO_PAUSE pause >nul
 set "POSSESSION_MSG1=%TEMP%\possession_msg1.txt"
-> "%POSSESSION_MSG1%" echo Records K019-K020: v2.16 chain OK on the team computer; a fourth attempt with the second model failed its gates
+> "%POSSESSION_MSG1%" echo Record K021: chain OK on cc62a5f; process disclosure of the delivered document extended, documents only
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K020: a team member pushed eight newly trained network members on 16 Nov. The v2.15 plan and the documents had
->> "%POSSESSION_MSG1%" echo said that no further candidate with the second model would be registered; the team lead decided to make one more
->> "%POSSESSION_MSG1%" echo attempt, and the plan and the documents say so. Registered before any validation row, possession-v217-plan.json:
->> "%POSSESSION_MSG1%" echo the same seven gates and thresholds, against the release. On 16 new copies with the tactical camera spellF1
->> "%POSSESSION_MSG1%" echo 0.6704 to 0.6848, with a simulated second camera +0.0125 and +0.0050, copies of the other simulator +0.0110.
->> "%POSSESSION_MSG1%" echo Six gates passed; the gate on single copies failed, one copy 0.0182 lower, possession-v217-results.json.
->> "%POSSESSION_MSG1%" echo Not released: possession-v2.16 stays the release and no
->> "%POSSESSION_MSG1%" echo release file changed. Scripts and the prepared, unreleased integration are under experiments/possession_v2/v219.
+>> "%POSSESSION_MSG1%" echo K021: on 16 Nov 23:31 the delivery chain ran end to end on the team lead computer on commit cc62a5f, every step OK.
+>> "%POSSESSION_MSG1%" echo The file has the same bytes as the one already delivered, also on a second run and from a fresh clone.
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo K019: on 16 Nov the delivery chain ran end to end on the team lead computer with v2.16, every step OK. Its status
->> "%POSSESSION_MSG1%" echo line says that the v2.16 file has the same bytes as the v2.15 file of the day before: on the provided match the
->> "%POSSESSION_MSG1%" echo added-players step changed no label. The Form had been submitted on 15 Nov with those bytes.
+>> "%POSSESSION_MSG1%" echo Documents only since then, at the team lead request. Section 6 of TECHNICAL_DOCUMENT.md now has the four items the
+>> "%POSSESSION_MSG1%" echo organisers asked for in their reply of 3 Nov: the rules snapshot the team worked from in October, what happened,
+>> "%POSSESSION_MSG1%" echo the affected stages and how the selection was re-done. It also says what that reply answered and what was done for
+>> "%POSSESSION_MSG1%" echo each of its conditions. One sentence of TECHNICAL_DOCUMENT_V2.md Section 2 is corrected: the team worked from its old
+>> "%POSSESSION_MSG1%" echo copy of RULES.md until the end of October. REMEDIATION.md records a statement of the team lead of 16 Nov about the
+>> "%POSSESSION_MSG1%" echo provider side as his statement. Its earlier entries are unchanged. No code, model or release file changed.
 >> "%POSSESSION_MSG1%" echo.
->> "%POSSESSION_MSG1%" echo No provided match data and no frame-level output are in the repository. External numbers are
->> "%POSSESSION_MSG1%" echo agreement with other providers labels, not competition scores.
+>> "%POSSESSION_MSG1%" echo No provided match data and no frame-level output are in the repository.
 >> "%POSSESSION_MSG1%" echo.
 >> "%POSSESSION_MSG1%" echo Co-Authored-By: Claude Fable 5.2 ^<noreply@anthropic.com^>
 >> "%POSSESSION_MSG1%" echo Claude-Session: https://claude.ai/code/session_01XFbvRnLFWRaGyWGvKPjhiv

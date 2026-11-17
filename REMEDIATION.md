@@ -73,3 +73,11 @@ files and final provider-side backend purging remain unverified. This does
 not establish that every organizer condition is complete.
 
 Evidence: `C:/Users/Abra/FootballPrivate/remediation-20261103/provider-deletion-20261107.json`.
+
+## Statement of the team lead — 16 November 2026
+
+On 16 November 2026 the team lead stated that the old conversation is deleted and that he has
+since verified the provider's side himself, with a tool other than the assistant that maintains
+this repository. That check was not made by, or shown to, the process that maintains this file,
+so it is recorded here as his statement; its date and the tool are not recorded here. The entries
+above describe what could be checked on their dates and are left as they were written.

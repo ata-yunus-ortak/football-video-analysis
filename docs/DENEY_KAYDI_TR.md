@@ -1,5 +1,66 @@
 # Deney kaydı
 
+## K021 — Zincir K019-K020 kayıtlarıyla OK; teslim belgesindeki süreç açıklaması organizatörün istediği dört maddeye göre genişletildi (yalnız belge), 16-17 Kasım 2026
+
+**Zincir (16 Kasım 23:31 - 17 Kasım 00:24).** Takım lideri `TESLIM-TEK-TIK.cmd`'yi çalıştırdı. Commit `cc62a5f` (K019-K020
+kayıtları, 59 dosya) GitHub'a gitti; GitHub Actions bu commit'te başarılı (çalıştırma 16, 8 dk 41 sn). Paylaşılabilir durum
+satırları (`Desktop\logs\PAYLASILABILIR-durum.txt`; başka hiçbir çıktı okunmadı):
+
+```
+[ 1] ORTAM ..................... OK (Windows-10-10.0.19045-SP0, Python 3.10.11, numpy 1.26.4, scipy 1.11.4, pandas 2.1.4)
+[ 2] DEPO ...................... commit cc62a5fadffc, temiz
+[ 3] SURUM ..................... OK (possession-v2.16)
+[ 4] TESTLER ................... OK
+[ 5] PLATFORM .................. AYNI
+[ 6] VERI ...................... OK (taktik VAR, yayin VAR, videolar VAR, smart tagging VAR)
+[ 7] GIRDI OKUMA ............... OK
+[ 8] URETIM .................... OK (possession-v2.16, saatli)
+[ 9] BICIM ..................... OK
+[10] MAKULLUK .................. OK
+[11] TESLIM .................... OK (possession-v2.16, saatli; onceki teslim dosyasi ile AYNI)
+[12] SAAT ...................... VAR (onceki okuma kullanildi)
+[13] SAATSIZ KARSILASTIRMA ..... AYNI
+[14] TEKRAR URETIM ............. AYNI
+[15] TEMIZ KLON ................ AYNI (commit cc62a5fadffc)
+[16] ORGANIZATOR DOGRULAYICI ... OK
+[17] ACIK PENCERE .............. OK
+[18] BELGE ..................... OK (LittleSickle.md = teknik belge + calisma kaydi)
+SONUC: TESLIM HAZIR
+```
+
+Sürüm `possession-v2.16`. `TESLIM` satırı yine `onceki teslim dosyasi ile AYNI` diyor: dosya, 15 Kasım'da forma yüklenen dosyayla
+aynı baytlardır (K019). Dosya ikinci çalıştırmada, saat okumaları olmadan ve dalın temiz klonundan da aynı baytlarla üretildi.
+Bunlar özet (hash) karşılaştırmalarıdır; doğruluk ölçümü değildir.
+
+**Süreç açıklaması: yalnız belge değişti; kod, model, sürüm dosyası ve seçim yok.**
+- *Neden.* Takım lideri 16 Kasım 23:40'ta, 3 Kasım'dan önceki dönemin organizatöre bildirildiğinin, organizatörün cevabının ve
+  yeniden başlamanın teslim belgesinde daha açık yazılmasını istedi.
+- *Kaynaklar* (takım liderinin posta kutusunda, 16 Kasım 23:45'te yeniden okundu): ekibin organizatöre 31 Ekim 2026 e-postası,
+  organizatörün 3 Kasım 2026 08:40 UTC cevabı, ekibin 3 Kasım 2026 11:08 UTC bildirimi. Ayrıca `rules-provenance.json`,
+  `REMEDIATION.md`, uzun belgenin 2. bölümü.
+- *Bulunan eksik.* Organizatörün cevabındaki dördüncü şart, teknik belgede dört şeyin yazılmasını ister: ne olduğu, hangi
+  aşamaların etkilendiği, çalışılan kural metni ve seçimin nasıl yeniden yapıldığı. Forma yüklenen kısa belgenin 6. bölümünde
+  kural metni ve etkilenen aşamalar yoktu; yalnız uzun belgede vardı.
+- *6. bölümün yeni içeriği* (`TECHNICAL_DOCUMENT.md`): çalışılan kural metni (20 Ekim 2026 tarihli `RULES.md`, SHA-256'sı;
+  ifade organizatörün 22-23 Ekim açıklamasıyla değişti, ekip Ekim sonuna kadar eski kopyayla çalıştı); ne olduğu; bildirim
+  (31 Ekim) ve cevap (3 Kasım; organizatörün kendi sözleriyle: ifade kendi kurallarındaydı, durum iyi niyetli sayılıyor, ekip
+  dört şartla devam edebilir ve teslim normal değerlendirilir); etkilenen aşamalar; her şartın karşısında ne yapıldığı.
+- *Uzun belgede düzeltme* (`TECHNICAL_DOCUMENT_V2.md`, 2. bölüm): "Until the 22-23 October clarification the team worked from a
+  local copy" diye başlayan cümle, anlatılan işin o tarihte bittiği gibi okunuyordu. Ekibin 31 Ekim e-postası eski kopyayla
+  çalışmanın sürdüğünü söyler. Cümle düzeltildi; düzeltme cümlenin içinde tarihiyle yazılıdır.
+- *Sağlayıcı tarafı.* Takım lideri 16 Kasım 23:52'de eski sohbetin silindiğini ve sağlayıcı tarafını başka bir araçla kendisinin
+  doğruladığını bildirdi. Bu süreç o denetimi yapmadı ve görmedi. Belgelerde "takım lideri kendisi doğruladı" diye yazıldı;
+  `REMEDIATION.md`'ye onun beyanı olarak tarihli bir not eklendi. O dosyanın 3 ve 7 Kasım notları değiştirilmedi.
+  `AGENTS.md`'deki ilgili satır kayda göre güncellendi.
+- *Betikler:* `experiments/possession_v2/v219/docs_k021_a.py` (belgeler), `docs_k021_b.py` (bu kayıt).
+
+**Testler.** Kod değişmedi; tam takım K020'deki kod üzerinde çalışmıştı (467 test). Belgeyi okuyan `tests.test_possession_deliver`
+yeni metinle Python 3.13 ve Python 3.10 altında yeniden çalıştırıldı: 13 test, hata yok.
+
+**Sıradaki.** Yeni 6. bölümün `LittleSickle.md`'ye girmesi için takım lideri zinciri bir kez daha çalıştırır; form o son
+çalıştırmanın belgesiyle gönderilir. Sahiplik dosyası değişmez (kod ve sürüm aynı). Formun K019'dan sonra yeniden gönderildiği
+bu kayıt yazılırken teyit edilmemişti.
+
 ## K020 — ikinci modelle dördüncü deneme: takım arkadaşının sekiz ağı, ağırlık 0,4 (v2.17 adayı): kayıtlı kapılar geçmedi, sürüm değişmedi, 16 Kasım 2026
 
 **Ne.** Aday: v2.16, ikinci model değişmiş hâliyle: üç ağ ve 0,2 ağırlık yerine sekiz ağ ve 0,4 ağırlık. Dört ağ sürümdeki 37

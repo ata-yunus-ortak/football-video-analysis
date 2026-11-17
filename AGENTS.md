@@ -35,8 +35,8 @@
   establish evaluable D/live-play targets and validate timing boundaries.
 - For changes to adapters/features/auditing, run
   `python -m unittest discover -s tests -v`. Keep frozen-source integrity checks.
-- Do not claim all organizer/remediation conditions are complete; provider-side
-  conversation/upload cleanup remains unverified in the handoff.
+- Do not claim more about the organizer/remediation conditions than `REMEDIATION.md` records. The provider-side
+  conversation/upload cleanup was verified by the team lead himself (his statement of 16 Nov there), not by an agent.
 
 - Possession (`possession/`): the submission system is `possession-v2.16`, entry point
   `python -m possession.run216`, release manifest `possession-v216-release.json`; the release and its

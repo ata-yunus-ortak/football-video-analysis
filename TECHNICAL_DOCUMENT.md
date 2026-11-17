@@ -377,17 +377,59 @@ instead of a two-path gate.
 
 ## 6. Process disclosure
 
-Before 3 November 2026 the team compared candidates on the public five-minute window, used manual
-contact marks from the provided match in diagnostics, and shared extracts of the provided match
-with a hosted LLM assistant. The team reported this; the organisers required deletion of those
-materials, re-selection of everything on other fixtures, a frozen pipeline and this disclosure.
-The submitted system was written from scratch afterwards and uses none of the earlier artefacts;
-details, including what could not be verified, are in `TECHNICAL_DOCUMENT_V2.md` Section 2 and
-`REMEDIATION.md`. The code of steps 1-8 and 10 was written, and the weights of the network of step 9
-were trained, with an AI coding assistant that worked only on source code, public external data and
-aggregate external results. The network's design and inference code were written by a team member
-on his own branch (`mtah-possession`). The pipeline is run on the provided data locally by the
-team.
+**Rules snapshot.** In October the team worked from a local copy of the organisers' `RULES.md`
+dated 20 October 2026 (SHA-256 `49eb57f8...2f526ed4`, in full in `rules-provenance.json`). Its wording
+allowed small amounts of hand-labelled training or validation data. The organisers changed that
+wording with their clarification of 22-23 October; the team went on working from its old copy until
+it reviewed the rules at the end of October.
+
+**What happened.** In that time the team compared candidate systems on the public five-minute
+window and selected versions from those results, used manually identified contact times and ball
+points of the provided match in diagnostic validation, and, from about 20 October, shared frame
+extracts of the provided match and those notes with a hosted LLM coding assistant (that
+conversation stayed in use until 3 November).
+
+**Reported and answered.** The team disclosed this to the organisers by e-mail on 31 October 2026.
+Their reply of 3 November says that the wording had been in their own rules until the clarification,
+that they see this as a "good-faith situation", and that the team may continue and its submission
+will be evaluated as normal on these conditions: delete every hand annotation of the provided match
+and anything derived from it; re-make every parameter, threshold and model-version choice on other
+matches, without consulting the public window; freeze the pipeline and generate the file
+automatically from the repository; disclose the history in this document. They also asked for a
+notice of what had been shared with the hosted assistant; it was sent the same day.
+
+**Affected stages.** Parameter and version selection of the pipelines built in October, their
+diagnostic validation, and the visual, throw-in and referee prototypes of that time. None of those
+artefacts, numbers or code paths is used by the submitted system.
+
+**What was done, condition by condition.**
+
+1. *Delete the hand annotations and everything derived from them.* All of it (786 items, about
+   26 GB) was moved out of the project and deleted; its absence was checked on 3 and 7 November.
+   The team's existing Git repositories were reviewed: none had one of those files in its tracked
+   source. A new repository without the earlier labels, outputs and presets was started.
+2. *Re-make every choice on other matches.* The submitted system was written from scratch in the
+   new repository. Sections 3 to 5 say for each part on which external matches it was chosen and
+   under which registered plan, and name what could not be measured on external data. In the
+   delivery chain the public five-minute window is used only after freezing, as a pass/fail check
+   that the pipeline runs (Appendix R). Earlier public-window scores are not presented anywhere as
+   validation.
+3. *Freeze, then generate.* The release is frozen by SHA-256 (every inference source, both tree
+   bundles and the network weights) and refuses to run if a file differs. The file is generated
+   automatically from the repository by one command; the delivery tool generates it a second time
+   and once more from a fresh clone of the pushed branch and compares the bytes (Section 7). The
+   run record of the delivered file is Appendix R.
+4. *Disclose the history in this document.* This section; more detail in
+   `TECHNICAL_DOCUMENT_V2.md` Section 2 and `REMEDIATION.md`.
+5. *Hosted assistant.* The notice was sent on 3 November. The conversation was deleted on
+   7 November through the application's own control, and the team lead has since verified the
+   deletion on the provider's side himself.
+
+**AI assistance in the submitted system.** The code of steps 1-8 and 10 was written, and the
+weights of the network of step 9 were trained, with an AI coding assistant that worked only on
+source code, public external data and aggregate external results. The network's design and
+inference code were written by a team member on his own branch (`mtah-possession`). The pipeline is
+run on the provided data locally by the team.
 
 ## 7. Reproduction
 

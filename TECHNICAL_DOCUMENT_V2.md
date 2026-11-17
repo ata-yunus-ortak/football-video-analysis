@@ -439,15 +439,24 @@ every hand annotation of the provided game and anything derived from it, re-sele
 parameter, threshold and model version on other fixtures, freeze the pipeline, regenerate the
 file automatically and disclose the history here. This section is that disclosure.
 
-**What happened.** Until the 22-23 October clarification the team worked from a local copy of
+**What happened.** In October the team worked from a local copy of
 `RULES.md` dated 20 October 2026 (SHA-256 `49eb57f807519f47757162555b19c30cb68bc265606d8289943521842f526ed4`, recorded in
 `rules-provenance.json`) whose wording allowed small amounts of hand-labelled training or
-validation data. During that period the team (i) compared candidate systems on the public
+validation data. The organisers changed that wording with their clarification of 22-23 October; the
+team went on working from its old copy until it reviewed the rules at the end of October (corrected
+on 16 November 2026: this paragraph used to begin "Until the 22-23 October clarification the team
+worked from a local copy", which read as if the work described here had ended on that date; the
+team's e-mail of 31 October says it had continued from the old copy). During that period the team
+(i) compared candidate systems on the public
 five-minute window and selected versions from those results, (ii) used manually identified
 contact times and ball points from the provided game in diagnostic validation, and (iii) from
 about 20 October shared selected frame extracts/screenshots of the provided game and the manual
-notes with a hosted LLM coding assistant (OpenAI/Codex). The team disclosed this to the
-organisers on 31 October and sent the requested hosted-LLM notice on 3 November.
+notes with a hosted LLM coding assistant (OpenAI/Codex; that conversation stayed in use until
+3 November). The team disclosed this to the
+organisers on 31 October and sent the requested hosted-LLM notice on 3 November. The organisers'
+reply of 3 November says that the wording had been in their own rules until the clarification, that
+they see this as a "good-faith situation", and that the team may continue and its submission will be
+evaluated as normal on the conditions listed at the top of this section.
 
 **Affected stages.** Parameter and version selection of the pre-November pipelines, diagnostic
 validation, and the earlier visual/throw-in/referee prototypes. None of those artefacts, numbers
@@ -456,8 +465,8 @@ or code paths is used by possession v2.
 **What was done.** The affected local annotations and derived experiments (786 targets, ~26 GB)
 were inventoried, moved out of active paths and deleted by the user (path absence verified on
 3 and 7 November). The known provider-side conversation was deleted on 7 November through the
-application's control; deletion of separately uploaded files and provider back-end purging could
-not be verified (`REMEDIATION.md`). A fresh source repository without legacy labels, outputs or
+application's control, and the team lead has since verified the deletion on the provider's side
+himself (`REMEDIATION.md` records both, with their dates). A fresh source repository without legacy labels, outputs or
 presets was created. The first re-selected release (`clean_model/`, `model.json`) was chosen on
 SkillCorner open data; possession v2 (this document) was developed from scratch on Sportec/DFL
 and Metrica sample data with a pre-registered plan (`possession-v2-plan.json`). The public
